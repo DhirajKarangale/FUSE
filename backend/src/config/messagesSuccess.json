@@ -1,0 +1,17 @@
+{
+    "otpSent": [
+        "OTP Sent successfully"
+    ],
+    "otpVerifycation": [
+        "OTP verified successfully"
+    ],
+    "userLogin": [
+        "User logged in successfully"
+    ],
+    "userUpdate": [
+        "User Data updated successfully"
+    ],
+    "userData": [
+        "User Data fetched successfully"
+    ]
+}

@@ -1,0 +1,80 @@
+{
+    "otpInvalid": [
+        "Enter valid OTP",
+        "Don't you read what's your otp",
+        "I think your keyboard having some glitch, incorrect otp"
+    ],
+    "otpExpire": [
+        "OTP expired, you ediot",
+        "Value for your time, OTP Expired",
+        "Your OTP is expired."
+    ],
+    "otpEmailNotFound": [
+        "OTP not found for this email"
+    ],
+    
+    "emailInvalid":[
+        "Invalid Email"
+    ],
+
+    "idInvalid" :[
+        "Invalid Id"
+    ],
+
+    "aboutInvalid":[
+        "Invalid About"
+    ],
+
+
+
+    "otpEmpty": [
+        "OTP not provided",
+        "OTP not provided 2",
+        "OTP not provided 3"
+    ],
+    "otpSent": [
+        "Failed to sent otp, try again",
+        "Failed to sent otp, try again 2",
+        "Failed to sent otp, try again 3"
+    ],
+    "emailNF": [
+        "Email not provided",
+        "Email not provided 2",
+        "Email not provided 3"
+    ],
+    "emailAlreadyExist": [
+        "Email already exists",
+        "Email already exists 2",
+        "Email already exists 3"
+    ],
+    "userNameAlreadyExist": [
+        "Username already exists",
+        "Username already exists 2",
+        "Username already exists 3"
+    ],
+    "userNF": [
+        "User not found",
+        "User not found 1",
+        "User not found 2"
+    ],
+    "userNU": [
+        "User not update",
+        "User not update 1",
+        "User not update 2"
+    ],
+    "userCreate": [
+        "Failed to create user",
+        "Failed to create user 1",
+        "Failed to create user 2"
+    ],
+    "jwtNF": [
+        "Token is required",
+        "Token is required 1",
+        "Token is required 2"
+    ],
+    "jwtVerifycation": [
+        "Invalid token",
+        "Invalid token 1",
+        "Invalid token 2"
+    ]
+}
