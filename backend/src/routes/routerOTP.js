@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const serviceOTP = require('../services/serviceOTP');
 
-router.post('/get', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const { email } = req.body;
+        const email = req.query.email;
         const response = await serviceOTP.GetOtp(email, 'Login');
         res.status(200).json(response);
     } catch (error) {
@@ -11,7 +11,7 @@ router.post('/get', async (req, res, next) => {
     }
 });
 
-router.post('/verify', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try {
         const { otp, email } = req.body;
         const response = await serviceOTP.VerifyOtp(email, otp);

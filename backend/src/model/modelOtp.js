@@ -1,7 +1,4 @@
 const db = require('./db');
-const throwError = require('../utilities/throwError');
-const statusCode = require('../utilities/statusCodes');
-const messagesManager = require('../utilities/messagesManager');
 
 async function SetOtp(email, otp) {
     const result = await db.query('SELECT id FROM otps WHERE email = $1', [email]);
@@ -25,16 +22,7 @@ async function VerifyOtp(email, otp) {
         [email]
     );
 
-    if (result.rows.length === 0) throwError(messagesManager.Error('otpEmailNotFound'), statusCode.NOT_FOUND);
-
-    const { otp: storedOtp, created_at } = result.rows[0];
-
-    const createdTime = new Date(created_at);
-    const now = new Date();
-    const diffInMinutes = (now - createdTime) / 1000 / 60;
-
-    if (diffInMinutes > 5) throwError(messagesManager.Error('otpExpire'), statusCode.BAD_REQUEST);
-    if (storedOtp !== otp) throwError(messagesManager.Error('otpInvalid'), statusCode.BAD_REQUEST);
+    return result.rows[0];
 }
 
 module.exports = { SetOtp, VerifyOtp };

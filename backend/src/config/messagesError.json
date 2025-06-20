@@ -12,18 +12,59 @@
     "otpEmailNotFound": [
         "OTP not found for this email"
     ],
+    "otpNF":[
+        "OTP not Found"
+    ],
     
     "emailInvalid":[
         "Invalid Email"
+    ],
+    "emailExist": [
+        "Email already exists",
+        "Email already exists 2",
+        "Email already exists 3"
     ],
 
     "idInvalid" :[
         "Invalid Id"
     ],
 
-    "aboutInvalid":[
-        "Invalid About"
+    "aboutInvalidLess":[
+        "Invalid About, about should be greater than 5 char"
     ],
+    "aboutInvalidLarge":[
+        "Invalid About, about should be less than 300 char"
+    ],
+
+    "userNameLess":[
+        "Usernmae should be greater than 3 characters"
+    ],
+    "usernameExist": [
+        "Username already exists",
+        "Username already exists 2",
+        "Username already exists 3"
+    ],
+
+    "urlInvalid": [
+        "Invalid URL"
+    ],
+    
+    "jwtInvalid": [
+        "Invalid token",
+        "Invalid token 1",
+        "Invalid token 2"
+    ],
+    "jwtRequired": [
+        "Authorization token is required",
+        "Authorization token is required 1",
+        "Authorization token is required 2"
+    ],
+
+
+
+
+
+
 
 
 
@@ -42,16 +83,8 @@
         "Email not provided 2",
         "Email not provided 3"
     ],
-    "emailAlreadyExist": [
-        "Email already exists",
-        "Email already exists 2",
-        "Email already exists 3"
-    ],
-    "userNameAlreadyExist": [
-        "Username already exists",
-        "Username already exists 2",
-        "Username already exists 3"
-    ],
+    
+    
     "userNF": [
         "User not found",
         "User not found 1",
@@ -66,15 +99,5 @@
         "Failed to create user",
         "Failed to create user 1",
         "Failed to create user 2"
-    ],
-    "jwtNF": [
-        "Token is required",
-        "Token is required 1",
-        "Token is required 2"
-    ],
-    "jwtVerifycation": [
-        "Invalid token",
-        "Invalid token 1",
-        "Invalid token 2"
     ]
 }

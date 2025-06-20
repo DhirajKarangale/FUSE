@@ -11,12 +11,26 @@ function OTP(otp) {
 }
 
 function ID(id) {
-    const uuidV4Regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidV4Regex.test(id)) errorThrow(messagesManager.Error('idInvalid'), statusCode.BAD_REQUEST);
+    const pattern = /^[1-9][0-9]*$/;
+    if (!pattern.test(id)) errorThrow(messagesManager.Error('idInvalid'), statusCode.BAD_REQUEST);
+}
+
+function Username(username) {
+    if (username.length < 3) errorThrow(messagesManager.Error('userNameLess'), statusCode.BAD_REQUEST);
+}
+
+function URL(url) {
+    const pattern = /^(https?:\/\/)?([a-z\d-]+\.)+[a-z]{2,6}(:\d{1,5})?(\/.*)?$/i;
+    if (!pattern.test(url)) errorThrow(messagesManager.Error('urlInvalid'), statusCode.BAD_REQUEST);
 }
 
 function About(about) {
-    if (about == null && about.length < 5) errorThrow(messagesManager.Error('aboutInvalid'), statusCode.BAD_REQUEST);
+    if (about.length < 5) errorThrow(messagesManager.Error('aboutInvalidLess'), statusCode.BAD_REQUEST);
+    else if (about.length > 300) errorThrow(messagesManager.Error('aboutInvalidLarge'), statusCode.BAD_REQUEST);
 }
 
-module.exports = { Email, OTP, ID, About };
+function Category(category) {
+    // check if categoty present
+}
+
+module.exports = { Email, OTP, ID, Username, About, URL, Category };

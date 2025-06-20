@@ -1,9 +1,14 @@
 const nodemailer = require('nodemailer');
 const modelOtp = require('../model/modelOtp');
 const validator = require('../utilities/validator');
+
+const jwt = require('../utilities/jwt');
+const serviceUser = require('./serviceUser');
+
 const throwError = require('../utilities/throwError');
 const statusCode = require('../utilities/statusCodes');
 const messagesManager = require('../utilities/messagesManager');
+
 const { emailContent } = require('../utilities/emailContent');
 require('dotenv').config();
 
@@ -51,8 +56,22 @@ async function GetOtp(email, type) {
 async function VerifyOtp(email, otp) {
     validator.Email(email);
     validator.OTP(otp);
-    await modelOtp.VerifyOtp(email, otp) 
-    return "OTP verifyed";
+
+    const otpObj = await modelOtp.VerifyOtp(email, otp)
+
+    if (!otpObj) throwError(messagesManager.Error('otpEmailNotFound'), statusCode.NOT_FOUND);
+
+    const createdTime = new Date(otpObj.created_at);
+    const now = new Date();
+    const diffInMinutes = (now - createdTime) / 1000 / 60;
+
+    if (diffInMinutes > 5) throwError(messagesManager.Error('otpExpire'), statusCode.BAD_REQUEST);
+    if (otpObj.otp !== otp) throwError(messagesManager.Error('otpInvalid'), statusCode.BAD_REQUEST);
+
+    const user = await serviceUser.GetOrCreateUserByEmail(email);
+    const token = jwt.GenerateToken(user);
+    
+    return { user, token }
 }
 
 module.exports = { GetOtp, VerifyOtp };
