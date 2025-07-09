@@ -64,3 +64,8 @@ Wed Jul 09 2025 19:21:29 GMT+0530 (India Standard Time) POST /post
 Wed Jul 09 2025 19:21:32 GMT+0530 (India Standard Time) GET /user
 Wed Jul 09 2025 19:21:39 GMT+0530 (India Standard Time) POST /post
 Wed Jul 09 2025 19:21:42 GMT+0530 (India Standard Time) GET /user
+Wed Jul 09 2025 19:24:34 GMT+0530 (India Standard Time) GET /user/categories?page=3
+Wed Jul 09 2025 19:24:56 GMT+0530 (India Standard Time) GET /user/categories?page=3
+Wed Jul 09 2025 19:25:06 GMT+0530 (India Standard Time) GET /user/categories
+Wed Jul 09 2025 19:25:14 GMT+0530 (India Standard Time) GET /user/categories?page=abc
+Wed Jul 09 2025 19:25:23 GMT+0530 (India Standard Time) GET /user/categories?page=10

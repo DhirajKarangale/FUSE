@@ -290,3 +290,15 @@ Error: Category Invalid 2
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
+ReferenceError: Cannot access 'categoryKeys' before initialization
+    at Object.GetCategories (E:\FUSE\backend\src\services\serviceUser.js:87:34)
+    at E:\FUSE\backend\src\routes\routerUser.js:18:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+

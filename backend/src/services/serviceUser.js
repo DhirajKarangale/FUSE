@@ -83,12 +83,12 @@ async function CreateUser(email) {
 async function GetCategories(page) {
     const count = 3;
     const pageNumber = parseInt(page);
+    const categoryKeys = Object.keys(categories);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+    const totalPages = Math.ceil(categoryKeys.length / count);
 
     const start = validPage * count;
     const end = start + count;
-
-    const categoryKeys = Object.keys(categories);
     const slicedKeys = categoryKeys.slice(start, end);
 
     if (slicedKeys.length == 0) return null;
@@ -98,7 +98,7 @@ async function GetCategories(page) {
         result[key] = categories[key];
     })
 
-    return result;
+    return { categories: result, currPage: pageNumber | 1, totalPages: totalPages };
 }
 
 module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser, GetCategories };
