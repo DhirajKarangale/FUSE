@@ -13,8 +13,36 @@ async function Post(userId, postTitle, postBody, mediaURL, category) {
     await db.query(`
         UPDATE users SET posts = COALESCE(posts, '{}') || $1
         WHERE id = $2;`, [[postId], userId]);
-
-    console.log();
 }
 
-module.exports = { Post };
+async function GetUserPost(userId, pageNumber, pageSize) {
+
+    const totalResult = await db.query(`
+        SELECT COUNT(*) FROM posts
+        WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '');
+        `, [userId]);
+    const totalPosts = parseInt(totalResult.rows[0].count);
+    const totalPages = Math.ceil(totalPosts / pageSize);
+
+    let posts = [];
+
+    if (pageNumber < totalPages) {
+        const res = await db.query(
+            `SELECT user_id, post_title, post_body, media_url, created_at, category
+            FROM posts 
+            WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '')
+            ORDER BY created_at DESC
+            LIMIT $2 OFFSET $3;`, [userId, pageSize, pageNumber * pageSize]
+        );
+
+        posts = res.rows;
+    }
+
+    return {
+        posts: posts,
+        currPage: pageNumber + 1,
+        totalPages: totalPages
+    }
+}
+
+module.exports = { Post, GetUserPost };

@@ -18,4 +18,15 @@ async function Post(id, body) {
 }
 
 
-module.exports = { Post }
+async function GetUserPost(userId, page) {
+    validator.ID(userId);
+
+    const pageSize = 10;
+    const pageNumber = parseInt(page);
+    const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+
+    return await modelPost.GetUserPost(userId, validPage, pageSize);
+}
+
+
+module.exports = { Post, GetUserPost }

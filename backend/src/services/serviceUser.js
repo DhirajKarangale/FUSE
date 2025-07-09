@@ -81,22 +81,22 @@ async function CreateUser(email) {
 }
 
 async function GetCategories(page) {
-    const count = 3;
-    const pageNumber = parseInt(page);
+    const pageSize = 3;
     const categoryKeys = Object.keys(categories);
+    const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
-    const totalPages = Math.ceil(categoryKeys.length / count);
+    const totalPages = Math.ceil(categoryKeys.length / pageSize);
 
-    const start = validPage * count;
-    const end = start + count;
+    const start = validPage * pageSize;
+    const end = start + pageSize;
     const slicedKeys = categoryKeys.slice(start, end);
-
-    if (slicedKeys.length == 0) return null;
-
+    
     const result = {};
-    slicedKeys.forEach(key => {
-        result[key] = categories[key];
-    })
+    if (slicedKeys.length > 0) {
+        slicedKeys.forEach(key => {
+            result[key] = categories[key];
+        })
+    }
 
     return { categories: result, currPage: pageNumber | 1, totalPages: totalPages };
 }

@@ -302,3 +302,29 @@ ReferenceError: Cannot access 'categoryKeys' before initialization
     at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
     at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
 
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.GetUserPost (E:\FUSE\backend\src\services\servicePost.js:22:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+error: invalid input syntax for type bigint: "NaN"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelPost.js:26:17)
+    at async Object.GetUserPost (E:\FUSE\backend\src\services\servicePost.js:28:5)
+    at async E:\FUSE\backend\src\routes\routerPost.js:19:26
+
+error: OFFSET must not be negative
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelPost.js:27:17)
+    at async Object.GetUserPost (E:\FUSE\backend\src\services\servicePost.js:28:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:19:26
+
