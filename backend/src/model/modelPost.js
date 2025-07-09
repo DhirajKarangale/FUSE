@@ -15,7 +15,7 @@ async function Post(userId, postTitle, postBody, mediaURL, category) {
         WHERE id = $2;`, [[postId], userId]);
 }
 
-async function GetUserPost(userId, pageNumber, pageSize) {
+async function GetUserPosts(userId, pageNumber, pageSize) {
 
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM posts
@@ -45,4 +45,35 @@ async function GetUserPost(userId, pageNumber, pageSize) {
     }
 }
 
-module.exports = { Post, GetUserPost };
+async function GetCategoriesPosts(categories, pageNumber, pageSize) {
+
+    const totalResult = await db.query(`
+        SELECT COUNT(*) FROM posts
+        WHERE category = ANY($1) AND (deactivation IS NULL OR deactivation = '');
+        `, [categories]);
+    const totalPosts = parseInt(totalResult.rows[0].count);
+    const totalPages = Math.ceil(totalPosts / pageSize);
+
+    let posts = [];
+
+    if (pageNumber < totalPages) {
+        const res = await db.query(
+            `SELECT user_id, post_title, post_body, media_url, created_at, category
+            FROM posts 
+            WHERE category = ANY($1) AND (deactivation IS NULL OR deactivation = '')
+            ORDER BY created_at DESC
+            LIMIT $2 OFFSET $3;
+            `, [categories, pageSize, pageNumber * pageSize]
+        );
+
+        posts = res.rows;
+    }
+
+    return {
+        posts: posts,
+        currPage: pageNumber + 1,
+        totalPages: totalPages
+    }
+}
+
+module.exports = { Post, GetUserPosts, GetCategoriesPosts };

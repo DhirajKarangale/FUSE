@@ -2,21 +2,21 @@ const router = require('express').Router();
 const servicePost = require('../services/servicePost');
 
 router.get('/', async (req, res, next) => {
-    // try {
-    //     let id = req.query.id;
-    //     if (!id) id = req.user.id;
-    //     const response = await serviceUser.GetUser(id);
-    //     res.status(200).json(response);
-    // } catch (error) {
-    //     next(error);
-    // }
+    try {
+        const page = req.query.page;
+        const categories = req.query.categories;
+        const response = await servicePost.GetCategoriesPosts(categories, page);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
 });
 
 router.get('/user', async (req, res, next) => {
     try {
         const id = req.user.id;
         const page = req.query.page;
-        const response = await servicePost.GetUserPost(id, page);
+        const response = await servicePost.GetUserPosts(id, page);
         res.status(200).json(response);
     } catch (error) {
         next(error);
