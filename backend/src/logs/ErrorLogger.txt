@@ -1,188 +1,22 @@
-TypeError: Cannot destructure property 'email' of 'req.body' as it is undefined.
-    at E:\FUSE\backend\src\routes\routerOTP.js:6:17
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at Function.handle (E:\FUSE\backend\node_modules\router\index.js:186:3)
-
-TypeError: Cannot destructure property 'email' of 'req.body' as it is undefined.
-    at E:\FUSE\backend\src\routes\routerOTP.js:7:17
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at Function.handle (E:\FUSE\backend\node_modules\router\index.js:186:3)
-
-TypeError: Cannot destructure property 'email' of 'req.body' as it is undefined.
-    at E:\FUSE\backend\src\routes\routerOTP.js:6:17
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at Function.handle (E:\FUSE\backend\node_modules\router\index.js:186:3)
-
-Error: Failed to verify OTP
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:44:9)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Failed to verify OTP
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:44:9)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Failed to verify OTP
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:44:9)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Failed to verify OTP
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:44:9)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: OTP not found for this email
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:26:35)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Invalid OTP
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:35:28)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:52:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: I think your keyboard having some glitch, incorrect otp
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\model\modelOtp.js:37:28)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:54:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-error: null value in column "username" of relation "users" violates not-null constraint
+error: syntax error at or near "$2"
     at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.CreateUser (E:\FUSE\backend\src\model\modelUser.js:12:20)
-    at async Object.CreateUser (E:\FUSE\backend\src\services\serviceUser.js:36:18)
-    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+    at async Object.Post (E:\FUSE\backend\src\model\modelPost.js:4:5)
+    at async Object.Post (E:\FUSE\backend\src\services\servicePost.js:15:5)
+    at async E:\FUSE\backend\src\routes\routerPost.js:19:26
 
-error: null value in column "username" of relation "users" violates not-null constraint
+error: syntax error at or near "$2"
     at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.CreateUser (E:\FUSE\backend\src\model\modelUser.js:8:20)
-    at async Object.CreateUser (E:\FUSE\backend\src\services\serviceUser.js:36:18)
-    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+    at async Object.Post (E:\FUSE\backend\src\model\modelPost.js:4:5)
+    at async Object.Post (E:\FUSE\backend\src\services\servicePost.js:15:5)
+    at async E:\FUSE\backend\src\routes\routerPost.js:19:26
 
-Error: Don't you read what's your otp
+Error: Category Invalid 3
     at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:66:29)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-error: null value in column "email" of relation "users" violates not-null constraint
-    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async Object.CreateUser (E:\FUSE\backend\src\model\modelUser.js:4:5)
-    at async CreateUser (E:\FUSE\backend\src\services\serviceUser.js:46:18)
-    at async Object.GetOrCreateUserByEmail (E:\FUSE\backend\src\services\serviceUser.js:36:23)
-    at async Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:12)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Your OTP is expired.
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:67:28)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Value for your time, OTP Expired
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:67:28)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Don't you read what's your otp
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:68:29)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
-
-Error: Token is required
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:67:21)
-    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:80:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
-    at E:\FUSE\backend\node_modules\router\index.js:297:9
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-
-Error: Token is required
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:8:21)
-    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:21:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
-    at E:\FUSE\backend\node_modules\router\index.js:297:9
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-
-Error: Token is required 2
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
-    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
-    at E:\FUSE\backend\node_modules\router\index.js:297:9
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-
-Error: Authorization token is required 1
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
-    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
-    at E:\FUSE\backend\node_modules\router\index.js:297:9
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-
-Error: Invalid Id
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:11:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:41:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:10:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:19:44
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
     at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
@@ -190,11 +24,11 @@ Error: Invalid Id
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
-Error: Invalid Id
+Error: Category Invalid 1
     at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:11:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:41:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:10:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:19:44
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
     at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
@@ -202,83 +36,11 @@ Error: Invalid Id
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
-Error: Invalid Id
+Error: Category Invalid 2
     at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:11:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-
-TypeError: Cannot read properties of undefined (reading 'username')
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:12:14)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
-
-Error: No valid fields provided to update.
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:44:9)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
-
-Error: Invalid Id
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:11:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-
-Error: Invalid Id
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:12:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-
-Error: Invalid Id
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:15:32)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:12:15)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
-    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
-    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
-    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
-    at E:\FUSE\backend\node_modules\router\index.js:295:15
-
-Error: Invalid URL
-    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
-    at Object.URL (E:\FUSE\backend\src\utilities\validator.js:24:29)
-    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:15:35)
-    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:43:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:10:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:19:44
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
     at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)

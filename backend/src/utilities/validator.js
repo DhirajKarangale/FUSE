@@ -1,5 +1,6 @@
 const errorThrow = require('./throwError');
 const statusCode = require('../utilities/statusCodes');
+const categories = require('../config/categories.json');
 const messagesManager = require('../utilities/messagesManager');
 
 function Email(email) {
@@ -30,7 +31,25 @@ function About(about) {
 }
 
 function Category(category) {
-    // check if categoty present
+    const normalize = str => str.replace(/\s+/g, '').toLowerCase();
+
+    const normalizedInput = normalize(category);
+
+    const isValid = Object.values(categories).some(subcategories =>
+        subcategories.some(sub => normalize(sub) === normalizedInput)
+    );
+
+    if (!isValid) {
+        errorThrow(messagesManager.Error('categoryInvalid'), statusCode.BAD_REQUEST);
+    }
 }
 
-module.exports = { Email, OTP, ID, Username, About, URL, Category };
+function PostTitle(postTitle) {
+    // Validate PostTitle
+}
+
+function PostBody(postBody) {
+    // Validate PostBody
+}
+
+module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody };

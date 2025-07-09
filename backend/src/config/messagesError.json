@@ -60,6 +60,12 @@
         "Authorization token is required 2"
     ],
 
+    "categoryInvalid": [
+        "Category Invalid 1",
+        "Category Invalid 2",
+        "Category Invalid 3"
+    ],
+
 
 
 
