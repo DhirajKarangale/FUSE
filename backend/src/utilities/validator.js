@@ -45,11 +45,23 @@ function Category(category) {
 }
 
 function PostTitle(postTitle) {
-    // Validate PostTitle
+    if (typeof postTitle !== 'string' || postTitle.trim().length < 5) {
+        errorThrow(messagesManager.Error('postTitleShort'), statusCode.BAD_REQUEST);
+    }
+
+    if (postTitle.trim().length > 250) {
+        errorThrow(messagesManager.Error('postTitleLong'), statusCode.BAD_REQUEST);
+    }
 }
 
 function PostBody(postBody) {
-    // Validate PostBody
+    if (typeof postBody !== 'string' || postBody.trim().length < 20) {
+        errorThrow(messagesManager.Error('postBodyShort'), statusCode.BAD_REQUEST);
+    }
+
+    if (postBody.trim().length > 10000) {
+        errorThrow(messagesManager.Error('postBodyLong'), statusCode.BAD_REQUEST);
+    }
 }
 
 module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody };

@@ -66,6 +66,19 @@
         "Category Invalid 3"
     ],
 
+    "postTitleShort":[
+        "Post Title Should be greater than 5 characters"
+    ],
+    "postTitleLong":[
+        "Post Title Should be less than 250 characters"
+    ],
+
+    "postBodyShort":[
+        "Post body must be at least 20 characters long."
+    ],
+    "postBodyLong":[
+        "Post body must not exceed 10,000 characters."
+    ],
 
 
 
