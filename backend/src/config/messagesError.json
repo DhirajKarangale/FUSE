@@ -65,6 +65,9 @@
         "Category Invalid 2",
         "Category Invalid 3"
     ],
+    "categoriesArray":[
+        "Categories must be an array"
+    ],
 
     "postTitleShort":[
         "Post Title Should be greater than 5 characters"

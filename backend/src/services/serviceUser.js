@@ -13,7 +13,10 @@ async function UpdateUser(id, body) {
     if (body.email) validator.Email(body.email);
     if (body.about) validator.About(body.about);
     if (body.image_url) validator.URL(body.image_url);
-    if (body.category) validator.Category(body.category);
+    if (body.categories) {
+        if (!Array.isArray(body.categories)) throwError(messagesManager.Error("categoriesArray"), statusCode.BAD_REQUEST);
+        body.categories.forEach(category => validator.Category(category));
+    }
 
     if (body.username) {
         const user = await GetUserByUsername(body.username);

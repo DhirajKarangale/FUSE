@@ -48,3 +48,221 @@ Error: Category Invalid 2
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at normalize (E:\FUSE\backend\src\utilities\validator.js:34:34)
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:36:29)
+    at E:\FUSE\backend\src\services\serviceUser.js:16:53
+    at Array.forEach (<anonymous>)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:16:21)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at normalize (E:\FUSE\backend\src\utilities\validator.js:34:34)
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:36:29)
+    at E:\FUSE\backend\src\services\serviceUser.js:17:53
+    at Array.forEach (<anonymous>)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:17:21)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+
+error: column "categories" of relation "users" does not exist
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+TypeError: Cannot read properties of undefined (reading 'forEach')
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:16:21)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+
+TypeError: Cannot read properties of undefined (reading 'forEach')
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:16:21)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+
+error: update or delete on table "users" violates foreign key constraint "posts_user_id_fkey" on table "posts"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: Usernmae should be greater than 3 characters
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.Username (E:\FUSE\backend\src\utilities\validator.js:20:30)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:12:34)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Usernmae should be greater than 3 characters
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.Username (E:\FUSE\backend\src\utilities\validator.js:20:30)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:12:34)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Username already exists 3
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:23:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: Categories must be an array
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:17:46)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: Categories must be an array
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:17:46)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: Category Invalid 3
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:43:9)
+    at E:\FUSE\backend\src\services\serviceUser.js:18:55
+    at Array.forEach (<anonymous>)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:18:25)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+
+error: malformed array literal: ""
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.UpdateUser (E:\FUSE\backend\src\model\modelUser.js:30:20)
+    at async Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:52:25)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: No valid fields provided to update.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:62:9)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+
+Error: No valid fields provided to update.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:62:9)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+
+Error: Category Invalid 3
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.Category (E:\FUSE\backend\src\utilities\validator.js:43:9)
+    at E:\FUSE\backend\src\services\serviceUser.js:28:63
+    at Array.forEach (<anonymous>)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:28:33)
+    at E:\FUSE\backend\src\routes\routerUser.js:19:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+
+Error: Username already exists
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:38:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
+Error: Username already exists 2
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.UpdateUser (E:\FUSE\backend\src\services\serviceUser.js:38:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerUser.js:19:26
+
