@@ -12,6 +12,16 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/categories', async (req, res, next) => {
+    try {
+        const page = req.query.page;
+        const response = await serviceUser.GetCategories(page);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.put('/', async (req, res, next) => {
     try {
         const id = req.user.id;

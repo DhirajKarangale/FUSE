@@ -83,7 +83,9 @@
         "Post body must not exceed 10,000 characters."
     ],
 
-
+    "noFieldToUpdate":[
+        "No valid fields provided to update."
+    ],
 
 
 

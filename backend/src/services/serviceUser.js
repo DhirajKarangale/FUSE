@@ -1,5 +1,6 @@
 const modelUser = require('../model/modelUser');
 const validator = require('../utilities/validator');
+const categories = require('../config/categories.json');
 
 const throwError = require('../utilities/throwError');
 const statusCode = require('../utilities/statusCodes');
@@ -44,7 +45,7 @@ async function UpdateUser(id, body) {
     }
 
     if (fields.length === 0) {
-        throwError("No valid fields provided to update.", statusCode.BAD_REQUEST);
+        throwError(messagesManager.Error("noFieldToUpdate"), statusCode.BAD_REQUEST);
     }
 
     values.push(id);
@@ -79,4 +80,25 @@ async function CreateUser(email) {
     return user;
 }
 
-module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser };
+async function GetCategories(page) {
+    const count = 3;
+    const pageNumber = parseInt(page);
+    const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+
+    const start = validPage * count;
+    const end = start + count;
+
+    const categoryKeys = Object.keys(categories);
+    const slicedKeys = categoryKeys.slice(start, end);
+
+    if (slicedKeys.length == 0) return null;
+
+    const result = {};
+    slicedKeys.forEach(key => {
+        result[key] = categories[key];
+    })
+
+    return result;
+}
+
+module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser, GetCategories };
