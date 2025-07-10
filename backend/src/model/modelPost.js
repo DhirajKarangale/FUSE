@@ -58,9 +58,10 @@ async function GetCategoriesPosts(categories, pageNumber, pageSize) {
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT user_id, post_title, post_body, media_url, created_at, category
+            `SELECT posts.user_id, posts.post_title, posts.post_body, posts.media_url, posts.created_at, posts.category, users.username, users.image_url as user_image_url
             FROM posts 
-            WHERE category = ANY($1) AND (deactivation IS NULL OR deactivation = '')
+            JOIN users ON users.id = posts.user_id
+            WHERE category = ANY($1) AND (posts.deactivation IS NULL OR posts.deactivation = '')
             ORDER BY created_at DESC
             LIMIT $2 OFFSET $3;
             `, [categories, pageSize, pageNumber * pageSize]

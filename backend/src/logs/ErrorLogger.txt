@@ -460,3 +460,22 @@ Error: Category Invalid 3
     at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
     at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
 
+Error: Categories must be an array
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:39:17)
+    at E:\FUSE\backend\src\routes\routerPost.js:8:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+
+error: column reference "deactivation" is ambiguous
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:60:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:54:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:8:26
+
