@@ -1,10 +1,13 @@
-function App() {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Authentication from './pages/Authentication';
 
+export default function App() {
   return (
-    <>
-      <h1>-DK-</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Authentication />} />
+        {/* <Route path="/authentication" element={<Authentication />} /> */}
+      </Routes>
+    </Router>
   )
 }
-
-export default App
