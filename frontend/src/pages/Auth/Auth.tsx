@@ -1,14 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { setUser, clearUser } from '../redux/sliceUser';
+import './Auth.css'
 
-import { type User, getInitialUser } from '../models/modelUser';
+import AuthBG from "./AuthBG"
+import AuthSignup from "./AuthSignup"
+
+// import { useDispatch } from 'react-redux';
+// import { setUser, clearUser } from '../redux/sliceUser';
+
+// import { type User, getInitialUser } from '../models/modelUser';
 
 
 export default function Authentication() {
-
     return (
         <>
-            <h1>Authentication</h1>
+            <AuthSignup />
+            <AuthBG />
         </>
     )
 }
