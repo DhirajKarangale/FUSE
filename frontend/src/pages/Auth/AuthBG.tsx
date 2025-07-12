@@ -1,6 +1,8 @@
+import React from 'react';
+
 import Hyperspeed from '../../reactbits/Hyperspeed/Hyperspeed'
 
-export default function AuthBG() {
+function AuthBG() {
     return (
         <Hyperspeed
             effectOptions={{
@@ -43,3 +45,5 @@ export default function AuthBG() {
         />
     );
 }
+
+export default React.memo(AuthBG);

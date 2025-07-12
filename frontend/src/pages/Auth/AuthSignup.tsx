@@ -1,43 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import Loader from "../../components/Loader";
 
 import { urlOTP } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 
-export default function AuthSignup() {
+type AuthSignupProps = {
+    showMsg: (msg: string, color?: string) => void;
+};
+
+export default function AuthSignup({ showMsg }: AuthSignupProps) {
+
     const [isOtp, setIsOTP] = useState<boolean>(false);
     const [isSlideUp, setIsSlideUp] = useState<boolean>(false);
     const [isSlideLeft, setIsSlideLeft] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [msg, setMsg] = useState<string>('');
-    const [msgColor, setMsgColor] = useState<string>('white');
-
     const [otp, setOTP] = useState<string>('');
     const [email, setEmail] = useState<string>('');
-
-    const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         setTimeout(() => {
             setIsSlideUp(true);
         }, 50);
     }, [])
-
-
-    function showMsg(message: string, color: string = 'white') {
-        setMsg(message);
-        setMsgColor(color);
-
-        if (msgTimer.current) {
-            clearTimeout(msgTimer.current);
-        }
-
-        msgTimer.current = setTimeout(() => {
-            setMsg('');
-        }, 3000);
-    }
 
 
     async function ButtonContinue() {
@@ -48,7 +34,7 @@ export default function AuthSignup() {
             return;
         }
 
-        setMsg('');
+        // setMsg('');
         setIsSlideLeft(true);
 
         setTimeout(() => {
@@ -134,12 +120,6 @@ export default function AuthSignup() {
                         </button>
 
                     </div>
-                </div>
-
-                <div className="fixed bottom-16 w-full flex justify-center pointer-events-none z-50">
-                    <p className="text-center text-lg font-bold" style={{ color: msgColor }}>
-                        {msg}
-                    </p>
                 </div>
 
             </div>
