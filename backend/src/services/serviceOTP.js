@@ -48,7 +48,7 @@ async function SendMail(email, otp, type) {
 
 async function GetOtp(email, type) {
     validator.Email(email);
-    const otp = GenerateOTP(4);
+    const otp = GenerateOTP(6);
     await modelOtp.SetOtp(email, otp)
     return await SendMail(email, otp, type);
 }

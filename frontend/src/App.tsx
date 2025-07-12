@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Authentication from './pages/Auth/Auth';
 
 export default function App() {
+
   return (
     <Router>
       <Routes>
