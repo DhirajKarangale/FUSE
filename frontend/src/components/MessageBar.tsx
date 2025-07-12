@@ -32,7 +32,7 @@ const MessageBar = forwardRef<MessageBarHandle>((_, ref) => {
     return (
         <div className="fixed bottom-16 w-full flex justify-center pointer-events-none z-50">
             <div key={animationKey} className="MessageBar bg-black/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15 shadow-md">
-                <p className="text-center text-lg font-bold text-white" style={{ color: msgColor }}>
+                <p className="text-center text-lg font-bold text-white select-none" style={{ color: msgColor }}>
                     {msg}
                 </p>
             </div>

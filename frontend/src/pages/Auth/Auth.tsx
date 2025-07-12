@@ -4,8 +4,7 @@ import './Auth.css'
 
 import AuthBG from "./AuthBG"
 import AuthSignup from "./AuthSignup"
-import MessageBar from '../../components/MessageBar';
-import { type MessageBarHandle } from '../../components/MessageBar';
+import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
 // import { useDispatch } from 'react-redux';
 // import { setUser, clearUser } from '../redux/sliceUser';
