@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Loader from "../../components/Loader";
 
@@ -14,6 +14,10 @@ export default function AuthSignup() {
     const [msg, setMsg] = useState<string>('');
     const [msgColor, setMsgColor] = useState<string>('white');
 
+    const [otp, setOTP] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+
+    const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         setTimeout(() => {
@@ -21,7 +25,28 @@ export default function AuthSignup() {
         }, 50);
     }, [])
 
+
+    function showMsg(message: string, color: string = 'white') {
+        setMsg(message);
+        setMsgColor(color);
+
+        if (msgTimer.current) {
+            clearTimeout(msgTimer.current);
+        }
+
+        msgTimer.current = setTimeout(() => {
+            setMsg('');
+        }, 3000);
+    }
+
+
     async function ButtonContinue() {
+
+        const otpRegex = /^\d{6}$/;
+        if (!otpRegex.test(otp)) {
+            showMsg('Enter valid otp', 'red');
+            return;
+        }
 
         setMsg('');
         setIsSlideLeft(true);
@@ -33,17 +58,23 @@ export default function AuthSignup() {
 
     async function ButtonOTP() {
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            showMsg('Enter valid email', 'red');
+            return;
+        }
+
         setIsLoading(true);
-        const { data, error } = await getRequest<string>(`${urlOTP}?email=dakarangale02@gmail.com`);
+        const { data, error } = await getRequest<string>(`${urlOTP}?email=${email}`);
 
         if (data) {
             setIsOTP(true);
-            setMsg(data);
-            setMsgColor('green');
+            showMsg(data, 'green');
         } else {
-            setMsg(error);
-            setMsgColor('red');
+            showMsg(error, 'red');
         }
+
         setIsLoading(false);
     }
 
@@ -66,6 +97,7 @@ export default function AuthSignup() {
                         <input
                             type="email"
                             id="email"
+                            onChange={(e: any) => setEmail(e.target.value)}
                             placeholder="example@email.com"
                             className="w-full p-3 rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                         />
@@ -80,6 +112,7 @@ export default function AuthSignup() {
                         <input
                             type="number"
                             id="otp"
+                            onChange={(e: any) => setOTP(e.target.value)}
                             placeholder="123456"
                             className="w-full p-3 rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400
                                         [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
