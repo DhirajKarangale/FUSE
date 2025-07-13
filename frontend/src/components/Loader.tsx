@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-
-const tips = [
-    "Tip: Use strong passwords to keep your account secure.",
-    "Did you know? You can verify your email to unlock more features.",
-    "Hold tight! We're brewing magic in the backend...",
-    "Pro tip: Never share your OTP with anyone.",
-    "Loading… Just like patience, good things take time.",
-];
+import loaderMessages from '../data/loader.json';
 
 export default function Loader() {
     const [tip, setTip] = useState("");
     const [loadingText, setLoadingText] = useState("Loading");
 
     useEffect(() => {
-        setTip(tips[Math.floor(Math.random() * tips.length)]);
+        setTip(loaderMessages[Math.floor(Math.random() * loaderMessages.length)]);
 
         const dots = ["", ".", "..", "..."];
         let index = 0;

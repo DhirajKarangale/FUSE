@@ -2,15 +2,20 @@ import { useState, useEffect } from "react";
 
 import Loader from "../../components/Loader";
 
+import GetMessage from "../../utils/MessagesManager";
+
 import { urlOTP } from "../../api/APIs";
-import { getRequest } from "../../api/APIManager";
+import { getRequest, postRequest } from "../../api/APIManager";
+
+import { type UserData } from "../../models/modelUser";
 
 type AuthSignupProps = {
-    showMsg: (msg: string, color?: string) => void;
+    ShowMsg: (msg: string, color?: string) => void;
+    SetUser: (user: UserData) => void;
+    SetNextScreen: (currScreen: string) => void;
 };
 
-export default function AuthSignup({ showMsg }: AuthSignupProps) {
-
+export default function AuthSignup({ ShowMsg: showMsg, SetUser, SetNextScreen: NextScreen }: AuthSignupProps) {
     const [isOtp, setIsOTP] = useState<boolean>(false);
     const [isSlideUp, setIsSlideUp] = useState<boolean>(false);
     const [isSlideLeft, setIsSlideLeft] = useState<boolean>(false);
@@ -20,26 +25,31 @@ export default function AuthSignup({ showMsg }: AuthSignupProps) {
     const [email, setEmail] = useState<string>('');
 
     useEffect(() => {
-        setTimeout(() => {
-            setIsSlideUp(true);
-        }, 50);
+        setTimeout(() => { setIsSlideUp(true); }, 50);
     }, [])
 
 
     async function ButtonContinue() {
-
         const otpRegex = /^\d{6}$/;
         if (!otpRegex.test(otp)) {
-            showMsg('Enter valid otp', 'red');
+            showMsg(GetMessage('otpInvalid'), 'red');
             return;
         }
 
-        // setMsg('');
-        setIsSlideLeft(true);
+        setIsLoading(true);
+        const body = { email, otp };
+        const { data, error } = await postRequest<UserData>(`${urlOTP}`, body);
 
-        setTimeout(() => {
-            // move to next page
-        }, 500);
+        if (data) {
+            showMsg(GetMessage('otpVerified'), 'green');
+            setIsSlideLeft(true);
+            SetUser(data);
+            setTimeout(() => { NextScreen('SignUp'); }, 500);
+        } else {
+            showMsg(error, 'red');
+        }
+
+        setIsLoading(false);
     }
 
     async function ButtonOTP() {
@@ -47,7 +57,7 @@ export default function AuthSignup({ showMsg }: AuthSignupProps) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            showMsg('Enter valid email', 'red');
+            showMsg(GetMessage('emailInvalid'), 'red');
             return;
         }
 

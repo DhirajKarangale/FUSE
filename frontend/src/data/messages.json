@@ -1,0 +1,19 @@
+{
+    "emailInvalid": [
+        "Invalid Email",
+        "Invalid Email 2",
+        "Invalid Email 3"
+    ],
+
+    "otpInvalid": [
+        "Invalid OTP",
+        "Invalid OTP 2",
+        "Invalid OTP 3"
+    ],
+
+    "otpVerified": [
+        "Otp Verified",
+        "Otp Verified 2",
+        "Otp Verified 3"
+    ]
+}

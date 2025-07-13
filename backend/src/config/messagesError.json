@@ -1,8 +1,13 @@
 {
     "otpInvalid": [
-        "Enter valid OTP",
-        "Don't you read what's your otp",
-        "I think your keyboard having some glitch, incorrect otp"
+        "Invalid OTP 1",
+        "Invalid OTP 2",
+        "Invalid OTP 3"
+    ],
+    "otpWrong": [
+        "Wrong OTP 1",
+        "Wrong OTP 2",
+        "Wrong OTP 3"
     ],
     "otpExpire": [
         "OTP expired, you ediot",

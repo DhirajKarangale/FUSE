@@ -8,7 +8,7 @@ function Email(email) {
 }
 
 function OTP(otp) {
-    if (!/^\d{4}$/.test(String(otp))) errorThrow(messagesManager.Error('otpInvalid'), statusCode.BAD_REQUEST);
+    if (!/^\d{6}$/.test(String(otp))) errorThrow(messagesManager.Error('otpInvalid'), statusCode.BAD_REQUEST);
 }
 
 function ID(id) {

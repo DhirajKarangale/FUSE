@@ -66,7 +66,7 @@ async function VerifyOtp(email, otp) {
     const diffInMinutes = (now - createdTime) / 1000 / 60;
 
     if (diffInMinutes > 5) throwError(messagesManager.Error('otpExpire'), statusCode.BAD_REQUEST);
-    if (otpObj.otp !== otp) throwError(messagesManager.Error('otpInvalid'), statusCode.BAD_REQUEST);
+    if (otpObj.otp !== otp) throwError(messagesManager.Error('otpWrong'), statusCode.BAD_REQUEST);
 
     const user = await serviceUser.GetOrCreateUserByEmail(email);
     const token = jwt.GenerateToken(user);

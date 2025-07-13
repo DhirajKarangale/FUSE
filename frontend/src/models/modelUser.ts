@@ -1,13 +1,18 @@
+export interface UserData {
+    user: User;
+    token: string;
+}
+
 export interface User {
     id: number;
     username: string;
     email: string;
     about: string;
     image_url: string;
-    categories: string;
+    categories: [string];
     deactivation: string;
     created_at: string;
-    posts: string;
+    posts: [number];
 }
 
 export const getInitialUser = (): User => ({
@@ -16,8 +21,8 @@ export const getInitialUser = (): User => ({
     email: '',
     about: '',
     image_url: '',
-    categories: '',
+    categories: [''],
     deactivation: '',
     created_at: '',
-    posts: '',
+    posts: [0],
 });

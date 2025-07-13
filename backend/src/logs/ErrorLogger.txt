@@ -417,3 +417,99 @@ Error: Failed to sent otp, try again
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async E:\FUSE\backend\src\routes\routerOTP.js:7:26
 
+Error: I think your keyboard having some glitch, incorrect otp
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Enter valid OTP
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Enter valid OTP
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Enter valid OTP
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: I think your keyboard having some glitch, incorrect otp
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Enter valid OTP
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: I think your keyboard having some glitch, incorrect otp
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Don't you read what's your otp
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.OTP (E:\FUSE\backend\src\utilities\validator.js:11:39)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:58:15)
+    at E:\FUSE\backend\src\routes\routerOTP.js:17:43
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+

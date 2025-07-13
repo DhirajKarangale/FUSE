@@ -3,7 +3,7 @@ import './components.css';
 import React, { useState, useImperativeHandle, forwardRef, useRef } from "react";
 
 export type MessageBarHandle = {
-    showMsg: (message: string, color?: string) => void;
+    ShowMsg: (message: string, color?: string) => void;
 };
 
 const MessageBar = forwardRef<MessageBarHandle>((_, ref) => {
@@ -13,7 +13,7 @@ const MessageBar = forwardRef<MessageBarHandle>((_, ref) => {
     const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useImperativeHandle(ref, () => ({
-        showMsg(message: string, color: string = 'white') {
+        ShowMsg(message: string, color: string = 'white') {
             setMsg(message);
             setMsgColor(color);
             setAnimationKey(prev => prev + 1); 
