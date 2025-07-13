@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import GetMessage from "../../utils/MessagesManager";
 
-import { urlOTP } from "../../api/APIs";
+import { urlOTP, urlUser } from "../../api/APIs";
 import { getRequest, postRequest } from "../../api/APIManager";
 
 import { type UserData, type User } from "../../models/modelUser";
@@ -21,6 +21,21 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
     const [otp, setOTP] = useState<string>('');
     const [email, setEmail] = useState<string>('');
 
+
+    async function AutoLogin() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        SetLoader(true);
+        const { data, error } = await getRequest<User>(urlUser);
+        if (data) {
+            setIsEndAnim(true);
+            setTimeout(() => { SetUser(data); }, 500);
+        } else {
+            ShowMsg(error, 'red');
+        }
+        SetLoader(false);
+    }
 
     async function ButtonContinue() {
         const otpRegex = /^\d{6}$/;
@@ -68,6 +83,7 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
     }
 
     useEffect(() => {
+        AutoLogin();
         setTimeout(() => { setIsStartAnim(true); }, 50);
     }, [])
 
