@@ -34,6 +34,7 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
         const { data, error } = await postRequest<UserData>(`${urlOTP}`, body);
 
         if (data) {
+            localStorage.setItem('token', data.token)
             ShowMsg(GetMessage('otpVerified'), 'green');
             setIsEndAnim(true);
             setTimeout(() => { SetUser(data.user); }, 500);

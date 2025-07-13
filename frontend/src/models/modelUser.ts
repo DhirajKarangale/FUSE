@@ -9,10 +9,10 @@ export interface User {
     email: string;
     about: string;
     image_url: string;
-    categories: [string];
+    categories: string[];
     deactivation: string;
     created_at: string;
-    posts: [number];
+    posts: number[];
 }
 
 export const getInitialUser = (): User => ({
@@ -21,8 +21,8 @@ export const getInitialUser = (): User => ({
     email: '',
     about: '',
     image_url: '',
-    categories: [''],
+    categories: [],
     deactivation: '',
     created_at: '',
-    posts: [0],
+    posts: [],
 });
