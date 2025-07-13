@@ -10,10 +10,19 @@
         "Invalid OTP 2",
         "Invalid OTP 3"
     ],
-
     "otpVerified": [
         "Otp Verified",
         "Otp Verified 2",
         "Otp Verified 3"
+    ],
+
+    "usernameMandatory": [
+        "User Name is Mandatory"
+    ],
+    "usernameLess": [
+        "User Name Should be more that 1 char"
+    ],
+    "usernameMore": [
+        "User Name Should be less that 20 char"
     ]
 }

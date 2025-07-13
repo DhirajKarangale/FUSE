@@ -42,7 +42,10 @@
     ],
 
     "userNameLess":[
-        "Usernmae should be greater than 3 characters"
+        "Usernmae should be greater than 1 characters"
+    ],
+    "userNameMore":[
+        "Usernmae should be less than 20 characters"
     ],
     "usernameExist": [
         "Username already exists",

@@ -1,60 +1,78 @@
-import { useEffect, useRef, useState } from 'react';
-
-import './Auth.css'
+import React, { useEffect, useState, useRef } from 'react';
 
 import AuthBG from "./AuthBG"
+import AuthUser from './AuthUser';
 import AuthSignup from "./AuthSignup"
-
-import { type UserData } from "../../models/modelUser";
-
+import AuthCategories from './AuthCategories';
+import Loader from "../../components/Loader";
 import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
-import { setUser, clearUser } from '../../redux/sliceUser';
+import { type User } from "../../models/modelUser";
+import { setUser } from '../../redux/sliceUser';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
 
-export default function Auth() {
+function Auth() {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user);
+
     const msgRef = useRef<MessageBarHandle>(null);
-    const [nextScreen, setNextScreen] = useState<string>('');
 
-    useEffect(() => {
-        NextScreen(nextScreen);
-    }, [nextScreen])
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [currScreen, setCurrScreen] = useState<string>('Categories');
 
-    function SetUser(userData: UserData) {
-        dispatch(setUser(userData.user));
+
+    function SetUser(userData: User) {
+        dispatch(setUser(userData));
     }
 
-    function NextScreen(currScreen: string) {
-        if (currScreen == 'SignUp') {
-            console.log('NextScreen: ', user);
+    function SetLoader(isLoading: boolean) {
+        setIsLoading(isLoading);
+    }
+
+    function SetScreen() {
+        if (!user || !user.email) return;
+
+        if (!user.username) {
+            setCurrScreen('User');
+            console.log('Set User');
+        }
+        else if (!user.categories) {
+            setCurrScreen('Categories');
+            console.log('Set Categories');
+        }
+        else {
+
         }
     }
 
-    function SetNextScreen(currScreen: string) {
-        setNextScreen(currScreen);
-    }
+    useEffect(() => { SetScreen(); }, [user])
 
     return (
         <>
-            <AuthSignup ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+            {isLoading && <Loader />}
+
+            {currScreen === 'Signup' && <AuthSignup
+                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
                 SetUser={SetUser}
-                SetNextScreen={SetNextScreen}
-            />
+                SetLoader={SetLoader}
+            />}
+
+            {currScreen === 'User' && <AuthUser
+                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+                SetUser={SetUser}
+                user={user}
+            />}
+
+            {currScreen === 'Categories' && <AuthCategories
+                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+                SetUser={SetUser}
+            />}
+
             <MessageBar ref={msgRef} />
             <AuthBG />
         </>
     )
 }
 
-
-
-
-// --------------------------- Form Demo ---------------------------------
-
-// import { type User, getInitialUser } from '../models/modelUser';
-// const { register, handleSubmit } = useForm<User>({
-//   defaultValues: getInitialUser(),
-// });
+export default React.memo(Auth);
