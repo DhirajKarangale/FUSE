@@ -23,6 +23,7 @@ function Auth() {
     const navigate = useNavigate();
     const msgRef = useRef<MessageBarHandle>(null);
 
+    const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [currScreen, setCurrScreen] = useState<string>('Signup');
 
@@ -40,19 +41,28 @@ function Auth() {
 
         if (!user.username) {
             setCurrScreen('User');
+            setIsUpdateUser(true);
         }
         else if (!user.categories) {
             setCurrScreen('Categories');
+            setIsUpdateUser(true);
         }
         else {
-            const body = {
-                userName: user.username,
-                about: user.about,
-                categories: user.categories
-            };
-            const { data, error } = await putRequest<UserData>(urlUser, body);
-            if (data) navigate('/home')
-            else msgRef.current?.ShowMsg(error, 'red')
+            if (isUpdateUser) {
+                const body = {
+                    userName: user.username,
+                    about: user.about,
+                    categories: user.categories
+                };
+                SetLoader(true);
+                const { data, error } = await putRequest<UserData>(urlUser, body);
+                SetLoader(false);
+                if (data) navigate('/home')
+                else msgRef.current?.ShowMsg(error, 'red')
+            }
+            else {
+                navigate('/home')
+            }
         }
     }
 
