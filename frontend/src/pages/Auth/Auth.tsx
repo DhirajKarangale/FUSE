@@ -15,6 +15,8 @@ import { type User, type UserData } from "../../models/modelUser";
 import { setUser } from '../../redux/sliceUser';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
+import { routeFeed } from '../../utils/Routes';
+
 
 function Auth() {
     const dispatch = useAppDispatch();
@@ -57,11 +59,11 @@ function Auth() {
                 SetLoader(true);
                 const { data, error } = await putRequest<UserData>(urlUser, body);
                 SetLoader(false);
-                if (data) navigate('/feed')
+                if (data) navigate(routeFeed)
                 else msgRef.current?.ShowMsg(error, 'red')
             }
             else {
-                navigate('/feed')
+                navigate(routeFeed)
             }
         }
     }

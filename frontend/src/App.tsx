@@ -13,20 +13,22 @@ import User from './pages/User/User';
 import About from './pages/About/About';
 import LayoutNavbar from './components/LayoutNavbar';
 
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routePost, routeUser, routeAbout } from './utils/Routes';
+
 export default function App() {
   return (
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<Auth />} />
+          <Route path={routeAuth} element={<Auth />} />
 
           <Route element={<LayoutNavbar />}>
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/popular" element={<Popular />} />
-            <Route path="/customizefeed" element={<CustomizeFeed />} />
-            <Route path="/post" element={<Post />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/about" element={<About />} />
+            <Route path={routeFeed} element={<Feed />} />
+            <Route path={routePopular} element={<Popular />} />
+            <Route path={routeCustomizeFeed} element={<CustomizeFeed />} />
+            <Route path={routePost} element={<Post />} />
+            <Route path={routeUser} element={<User />} />
+            <Route path={routeAbout} element={<About />} />
           </Route>
 
         </Routes>
