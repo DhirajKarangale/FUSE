@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import loaderMessages from '../data/loader.json';
 
-export default function Loader() {
+function Loader() {
     const [tip, setTip] = useState("");
     const [loadingText, setLoadingText] = useState("Loading");
 
@@ -32,3 +32,5 @@ export default function Loader() {
         </div>
     );
 };
+
+export default React.memo(Loader);
