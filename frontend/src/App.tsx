@@ -6,9 +6,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
-import Popular from './pages/Popular/Popular';
+import Popular from './pages/Popular/Popular'
+import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
+import Post from './pages/Post/Post';
 import User from './pages/User/User';
 import About from './pages/About/About';
+import LayoutNavbar from './components/LayoutNavbar';
 
 export default function App() {
   return (
@@ -16,10 +19,16 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Auth />} />
-          <Route path="/feed" element={<Feed />} />
-          <Route path="/popular" element={<Popular />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/about" element={<About />} />
+
+          <Route element={<LayoutNavbar />}>
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/popular" element={<Popular />} />
+            <Route path="/customizefeed" element={<CustomizeFeed />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/about" element={<About />} />
+          </Route>
+
         </Routes>
       </Router>
     </Provider>
