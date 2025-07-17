@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { urlBase } from './APIs';
-import { useNavigate } from 'react-router-dom';
 import { routeAuth } from '../utils/Routes';
-
-const navigate = useNavigate();
 
 export interface ApiResult<T = any> {
     data?: T;
@@ -28,8 +25,13 @@ axiosInstance.interceptors.request.use((config) => {
 
 function checkToken(errorMessage: string) {
     const msg = errorMessage.toString();
-    if (msg == 'Token Invalid' || msg == 'Token Invalid') {
-        navigate(routeAuth);
+    const currentPath = window.location.pathname;
+
+    if (
+        (msg === 'Token Invalid' || msg === 'Token Expired') &&
+        !currentPath.startsWith(routeAuth)
+    ) {
+        window.location.replace(routeAuth); 
     }
 }
 

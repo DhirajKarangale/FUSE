@@ -35,6 +35,6 @@ export default function App() {
       </Router>
     </Provider>
   )
-}
+};
 
 // Aurora, Dither, Ripple Grid, Squares, Particles

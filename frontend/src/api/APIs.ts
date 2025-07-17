@@ -4,3 +4,5 @@ export const urlOTP = `${urlBase}/otp`;
 
 export const urlUser = `${urlBase}/user`;
 export const urlCategories = `${urlBase}/user/categories`;
+
+export const urlPost = `${urlBase}/post`
