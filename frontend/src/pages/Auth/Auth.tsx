@@ -59,11 +59,11 @@ function Auth() {
                 SetLoader(true);
                 const { data, error } = await putRequest<UserData>(urlUser, body);
                 SetLoader(false);
-                if (data) navigate(routeFeed)
+                if (data) navigate(routeFeed);
                 else msgRef.current?.ShowMsg(error, 'red')
             }
             else {
-                navigate(routeFeed)
+                navigate(routeFeed);
             }
         }
     }

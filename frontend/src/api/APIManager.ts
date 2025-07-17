@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { urlBase } from './APIs';
+import { useNavigate } from 'react-router-dom';
+import { routeAuth } from '../utils/Routes';
+
+const navigate = useNavigate();
 
 export interface ApiResult<T = any> {
     data?: T;
@@ -22,6 +26,13 @@ axiosInstance.interceptors.request.use((config) => {
     return config;
 });
 
+function checkToken(errorMessage: string) {
+    const msg = errorMessage.toString();
+    if (msg == 'Token Invalid' || msg == 'Token Invalid') {
+        navigate(routeAuth);
+    }
+}
+
 const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResult<T>> => {
     try {
         const response = await promise;
@@ -29,6 +40,7 @@ const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResul
     } catch (error: any) {
         const isTimeout = error.code === 'ECONNABORTED';
         const errorMessage = isTimeout ? 'Request timed out, please try again.' : error.response?.data || error.message || 'Unknown error';
+        checkToken(errorMessage);
         return { error: errorMessage };
     }
 };

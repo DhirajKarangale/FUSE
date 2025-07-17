@@ -58,14 +58,10 @@
     ],
     
     "jwtInvalid": [
-        "Invalid token",
-        "Invalid token 1",
-        "Invalid token 2"
+        "Token Invalid"
     ],
     "jwtRequired": [
-        "Authorization token is required",
-        "Authorization token is required 1",
-        "Authorization token is required 2"
+        "Token Required"
     ],
 
     "categoryInvalid": [

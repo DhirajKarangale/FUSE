@@ -83,7 +83,7 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
     }
 
     useEffect(() => {
-        AutoLogin();
+        // AutoLogin();
         setTimeout(() => { setIsStartAnim(true); }, 50);
     }, [])
 
