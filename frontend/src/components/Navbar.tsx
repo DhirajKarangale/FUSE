@@ -15,7 +15,7 @@ const navItems = [
 function Navbar() {
     return (
 
-        <div className="fixed left-0 top-0 h-full w-56 bg-black/30 backdrop-blur-md border-r border-white/10 p-4 shadow-lg z-40">
+        <div className="fixed left-0 top-0 h-full w-56 bg-black/30 backdrop-blur-md border-r border-white/10 p-4 shadow-lg z-1">
 
             <div className="flex flex-col gap-4">
 

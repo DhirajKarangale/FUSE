@@ -28,10 +28,10 @@ function checkToken(errorMessage: string) {
     const currentPath = window.location.pathname;
 
     if (
-        (msg === 'Token Invalid' || msg === 'Token Expired') &&
+        (msg === 'Token Invalid' || msg == 'Token Required') &&
         !currentPath.startsWith(routeAuth)
     ) {
-        window.location.replace(routeAuth); 
+        window.location.replace(routeAuth);
     }
 }
 

@@ -58,7 +58,7 @@ async function GetCategoriesPosts(categories, pageNumber, pageSize) {
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT posts.user_id, posts.post_title, posts.post_body, posts.media_url, posts.created_at, posts.category, users.username, users.image_url as user_image_url
+            `SELECT posts.id, posts.user_id, posts.post_title, posts.post_body, posts.media_url, posts.created_at, posts.category, users.username, users.image_url as user_image_url
             FROM posts 
             JOIN users ON users.id = posts.user_id
             WHERE category = ANY($1) AND (posts.deactivation IS NULL OR posts.deactivation = '')

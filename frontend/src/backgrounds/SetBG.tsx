@@ -5,21 +5,23 @@ import BGAurora from "./BGAurora";
 import BGSquares from "./BGSquares";
 import BGHyperspeed from "./BGHyperspeed";
 
+import { routeAuth } from "../utils/Routes";
+
 function SetBG() {
     const location = useLocation();
 
-    const isAuth = location.pathname === "/auth";
+    const isAuth = location.pathname === routeAuth;
 
     const Background = useMemo(() => {
         if (isAuth) return BGHyperspeed;
-
         const backgrounds = [BGAurora, BGSquares];
         const randomIndex = Math.floor(Math.random() * backgrounds.length);
         return backgrounds[randomIndex];
     }, [isAuth]);
 
+
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="fixed inset-0 -z-100">
             <Background />
         </div>
     );

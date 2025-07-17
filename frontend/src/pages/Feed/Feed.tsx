@@ -1,33 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-import FeedBG from "./FeedBG";
+import PostCard from "../../components/PostCard";
+import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { type Posts, getInitialPosts } from "../../models/modelPosts";
+import { setPostData } from "../../redux/sliceFeedPost";
+import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
+import { type PostData, } from "../../models/modelPosts";
 
 function Feed() {
-    // const [posts, setPosts] = useState<Posts>(getInitialPosts());
+    const dispatch = useAppDispatch();
+    const postData = useAppSelector((state) => state.feedPost);
+    const msgRef = useRef<MessageBarHandle>(null);
+
+    async function GetPosts() {
+        const { data, error } = await getRequest<PostData>(urlPost);
+        if (data) {
+            dispatch(setPostData(data));
+        }
+        else {
+            ShowMsg(error, 'red');
+        }
+    }
+
+    function ShowMsg(msg: string, color?: string) {
+        msgRef.current?.ShowMsg(msg, color);
+    }
 
 
-    // async function GetPosts() {
-    //     const { data, error } = await getRequest<Posts>(urlPost);
-    //     if (data) {
-    //         setPosts(data);
-    //     }
-    //     else {
-    //         console.log(error);
-    //     }
-    // }
+    useEffect(() => {
+        GetPosts();
+    }, []);
 
 
     return (
-        <div className="relative w-full h-full">
-            {/* <FeedBG /> */}
-            <div className="text-white text-center text-3xl">
-                ---------------Feed---------------
-            </div>
-        </div>
+        <>
+            {postData.posts.map((post) => (<PostCard key={post.id} post={post} />))}
+            <MessageBar ref={msgRef} />
+        </>
     );
 }
 

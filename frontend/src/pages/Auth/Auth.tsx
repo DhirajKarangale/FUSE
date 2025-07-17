@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import AuthBG from "./AuthBG"
 import AuthUser from './AuthUser';
 import AuthSignup from "./AuthSignup"
 import AuthCategories from './AuthCategories';
@@ -38,6 +37,10 @@ function Auth() {
         setIsLoading(isLoading);
     }
 
+    function ShowMsg(msg: string, color?: string) {
+        msgRef.current?.ShowMsg(msg, color);
+    }
+
     async function SetScreen() {
         if (!user || !user.email) return;
 
@@ -60,7 +63,7 @@ function Auth() {
                 const { data, error } = await putRequest<UserData>(urlUser, body);
                 SetLoader(false);
                 if (data) navigate(routeFeed);
-                else msgRef.current?.ShowMsg(error, 'red')
+                else ShowMsg(error, 'red')
             }
             else {
                 navigate(routeFeed);
@@ -75,25 +78,24 @@ function Auth() {
             {isLoading && <Loader />}
 
             {currScreen === 'Signup' && <AuthSignup
-                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+                ShowMsg={ShowMsg}
                 SetUser={SetUser}
                 SetLoader={SetLoader}
             />}
 
             {currScreen === 'User' && <AuthUser
-                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+                ShowMsg={ShowMsg}
                 SetUser={SetUser}
                 user={user}
             />}
 
             {currScreen === 'Categories' && <AuthCategories
-                ShowMsg={(msg: string, color?: string) => msgRef.current?.ShowMsg(msg, color)}
+                ShowMsg={ShowMsg}
                 SetUser={SetUser}
                 user={user}
             />}
 
             <MessageBar ref={msgRef} />
-            <AuthBG />
         </>
     )
 }

@@ -11,6 +11,8 @@ import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
 import Post from './pages/Post/Post';
 import User from './pages/User/User';
 import About from './pages/About/About';
+
+import SetBG from './backgrounds/SetBG';
 import LayoutNavbar from './components/LayoutNavbar';
 
 import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routePost, routeUser, routeAbout } from './utils/Routes';
@@ -19,6 +21,8 @@ export default function App() {
   return (
     <Provider store={store}>
       <Router>
+        <SetBG />
+        
         <Routes>
           <Route path={routeAuth} element={<Auth />} />
 

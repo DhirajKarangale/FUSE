@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
-import PostBG from "./PostBG";
-
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { type Posts, getInitialPosts } from "../../models/modelPosts";
+import { type PostData, getInitialPosts } from "../../models/modelPosts";
 
 function Post() {
     // const [posts, setPosts] = useState<Posts>(getInitialPosts());
@@ -23,7 +21,6 @@ function Post() {
 
     return (
         <div className="relative w-full h-full overflow-hidden">
-            <PostBG />
             <h1>---------------Post---------------</h1>
         </div>
     );

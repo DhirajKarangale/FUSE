@@ -1,14 +1,14 @@
 import React from "react";
-import Squares from "../reactbits/Squares/Squares";
+import Aurora from "../reactbits/Aurora/Aurora";
 
 function BGAurora() {
     return (
-        <Squares
+        <Aurora
+            colorStops={["#140A50", "#3A1120", "#330C0C"]}
+            // colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+            blend={0.5}
+            amplitude={1.0}
             speed={0.5}
-            squareSize={40}
-            direction='down'
-            borderColor='#fff'
-            hoverFillColor='#060010'
         />
     );
 }

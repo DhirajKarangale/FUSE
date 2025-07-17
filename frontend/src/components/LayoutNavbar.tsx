@@ -2,21 +2,12 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import Navbar from "./Navbar";
-import SetBG from "../backgrounds/SetBG";
 
 function LayoutNavbar() {
     return (
-        // <div className="flex h-screen">
-        //     <Navbar />
-        //     <main className="ml-56 w-full relative"><Outlet /></main>
-        // </div>
-
-        <div className="flex h-screen relative overflow-hidden">
-            <SetBG />
+        <div className="flex h-screen">
             <Navbar />
-            <main className="ml-56 w-full relative">
-                <Outlet />
-            </main>
+            <main className="ml-56 w-full relative"><Outlet /></main>
         </div>
     );
 }
