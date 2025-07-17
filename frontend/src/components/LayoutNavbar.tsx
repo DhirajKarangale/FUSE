@@ -5,9 +5,10 @@ import Navbar from "./Navbar";
 
 function LayoutNavbar() {
     return (
-        <div className="flex">
+        <div className="flex h-screen overflow-hidden">
             <Navbar />
-            <main className="ml-56 w-full p-4">
+
+            <main className="ml-56 w-full relative">
                 <Outlet />
             </main>
         </div>

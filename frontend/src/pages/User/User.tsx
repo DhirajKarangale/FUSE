@@ -1,12 +1,13 @@
 import React from "react";
+import UserBG from "./UserBG";
+import UserContent from "./UserContent";
 
 function User() {
     return (
-        <>
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-white text-3xl">User</p>
-            </div>
-        </>
+        <div className="relative w-full h-full overflow-hidden">
+            <UserBG />
+            <UserContent />
+        </div>
     );
 }
 

@@ -36,3 +36,5 @@ export default function App() {
     </Provider>
   )
 }
+
+// Aurora, Dither, Ripple Grid, Squares, Particles
