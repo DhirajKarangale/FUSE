@@ -27,9 +27,8 @@ function PostCard({ post }: Props) {
     }, []);
 
     return (
-        <div className="w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
+        <div className="select-none w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
 
-            {/* User Info */}
             <div className="flex items-center gap-3 mb-4">
                 <img
                     src={post.user_image_url || ProfilePlaceholder}
@@ -37,15 +36,13 @@ function PostCard({ post }: Props) {
                     className="w-10 h-10 rounded-full object-cover border border-white/20"
                 />
                 <div>
-                    <div className="font-semibold text-base">{post.username}</div>
+                    <div className="font-semibold text-base select-text">{post.username}</div>
                     <div className="text-sm text-white/60">{createdAt}</div>
                 </div>
             </div>
 
-            {/* Title */}
-            <h2 className="text-2xl font-bold mb-3">{post.post_title}</h2>
+            <h2 className="text-2xl font-bold mb-3 select-text">{post.post_title}</h2>
 
-            {/* Media */}
             {hasImage && (
                 <div className="w-full h-60 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
                     {!imageLoaded && (
@@ -60,14 +57,12 @@ function PostCard({ post }: Props) {
                         src={post.media_url}
                         alt="post"
                         onLoad={() => setImageLoaded(true)}
-                        className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"
-                            }`}
+                        className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                     />
                 </div>
             )}
 
-            {/* Body */}
-            <p className="text-white/90 text-sm leading-relaxed mb-4">
+            <p className="text-white/90 text-sm leading-relaxed mb-4 select-text">
                 {isExpanded || !isTrimmed ? post.post_body : trimmedBody}
                 {isTrimmed && (
                     <button
@@ -79,7 +74,6 @@ function PostCard({ post }: Props) {
                 )}
             </p>
 
-            {/* Bottom Actions */}
             <div className="flex items-center justify-between text-sm mt-4 pt-4 border-t border-white/10">
                 <div className="flex gap-4">
                     <button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200">
@@ -89,10 +83,11 @@ function PostCard({ post }: Props) {
                         <MessageCircle className="w-4 h-4" /> <span>0</span>
                     </button>
                 </div>
-                <span className="text-white/50 text-xs">{post.category}</span>
+                <span className="text-white/50 text-xs select-text">{post.category}</span>
             </div>
         </div>
     );
+
 }
 
 export default React.memo(PostCard);

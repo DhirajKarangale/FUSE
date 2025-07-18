@@ -18,6 +18,6 @@ export interface Post {
 
 export const getInitialPosts = (): PostData => ({
     posts: [],
-    currPage: 1,
-    totalPages: 1,
+    currPage: -1,
+    totalPages: -1,
 });
