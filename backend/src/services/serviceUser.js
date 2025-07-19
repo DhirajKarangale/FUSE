@@ -81,7 +81,7 @@ async function CreateUser(email) {
 }
 
 async function GetCategories(page) {
-    const pageSize = 3;
+    const pageSize = 5;
     const categoryKeys = Object.keys(categories);
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;

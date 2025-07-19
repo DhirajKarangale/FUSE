@@ -45,9 +45,6 @@ function Feed() {
             url += `&categories=${user.categories.join(",")}`;
         }
 
-        console.log("Cat: ", user.categories);
-        console.log("URL: ", url);
-
         const { data, error } = await getRequest<PostData>(url);
 
         if (data) {

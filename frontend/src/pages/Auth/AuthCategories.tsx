@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
 import { urlCategories } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-
 import { type Categories } from '../../models/modelCategories';
 import { type User } from "../../models/modelUser";
 
@@ -13,7 +11,6 @@ type AuthCategoriesProps = {
 };
 
 function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
-
     const [isStartAnim, setIsStartAnim] = useState<boolean>(false);
     const [isEndAnim, setIsEndAnim] = useState<boolean>(false);
 
@@ -21,6 +18,10 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
     const [isShowMore, setIsShowMore] = useState<boolean>(true);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [categoriesData, setCategoriesData] = useState<Record<string, string[]>>({});
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const loadingRef = useRef<boolean>(false);
 
     function ButtonContinue() {
         setIsEndAnim(true);
@@ -28,7 +29,7 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
         const updatedUser: User = {
             ...user,
             categories: selectedCategories,
-        }
+        };
 
         setTimeout(() => {
             ShowMsg('');
@@ -60,7 +61,10 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
     }
 
     async function LoadCategories(page: number) {
-        if (!isShowMore) return;
+        if (!isShowMore || loadingRef.current) return;
+
+        loadingRef.current = true;
+        setIsLoading(true);
 
         const { data, error } = await getRequest<Categories>(`${urlCategories}?page=${page}`);
         if (data) {
@@ -75,16 +79,33 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
                 }
                 return updated;
             });
-
         } else {
             ShowMsg(error, 'red');
         }
+
+        setIsLoading(false);
+        loadingRef.current = false;
     }
 
     useEffect(() => {
         setTimeout(() => { setIsStartAnim(true); }, 5);
         LoadCategories(1);
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!containerRef.current || isLoading || !isShowMore) return;
+
+            const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+            if (scrollHeight - scrollTop <= clientHeight + 100) {
+                LoadCategories(currPage + 1);
+            }
+        };
+
+        const current = containerRef.current;
+        current?.addEventListener('scroll', handleScroll);
+        return () => current?.removeEventListener('scroll', handleScroll);
+    }, [currPage, isShowMore, isLoading]);
 
     function UICategories() {
         return (
@@ -121,6 +142,19 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
         );
     }
 
+    function CategorySkeleton() {
+        return (
+            <div className="bg-white/10 p-4 rounded-xl shadow-md border border-white/20 w-full animate-pulse space-y-3">
+                <div className="h-5 bg-white/30 rounded w-1/3" />
+                <div className="flex flex-wrap gap-2">
+                    {[...Array(6)].map((_, i) => (
+                        <div key={i} className="h-6 w-20 bg-white/20 rounded-full" />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
             <div
@@ -129,27 +163,29 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
                 transform transition-all duration-1000 ease-in-out
                 ${isEndAnim ? "opacity-0 -translate-x-full" : isStartAnim ? "opacity-100 translate-y-0" : "opacity-0 translate-x-full"}`}>
 
-                <div className="flex-1 overflow-y-auto pr-1 space-y-6 custom-scroll">
+                <div
+                    ref={containerRef}
+                    className="flex-1 overflow-y-auto pr-1 space-y-6 custom-scroll"
+                >
                     {UICategories()}
+                    {isLoading && <CategorySkeleton />}
                 </div>
 
-                <div className="py-2 px-2 flex justify-between items-center rounded-b-2xl">
-                    <button
-                        onClick={() => LoadCategories(currPage + 1)}
-                        disabled={!isShowMore}
-                        className={`bg-cyan-500 text-white font-semibold py-2 px-6 rounded-lg transition mt-1
-                            ${!isShowMore ? 'opacity-50 cursor-not-allowed' : 'hover:bg-cyan-600'}`}>
-                        Show More
-                    </button>
-
+                <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
                     <button
                         onClick={ButtonContinue}
-                        className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1">
+                        disabled={selectedCategories.length < 1}
+                        className={`text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition 
+                                ${selectedCategories.length < 1
+                                ? "bg-gray-400 cursor-not-allowed opacity-50"
+                                : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                            }`}>
                         Continue
                     </button>
                 </div>
+
             </div>
-        </div >
+        </div>
     );
 }
 

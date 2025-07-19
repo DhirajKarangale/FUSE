@@ -26,7 +26,7 @@ function Auth() {
 
     const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [currScreen, setCurrScreen] = useState<string>('Signup');
+    const [currScreen, setCurrScreen] = useState<string>('Categories');
 
 
     function SetUser(userData: User) {
