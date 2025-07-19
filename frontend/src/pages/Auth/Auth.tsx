@@ -44,11 +44,13 @@ function Auth() {
     async function SetScreen() {
         if (!user || !user.email) return;
 
+        console.log(user.categories);
+
         if (!user.username) {
             setCurrScreen('User');
             setIsUpdateUser(true);
         }
-        else if (!user.categories) {
+        else if (!user.categories || user.categories?.length == 0) {
             setCurrScreen('Categories');
             setIsUpdateUser(true);
         }

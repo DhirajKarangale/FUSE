@@ -30,28 +30,23 @@ async function GetUserPosts(userId, page) {
 }
 
 async function GetCategoriesPosts(userCategories, page) {
-    if (userCategories) {
-        if (typeof userCategories === 'string') {
-            try {
-                userCategories = JSON.parse(userCategories);
-                if (userCategories.length == 0) userCategories = Object.values(categories).flat();
-            } catch (e) {
-                throwError(messagesManager.Error("categoriesArray"), statusCode.BAD_REQUEST);
-            }
-        }
 
-        if (!Array.isArray(userCategories)) throwError(messagesManager.Error("categoriesArray"), statusCode.BAD_REQUEST);
-        userCategories.forEach(category => validator.Category(category));
+    let postCategories;
+
+    if (userCategories) {
+        postCategories = userCategories?.split(",");
+        if (postCategories.length == 0) postCategories = Object.values(categories).flat();
+        else postCategories.forEach(category => validator.Category(category));
     }
     else {
-        userCategories = Object.values(categories).flat();
+        postCategories = Object.values(categories).flat();
     }
 
     const pageSize = 10;
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelPost.GetCategoriesPosts(userCategories, validPage, pageSize);
+    return await modelPost.GetCategoriesPosts(postCategories, validPage, pageSize);
 }
 
 

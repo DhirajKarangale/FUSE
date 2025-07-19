@@ -1,67 +1,80 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import PostCard from "../../components/PostCard";
-import SkeletonPost from "../../components/SkeletonPost";
 import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 import { setPostData } from "../../redux/sliceFeedPost";
+import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 import { type PostData } from "../../models/modelPosts";
+
+import SkeletonPost from "../../components/SkeletonPost";
 
 function Feed() {
     const dispatch = useAppDispatch();
-    const postData = useAppSelector(state => state.feedPost);
-    const user = useAppSelector(state => state.user);
+    const postData = useAppSelector((state) => state.feedPost);
+    const user = useAppSelector((state) => state.user);
     const msgRef = useRef<MessageBarHandle>(null);
 
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
     const observer = useRef<IntersectionObserver | null>(null);
-    const loadingRef = useRef(false);
+    const lastPostRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (loading || !hasMore) return;
+            if (observer.current) observer.current.disconnect();
 
-    const hasMore = postData.currPage < postData.totalPages - 1;
+            observer.current = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) {
+                    setPage(prev => prev + 1);
+                }
+            });
 
-    const ShowMsg = (msg: string, color?: string) => {
-        msgRef.current?.ShowMsg(msg, color);
-    };
+            if (node) observer.current.observe(node);
+        },
+        [loading, hasMore]
+    );
 
-    const loadPosts = useCallback(async (page: number) => {
-        if (loadingRef.current) return;
-        loadingRef.current = true;
+    async function GetPosts(currentPage: number) {
+        setLoading(true);
 
-        const { data, error } = await getRequest<PostData>(
-            `${urlPost}?categories=${user.categories}&page=${page}`
-        );
-
-        if (data) {
-            dispatch(setPostData({
-                posts: page === 0 ? data.posts : [...postData.posts, ...data.posts],
-                currPage: page,
-                totalPages: data.totalPages,
-            }));
-        } else {
-            ShowMsg(error || "Failed to load posts", "red");
+        let url = `${urlPost}?page=${currentPage}`;
+        if (user && user.categories && user.categories.length > 0) {
+            url += `&categories=${user.categories.join(",")}`;
         }
 
-        loadingRef.current = false;
-    }, [dispatch, postData.posts, user.categories]);
+        console.log("Cat: ", user.categories);
+        console.log("URL: ", url);
+
+        const { data, error } = await getRequest<PostData>(url);
+
+        if (data) {
+            if (currentPage === 1) {
+                dispatch(setPostData(data));
+            } else {
+                dispatch(setPostData({
+                    ...data,
+                    posts: [...postData.posts, ...data.posts],
+                }));
+            }
+
+            setHasMore(data.posts.length > 0);
+        } else {
+            ShowMsg(error, 'red');
+        }
+
+        setLoading(false);
+    }
+
+    function ShowMsg(msg: string, color?: string) {
+        msgRef.current?.ShowMsg(msg, color);
+    }
 
     useEffect(() => {
-        loadPosts(0);
+        GetPosts(page);
     }, []);
-
-    const lastPostRef = useCallback((node: HTMLDivElement | null) => {
-        if (loadingRef.current || !hasMore) return;
-
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                loadPosts(postData.currPage + 1);
-            }
-        });
-
-        if (node) observer.current.observe(node);
-    }, [hasMore, loadPosts, postData.currPage]);
 
     return (
         <>
@@ -74,14 +87,10 @@ function Feed() {
                 );
             })}
 
-            {loadingRef.current && [...Array(3)].map((_, i) => (
-                <SkeletonPost key={i} />
-            ))}
+            {loading && [...Array(3)].map((_, idx) => <SkeletonPost key={idx} />)}
 
-            {!hasMore && postData.currPage !== -1 && (
-                <p className="text-center text-sm text-white/40 py-4">
-                    🎉 You've reached the end!
-                </p>
+            {!hasMore && !loading && (
+                <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
 
             <MessageBar ref={msgRef} />

@@ -53,7 +53,7 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
     }, [])
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
 
             <div className={`w-82 px-6 pt-6 pb-6 rounded-2xl bg-black/25 backdrop-blur-sm
                             pointer-events-auto shadow-lg relative overflow-hidden
