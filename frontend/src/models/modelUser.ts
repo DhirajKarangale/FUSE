@@ -13,6 +13,7 @@ export interface User {
     deactivation: string;
     created_at: string;
     posts: number[];
+    isLoaded: boolean;
 }
 
 export const getInitialUser = (): User => ({
@@ -25,4 +26,5 @@ export const getInitialUser = (): User => ({
     deactivation: '',
     created_at: '',
     posts: [],
+    isLoaded: false,
 });

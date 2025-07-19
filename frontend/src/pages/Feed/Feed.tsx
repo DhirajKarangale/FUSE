@@ -13,7 +13,7 @@ import SkeletonPost from "../../components/SkeletonPost";
 function Feed() {
     const dispatch = useAppDispatch();
     const postData = useAppSelector((state) => state.feedPost);
-    const user = useAppSelector((state) => state.user);
+    const { categories, isLoaded } = useAppSelector((state) => state.user);
     const msgRef = useRef<MessageBarHandle>(null);
 
     const [page, setPage] = useState(1);
@@ -21,6 +21,7 @@ function Feed() {
     const [hasMore, setHasMore] = useState(true);
 
     const observer = useRef<IntersectionObserver | null>(null);
+
     const lastPostRef = useCallback(
         (node: HTMLDivElement | null) => {
             if (loading || !hasMore) return;
@@ -41,9 +42,7 @@ function Feed() {
         setLoading(true);
 
         let url = `${urlPost}?page=${currentPage}`;
-        if (user && user.categories && user.categories.length > 0) {
-            url += `&categories=${user.categories.join(",")}`;
-        }
+        if (categories.length > 0) url += `&categories=${categories.join(",")}`;
 
         const { data, error } = await getRequest<PostData>(url);
 
@@ -70,8 +69,8 @@ function Feed() {
     }
 
     useEffect(() => {
-        GetPosts(page);
-    }, []);
+        if (isLoaded) GetPosts(page);
+    }, [isLoaded]);
 
     return (
         <>

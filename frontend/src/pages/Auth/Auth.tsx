@@ -26,7 +26,7 @@ function Auth() {
 
     const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [currScreen, setCurrScreen] = useState<string>('Categories');
+    const [currScreen, setCurrScreen] = useState<string>('Signup');
 
 
     function SetUser(userData: User) {
@@ -43,8 +43,6 @@ function Auth() {
 
     async function SetScreen() {
         if (!user || !user.email) return;
-
-        console.log(user.categories);
 
         if (!user.username) {
             setCurrScreen('User');

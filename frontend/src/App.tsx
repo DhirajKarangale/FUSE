@@ -12,6 +12,7 @@ import Post from './pages/Post/Post';
 import User from './pages/User/User';
 import About from './pages/About/About';
 
+import AutoLogin from './components/AutoLogin';
 import SetBG from './backgrounds/SetBG';
 import LayoutNavbar from './components/LayoutNavbar';
 
@@ -22,7 +23,8 @@ export default function App() {
     <Provider store={store}>
       <Router>
         <SetBG />
-        
+        <AutoLogin />
+
         <Routes>
           <Route path={routeAuth} element={<Auth />} />
 
