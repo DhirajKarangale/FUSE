@@ -59,9 +59,11 @@ function Auth() {
                     about: user.about,
                     categories: user.categories
                 };
+                
                 SetLoader(true);
                 const { data, error } = await putRequest<UserData>(urlUser, body);
                 SetLoader(false);
+                
                 if (data) navigate(routeFeed);
                 else ShowMsg(error, 'red')
             }
@@ -71,7 +73,9 @@ function Auth() {
         }
     }
 
-    useEffect(() => { SetScreen(); }, [user])
+    useEffect(() => {
+        SetScreen();
+    }, [user])
 
     return (
         <>
