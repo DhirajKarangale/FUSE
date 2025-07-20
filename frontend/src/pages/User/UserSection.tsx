@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Save, X } from "lucide-react";
 
@@ -39,7 +39,6 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
 
     async function ButtonSave(field: "username" | "email" | "about") {
         const body: Partial<User> = {};
-
         const value = fieldValues[field];
 
         if (field === "username") {
@@ -79,6 +78,14 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         ShowMsg(GetMessage('logoutSuccess'), 'orange');
         navigate(routeAuth);
     }
+
+    useEffect(() => {
+        setFieldValues({
+            username: user.username,
+            email: user.email,
+            about: user.about || '',
+        });
+    }, [user]);
 
     return (
         <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
