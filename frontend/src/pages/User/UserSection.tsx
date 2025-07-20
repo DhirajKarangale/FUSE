@@ -6,20 +6,20 @@ import { urlUser, urlUserImageDelete } from "../../api/APIs";
 import { putRequest, deleteRequest } from "../../api/APIManager";
 
 import { type User } from "../../models/modelUser";
+import { setUser, clearUser } from '../../redux/sliceUser';
+import { setLoader } from '../../redux/sliceLoader';
+import { setMessage } from '../../redux/sliceMessageBar';
+import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
+
 import { routeAuth } from '../../utils/Routes';
 import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
-type UserDataProps = {
-    ShowMsg: (msg: string, color?: string) => void;
-    ShowLoader: (isLoading: boolean) => void;
-    SetUser: (user: User) => void;
-    ClearUser: () => void;
-    user: User;
-}
-
-function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserDataProps) {
+function UserSection() {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    const user = useAppSelector((state) => state.user);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -32,6 +32,23 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         email: user.email,
         about: user.about || ''
     });
+
+
+    function ShowMsg(message: string, color?: string) {
+        dispatch(setMessage({ message, color }));
+    }
+
+    function ShowLoader(isLoading: boolean) {
+        dispatch(setLoader({ isLoading }));
+    }
+
+    function SetUser(user: User) {
+        dispatch(setUser(user));
+    }
+
+    function ClearUser() {
+        dispatch(clearUser());
+    }
 
     function ValidateFile(file: File) {
         const validTypes = ["image/jpeg", "image/png", "image/webp"];

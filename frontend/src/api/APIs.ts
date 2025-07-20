@@ -7,3 +7,4 @@ export const urlUserImageDelete = `${urlBase}/user/image`;
 export const urlCategories = `${urlBase}/user/categories`;
 
 export const urlPost = `${urlBase}/post`
+export const urlPostUser = `${urlBase}/post/user`
