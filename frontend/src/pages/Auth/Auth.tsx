@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AuthUser from './AuthUser';
 import AuthSignup from "./AuthSignup"
 import AuthCategories from './AuthCategories';
 import Loader from "../../components/Loader";
-import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
 import { urlUser } from '../../api/APIs';
 import { putRequest } from '../../api/APIManager';
 
 import { type User, type UserData } from "../../models/modelUser";
 import { setUser } from '../../redux/sliceUser';
+import { setMessage } from '../../redux/sliceMessageBar';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
 import { routeFeed } from '../../utils/Routes';
@@ -22,7 +22,6 @@ function Auth() {
     const user = useAppSelector((state) => state.user);
 
     const navigate = useNavigate();
-    const msgRef = useRef<MessageBarHandle>(null);
 
     const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,7 +37,7 @@ function Auth() {
     }
 
     function ShowMsg(msg: string, color?: string) {
-        msgRef.current?.ShowMsg(msg, color);
+        dispatch(setMessage({ message: msg, color: color }))
     }
 
     async function SetScreen() {
@@ -59,11 +58,11 @@ function Auth() {
                     about: user.about,
                     categories: user.categories
                 };
-                
+
                 SetLoader(true);
                 const { data, error } = await putRequest<UserData>(urlUser, body);
                 SetLoader(false);
-                
+
                 if (data) navigate(routeFeed);
                 else ShowMsg(error, 'red')
             }
@@ -98,8 +97,6 @@ function Auth() {
                 SetUser={SetUser}
                 user={user}
             />}
-
-            <MessageBar ref={msgRef} />
         </>
     )
 }

@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import PostCard from "../../components/PostCard";
-import MessageBar, { type MessageBarHandle } from '../../components/MessageBar';
 
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { setPostData } from "../../redux/sliceFeedPost";
+
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 import { type PostData } from "../../models/modelPosts";
+import { setMessage } from '../../redux/sliceMessageBar';
 
+import PostCard from "../../components/PostCard";
 import SkeletonPost from "../../components/SkeletonPost";
 
 function Feed() {
     const dispatch = useAppDispatch();
     const postData = useAppSelector((state) => state.feedPost);
     const { categories, isLoaded } = useAppSelector((state) => state.user);
-    const msgRef = useRef<MessageBarHandle>(null);
 
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ function Feed() {
     }
 
     function ShowMsg(msg: string, color?: string) {
-        msgRef.current?.ShowMsg(msg, color);
+        dispatch(setMessage({ message: msg, color: color }))
     }
 
     useEffect(() => {
@@ -89,7 +89,7 @@ function Feed() {
                 <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
 
-            <MessageBar ref={msgRef} />
+            {/* <MessageBar ref={msgRef} /> */}
         </>
     );
 }

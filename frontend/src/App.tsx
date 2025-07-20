@@ -15,6 +15,7 @@ import About from './pages/About/About';
 import AutoLogin from './components/AutoLogin';
 import SetBG from './backgrounds/SetBG';
 import LayoutNavbar from './components/LayoutNavbar';
+import MessageBar from './components/MessageBar';
 
 import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routePost, routeUser, routeAbout } from './utils/Routes';
 
@@ -24,7 +25,7 @@ export default function App() {
       <Router>
         <SetBG />
         <AutoLogin />
-
+        <MessageBar />
 
         <Routes>
           <Route path={routeAuth} element={<Auth />} />

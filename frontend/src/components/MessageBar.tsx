@@ -1,31 +1,32 @@
 import './components.css';
 
-import React, { useState, useImperativeHandle, forwardRef, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useAppSelector } from '../redux/hookStore';
 
-export type MessageBarHandle = {
-    ShowMsg: (message: string, color?: string) => void;
-};
+function MessageBar() {
 
-const MessageBar = forwardRef<MessageBarHandle>((_, ref) => {
+    const { message, color, key } = useAppSelector((state) => state.messageBar);
     const [msg, setMsg] = useState('');
     const [msgColor, setMsgColor] = useState('white');
     const [animationKey, setAnimationKey] = useState(0);
     const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    useImperativeHandle(ref, () => ({
-        ShowMsg(message: string, color: string = 'white') {
-            setMsg(message);
-            setMsgColor(color);
-            setAnimationKey(prev => prev + 1); 
+    function ShowMsg() {
+        setMsg(message);
+        setMsgColor(color);
+        setAnimationKey(prev => prev + 1);
 
-            if (msgTimer.current) clearTimeout(msgTimer.current);
-            if (!message) return;
+        if (msgTimer.current) clearTimeout(msgTimer.current);
+        if (!message) return;
 
-            msgTimer.current = setTimeout(() => {
-                setMsg('');
-            }, 3000);
-        }
-    }));
+        msgTimer.current = setTimeout(() => {
+            setMsg('');
+        }, 3000);
+    }
+
+    useEffect(() => {
+        ShowMsg();
+    }, [key]);
 
     if (!msg) return null;
 
@@ -38,6 +39,6 @@ const MessageBar = forwardRef<MessageBarHandle>((_, ref) => {
             </div>
         </div>
     );
-});
+}
 
 export default React.memo(MessageBar);
