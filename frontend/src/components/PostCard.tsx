@@ -46,13 +46,13 @@ function PostCard({ post, isUser }: Props) {
                 </div>
 
                 <div>
-                    <div className="font-semibold text-base select-text">{post.username}</div>
+                    <div className="font-semibold text-base">{post.username}</div>
                     <div className="text-sm text-white/60">{createdAt}</div>
                 </div>
             </div>}
 
             <div className="mb-3">
-                <h2 className="text-xl font-bold select-text">{post.post_title}</h2>
+                <h2 className="text-xl font-bold">{post.post_title}</h2>
                 {isUser && <div className="text-sm text-white/60">{createdAt}</div>}
             </div>
 
@@ -77,11 +77,11 @@ function PostCard({ post, isUser }: Props) {
 
             <div className="mb-4">
                 {isExpanded || !isTrimmed ? (
-                    <div className="custom-scroll text-white/90 text-sm leading-relaxed max-h-48 overflow-y-auto pr-1 select-text break-words whitespace-pre-wrap overflow-x-hidden scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                    <div className="custom-scroll text-white/90 text-sm leading-relaxed max-h-48 overflow-y-auto pr-1 break-words whitespace-pre-wrap overflow-x-hidden scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                         {post.post_body}
                     </div>
                 ) : (
-                    <p className="text-white/90 text-sm leading-relaxed select-text break-words line-clamp-5">
+                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-5">
                         {post.post_body}
                     </p>
                 )}
@@ -104,7 +104,7 @@ function PostCard({ post, isUser }: Props) {
                         <MessageCircle className="w-4 h-4" /> <span>0</span>
                     </button>
                 </div>
-                <span className="text-white/50 text-xs select-text">{post.category}</span>
+                <span className="text-white/50 text-xs">{post.category}</span>
             </div>
         </div>
     );
