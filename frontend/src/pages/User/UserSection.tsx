@@ -32,6 +32,22 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         about: user.about || ''
     });
 
+    function ValidateFile(file: File) {
+        const validTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!validTypes.includes(file.type)) {
+            ShowMsg("Only JPG, PNG or WEBP images are allowed", "red");
+            return false;
+        }
+
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+            ShowMsg(GetMessage('imageSize'), "red");
+            return false;
+        }
+
+        return true;
+    }
+
     function ButtonCancel() {
         setEditField(null);
         setFieldValues({
@@ -87,19 +103,10 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const validTypes = ["image/jpeg", "image/png", "image/webp"];
-        if (!validTypes.includes(file.type)) {
-            ShowMsg("Only JPG, PNG or WEBP images are allowed", "red");
-            return;
-        }
-
-        const maxSize = 5 * 1024 * 1024;
-        if (file.size > maxSize) {
-            ShowMsg(GetMessage('imageSize'), "red");
-            return;
-        }
+        if (!ValidateFile(file)) return;
 
         const formData = new FormData();
+        formData.append("folder", "fuse");
         formData.append("file", file);
         formData.append("upload_preset", UPLOAD_PRESET);
 
