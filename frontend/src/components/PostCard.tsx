@@ -13,14 +13,9 @@ function PostCard({ post }: Props) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    // const createdAt = useMemo(() => DateFormat(post.created_at), [post.created_at]);
     const createdAt = new Date(post.created_at).toLocaleDateString();
     const hasImage = !!post.media_url;
-
     const isTrimmed = useMemo(() => post.post_body.length > 500, [post.post_body]);
-    const trimmedBody = useMemo(() => {
-        return isTrimmed ? post.post_body.slice(0, 500) + "..." : post.post_body;
-    }, [post.post_body, isTrimmed]);
 
     const handleToggleExpand = useCallback(() => {
         setIsExpanded(prev => !prev);
@@ -41,10 +36,10 @@ function PostCard({ post }: Props) {
                 </div>
             </div>
 
-            <h2 className="text-2xl font-bold mb-3 select-text">{post.post_title}</h2>
+            <h2 className="text-xl font-bold mb-3 select-text">{post.post_title}</h2>
 
             {hasImage && (
-                <div className="w-full h-60 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
+                <div className="w-full h-50 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
                     {!imageLoaded && (
                         <img
                             src={MediaPlaceholder}
@@ -62,17 +57,25 @@ function PostCard({ post }: Props) {
                 </div>
             )}
 
-            <p className="text-white/90 text-sm leading-relaxed mb-4 select-text">
-                {isExpanded || !isTrimmed ? post.post_body : trimmedBody}
+            <div className="mb-4">
+                {isExpanded || !isTrimmed ? (
+                    <div className="custom-scroll text-white/90 text-sm leading-relaxed max-h-48 overflow-y-auto pr-1 select-text break-words whitespace-pre-wrap overflow-x-hidden scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                        {post.post_body}
+                    </div>
+                ) : (
+                    <p className="text-white/90 text-sm leading-relaxed select-text break-words line-clamp-5">
+                        {post.post_body}
+                    </p>
+                )}
                 {isTrimmed && (
                     <button
                         onClick={handleToggleExpand}
-                        className="text-cyan-400 ml-2 hover:underline"
+                        className="text-cyan-400 text-sm mt-1 hover:underline"
                     >
                         {isExpanded ? "Show Less" : "More"}
                     </button>
                 )}
-            </p>
+            </div>
 
             <div className="flex items-center justify-between text-sm mt-4 pt-4 border-t border-white/10">
                 <div className="flex gap-4">
