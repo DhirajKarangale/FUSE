@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { type Post } from "../models/modelPosts";
-import DateFormat from "../utils/DateFormat";
 import { Heart, MessageCircle } from "lucide-react";
 
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
@@ -14,7 +13,8 @@ function PostCard({ post }: Props) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const createdAt = useMemo(() => DateFormat(post.created_at), [post.created_at]);
+    // const createdAt = useMemo(() => DateFormat(post.created_at), [post.created_at]);
+    const createdAt = new Date(post.created_at).toLocaleDateString();
     const hasImage = !!post.media_url;
 
     const isTrimmed = useMemo(() => post.post_body.length > 500, [post.post_body]);
