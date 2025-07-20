@@ -139,7 +139,7 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
     }, [user]);
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
+        <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4 select-none">
 
             <div className="flex items-center justify-between">
 
@@ -165,7 +165,7 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
                             </>
                         ) : (
                             <h2
-                                className="text-2xl font-bold cursor-pointer w-full h-full flex items-center"
+                                className="text-2xl font-bold cursor-pointer w-full h-full flex items-center select-text"
                                 onClick={() => setEditField("username")}>
                                 {user.username}
                             </h2>
@@ -192,7 +192,7 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
                             </>
                         ) : (
                             <p
-                                className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center"
+                                className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center select-text"
                                 onClick={() => setEditField("email")}>
                                 {user.email}
                             </p>
@@ -243,7 +243,7 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
                     </div>
                 ) : (
                     <div
-                        className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer"
+                        className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer select-text"
                         onClick={() => setEditField("about")}>
                         {user.about || 'No about info provided.'}
                     </div>
