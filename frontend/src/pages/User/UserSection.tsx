@@ -26,70 +26,11 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
     const CLOUD_NAME = "dfamljkyo";
     const UPLOAD_PRESET = "changexl";
 
-
     const [fieldValues, setFieldValues] = useState({
         username: user.username,
         email: user.email,
         about: user.about || ''
     });
-
-
-    async function UploadImage(e: React.ChangeEvent<HTMLInputElement>) {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const validTypes = ["image/jpeg", "image/png", "image/webp"];
-        if (!validTypes.includes(file.type)) {
-            ShowMsg("Only JPG, PNG or WEBP images are allowed", "red");
-            return;
-        }
-
-        const maxSize = 5 * 1024 * 1024;
-        if (file.size > maxSize) {
-            ShowMsg("Image must be smaller than 5MB", "red");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", UPLOAD_PRESET);
-
-        ShowLoader(true);
-
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                method: "POST",
-                body: formData
-            });
-
-            const data = await res.json();
-            if (!data.secure_url) throw new Error("Upload failed");
-
-            const body: Partial<User> = { image_url: data.secure_url };
-            const { data: updatedUser, error } = await putRequest<User>(urlUser, body);
-
-            if (updatedUser) {
-                SetUser(updatedUser);
-                ShowMsg("Image updated", "green");
-            } else {
-                ShowMsg(error, "red");
-            }
-        } catch (err) {
-            ShowMsg("Failed to upload image", "red");
-        }
-
-        ShowLoader(false);
-    }
-
-
-
-
-
-
-
-
-
-
 
     function ButtonCancel() {
         setEditField(null);
@@ -98,6 +39,12 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
             email: user.email,
             about: user.about || ''
         });
+    }
+
+    function ButtonLogout() {
+        ClearUser();
+        ShowMsg(GetMessage('logoutSuccess'), 'orange');
+        navigate(routeAuth);
     }
 
     async function ButtonSave(field: "username" | "email" | "about") {
@@ -136,10 +83,51 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         ShowLoader(false);
     }
 
-    function ButtonLogout() {
-        ClearUser();
-        ShowMsg(GetMessage('logoutSuccess'), 'orange');
-        navigate(routeAuth);
+    async function UploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const validTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!validTypes.includes(file.type)) {
+            ShowMsg("Only JPG, PNG or WEBP images are allowed", "red");
+            return;
+        }
+
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+            ShowMsg(GetMessage('imageSize'), "red");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", UPLOAD_PRESET);
+
+        ShowLoader(true);
+
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            if (!data.secure_url) throw new Error("Upload failed");
+
+            const body: Partial<User> = { image_url: data.secure_url };
+            const { data: updatedUser, error } = await putRequest<User>(urlUser, body);
+
+            if (updatedUser) {
+                SetUser(updatedUser);
+                ShowMsg(GetMessage('imageSuccess'), "green");
+            } else {
+                ShowMsg(error, "red");
+            }
+        } catch (err) {
+            ShowMsg("Failed to upload image", "red");
+        }
+
+        ShowLoader(false);
     }
 
     useEffect(() => {
@@ -211,14 +199,6 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
                         )}
                     </div>
                 </div>
-
-                {/* <img
-                    src={user.image_url || ProfilePlaceholder}
-                    alt="User"
-                    className="w-20 h-20 rounded-full border-2 border-white object-cover"
-                    onError={(e) => { (e.target as HTMLImageElement).src = ProfilePlaceholder }}
-                /> */}
-
 
                 <div className="relative">
                     <input

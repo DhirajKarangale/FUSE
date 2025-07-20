@@ -35,5 +35,12 @@
 
     "logoutSuccess":[
         "Logged out successfully"
+    ],
+
+    "imageSize":[
+        "Image must be smaller than 5MB"
+    ],
+    "imageSuccess":[
+        "Image updated"
     ]
 }
