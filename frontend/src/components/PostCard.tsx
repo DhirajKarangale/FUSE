@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { type Post } from "../models/modelPosts";
 import { Heart, MessageCircle } from "lucide-react";
 
@@ -15,6 +16,7 @@ function PostCard({ post, isUser }: Props) {
     const [mediaLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const navigate = useNavigate();
     const createdAt = new Date(post.created_at).toLocaleDateString();
     const hasImage = !!post.media_url;
     const isTrimmed = useMemo(() => post.post_body.length > 500, [post.post_body]);
@@ -26,7 +28,8 @@ function PostCard({ post, isUser }: Props) {
     return (
         <div className="select-none w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
 
-            {!isUser && <div className="flex items-center gap-3 mb-4">
+            {!isUser && <div className="flex items-center gap-3 mb-4"
+                onClick={() => navigate(`/user/${post.user_id}`)}>
                 <div className="relative w-10 h-10">
                     {!profileLoaded && (
                         <img
@@ -88,8 +91,7 @@ function PostCard({ post, isUser }: Props) {
                 {isTrimmed && (
                     <button
                         onClick={handleToggleExpand}
-                        className="text-cyan-400 text-sm mt-1 hover:underline"
-                    >
+                        className="text-cyan-400 text-sm mt-1 hover:underline">
                         {isExpanded ? "Show Less" : "More"}
                     </button>
                 )}
@@ -108,7 +110,6 @@ function PostCard({ post, isUser }: Props) {
             </div>
         </div>
     );
-
 }
 
 export default React.memo(PostCard);

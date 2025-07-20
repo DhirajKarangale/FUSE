@@ -10,7 +10,11 @@ import { setMessage } from '../../redux/sliceMessageBar';
 import PostCard from "../../components/PostCard";
 import SkeletonPost from "../../components/SkeletonPost";
 
-function UserPost() {
+type UserPost = {
+    userId: number;
+}
+
+function UserPost({ userId }: UserPost) {
     const dispatch = useAppDispatch();
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
@@ -38,7 +42,7 @@ function UserPost() {
     async function GetPosts(currentPage: number) {
         setLoading(true);
 
-        let url = `${urlPostUser}?page=${currentPage}`;
+        let url = `${urlPostUser}?userId=${userId}&page=${currentPage}`;
         const { data, error } = await getRequest<PostData>(url);
 
         if (data) {

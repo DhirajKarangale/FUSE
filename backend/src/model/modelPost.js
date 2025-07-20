@@ -28,7 +28,7 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT user_id, post_title, post_body, media_url, created_at, category
+            `SELECT posts.id, user_id, post_title, post_body, media_url, created_at, category
             FROM posts 
             WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '')
             ORDER BY created_at DESC

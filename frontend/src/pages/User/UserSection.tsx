@@ -9,17 +9,20 @@ import { type User } from "../../models/modelUser";
 import { setUser, clearUser } from '../../redux/sliceUser';
 import { setLoader } from '../../redux/sliceLoader';
 import { setMessage } from '../../redux/sliceMessageBar';
-import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
+import { useAppDispatch } from '../../redux/hookStore';
 
 import { routeAuth } from '../../utils/Routes';
 import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
-function UserSection() {
+type UserSectionProps = {
+    user: User
+}
+
+function UserSection({ user }: UserSectionProps) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const user = useAppSelector((state) => state.user);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
