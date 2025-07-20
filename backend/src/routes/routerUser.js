@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const serviceUser = require('../services/serviceUser');
+const serviceCloudinary = require('../services/serviceCloudinary');
 
 router.get('/', async (req, res, next) => {
     try {
@@ -27,6 +28,16 @@ router.put('/', async (req, res, next) => {
         const id = req.user.id;
         const body = req.body;
         const response = await serviceUser.UpdateUser(id, body);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/image', async (req, res, next) => {
+    try {
+        const publicId = req.body.publicId;
+        const response = await serviceCloudinary.DeleteMedia(publicId);
         res.status(200).json(response);
     } catch (error) {
         next(error);

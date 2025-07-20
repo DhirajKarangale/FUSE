@@ -2,8 +2,6 @@ const modelPost = require('../model/modelPost');
 const categories = require('../config/categories.json');
 
 const validator = require('../utilities/validator');
-const throwError = require('../utilities/throwError');
-const statusCode = require('../utilities/statusCodes');
 const messagesManager = require('../utilities/messagesManager');
 
 async function Post(id, body) {
@@ -17,7 +15,6 @@ async function Post(id, body) {
 
     return messagesManager.Success('postAdded');
 }
-
 
 async function GetUserPosts(userId, page) {
     validator.ID(userId);

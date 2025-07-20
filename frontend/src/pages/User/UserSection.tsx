@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Save, X } from "lucide-react";
 
-import { urlUser } from "../../api/APIs";
-import { putRequest } from "../../api/APIManager";
+import { urlUser, urlUserImageDelete } from "../../api/APIs";
+import { putRequest, deleteRequest } from "../../api/APIManager";
 
 import { type User } from "../../models/modelUser";
 import { routeAuth } from '../../utils/Routes';
@@ -46,6 +46,23 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         }
 
         return true;
+    }
+
+    async function DeleteImage(oldImage: string) {
+        if (!oldImage) return;
+
+        const publicId = GetPublicId(oldImage);
+        if (!publicId) return;
+
+        await deleteRequest(urlUserImageDelete, { publicId });
+    }
+
+    function GetPublicId(imageUrl: string): string | null {
+        if (!imageUrl) return null;
+        const parts = imageUrl.split('/');
+        const fileWithExt = parts[parts.length - 1];
+        const publicId = fileWithExt.split('.')[0];
+        return `fuse/${publicId}`;
     }
 
     function ButtonCancel() {
@@ -110,31 +127,36 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         formData.append("file", file);
         formData.append("upload_preset", UPLOAD_PRESET);
 
-        ShowLoader(true);
 
         try {
+            ShowLoader(true);
+
             const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
                 method: "POST",
                 body: formData
             });
 
-            const data = await res.json();
-            if (!data.secure_url) throw new Error("Upload failed");
+            const dataImageUpload = await res.json();
+            if (!dataImageUpload.secure_url) throw new Error("Upload failed");
 
-            const body: Partial<User> = { image_url: data.secure_url };
-            const { data: updatedUser, error } = await putRequest<User>(urlUser, body);
+            const oldImage = user.image_url;
 
-            if (updatedUser) {
-                SetUser(updatedUser);
+            const body: Partial<User> = { image_url: dataImageUpload.secure_url };
+            const { data, error } = await putRequest<User>(urlUser, body);
+
+            await DeleteImage(oldImage);
+
+            if (data) {
+                SetUser(data);
                 ShowMsg(GetMessage('imageSuccess'), "green");
             } else {
                 ShowMsg(error, "red");
             }
         } catch (err) {
             ShowMsg("Failed to upload image", "red");
+        } finally {
+            ShowLoader(false);
         }
-
-        ShowLoader(false);
     }
 
     useEffect(() => {
