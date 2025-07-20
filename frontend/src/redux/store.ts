@@ -1,13 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sliceUser from './sliceUser';
-import sliceFeedPost from './sliceFeedPost';
-import sliceMessageBar from './sliceMessageBar';
 import sliceLoader from './sliceLoader'
+import sliceMessageBar from './sliceMessageBar';
 
 export const store = configureStore({
     reducer: {
         user: sliceUser,
-        feedPost: sliceFeedPost,
         messageBar: sliceMessageBar,
         loader: sliceLoader
     }

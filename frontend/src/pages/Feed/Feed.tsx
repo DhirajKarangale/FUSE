@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { setPostData } from "../../redux/sliceFeedPost";
 
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
-import { type PostData } from "../../models/modelPosts";
+import { type PostData, getInitialPosts } from "../../models/modelPosts";
 import { setMessage } from '../../redux/sliceMessageBar';
 
 import PostCard from "../../components/PostCard";
@@ -13,12 +12,12 @@ import SkeletonPost from "../../components/SkeletonPost";
 
 function Feed() {
     const dispatch = useAppDispatch();
-    const postData = useAppSelector((state) => state.feedPost);
     const { categories, isLoaded } = useAppSelector((state) => state.user);
 
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState<number>(1);
+    const [hasMore, setHasMore] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [postData, setPostData] = useState<PostData>(getInitialPosts());
 
     const observer = useRef<IntersectionObserver | null>(null);
 
@@ -48,12 +47,12 @@ function Feed() {
 
         if (data) {
             if (currentPage === 1) {
-                dispatch(setPostData(data));
+                setPostData(data);
             } else {
-                dispatch(setPostData({
+                setPostData({
                     ...data,
                     posts: [...postData.posts, ...data.posts],
-                }));
+                });
             }
 
             setHasMore(data.posts.length > 0);
