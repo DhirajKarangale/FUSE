@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Save, X } from "lucide-react";
 
+import { urlUser } from "../../api/APIs";
+import { putRequest } from "../../api/APIManager";
+
 import { type User } from "../../models/modelUser";
 import { routeAuth } from '../../utils/Routes';
+import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 type UserDataProps = {
@@ -17,7 +21,7 @@ type UserDataProps = {
 function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserDataProps) {
     const navigate = useNavigate();
     const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
-    
+
     const [fieldValues, setFieldValues] = useState({
         username: user.username,
         email: user.email,
@@ -33,21 +37,35 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
         });
     }
 
-    function ButtonSave(field: "username" | "email" | "about") {
-        const updatedUser = { ...user, [field]: fieldValues[field] };
-        SetUser(updatedUser);
-        ShowMsg(`${field} updated`, "green");
-        setEditField(null);
+    async function ButtonSave(field: "username" | "email" | "about") {
+        const body: Partial<User> = {};
+
+        if (field === "username") body.username = fieldValues.username;
+        if (field === "email") body.email = fieldValues.email;
+        if (field === "about") body.about = fieldValues.about;
+
+        ShowLoader(true);
+        const { data, error } = await putRequest<User>(urlUser, body);
+        if (data) {
+            SetUser(data);
+            ShowMsg(`${field.charAt(0).toUpperCase() + field.slice(1)} updated`, "green");
+            setEditField(null);
+        }
+        else {
+            ShowMsg(error, 'red');
+        }
+
+        ShowLoader(false);
     }
 
     function ButtonLogout() {
         ClearUser();
-        ShowMsg('Logged out successfully', 'orange');
+        ShowMsg(GetMessage('logoutSuccess'), 'orange');
         navigate(routeAuth);
     }
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-black/50 text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
+        <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
 
             <div className="flex items-center justify-between">
 

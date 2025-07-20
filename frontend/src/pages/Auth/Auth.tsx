@@ -8,7 +8,7 @@ import AuthCategories from './AuthCategories';
 import { urlUser } from '../../api/APIs';
 import { putRequest } from '../../api/APIManager';
 
-import { type User, type UserData } from "../../models/modelUser";
+import { type User } from "../../models/modelUser";
 import { setUser } from '../../redux/sliceUser';
 import { setLoader } from '../../redux/sliceLoader';
 import { setMessage } from '../../redux/sliceMessageBar';
@@ -59,11 +59,11 @@ function Auth() {
                 };
 
                 SetLoader(true);
-                const { data, error } = await putRequest<UserData>(urlUser, body);
+                const { data, error } = await putRequest<User>(urlUser, body);
                 SetLoader(false);
 
                 if (data) navigate(routeFeed);
-                else ShowMsg(error, 'red')
+                else ShowMsg(error, 'red');
             }
             else {
                 navigate(routeFeed);
