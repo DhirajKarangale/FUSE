@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import loaderMessages from '../data/loader.json';
 
+import { useAppSelector } from "../redux/hookStore";
+
 function Loader() {
+
+    const { isLoading } = useAppSelector((state) => state.loader);
     const [tip, setTip] = useState("");
     const [loadingText, setLoadingText] = useState("Loading");
 
     useEffect(() => {
-        setTip(loaderMessages[Math.floor(Math.random() * loaderMessages.length)]);
+        if (isLoading) {
+            setTip(loaderMessages[Math.floor(Math.random() * loaderMessages.length)]);
 
-        const dots = ["", ".", "..", "..."];
-        let index = 0;
+            const dots = ["", ".", "..", "..."];
+            let index = 0;
 
-        const interval = setInterval(() => {
-            setLoadingText(`Loading${dots[index]}`);
-            index = (index + 1) % dots.length;
-        }, 400);
+            const interval = setInterval(() => {
+                setLoadingText(`Loading${dots[index]}`);
+                index = (index + 1) % dots.length;
+            }, 400);
 
-        return () => clearInterval(interval);
-    }, []);
+            return () => clearInterval(interval);
+        }
+    }, [isLoading]);
+
+    if (!isLoading) return;
 
     return (
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/10 backdrop-blur-sm text-white px-4">

@@ -88,8 +88,6 @@ function Feed() {
             {!hasMore && !loading && (
                 <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
-
-            {/* <MessageBar ref={msgRef} /> */}
         </>
     );
 }

@@ -17,7 +17,7 @@ const initialState = getInitialMessageBar();
 
 
 const sliceMessageBar = createSlice({
-    name: 'MessageBar',
+    name: 'messagebar',
     initialState,
     reducers: {
         setMessage(state, action: PayloadAction<{ message: string, color?: string }>) {

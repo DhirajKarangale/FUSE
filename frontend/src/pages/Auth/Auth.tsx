@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import AuthUser from './AuthUser';
 import AuthSignup from "./AuthSignup"
 import AuthCategories from './AuthCategories';
-import Loader from "../../components/Loader";
 
 import { urlUser } from '../../api/APIs';
 import { putRequest } from '../../api/APIManager';
 
 import { type User, type UserData } from "../../models/modelUser";
 import { setUser } from '../../redux/sliceUser';
+import { setLoader } from '../../redux/sliceLoader';
 import { setMessage } from '../../redux/sliceMessageBar';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
@@ -24,7 +24,6 @@ function Auth() {
     const navigate = useNavigate();
 
     const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [currScreen, setCurrScreen] = useState<string>('Signup');
 
 
@@ -33,7 +32,7 @@ function Auth() {
     }
 
     function SetLoader(isLoading: boolean) {
-        setIsLoading(isLoading);
+        dispatch(setLoader({ isLoading }));
     }
 
     function ShowMsg(msg: string, color?: string) {
@@ -78,8 +77,6 @@ function Auth() {
 
     return (
         <>
-            {isLoading && <Loader />}
-
             {currScreen === 'Signup' && <AuthSignup
                 ShowMsg={ShowMsg}
                 SetUser={SetUser}
