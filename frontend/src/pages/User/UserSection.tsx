@@ -40,9 +40,25 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
     async function ButtonSave(field: "username" | "email" | "about") {
         const body: Partial<User> = {};
 
-        if (field === "username") body.username = fieldValues.username;
-        if (field === "email") body.email = fieldValues.email;
-        if (field === "about") body.about = fieldValues.about;
+        const value = fieldValues[field];
+
+        if (field === "username") {
+            if (value.length < 2) return ShowMsg(GetMessage('usernameLess'), "red");
+            if (value.length > 20) return ShowMsg(GetMessage('usernameMore'), "red");
+            body.username = fieldValues.username;
+        }
+
+        if (field === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) return ShowMsg(GetMessage('emailInvalid'), "red");
+            body.email = fieldValues.email;
+        }
+
+        if (field === "about") {
+            if (value.length < 5) return ShowMsg(GetMessage('aboutLess'), "red");
+            if (value.length > 500) return ShowMsg(GetMessage('aboutMore'), "red");
+            body.about = fieldValues.about;
+        }
 
         ShowLoader(true);
         const { data, error } = await putRequest<User>(urlUser, body);

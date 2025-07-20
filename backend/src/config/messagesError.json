@@ -38,7 +38,7 @@
         "Invalid About, about should be greater than 5 char"
     ],
     "aboutInvalidLarge":[
-        "Invalid About, about should be less than 300 char"
+        "Invalid About, about should be less than 500 char"
     ],
 
     "userNameLess":[

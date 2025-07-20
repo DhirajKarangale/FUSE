@@ -26,6 +26,13 @@
         "User Name Should be less that 20 char"
     ],
 
+    "aboutLess":[
+        "About should be more than 5 char."
+    ],
+    "aboutMore":[
+        "About should be less than 500 char."
+    ],
+
     "logoutSuccess":[
         "Logged out successfully"
     ]

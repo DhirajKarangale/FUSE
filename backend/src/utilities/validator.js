@@ -28,7 +28,7 @@ function URL(url) {
 
 function About(about) {
     if (about.length < 5) errorThrow(messagesManager.Error('aboutInvalidLess'), statusCode.BAD_REQUEST);
-    else if (about.length > 300) errorThrow(messagesManager.Error('aboutInvalidLarge'), statusCode.BAD_REQUEST);
+    else if (about.length > 500) errorThrow(messagesManager.Error('aboutInvalidLarge'), statusCode.BAD_REQUEST);
 }
 
 function Category(category) {
