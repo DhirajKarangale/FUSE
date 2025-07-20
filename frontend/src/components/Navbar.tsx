@@ -15,7 +15,13 @@ const navItems = [
 function Navbar() {
     return (
 
-        <div className="fixed left-0 top-0 h-full w-56 bg-black/30 backdrop-blur-md border-r border-white/10 p-4 shadow-lg z-1">
+        // <div className="fixed left-0 top-0 h-full w-56 bg-black/100 backdrop-blur-md border-r border-white/10 p-4 shadow-lg z-1">
+        <div className="fixed left-0 top-0 h-full w-56
+    bg-gradient-to-b from-white/5 to-white/2
+    backdrop-blur-xl border-r border-white/10
+    shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]
+    p-4 z-10">
+
 
             <div className="flex flex-col gap-4">
 
