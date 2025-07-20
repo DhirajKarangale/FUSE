@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Save, X } from "lucide-react";
 
-import { type User, type UserData } from "../../models/modelUser";
-
+import { type User } from "../../models/modelUser";
 import { routeAuth } from '../../utils/Routes';
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
@@ -15,47 +15,147 @@ type UserDataProps = {
 }
 
 function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserDataProps) {
-
     const navigate = useNavigate();
+    const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
+    
+    const [fieldValues, setFieldValues] = useState({
+        username: user.username,
+        email: user.email,
+        about: user.about || ''
+    });
 
-    function handleLogout() {
+    function ButtonCancel() {
+        setEditField(null);
+        setFieldValues({
+            username: user.username,
+            email: user.email,
+            about: user.about || ''
+        });
+    }
+
+    function ButtonSave(field: "username" | "email" | "about") {
+        const updatedUser = { ...user, [field]: fieldValues[field] };
+        SetUser(updatedUser);
+        ShowMsg(`${field} updated`, "green");
+        setEditField(null);
+    }
+
+    function ButtonLogout() {
         ClearUser();
         ShowMsg('Logged out successfully', 'orange');
         navigate(routeAuth);
     }
 
     return (
-        <>
-            <div className="w-full max-w-2xl mx-auto bg-black/50 text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-2xl font-bold">{user.username}</h2>
-                        <p className="text-sm text-gray-300">{user.email}</p>
+        <div className="w-full max-w-2xl mx-auto bg-black/50 text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4">
+
+            <div className="flex items-center justify-between">
+
+                <div className="flex flex-col gap-1 w-full">
+
+                    <div className="flex items-center gap-2 h-[32px] w-full">
+                        {editField === "username" ? (
+                            <>
+                                <input
+                                    className="bg-white/10 text-white text-2xl font-bold rounded h-full py-1 pl-2 focus:outline-none w-full max-w-[80%]"
+                                    style={{ lineHeight: "1", fontSize: "1.5rem" }}
+                                    value={fieldValues.username}
+                                    onChange={(e) =>
+                                        setFieldValues({ ...fieldValues, username: e.target.value })
+                                    }
+                                />
+                                <button onClick={() => ButtonSave("username")}>
+                                    <Save size={18} />
+                                </button>
+                                <button onClick={ButtonCancel}>
+                                    <X size={18} />
+                                </button>
+                            </>
+                        ) : (
+                            <h2
+                                className="text-2xl font-bold cursor-pointer w-full h-full flex items-center"
+                                onClick={() => setEditField("username")}>
+                                {user.username}
+                            </h2>
+                        )}
                     </div>
-                    <img
-                        src={user.image_url || ProfilePlaceholder}
-                        alt="User"
-                        className="w-20 h-20 rounded-full border-2 border-white object-cover"
-                        onError={(e) => { (e.target as HTMLImageElement).src = ProfilePlaceholder }}
-                    />
+
+                    <div className="flex items-center gap-2 h-[32px] w-full">
+                        {editField === "email" ? (
+                            <>
+                                <input
+                                    className="bg-white/10 text-sm text-gray-200 rounded h-full py-1 pl-2 focus:outline-none w-full max-w-[80%]"
+                                    style={{ fontSize: "0.875rem", lineHeight: "1" }}
+                                    value={fieldValues.email}
+                                    onChange={(e) =>
+                                        setFieldValues({ ...fieldValues, email: e.target.value })
+                                    }
+                                />
+                                <button onClick={() => ButtonSave("email")}>
+                                    <Save size={18} />
+                                </button>
+                                <button onClick={ButtonCancel}>
+                                    <X size={18} />
+                                </button>
+                            </>
+                        ) : (
+                            <p
+                                className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center"
+                                onClick={() => setEditField("email")}>
+                                {user.email}
+                            </p>
+                        )}
+                    </div>
                 </div>
 
-                <div className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10">
-                    {user.about || 'No about info provided.'}
-                </div>
-
-                <hr className="border-white/10" />
-
-                <div className="flex justify-between items-center text-xs text-gray-400">
-                    <span>Joined on {new Date(user.created_at).toLocaleDateString()}</span>
-                    <button
-                        className="text-red-400 hover:text-red-300 transition-all"
-                        onClick={handleLogout}>
-                        Logout
-                    </button>
-                </div>
+                <img
+                    src={user.image_url || ProfilePlaceholder}
+                    alt="User"
+                    className="w-20 h-20 rounded-full border-2 border-white object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).src = ProfilePlaceholder }}
+                />
             </div>
-        </>
+
+            <>
+                {editField === "about" ? (
+                    <div className="relative">
+                        <textarea
+                            className="custom-scroll w-full bg-white/10 text-sm text-gray-200 rounded p-3 h-32 resize-none focus:outline-none"
+                            value={fieldValues.about || ""}
+                            onChange={(e) =>
+                                setFieldValues({ ...fieldValues, about: e.target.value })
+                            }
+                        />
+                        <div className="flex justify-end gap-2 mt-2">
+                            <button onClick={() => ButtonSave("about")}>
+                                <Save size={18} />
+                            </button>
+                            <button onClick={ButtonCancel}>
+                                <X size={18} />
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div
+                        className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer"
+                        onClick={() => setEditField("about")}>
+                        {user.about || 'No about info provided.'}
+                    </div>
+                )}
+
+            </>
+
+            <hr className="border-white/10" />
+
+            <div className="flex justify-between items-center text-xs text-gray-400">
+                <span>Joined on {new Date(user.created_at).toLocaleDateString()}</span>
+                <button
+                    className="text-red-400 hover:text-red-300 transition-all"
+                    onClick={ButtonLogout}>
+                    Logout
+                </button>
+            </div>
+        </div>
     );
 }
 

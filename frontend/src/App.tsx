@@ -47,4 +47,4 @@ export default function App() {
   )
 };
 
-// Aurora, Dither, Ripple Grid, Squares, Particles
+// Dither, Ripple Grid, Particles, Dark Veil, Galaxy
