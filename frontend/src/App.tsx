@@ -25,6 +25,7 @@ export default function App() {
         <SetBG />
         <AutoLogin />
 
+
         <Routes>
           <Route path={routeAuth} element={<Auth />} />
 
