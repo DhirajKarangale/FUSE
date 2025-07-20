@@ -77,7 +77,7 @@ function Feed() {
                 const isLast = index === postData.posts.length - 1;
                 return (
                     <div key={post.id} ref={isLast ? lastPostRef : null}>
-                        <PostCard post={post} />
+                        <PostCard post={post} isUser={false} />
                     </div>
                 );
             })}

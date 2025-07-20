@@ -7,9 +7,10 @@ import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
 
 type Props = {
     post: Post;
+    isUser: boolean;
 };
 
-function PostCard({ post }: Props) {
+function PostCard({ post, isUser }: Props) {
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [mediaLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -25,7 +26,7 @@ function PostCard({ post }: Props) {
     return (
         <div className="select-none w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
 
-            <div className="flex items-center gap-3 mb-4">
+            {!isUser && <div className="flex items-center gap-3 mb-4">
                 <div className="relative w-10 h-10">
                     {!profileLoaded && (
                         <img
@@ -44,14 +45,16 @@ function PostCard({ post }: Props) {
                     />
                 </div>
 
-
                 <div>
                     <div className="font-semibold text-base select-text">{post.username}</div>
                     <div className="text-sm text-white/60">{createdAt}</div>
                 </div>
-            </div>
+            </div>}
 
-            <h2 className="text-xl font-bold mb-3 select-text">{post.post_title}</h2>
+            <div className="mb-3">
+                <h2 className="text-xl font-bold select-text">{post.post_title}</h2>
+                {isUser && <div className="text-sm text-white/60">{createdAt}</div>}
+            </div>
 
             {hasImage && (
                 <div className="w-full h-50 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
