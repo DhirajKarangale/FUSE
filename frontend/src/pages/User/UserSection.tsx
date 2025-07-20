@@ -20,6 +20,7 @@ type UserDataProps = {
 
 function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserDataProps) {
     const navigate = useNavigate();
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -237,17 +238,27 @@ function UserSection({ ShowMsg, ShowLoader, SetUser, ClearUser, user }: UserData
                         className="hidden"
                         onChange={UploadImage}
                     />
-                    <img
-                        src={user.image_url || ProfilePlaceholder}
-                        alt="User"
-                        className="w-20 h-20 rounded-full border-2 border-white object-cover cursor-pointer"
-                        onClick={() => fileInputRef.current?.click()}
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).src = ProfilePlaceholder;
-                        }}
-                    />
-                </div>
 
+                    <div className="relative w-20 h-20">
+                        {(!imageLoaded) && (
+                            <img
+                                src={ProfilePlaceholder}
+                                alt="Placeholder"
+                                className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
+                            />
+                        )}
+
+                        <img
+                            loading="lazy"
+                            src={user.image_url || ""}
+                            alt="User"
+                            onLoad={() => setImageLoaded(true)}
+                            className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
+                            onClick={() => fileInputRef.current?.click()}
+                        />
+                    </div>
+
+                </div>
 
             </div>
 

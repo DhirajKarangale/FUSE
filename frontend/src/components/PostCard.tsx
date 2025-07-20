@@ -11,7 +11,7 @@ type Props = {
 
 function PostCard({ post }: Props) {
     const [profileLoaded, setProfileLoaded] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
+    const [mediaLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
     const createdAt = new Date(post.created_at).toLocaleDateString();
@@ -44,6 +44,7 @@ function PostCard({ post }: Props) {
                     />
                 </div>
 
+
                 <div>
                     <div className="font-semibold text-base select-text">{post.username}</div>
                     <div className="text-sm text-white/60">{createdAt}</div>
@@ -54,7 +55,7 @@ function PostCard({ post }: Props) {
 
             {hasImage && (
                 <div className="w-full h-50 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
-                    {!imageLoaded && (
+                    {!mediaLoaded && (
                         <img
                             src={MediaPlaceholder}
                             alt="placeholder"
@@ -66,7 +67,7 @@ function PostCard({ post }: Props) {
                         src={post.media_url}
                         alt="post"
                         onLoad={() => setImageLoaded(true)}
-                        className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                        className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
                     />
                 </div>
             )}
