@@ -10,6 +10,7 @@ type Props = {
 };
 
 function PostCard({ post }: Props) {
+    const [profileLoaded, setProfileLoaded] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -25,11 +26,24 @@ function PostCard({ post }: Props) {
         <div className="select-none w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
 
             <div className="flex items-center gap-3 mb-4">
-                <img
-                    src={post.user_image_url || ProfilePlaceholder}
-                    alt={post.username}
-                    className="w-10 h-10 rounded-full object-cover border border-white/20"
-                />
+                <div className="relative w-10 h-10">
+                    {!profileLoaded && (
+                        <img
+                            src={ProfilePlaceholder}
+                            alt="placeholder"
+                            className="absolute w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 opacity-100"
+                        />
+                    )}
+
+                    <img
+                        loading="lazy"
+                        src={(post.user_image_url ?? undefined) || ProfilePlaceholder}
+                        alt={post.username}
+                        onLoad={() => setProfileLoaded(true)}
+                        className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"}`}
+                    />
+                </div>
+
                 <div>
                     <div className="font-semibold text-base select-text">{post.username}</div>
                     <div className="text-sm text-white/60">{createdAt}</div>
