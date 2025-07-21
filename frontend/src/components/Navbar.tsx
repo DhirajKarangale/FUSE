@@ -1,13 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Home, Flame, User, Info, SlidersHorizontal, FilePlus2 } from 'lucide-react';
-import { routeFeed, routePopular, routeCustomizeFeed, routePost, routeUser, routeAbout } from '../utils/Routes';
+import { routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout } from '../utils/Routes';
 
 const navItems = [
     { name: 'Feed', path: routeFeed, icon: <Home size={20} /> },
     { name: 'Popular', path: routePopular, icon: <Flame size={20} /> },
     { name: 'Customize Feed', path: routeCustomizeFeed, icon: <SlidersHorizontal size={20} /> },
-    { name: 'Post', path: routePost, icon: <FilePlus2 size={20} /> },
+    { name: 'AddPost', path: routeAddPost, icon: <FilePlus2 size={20} /> },
     { name: 'User', path: routeUser, icon: <User size={20} /> },
     { name: 'About', path: routeAbout, icon: <Info size={20} /> },
 ];

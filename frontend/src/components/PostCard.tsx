@@ -71,13 +71,6 @@ function PostCard({ post, isUser }: Props) {
                             className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 opacity-100"
                         />
                     )}
-                    {/* <img
-                        loading="lazy"
-                        src={post.media_url}
-                        alt="post"
-                        onLoad={() => setImageLoaded(true)}
-                        className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
-                    /> */}
                     <motion.img
                         loading="lazy"
                         src={post.media_url}

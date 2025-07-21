@@ -8,7 +8,7 @@ import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import Popular from './pages/Popular/Popular'
 import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
-import Post from './pages/Post/Post';
+import AddPost from './pages/Post/AddPost';
 import User from './pages/User/User';
 import About from './pages/About/About';
 
@@ -18,7 +18,7 @@ import LayoutNavbar from './components/LayoutNavbar';
 import MessageBar from './components/MessageBar';
 import Loader from './components/Loader';
 
-import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routePost, routeUser, routeAbout } from './utils/Routes';
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout } from './utils/Routes';
 
 export default function App() {
   return (
@@ -34,7 +34,7 @@ export default function App() {
             <Route path={routeFeed} element={<Feed />} />
             <Route path={routePopular} element={<Popular />} />
             <Route path={routeCustomizeFeed} element={<CustomizeFeed />} />
-            <Route path={routePost} element={<Post />} />
+            <Route path={routeAddPost} element={<AddPost />} />
             <Route path={routeUser} element={<User />} />
             <Route path={routeAbout} element={<About />} />
           </Route>
