@@ -7,9 +7,7 @@ import PostSection from "../../components/PostSection";
 
 function Feed() {
     const { isLoaded, categories } = useAppSelector(state => state.user);
-
     if (!isLoaded) return null;
-
     let url = categories.length > 0 ? `${urlPost}?categories=${categories.join(",")}` : urlPost;
 
     return (

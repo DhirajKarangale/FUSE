@@ -107,7 +107,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
             )}
 
             {!loading && !hasMore && (
-                <p className="text-center text-sm text-white/40 py-4">🎉 You’ve reached the end!</p>
+                <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
         </>
     );
