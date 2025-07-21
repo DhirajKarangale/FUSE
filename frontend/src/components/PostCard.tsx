@@ -6,6 +6,9 @@ import { Heart, MessageCircle } from "lucide-react";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
 
+import { motion } from "framer-motion";
+
+
 type Props = {
     post: Post;
     isUser: boolean;
@@ -68,13 +71,24 @@ function PostCard({ post, isUser }: Props) {
                             className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 opacity-100"
                         />
                     )}
-                    <img
+                    {/* <img
                         loading="lazy"
                         src={post.media_url}
                         alt="post"
                         onLoad={() => setImageLoaded(true)}
                         className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
+                    /> */}
+                    <motion.img
+                        loading="lazy"
+                        src={post.media_url}
+                        alt="post"
+                        onLoad={() => setImageLoaded(true)}
+                        initial={{ scale: 0.95, opacity: 0 }}
+                        animate={mediaLoaded ? { scale: 1, opacity: 1 } : {}}
+                        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                        className={`w-full h-full object-cover ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
                     />
+
                 </div>
             )}
 

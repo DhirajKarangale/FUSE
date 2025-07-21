@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+
 import { urlPost } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 
@@ -71,18 +73,71 @@ function Feed() {
         if (isLoaded) GetPosts(page);
     }, [isLoaded]);
 
+    const postVariants: Variants = {
+        hidden: { opacity: 0, y: 60, scale: 0.95 },
+        visible: (i = 0) => ({
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                delay: i * 0.05,
+                type: "spring" as const,
+                stiffness: 120,
+                damping: 20,
+            },
+        }),
+        exit: {
+            opacity: 0,
+            y: -20,
+            scale: 0.9,
+            transition: { duration: 0.3 },
+        },
+    };
+
     return (
         <div className="pb-2">
             {postData.posts.map((post, index) => {
                 const isLast = index === postData.posts.length - 1;
                 return (
                     <div key={post.id} ref={isLast ? lastPostRef : null}>
-                        <PostCard post={post} isUser={false} />
+
+                        <AnimatePresence>
+                            {postData.posts.map((post, index) => {
+                                const isLast = index === postData.posts.length - 1;
+                                return (
+                                    <motion.div
+                                        key={post.id}
+                                        ref={isLast ? lastPostRef : null}
+                                        custom={index}
+                                        variants={postVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                    >
+                                        <PostCard post={post} isUser={false} />
+                                    </motion.div>
+                                );
+                            })}
+                        </AnimatePresence>
+
+
+                        {/* <PostCard post={post} isUser={false} /> */}
                     </div>
                 );
             })}
 
-            {loading && [...Array(3)].map((_, idx) => <SkeletonPost key={idx} />)}
+            {/* {loading && [...Array(3)].map((_, idx) => <SkeletonPost key={idx} />)} */}
+
+            {loading && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {[...Array(3)].map((_, idx) => <SkeletonPost key={idx} />)}
+                </motion.div>
+            )}
 
             {!hasMore && !loading && (
                 <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
