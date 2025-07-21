@@ -5,18 +5,6 @@ import { getRequest } from "../../api/APIManager";
 import { type PostData, getInitialPosts } from "../../models/modelPosts";
 
 function Post() {
-    // const [posts, setPosts] = useState<Posts>(getInitialPosts());
-
-
-    // async function GetPosts() {
-    //     const { data, error } = await getRequest<Posts>(urlPost);
-    //     if (data) {
-    //         setPosts(data);
-    //     }
-    //     else {
-    //         console.log(error);
-    //     }
-    // }
 
 
     return (
