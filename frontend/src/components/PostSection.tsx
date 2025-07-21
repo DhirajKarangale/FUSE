@@ -5,6 +5,7 @@ import { type PostData, getInitialPosts } from "../models/modelPosts";
 import PostCard from "./PostCard";
 import SkeletonPost from "./SkeletonPost";
 
+
 type PostSectionProps = {
     baseUrl: string;
     isUserPost: boolean;
