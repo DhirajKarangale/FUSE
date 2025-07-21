@@ -69,7 +69,7 @@ function UserPost({ userId }: UserPost) {
 
     useEffect(() => {
         GetPosts(page);
-    }, []);
+    }, [userId]);
 
     return (
         <section className="bg-white/5 border border-white/10 rounded-2xl mt-6 p-4 sm:p-6 max-w-5xl mx-auto backdrop-blur-md shadow-md">

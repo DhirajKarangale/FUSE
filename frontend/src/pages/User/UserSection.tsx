@@ -214,8 +214,9 @@ function UserSection({ userId }: UserSectionProps) {
     }
 
     useEffect(() => {
+        setImageLoaded(false);
         SetUserData();
-    }, []);
+    }, [localUser, userId]);
 
     useEffect(() => {
         setFieldValues({
