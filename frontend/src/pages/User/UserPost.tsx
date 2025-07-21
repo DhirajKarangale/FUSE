@@ -1,30 +1,20 @@
 import React from "react";
-
-import { useAppSelector } from "../../redux/hookStore";
-
-import { type PostData } from "../../models/modelPosts";
-import { urlPost } from "../../api/APIs";
-import { getRequest } from "../../api/APIManager";
-
+import { urlPostUser } from "../../api/APIs";
 import PostSection from "../../components/PostSection";
 
-function UserPost() {
-    const { categories } = useAppSelector(state => state.user);
+type UserPost = {
+    userId: number;
+}
 
-    const fetchPosts = async (page: number) => {
-        let url = `${urlPost}?page=${page}`;
-        if (categories.length > 0) {
-            url += `&categories=${categories.join(",")}`;
-        }
+function UserPost({ userId }: UserPost) {
 
-        const { data, error } = await getRequest<PostData>(url);
-        if (error || !data) return null;
-        return data;
-    };
+    let url = `${urlPostUser}?userId=${userId}`;
 
     return (
-        <div className="pb-2 space-y-4">
-            {/* <PostSection fetchPosts={fetchPosts} isUserPost={false} /> */}
+        <div className="bg-white/5 border border-white/10 rounded-2xl mt-6 p-4 sm:p-6 max-w-5xl mx-auto backdrop-blur-md shadow-md">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <PostSection baseUrl={url} isUserPost={true} />
+            </div>
         </div>
     );
 }
