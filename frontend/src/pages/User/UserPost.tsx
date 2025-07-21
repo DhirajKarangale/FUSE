@@ -92,7 +92,13 @@ function UserPost({ userId }: UserPost) {
                 </div>
             )}
 
-            {!hasMore && !loading && (
+            {!loading && postData.posts.length === 0 && (
+                <p className="text-center text-sm text-white/40 py-4">
+                    User doesn't have any posts.
+                </p>
+            )}
+
+            {!hasMore && !loading && postData.posts.length > 0 && (
                 <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
         </section>
