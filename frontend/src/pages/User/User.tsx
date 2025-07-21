@@ -15,7 +15,7 @@ function User() {
 
     return (
         <>
-            <UserSection user={user} />
+            <UserSection userId={userId} />
             <UserPost userId={userId} />
         </>
     );

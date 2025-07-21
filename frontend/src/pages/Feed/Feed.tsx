@@ -72,7 +72,7 @@ function Feed() {
     }, [isLoaded]);
 
     return (
-        <>
+        <div className="pb-2">
             {postData.posts.map((post, index) => {
                 const isLast = index === postData.posts.length - 1;
                 return (
@@ -87,7 +87,7 @@ function Feed() {
             {!hasMore && !loading && (
                 <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
             )}
-        </>
+        </div>
     );
 }
 

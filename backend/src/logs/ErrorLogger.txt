@@ -394,3 +394,195 @@ Error: Invalid Id
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:21)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+

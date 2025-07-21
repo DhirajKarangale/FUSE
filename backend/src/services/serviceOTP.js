@@ -49,6 +49,7 @@ async function SendMail(email, otp, type) {
 async function GetOtp(email, type) {
     validator.Email(email);
     const otp = GenerateOTP(6);
+    console.log('OTP: ', otp);
     await modelOtp.SetOtp(email, otp)
     return await SendMail(email, otp, type);
 }

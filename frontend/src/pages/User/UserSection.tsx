@@ -3,37 +3,42 @@ import { useNavigate } from 'react-router-dom';
 import { Save, X } from "lucide-react";
 
 import { urlUser, urlUserImageDelete } from "../../api/APIs";
-import { putRequest, deleteRequest } from "../../api/APIManager";
+import { getRequest, putRequest, deleteRequest } from "../../api/APIManager";
 
 import { type User } from "../../models/modelUser";
 import { setUser, clearUser } from '../../redux/sliceUser';
 import { setLoader } from '../../redux/sliceLoader';
 import { setMessage } from '../../redux/sliceMessageBar';
-import { useAppDispatch } from '../../redux/hookStore';
+import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
-import { routeAuth } from '../../utils/Routes';
+import { routeFeed, routeAuth } from '../../utils/Routes';
 import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 type UserSectionProps = {
-    user: User
+    userId: number
 }
 
-function UserSection({ user }: UserSectionProps) {
+function UserSection({ userId }: UserSectionProps) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [editField, setEditField] = useState<"username" | "email" | "about" | null>(null);
+    type EditableField = "username" | "email" | "about";
+
+    const localUser = useAppSelector((state) => state.user);
+    const [user, setUserData] = useState<User | null>(null);
+    const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+    const [editField, setEditField] = useState<EditableField | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const CLOUD_NAME = "dfamljkyo";
     const UPLOAD_PRESET = "changexl";
+    const isLocalUser = userId === localUser.id;
 
     const [fieldValues, setFieldValues] = useState({
-        username: user.username,
-        email: user.email,
-        about: user.about || ''
+        username: user?.username,
+        email: user?.email,
+        about: user?.about || ''
     });
 
 
@@ -78,6 +83,25 @@ function UserSection({ user }: UserSectionProps) {
         await deleteRequest(urlUserImageDelete, { publicId });
     }
 
+    async function SetUserData() {
+        if (userId == localUser.id) {
+            setUserData(localUser);
+            return;
+        }
+
+        ShowLoader(true);
+        const { data, error } = await getRequest<User>(`${urlUser}?id=${userId}`);
+        if (data) {
+            setUserData(data);
+            ShowLoader(false);
+        }
+        else {
+            ShowMsg(error, 'red');
+            ShowLoader(false);
+            navigate(routeFeed);
+        }
+    }
+
     function GetPublicId(imageUrl: string): string | null {
         if (!imageUrl) return null;
         const parts = imageUrl.split('/');
@@ -86,12 +110,17 @@ function UserSection({ user }: UserSectionProps) {
         return `fuse/${publicId}`;
     }
 
+    function ButtonSetEditingField(field: EditableField) {
+        if (!isLocalUser) return;
+        setEditField(field);
+    }
+
     function ButtonCancel() {
         setEditField(null);
         setFieldValues({
-            username: user.username,
-            email: user.email,
-            about: user.about || ''
+            username: user?.username,
+            email: user?.email,
+            about: user?.about || ''
         });
     }
 
@@ -101,9 +130,11 @@ function UserSection({ user }: UserSectionProps) {
         navigate(routeAuth);
     }
 
-    async function ButtonSave(field: "username" | "email" | "about") {
+    async function ButtonSave(field: EditableField) {
         const body: Partial<User> = {};
         const value = fieldValues[field];
+
+        if (!value) return;
 
         if (field === "username") {
             if (value.length < 2) return ShowMsg(GetMessage('usernameLess'), "red");
@@ -138,6 +169,8 @@ function UserSection({ user }: UserSectionProps) {
     }
 
     async function UploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+        if (!isLocalUser || !user) return;
+
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -181,12 +214,18 @@ function UserSection({ user }: UserSectionProps) {
     }
 
     useEffect(() => {
+        SetUserData();
+    }, []);
+
+    useEffect(() => {
         setFieldValues({
-            username: user.username,
-            email: user.email,
-            about: user.about || '',
+            username: user?.username,
+            email: user?.email,
+            about: user?.about || '',
         });
     }, [user]);
+
+    if (!user) return null;
 
     return (
         <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4 select-none">
@@ -216,7 +255,7 @@ function UserSection({ user }: UserSectionProps) {
                         ) : (
                             <h2
                                 className="text-2xl font-bold cursor-pointer w-full h-full flex items-center select-text"
-                                onClick={() => setEditField("username")}>
+                                onClick={() => ButtonSetEditingField("username")}>
                                 {user.username}
                             </h2>
                         )}
@@ -243,7 +282,7 @@ function UserSection({ user }: UserSectionProps) {
                         ) : (
                             <p
                                 className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center select-text"
-                                onClick={() => setEditField("email")}>
+                                onClick={() => ButtonSetEditingField("email")}>
                                 {user.email}
                             </p>
                         )}
@@ -274,7 +313,7 @@ function UserSection({ user }: UserSectionProps) {
                             alt="User"
                             onLoad={() => setImageLoaded(true)}
                             className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
-                            onClick={() => fileInputRef.current?.click()}
+                            onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
                         />
                     </div>
 
@@ -304,7 +343,7 @@ function UserSection({ user }: UserSectionProps) {
                 ) : (
                     <div
                         className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer select-text"
-                        onClick={() => setEditField("about")}>
+                        onClick={() => ButtonSetEditingField("about")}>
                         {user.about || 'No about info provided.'}
                     </div>
                 )}
@@ -315,11 +354,11 @@ function UserSection({ user }: UserSectionProps) {
 
             <div className="flex justify-between items-center text-xs text-gray-400">
                 <span>Joined on {new Date(user.created_at).toLocaleDateString()}</span>
-                <button
+                {isLocalUser && <button
                     className="text-red-400 hover:text-red-300 transition-all"
                     onClick={ButtonLogout}>
                     Logout
-                </button>
+                </button>}
             </div>
         </div>
     );
