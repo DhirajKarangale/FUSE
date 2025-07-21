@@ -26,8 +26,6 @@ export default function App() {
       <Router>
         <SetBG />
         <AutoLogin />
-        <MessageBar />
-        <Loader />
 
         <Routes>
           <Route path={routeAuth} element={<Auth />} />
@@ -43,6 +41,9 @@ export default function App() {
 
         </Routes>
       </Router>
+
+      <MessageBar />
+      <Loader />
     </Provider>
   )
 };

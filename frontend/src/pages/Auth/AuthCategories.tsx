@@ -3,6 +3,7 @@ import { urlCategories } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type Categories } from '../../models/modelCategories';
 import { type User } from "../../models/modelUser";
+import GetMessage from "../../utils/MessagesManager";
 
 type AuthCategoriesProps = {
     ShowMsg: (msg: string, color?: string) => void;
@@ -24,6 +25,11 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
     const loadingRef = useRef<boolean>(false);
 
     function ButtonContinue() {
+        if (selectedCategories.length < 1) {
+            ShowMsg(GetMessage('categorySelect'), 'red');
+            return;
+        }
+
         setIsEndAnim(true);
 
         const updatedUser: User = {
@@ -174,12 +180,8 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
                 <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
                     <button
                         onClick={ButtonContinue}
-                        disabled={selectedCategories.length < 1}
-                        className={`text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition 
-                                ${selectedCategories.length < 1
-                                ? "bg-gray-400 cursor-not-allowed opacity-50"
-                                : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
-                            }`}>
+                        disabled={false}
+                        className={`text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700`}>
                         Continue
                     </button>
                 </div>

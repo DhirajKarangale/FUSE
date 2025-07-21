@@ -5,6 +5,10 @@
         "Invalid Email 3"
     ],
 
+    "categorySelect":[
+        "Select at least one category"
+    ],
+
     "otpInvalid": [
         "Invalid OTP",
         "Invalid OTP 2",

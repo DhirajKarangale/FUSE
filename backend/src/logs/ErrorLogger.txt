@@ -586,3 +586,21 @@ Error: Token Required
     at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
 
+Error: Wrong OTP 1
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
+Error: Wrong OTP 2
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
+Error: Wrong OTP 1
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
