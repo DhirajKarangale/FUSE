@@ -26,9 +26,12 @@ function UserSection({ userId }: UserSectionProps) {
     type EditableField = "username" | "email" | "about";
 
     const localUser = useAppSelector((state) => state.user);
+
     const [user, setUserData] = useState<User | null>(null);
     const [imageLoaded, setImageLoaded] = useState<boolean>(false);
     const [editField, setEditField] = useState<EditableField | null>(null);
+
+    const prevImageUrlRef = useRef<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const CLOUD_NAME = "dfamljkyo";
@@ -81,25 +84,6 @@ function UserSection({ userId }: UserSectionProps) {
         if (!publicId) return;
 
         await deleteRequest(urlUserImageDelete, { publicId });
-    }
-
-    async function SetUserData() {
-        if (userId == localUser.id) {
-            setUserData(localUser);
-            return;
-        }
-
-        ShowLoader(true);
-        const { data, error } = await getRequest<User>(`${urlUser}?id=${userId}`);
-        if (data) {
-            setUserData(data);
-            ShowLoader(false);
-        }
-        else {
-            ShowMsg(error, 'red');
-            ShowLoader(false);
-            navigate(routeFeed);
-        }
     }
 
     function GetPublicId(imageUrl: string): string | null {
@@ -214,8 +198,35 @@ function UserSection({ userId }: UserSectionProps) {
     }
 
     useEffect(() => {
-        setImageLoaded(false);
-        SetUserData();
+        const prevImageUrl = prevImageUrlRef.current;
+        const currentImageUrl = localUser.image_url;
+
+        if (userId === localUser.id) {
+            setUserData(localUser);
+            if (currentImageUrl !== prevImageUrl) {
+                setImageLoaded(false);
+                prevImageUrlRef.current = currentImageUrl;
+            }
+            return;
+        }
+
+        async function fetchUser() {
+            ShowLoader(true);
+            const { data, error } = await getRequest<User>(`${urlUser}?id=${userId}`);
+            if (data) {
+                setUserData(data);
+                if (data.image_url !== prevImageUrl) {
+                    setImageLoaded(false);
+                    prevImageUrlRef.current = data.image_url;
+                }
+            } else {
+                ShowMsg(error, 'red');
+                navigate(routeFeed);
+            }
+            ShowLoader(false);
+        }
+
+        fetchUser();
     }, [localUser, userId]);
 
     useEffect(() => {
