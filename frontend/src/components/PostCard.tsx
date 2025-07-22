@@ -29,7 +29,8 @@ function PostCard({ post, isUser }: Props) {
     }, []);
 
     return (
-        <div className="select-none w-full max-w-xl mx-auto my-6 px-4 sm:px-6 py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white pointer-events-auto relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
+
+        <div className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
 
             {!isUser && <div className="flex items-center gap-3 mb-4"
                 onClick={() => navigate(`/user/${post.user_id}`)}>
@@ -57,13 +58,14 @@ function PostCard({ post, isUser }: Props) {
                 </div>
             </div>}
 
-            <div className="mb-3">
-                <h2 className="text-xl font-bold">{post.post_title}</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                <h2 className="text-xl font-semibold leading-snug">{post.post_title}</h2>
                 {isUser && <div className="text-sm text-white/60">{createdAt}</div>}
             </div>
 
             {hasImage && (
-                <div className="w-full h-50 mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
+
+                <div className="w-full aspect-video mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
                     {!mediaLoaded && (
                         <img
                             src={MediaPlaceholder}
@@ -91,10 +93,11 @@ function PostCard({ post, isUser }: Props) {
                         {post.post_body}
                     </div>
                 ) : (
-                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-5">
+                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-5 sm:line-clamp-6">
                         {post.post_body}
                     </p>
                 )}
+
                 {isTrimmed && (
                     <button
                         onClick={handleToggleExpand}
@@ -104,7 +107,7 @@ function PostCard({ post, isUser }: Props) {
                 )}
             </div>
 
-            <div className="flex items-center justify-between text-sm mt-4 pt-4 border-t border-white/10">
+            <div className="flex flex-wrap items-center justify-between text-sm mt-4 pt-4 border-t border-white/10 gap-y-2">
                 <div className="flex gap-4">
                     <button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200">
                         <Heart className="w-4 h-4" /> <span>0</span>
@@ -115,6 +118,7 @@ function PostCard({ post, isUser }: Props) {
                 </div>
                 <span className="text-white/50 text-xs">{post.category}</span>
             </div>
+
         </div>
     );
 }

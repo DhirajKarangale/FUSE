@@ -229,137 +229,140 @@ function UserSection({ userId }: UserSectionProps) {
     if (!user) return null;
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-6 mt-5 space-y-4 select-none">
+        <div className="w-full px-4 sm:px-6 lg:px-8 mt-5">
+            <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-4 sm:p-6 space-y-4 select-none">
 
-            <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
 
-                <div className="flex flex-col gap-1 w-full">
+                    <div className="flex flex-col gap-1 w-full">
 
-                    <div className="flex items-center gap-2 h-[32px] w-full">
-                        {editField === "username" ? (
-                            <>
-                                <input
-                                    className="bg-white/10 text-white text-2xl font-bold rounded h-full py-1 pl-2 focus:outline-none w-full max-w-[80%]"
-                                    style={{ lineHeight: "1", fontSize: "1.5rem" }}
-                                    value={fieldValues.username}
-                                    onChange={(e) =>
-                                        setFieldValues({ ...fieldValues, username: e.target.value })
-                                    }
-                                />
-                                <button onClick={() => ButtonSave("username")}>
-                                    <Save size={18} />
-                                </button>
-                                <button onClick={ButtonCancel}>
-                                    <X size={18} />
-                                </button>
-                            </>
-                        ) : (
-                            <h2
-                                className="text-2xl font-bold cursor-pointer w-full h-full flex items-center select-text"
-                                onClick={() => ButtonSetEditingField("username")}>
-                                {user.username}
-                            </h2>
-                        )}
-                    </div>
+                        <div className="flex items-center gap-2 h-[32px] w-full">
+                            {editField === "username" ? (
+                                <>
+                                    <input
+                                        className="bg-white/10 text-white text-xl sm:text-2xl font-bold rounded h-full py-1 px-2 focus:outline-none w-full sm:max-w-[80%]"
+                                        style={{ lineHeight: "1", fontSize: "1.5rem" }}
+                                        value={fieldValues.username}
+                                        onChange={(e) =>
+                                            setFieldValues({ ...fieldValues, username: e.target.value })
+                                        }
+                                    />
+                                    <button onClick={() => ButtonSave("username")}>
+                                        <Save size={18} />
+                                    </button>
+                                    <button onClick={ButtonCancel}>
+                                        <X size={18} />
+                                    </button>
+                                </>
+                            ) : (
+                                <h2
+                                    className="text-2xl font-bold cursor-pointer w-full h-full flex items-center select-text"
+                                    onClick={() => ButtonSetEditingField("username")}>
+                                    {user.username}
+                                </h2>
+                            )}
+                        </div>
 
-                    <div className="flex items-center gap-2 h-[32px] w-full">
-                        {editField === "email" ? (
-                            <>
-                                <input
-                                    className="bg-white/10 text-sm text-gray-200 rounded h-full py-1 pl-2 focus:outline-none w-full max-w-[80%]"
-                                    style={{ fontSize: "0.875rem", lineHeight: "1" }}
-                                    value={fieldValues.email}
-                                    onChange={(e) =>
-                                        setFieldValues({ ...fieldValues, email: e.target.value })
-                                    }
-                                />
-                                <button onClick={() => ButtonSave("email")}>
-                                    <Save size={18} />
-                                </button>
-                                <button onClick={ButtonCancel}>
-                                    <X size={18} />
-                                </button>
-                            </>
-                        ) : (
-                            <p
-                                className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center select-text"
-                                onClick={() => ButtonSetEditingField("email")}>
-                                {user.email}
-                            </p>
-                        )}
-                    </div>
-                </div>
-
-                <div className="relative">
-                    <input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInputRef}
-                        className="hidden"
-                        onChange={UploadImage}
-                    />
-
-                    <div className="relative w-20 h-20">
-                        {(!imageLoaded) && (
-                            <img
-                                src={ProfilePlaceholder}
-                                alt="Placeholder"
-                                className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
-                            />
-                        )}
-
-                        <img
-                            loading="lazy"
-                            src={user.image_url || ""}
-                            alt="User"
-                            onLoad={() => setImageLoaded(true)}
-                            className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
-                            onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
-                        />
-                    </div>
-
-                </div>
-
-            </div>
-
-            <>
-                {editField === "about" ? (
-                    <div className="relative">
-                        <textarea
-                            className="custom-scroll w-full bg-white/10 text-sm text-gray-200 rounded p-3 h-32 resize-none focus:outline-none"
-                            value={fieldValues.about || ""}
-                            onChange={(e) =>
-                                setFieldValues({ ...fieldValues, about: e.target.value })
-                            }
-                        />
-                        <div className="flex justify-end gap-2 mt-2">
-                            <button onClick={() => ButtonSave("about")}>
-                                <Save size={18} />
-                            </button>
-                            <button onClick={ButtonCancel}>
-                                <X size={18} />
-                            </button>
+                        <div className="flex items-center gap-2 h-[32px] w-full">
+                            {editField === "email" ? (
+                                <>
+                                    <input
+                                        className="bg-white/10 text-sm text-gray-200 rounded h-full py-1 px-2 focus:outline-none w-full sm:max-w-[80%]"
+                                        style={{ fontSize: "0.875rem", lineHeight: "1" }}
+                                        value={fieldValues.email}
+                                        onChange={(e) =>
+                                            setFieldValues({ ...fieldValues, email: e.target.value })
+                                        }
+                                    />
+                                    <button onClick={() => ButtonSave("email")}>
+                                        <Save size={18} />
+                                    </button>
+                                    <button onClick={ButtonCancel}>
+                                        <X size={18} />
+                                    </button>
+                                </>
+                            ) : (
+                                <p
+                                    className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center select-text"
+                                    onClick={() => ButtonSetEditingField("email")}>
+                                    {user.email}
+                                </p>
+                            )}
                         </div>
                     </div>
-                ) : (
-                    <div
-                        className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer select-text"
-                        onClick={() => ButtonSetEditingField("about")}>
-                        {user.about || 'No about info provided.'}
+
+                    <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={UploadImage}
+                        />
+
+                        <div className="relative w-20 h-20">
+                            {(!imageLoaded) && (
+                                <img
+                                    src={ProfilePlaceholder}
+                                    alt="Placeholder"
+                                    className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
+                                />
+                            )}
+
+                            <img
+                                loading="lazy"
+                                src={user.image_url || ""}
+                                alt="User"
+                                onLoad={() => setImageLoaded(true)}
+                                className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
+                                onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
+                            />
+                        </div>
+
                     </div>
-                )}
 
-            </>
+                </div>
 
-            <hr className="border-white/10" />
+                <>
+                    {editField === "about" ? (
+                        <div className="relative">
+                            <textarea
+                                className="custom-scroll w-full bg-white/10 text-sm text-gray-200 rounded p-3 h-32 resize-none focus:outline-none"
+                                value={fieldValues.about || ""}
+                                onChange={(e) =>
+                                    setFieldValues({ ...fieldValues, about: e.target.value })
+                                }
+                            />
+                            <div className="flex justify-end gap-2 mt-2">
+                                <button onClick={() => ButtonSave("about")}>
+                                    <Save size={18} />
+                                </button>
+                                <button onClick={ButtonCancel}>
+                                    <X size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div
+                            className="custom-scroll max-h-40 overflow-y-auto rounded-lg bg-white/5 p-4 text-sm text-gray-200 border border-white/10 cursor-pointer select-text break-words"
+                            onClick={() => ButtonSetEditingField("about")}>
+                            {user.about || 'No about info provided.'}
+                        </div>
+                    )}
 
-            <div className="flex justify-between items-center text-xs text-gray-400">
-                <span>Joined on {new Date(user.created_at).toLocaleDateString()}</span>
-                {isLocalUser && <button
-                    className="text-red-400 hover:text-red-300 transition-all"
-                    onClick={ButtonLogout}>
-                    Logout
-                </button>}
+                </>
+
+                <hr className="border-white/10" />
+
+                <div className="flex justify-between items-center text-xs text-gray-400">
+                    <span>Joined on {new Date(user.created_at).toLocaleDateString()}</span>
+                    {isLocalUser && <button
+                        className="text-red-400 hover:text-red-300 transition-all"
+                        onClick={ButtonLogout}>
+                        Logout
+                    </button>}
+                </div>
+
             </div>
         </div>
     );
