@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useTransition } from "react";
 import { urlCategories } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type Categories } from '../../models/modelCategories';
 import { type User } from "../../models/modelUser";
 import GetMessage from "../../utils/MessagesManager";
-
 import { motion } from "framer-motion";
 
 type AuthCategoriesProps = {
@@ -12,6 +11,43 @@ type AuthCategoriesProps = {
   SetUser: (user: User) => void;
   user: User;
 };
+
+const CategorySection = React.memo(({ section, items, selectedCategories, ToggleSection, ToggleCategory }: {
+  section: string;
+  items: string[];
+  selectedCategories: string[];
+  ToggleSection: (section: string) => void;
+  ToggleCategory: (item: string) => void;
+}) => {
+  const allSelected = items.every(item => selectedCategories.includes(item));
+
+  return (
+    <div className="bg-white/10 p-4 sm:p-5 rounded-xl shadow-md border border-white/20 w-full">
+      <h2
+        onClick={() => ToggleSection(section)}
+        className={`text-base sm:text-lg font-bold mb-4 select-none cursor-pointer transition duration-200 ${allSelected ? "text-cyan-400" : "text-white hover:text-purple-400"
+          }`}
+      >
+        {section}
+      </h2>
+
+      <div className="flex flex-wrap gap-2">
+        {items.map((item, idx) => (
+          <span
+            key={idx}
+            onClick={() => ToggleCategory(item)}
+            className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition select-none cursor-pointer break-words max-w-full truncate ${selectedCategories.includes(item)
+              ? "bg-purple-600 text-white"
+              : "bg-pink-600 text-white hover:bg-pink-700"
+              }`}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+});
 
 function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
   const [currPage, setCurrPage] = useState<number>(1);
@@ -22,6 +58,7 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const loadingRef = useRef<boolean>(false);
+  const [_isPending, startTransition] = useTransition();
 
   function ButtonContinue() {
     if (selectedCategories.length < 1) {
@@ -41,23 +78,27 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
     const items = categoriesData[section] || [];
     const allSelected = items.every(item => selectedCategories.includes(item));
 
-    setSelectedCategories(prev => {
-      if (allSelected) {
-        return prev.filter(cat => !items.includes(cat));
-      } else {
-        const newSet = new Set(prev);
-        items.forEach(item => newSet.add(item));
-        return Array.from(newSet);
-      }
+    startTransition(() => {
+      setSelectedCategories(prev => {
+        if (allSelected) {
+          return prev.filter(cat => !items.includes(cat));
+        } else {
+          const newSet = new Set(prev);
+          items.forEach(item => newSet.add(item));
+          return Array.from(newSet);
+        }
+      });
     });
   }
 
   function ToggleCategory(category: string) {
-    setSelectedCategories(prev =>
-      prev.includes(category)
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    );
+    startTransition(() => {
+      setSelectedCategories(prev =>
+        prev.includes(category)
+          ? prev.filter(c => c !== category)
+          : [...prev, category]
+      );
+    });
   }
 
   async function LoadCategories(page: number) {
@@ -106,42 +147,6 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
     return () => current?.removeEventListener('scroll', handleScroll);
   }, [currPage, isShowMore, isLoading]);
 
-  function UICategories() {
-    return (
-      <div className="space-y-6">
-        {Object.entries(categoriesData).map(([section, items]) => {
-          const allSelected = items.every(item => selectedCategories.includes(item));
-
-          return (
-            <div key={section} className="bg-white/10 p-4 sm:p-5 rounded-xl shadow-md border border-white/20 w-full">
-              <h2
-                onClick={() => ToggleSection(section)}
-                className={`text-base sm:text-lg font-bold mb-4 select-none cursor-pointer transition duration-200 ${allSelected ? "text-cyan-400" : "text-white hover:text-purple-400"}`}
-              >
-                {section}
-              </h2>
-
-              <div className="flex flex-wrap gap-2">
-                {items.map((item, idx) => (
-                  <span
-                    key={idx}
-                    onClick={() => ToggleCategory(item)}
-                    className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition select-none cursor-pointer break-words max-w-full truncate
-                      ${selectedCategories.includes(item)
-                      ? "bg-purple-600 text-white"
-                      : "bg-pink-600 text-white hover:bg-pink-700"}`}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-
   function CategorySkeleton() {
     return (
       <div className="bg-white/10 p-4 rounded-xl shadow-md border border-white/20 w-full animate-pulse space-y-3">
@@ -169,7 +174,16 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
           ref={containerRef}
           className="flex-1 overflow-y-auto overflow-x-hidden pr-2 custom-scroll space-y-6"
         >
-          {UICategories()}
+          {Object.entries(categoriesData).map(([section, items]) => (
+            <CategorySection
+              key={section}
+              section={section}
+              items={items}
+              selectedCategories={selectedCategories}
+              ToggleSection={ToggleSection}
+              ToggleCategory={ToggleCategory}
+            />
+          ))}
           {isLoading && <CategorySkeleton />}
         </div>
 
