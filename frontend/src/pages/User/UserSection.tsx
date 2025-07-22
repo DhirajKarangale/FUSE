@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Save, X } from "lucide-react";
 
-import { urlUser, urlUserImageDelete } from "../../api/APIs";
+import { urlUser, urlUserImageDelete, urlOTP } from "../../api/APIs";
 import { getRequest, putRequest, deleteRequest } from "../../api/APIManager";
 
 import { type User } from "../../models/modelUser";
@@ -43,6 +43,7 @@ function UserSection({ userId }: UserSectionProps) {
     const [fieldValues, setFieldValues] = useState({
         username: user?.username,
         email: user?.email,
+        otp: '',
         about: user?.about || ''
     });
 
@@ -110,6 +111,7 @@ function UserSection({ userId }: UserSectionProps) {
         setFieldValues({
             username: user?.username,
             email: user?.email,
+            otp: '',
             about: user?.about || ''
         });
     }
@@ -121,7 +123,7 @@ function UserSection({ userId }: UserSectionProps) {
     }
 
     async function ButtonSave(field: EditableField) {
-        const body: Partial<User> = {};
+        const body: any = {};
         const value = fieldValues[field];
 
         if (!value) return;
@@ -136,6 +138,7 @@ function UserSection({ userId }: UserSectionProps) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(value)) return ShowMsg(GetMessage('emailInvalid'), "red");
             body.email = fieldValues.email;
+            body.otp = fieldValues.otp;
         }
 
         if (field === "about") {
@@ -154,6 +157,19 @@ function UserSection({ userId }: UserSectionProps) {
         else {
             ShowMsg(error, 'red');
         }
+
+        ShowLoader(false);
+    }
+
+    async function ButtonOTP() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!fieldValues.email || !emailRegex.test(fieldValues.email)) return ShowMsg(GetMessage("emailInvalid"), "red");
+
+        ShowLoader(true);
+        const { data, error } = await getRequest<string>(`${urlOTP}?email=${fieldValues.email}`);
+
+        if (data) ShowMsg(data, "green");
+        else ShowMsg(error, "red");
 
         ShowLoader(false);
     }
@@ -239,6 +255,7 @@ function UserSection({ userId }: UserSectionProps) {
         setFieldValues({
             username: user?.username,
             email: user?.email,
+            otp: '',
             about: user?.about || '',
         });
     }, [user]);
@@ -268,6 +285,7 @@ function UserSection({ userId }: UserSectionProps) {
                                     <input
                                         className="bg-white/10 text-white text-xl sm:text-2xl font-bold rounded h-full py-1 px-2 focus:outline-none w-full sm:max-w-[80%]"
                                         style={{ lineHeight: "1", fontSize: "1.5rem" }}
+                                        type="text"
                                         value={fieldValues.username}
                                         onChange={(e) =>
                                             setFieldValues({ ...fieldValues, username: e.target.value })
@@ -289,32 +307,52 @@ function UserSection({ userId }: UserSectionProps) {
                             )}
                         </div>
 
-                        <div className="flex items-center gap-2 h-[32px] w-full">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full">
                             {editField === "email" ? (
                                 <>
                                     <input
-                                        className="bg-white/10 text-sm text-gray-200 rounded h-full py-1 px-2 focus:outline-none w-full sm:max-w-[80%]"
+                                        className="bg-white/10 text-sm text-gray-200 rounded py-1 px-2 focus:outline-none w-full sm:flex-grow"
                                         style={{ fontSize: "0.875rem", lineHeight: "1" }}
                                         value={fieldValues.email}
-                                        onChange={(e) =>
-                                            setFieldValues({ ...fieldValues, email: e.target.value })
-                                        }
+                                        type="email"
+                                        onChange={(e) => setFieldValues({ ...fieldValues, email: e.target.value })}
+                                        placeholder="Enter email"
                                     />
-                                    <button onClick={() => ButtonSave("email")}>
-                                        <Save size={18} />
-                                    </button>
-                                    <button onClick={ButtonCancel}>
-                                        <X size={18} />
-                                    </button>
+
+                                    <input
+                                        type="number"
+                                        id="otp"
+                                        value={fieldValues.otp}
+                                        onChange={(e) => setFieldValues({ ...fieldValues, otp: e.target.value })}
+                                        placeholder="123456"
+                                        className="bg-white/10 text-sm text-gray-200 rounded py-1 px-2 focus:outline-none w-full sm:w-24 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    />
+
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={ButtonOTP}
+                                            className="bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-semibold py-1 px-2 rounded whitespace-nowrap sm:ml-1">
+                                            Send OTP
+                                        </button>
+
+                                        <button onClick={() => ButtonSave("email")}>
+                                            <Save size={18} />
+                                        </button>
+                                        <button onClick={ButtonCancel}>
+                                            <X size={18} />
+                                        </button>
+                                    </div>
                                 </>
                             ) : (
                                 <p
                                     className="text-sm text-gray-300 cursor-pointer w-full h-full flex items-center select-text"
-                                    onClick={() => ButtonSetEditingField("email")}>
+                                    onClick={() => ButtonSetEditingField("email")}
+                                >
                                     {user.email}
                                 </p>
                             )}
                         </div>
+
                     </div>
 
                     <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
