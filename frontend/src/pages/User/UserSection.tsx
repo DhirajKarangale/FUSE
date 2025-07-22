@@ -15,6 +15,8 @@ import { routeFeed, routeAuth } from '../../utils/Routes';
 import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
+import { motion } from "framer-motion";
+
 type UserSectionProps = {
     userId: number
 }
@@ -44,6 +46,10 @@ function UserSection({ userId }: UserSectionProps) {
         about: user?.about || ''
     });
 
+    const fadeIn = {
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+    };
 
     function ShowMsg(message: string, color?: string) {
         dispatch(setMessage({ message, color }));
@@ -240,8 +246,17 @@ function UserSection({ userId }: UserSectionProps) {
     if (!user) return null;
 
     return (
-        <div className="w-full px-4 sm:px-6 lg:px-8 mt-5">
-            <div className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-4 sm:p-6 space-y-4 select-none">
+
+        <motion.div
+            className="w-full px-4 sm:px-6 lg:px-8 mt-5"
+            initial="hidden"
+            animate="visible"
+            variants={fadeIn}>
+            <motion.div
+                className="w-full max-w-2xl mx-auto bg-black/50 backdrop-blur-sm text-white rounded-2xl shadow-lg p-4 sm:p-6 space-y-4 select-none"
+                initial="hidden"
+                animate="visible"
+                variants={fadeIn}>
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
 
@@ -374,8 +389,8 @@ function UserSection({ userId }: UserSectionProps) {
                     </button>}
                 </div>
 
-            </div>
-        </div>
+            </motion.div>
+        </motion.div >
     );
 }
 
