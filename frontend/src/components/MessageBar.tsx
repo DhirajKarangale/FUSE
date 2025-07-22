@@ -2,9 +2,9 @@ import './components.css';
 
 import React, { useState, useRef, useEffect } from "react";
 import { useAppSelector } from '../redux/hookStore';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function MessageBar() {
-
     const { message, color, key } = useAppSelector((state) => state.messageBar);
     const [msg, setMsg] = useState('');
     const [msgColor, setMsgColor] = useState('white');
@@ -28,16 +28,28 @@ function MessageBar() {
         ShowMsg();
     }, [key]);
 
-    if (!msg) return null;
-
     return (
-        <div className="fixed bottom-16 w-full flex justify-center pointer-events-none z-50">
-            <div key={animationKey} className="MessageBar bg-black/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15 shadow-md">
-                <p className="text-center text-lg font-bold text-white select-none" style={{ color: msgColor }}>
-                    {msg}
-                </p>
-            </div>
-        </div>
+        <AnimatePresence>
+            {msg && (
+                <motion.div
+                    key={animationKey}
+                    initial={{ opacity: 0, scale: 1, y: 50 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 1, y: 50 }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    className="fixed bottom-16 w-full flex justify-center z-50 pointer-events-none px-4"
+                >
+                    <div className="MessageBar bg-black/30 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15 shadow-md max-w-md w-full pointer-events-auto">
+                        <p
+                            className="text-center font-semibold text-white text-sm sm:text-base md:text-lg select-none"
+                            style={{ color: msgColor }}
+                        >
+                            {msg}
+                        </p>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }
 
