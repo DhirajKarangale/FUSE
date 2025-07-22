@@ -9,7 +9,7 @@ yarn.lock
 .env
 
 # Logs
-logs/
+src/logs/
 *.log
 
 # Temporary files
