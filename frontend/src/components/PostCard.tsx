@@ -1,13 +1,11 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { type Post } from "../models/modelPosts";
 import { Heart, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { type Post } from "../models/modelPosts";
 
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
-
-import { motion } from "framer-motion";
-
 
 type Props = {
     post: Post;
@@ -16,84 +14,85 @@ type Props = {
 
 function PostCard({ post, isUser }: Props) {
     const [profileLoaded, setProfileLoaded] = useState(false);
-    const [mediaLoaded, setImageLoaded] = useState(false);
+    const [mediaLoaded, setMediaLoaded] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
     const navigate = useNavigate();
-    const createdAt = new Date(post.created_at).toLocaleDateString();
+    const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
     const hasImage = !!post.media_url;
     const isTrimmed = useMemo(() => post.post_body.length > 500, [post.post_body]);
 
     const handleToggleExpand = useCallback(() => {
-        setIsExpanded(prev => !prev);
+        setIsExpanded((prev) => !prev);
     }, []);
 
     return (
-
-        <div className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10 transition-all duration-500 ease-in-out">
-
-            {!isUser && <div className="flex items-center gap-3 mb-4"
-                onClick={() => navigate(`/user/${post.user_id}`)}>
-                <div className="relative w-10 h-10">
-                    {!profileLoaded && (
+        <motion.div
+            layout
+            className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10"
+        >
+            {!isUser && (
+                <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
+                    <div className="relative w-10 h-10 shrink-0">
+                        {!profileLoaded && (
+                            <img
+                                src={ProfilePlaceholder}
+                                alt="placeholder"
+                                className="absolute w-full h-full rounded-full object-cover border border-white/20"
+                            />
+                        )}
                         <img
-                            src={ProfilePlaceholder}
-                            alt="placeholder"
-                            className="absolute w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 opacity-100"
+                            loading="lazy"
+                            src={post.user_image_url || ProfilePlaceholder}
+                            alt={post.username}
+                            onLoad={() => setProfileLoaded(true)}
+                            className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"
+                                }`}
                         />
-                    )}
+                    </div>
 
-                    <img
-                        loading="lazy"
-                        src={(post.user_image_url ?? undefined) || ProfilePlaceholder}
-                        alt={post.username}
-                        onLoad={() => setProfileLoaded(true)}
-                        className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"}`}
-                    />
+                    <div>
+                        <div className="font-semibold text-base">{post.username}</div>
+                        <div className="text-sm text-white/60">{createdAt}</div>
+                    </div>
                 </div>
-
-                <div>
-                    <div className="font-semibold text-base">{post.username}</div>
-                    <div className="text-sm text-white/60">{createdAt}</div>
-                </div>
-            </div>}
+            )}
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                <h2 className="text-xl font-semibold leading-snug">{post.post_title}</h2>
+                <h2 className="text-lg sm:text-xl font-semibold leading-snug break-words">{post.post_title}</h2>
                 {isUser && <div className="text-sm text-white/60">{createdAt}</div>}
             </div>
 
             {hasImage && (
-
                 <div className="w-full aspect-video mb-4 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
                     {!mediaLoaded && (
                         <img
                             src={MediaPlaceholder}
                             alt="placeholder"
-                            className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 opacity-100"
+                            className="w-full h-full object-cover absolute top-0 left-0"
                         />
                     )}
                     <motion.img
                         loading="lazy"
                         src={post.media_url}
                         alt="post"
-                        onLoad={() => setImageLoaded(true)}
+                        onLoad={() => setMediaLoaded(true)}
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={mediaLoaded ? { scale: 1, opacity: 1 } : {}}
                         transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                        className={`w-full h-full object-cover ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
+                        className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"
+                            }`}
                     />
-
                 </div>
             )}
 
-            <div className="mb-4">
-                {isExpanded || !isTrimmed ? (
-                    <div className="custom-scroll text-white/90 text-sm leading-relaxed max-h-48 overflow-y-auto pr-1 break-words whitespace-pre-wrap overflow-x-hidden scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+            <div className="relative">
+                {isExpanded ? (
+                    <div className="custom-scroll text-white/90 text-sm leading-relaxed break-words whitespace-pre-wrap pr-1 h-30 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                         {post.post_body}
                     </div>
                 ) : (
-                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-5 sm:line-clamp-6">
+                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-[5] h-30 overflow-hidden">
                         {post.post_body}
                     </p>
                 )}
@@ -101,7 +100,7 @@ function PostCard({ post, isUser }: Props) {
                 {isTrimmed && (
                     <button
                         onClick={handleToggleExpand}
-                        className="text-cyan-400 text-sm mt-1 hover:underline">
+                        className="text-cyan-400 text-sm hover:underline">
                         {isExpanded ? "Show Less" : "More"}
                     </button>
                 )}
@@ -116,10 +115,9 @@ function PostCard({ post, isUser }: Props) {
                         <MessageCircle className="w-4 h-4" /> <span>0</span>
                     </button>
                 </div>
-                <span className="text-white/50 text-xs">{post.category}</span>
+                <span className="text-white/50 text-xs break-all">{post.category}</span>
             </div>
-
-        </div>
+        </motion.div>
     );
 }
 

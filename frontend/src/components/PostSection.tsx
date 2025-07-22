@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { getRequest } from "../api/APIManager";
 import { type PostData, getInitialPosts } from "../models/modelPosts";
 import PostCard from "./PostCard";
 import SkeletonPost from "./SkeletonPost";
-
 
 type PostSectionProps = {
     baseUrl: string;
@@ -13,30 +12,14 @@ type PostSectionProps = {
 
 const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
     const [page, setPage] = useState(1);
+    const [postData, setPostData] = useState<PostData>(getInitialPosts());
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
-    const [postData, setPostData] = useState<PostData>(getInitialPosts());
+
     const observer = useRef<IntersectionObserver | null>(null);
+    const isInitialMount = useRef(true);
 
-    const fetchPosts = async (page: number) => {
-        let url = baseUrl.includes("?") ? `${baseUrl}&page=${page}` : `${baseUrl}?page=${page}`;
-        const { data, error } = await getRequest<PostData>(url);
-        if (error || !data) return null;
-        return data;
-    };
-
-    const lastPostRef = useCallback((node: HTMLDivElement | null) => {
-        if (loading || !hasMore) return;
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                setPage((prev) => prev + 1);
-            }
-        });
-        if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
-
-    const postVariants: Variants = {
+    const postVariants: Variants = useMemo(() => ({
         hidden: { opacity: 0, y: 60, scale: 0.95 },
         visible: (i = 0) => ({
             opacity: 1,
@@ -55,12 +38,31 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
             scale: 0.9,
             transition: { duration: 0.3 },
         },
-    };
+    }), []);
+
+    const fetchPosts = useCallback(async (pg: number) => {
+        const url = baseUrl.includes("?") ? `${baseUrl}&page=${pg}` : `${baseUrl}?page=${pg}`;
+        const { data, error } = await getRequest<PostData>(url);
+        if (error || !data) return null;
+        return data;
+    }, [baseUrl]);
+
+    const lastPostRef = useCallback((node: HTMLDivElement | null) => {
+        if (loading || !hasMore) return;
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setPage((prev) => prev + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, [loading, hasMore]);
 
     useEffect(() => {
         setPage(1);
         setPostData(getInitialPosts());
         setHasMore(true);
+        isInitialMount.current = true;
     }, [baseUrl]);
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
             }
             setLoading(false);
         })();
-    }, [baseUrl, page]);
+    }, [page, fetchPosts]);
 
     return (
         <>
@@ -101,14 +103,14 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
 
             {loading && (
                 <div className="mt-4 space-y-3">
-                    {[...Array(3)].map((_, i) => (
-                        <SkeletonPost key={i} />
-                    ))}
+                    {[...Array(3)].map((_, i) => <SkeletonPost key={i} />)}
                 </div>
             )}
 
             {!loading && !hasMore && (
-                <p className="text-center text-sm text-white/40 py-4">🎉 You've reached the end!</p>
+                <p className="text-center text-sm text-white/40 py-4">
+                    🎉 You've reached the end!
+                </p>
             )}
         </>
     );
