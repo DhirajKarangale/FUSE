@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useTransition } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { urlCategories } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type Categories } from '../../models/modelCategories';
 import { type User } from "../../models/modelUser";
 import GetMessage from "../../utils/MessagesManager";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 type AuthCategoriesProps = {
   ShowMsg: (msg: string, color?: string) => void;
@@ -20,7 +20,6 @@ const CategorySection = React.memo(({ section, items, selectedCategories, Toggle
   ToggleCategory: (item: string) => void;
 }) => {
   const allSelected = items.every(item => selectedCategories.includes(item));
-
   return (
     <div className="bg-white/10 p-4 sm:p-5 rounded-xl shadow-md border border-white/20 w-full">
       <h2
@@ -30,7 +29,6 @@ const CategorySection = React.memo(({ section, items, selectedCategories, Toggle
       >
         {section}
       </h2>
-
       <div className="flex flex-wrap gap-2">
         {items.map((item, idx) => (
           <span
@@ -55,55 +53,50 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [categoriesData, setCategoriesData] = useState<Record<string, string[]>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const loadingRef = useRef<boolean>(false);
-  const [_isPending, startTransition] = useTransition();
 
   function ButtonContinue() {
     if (selectedCategories.length < 1) {
       ShowMsg(GetMessage('categorySelect'), 'red');
       return;
     }
-
-    const updatedUser: User = {
-      ...user,
-      categories: selectedCategories,
-    };
-
-    SetUser(updatedUser);
+    setIsVisible(false);
+    setTimeout(() => {
+      const updatedUser: User = {
+        ...user,
+        categories: selectedCategories,
+      };
+      SetUser(updatedUser);
+    }, 500);
   }
 
   function ToggleSection(section: string) {
     const items = categoriesData[section] || [];
     const allSelected = items.every(item => selectedCategories.includes(item));
-
-    startTransition(() => {
-      setSelectedCategories(prev => {
-        if (allSelected) {
-          return prev.filter(cat => !items.includes(cat));
-        } else {
-          const newSet = new Set(prev);
-          items.forEach(item => newSet.add(item));
-          return Array.from(newSet);
-        }
-      });
+    setSelectedCategories(prev => {
+      if (allSelected) {
+        return prev.filter(cat => !items.includes(cat));
+      } else {
+        const newSet = new Set(prev);
+        items.forEach(item => newSet.add(item));
+        return Array.from(newSet);
+      }
     });
   }
 
   function ToggleCategory(category: string) {
-    startTransition(() => {
-      setSelectedCategories(prev =>
-        prev.includes(category)
-          ? prev.filter(c => c !== category)
-          : [...prev, category]
-      );
-    });
+    setSelectedCategories(prev =>
+      prev.includes(category)
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
   }
 
   async function LoadCategories(page: number) {
     if (!isShowMore || loadingRef.current) return;
-
     loadingRef.current = true;
     setIsLoading(true);
 
@@ -135,13 +128,11 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current || isLoading || !isShowMore) return;
-
       const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
       if (scrollHeight - scrollTop <= clientHeight + 100) {
         LoadCategories(currPage + 1);
       }
     };
-
     const current = containerRef.current;
     current?.addEventListener('scroll', handleScroll);
     return () => current?.removeEventListener('scroll', handleScroll);
@@ -162,40 +153,53 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
-      <motion.div
-        key="auth-categories"
-        initial={{ opacity: 0, scale: 0.8, x: 200 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        exit={{ opacity: 0, scale: 0.8, x: -200 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="w-full max-w-[95vw] sm:max-w-4xl h-[95vh] px-4 sm:px-6 pt-4 sm:pt-6 pb-0 rounded-2xl bg-black/25 backdrop-blur-sm pointer-events-auto shadow-lg relative overflow-hidden flex flex-col"
-      >
-        <div
-          ref={containerRef}
-          className="flex-1 overflow-y-auto overflow-x-hidden pr-2 custom-scroll space-y-6"
-        >
-          {Object.entries(categoriesData).map(([section, items]) => (
-            <CategorySection
-              key={section}
-              section={section}
-              items={items}
-              selectedCategories={selectedCategories}
-              ToggleSection={ToggleSection}
-              ToggleCategory={ToggleCategory}
-            />
-          ))}
-          {isLoading && <CategorySkeleton />}
-        </div>
-
-        <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
-          <button
-            onClick={ButtonContinue}
-            className="text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            key="auth-categories"
+            initial={{ opacity: 0, scale: 0.8, x: 200 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            exit={{ opacity: 0, scale: 0.8, x: -200 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            onAnimationComplete={(definition) => {
+              if (definition === "exit") {
+                const updatedUser: User = {
+                  ...user,
+                  categories: selectedCategories,
+                };
+                SetUser(updatedUser);
+              }
+            }}
+            className="w-full max-w-[95vw] sm:max-w-4xl h-[95vh] px-4 sm:px-6 pt-4 sm:pt-6 pb-0 rounded-2xl bg-black/25 backdrop-blur-sm pointer-events-auto shadow-lg relative overflow-hidden flex flex-col"
           >
-            Continue
-          </button>
-        </div>
-      </motion.div>
+            <div
+              ref={containerRef}
+              className="flex-1 overflow-y-auto overflow-x-hidden pr-2 custom-scroll space-y-6"
+            >
+              {Object.entries(categoriesData).map(([section, items]) => (
+                <CategorySection
+                  key={section}
+                  section={section}
+                  items={items}
+                  selectedCategories={selectedCategories}
+                  ToggleSection={ToggleSection}
+                  ToggleCategory={ToggleCategory}
+                />
+              ))}
+              {isLoading && <CategorySkeleton />}
+            </div>
+
+            <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
+              <button
+                onClick={ButtonContinue}
+                className="text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+              >
+                Continue
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

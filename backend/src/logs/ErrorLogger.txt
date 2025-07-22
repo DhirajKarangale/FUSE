@@ -904,3 +904,9 @@ Error: Wrong OTP 3
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
 
+Error: Wrong OTP 3
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
