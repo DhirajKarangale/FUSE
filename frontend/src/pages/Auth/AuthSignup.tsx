@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import GetMessage from "../../utils/MessagesManager";
 
-import { urlOTP, urlUser } from "../../api/APIs";
+import { urlOTP } from "../../api/APIs";
 import { getRequest, postRequest } from "../../api/APIManager";
 
 import { type UserData, type User } from "../../models/modelUser";
@@ -15,27 +16,11 @@ type AuthSignupProps = {
 
 function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
     const [isOtp, setIsOTP] = useState<boolean>(false);
-    const [isStartAnim, setIsStartAnim] = useState<boolean>(false);
-    const [isEndAnim, setIsEndAnim] = useState<boolean>(false);
 
     const [otp, setOTP] = useState<string>('');
     const [email, setEmail] = useState<string>('');
+    const [isExiting, setIsExiting] = useState(false);
 
-
-    async function AutoLogin() {
-        const token = localStorage.getItem('token');
-        if (!token) return;
-
-        SetLoader(true);
-        const { data, error } = await getRequest<User>(urlUser);
-        if (data) {
-            setIsEndAnim(true);
-            setTimeout(() => { SetUser(data); }, 500);
-        } else {
-            ShowMsg(error, 'red');
-        }
-        SetLoader(false);
-    }
 
     async function ButtonContinue() {
         const otpRegex = /^\d{6}$/;
@@ -51,7 +36,7 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
         if (data) {
             localStorage.setItem('token', data.token)
             ShowMsg(GetMessage('otpVerified'), 'green');
-            setIsEndAnim(true);
+            setIsExiting(true);
             setTimeout(() => { SetUser(data.user); }, 500);
         } else {
             ShowMsg(error, 'red');
@@ -82,64 +67,90 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
         SetLoader(false);
     }
 
-    useEffect(() => {
-        // AutoLogin();
-        setTimeout(() => { setIsStartAnim(true); }, 50);
-    }, [])
-
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
+        <div className="absolute inset-0 h-screen overflow-y-auto flex items-center justify-center z-50 pointer-events-none select-none">
 
-            <div className={`w-82 px-6 pt-6 pb-6 rounded-2xl bg-black/25 backdrop-blur-sm
-                            pointer-events-auto shadow-lg relative overflow-hidden
-                            transform transition-all duration-1000 ease-in-out
-                            ${isEndAnim ? "opacity-0 -translate-x-full" : isStartAnim ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
+            <AnimatePresence>
+                {!isExiting && (
+                    <motion.div
+                        key="auth-modal"
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -200 }}
+                        transition={{ duration: 0.7, ease: "easeInOut" }}
+                        className="w-[90%] sm:w-96 px-4 sm:px-6 pt-6 pb-6 rounded-2xl bg-black/25 backdrop-blur-sm
+                pointer-events-auto shadow-lg relative overflow-hidden"
+                    >
 
-                <div className="px-1">
-                    <label htmlFor="email" className="block text-white text-lg font-semibold mb-2">
-                        Enter Your Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        onChange={(e: any) => setEmail(e.target.value)}
-                        placeholder="jaadu@titan.com"
-                        className="w-full p-3 rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                    />
-                </div>
 
-                <div className={`transform transition-all duration-1000 ease-in-out overflow-hidden px-1 pb-1
-                                    ${isOtp ? "opacity-100 translate-y-0 mt-4 max-h-96" : "opacity-0 -translate-y-10 mt-0 max-h-0"}`}>
+                        <div className="px-1">
+                            <label htmlFor="email" className="block text-white text-base sm:text-lg font-semibold mb-2">
+                                Enter Your Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                onChange={(e: any) => setEmail(e.target.value)}
+                                placeholder="jaadu@titan.com"
+                                className="w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                            />
+                        </div>
 
-                    <label htmlFor="otp" className="block text-white text-lg font-semibold mb-2">
-                        Enter OTP
-                    </label>
-                    <input
-                        type="number"
-                        id="otp"
-                        onChange={(e: any) => setOTP(e.target.value)}
-                        placeholder="123456"
-                        className="w-full p-3 rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400
-                                        [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    />
-                </div>
+                        <AnimatePresence>
+                            {isOtp && (
+                                <motion.div
+                                    key="otp-input"
+                                    initial={{ opacity: 0, y: -20, height: 0 }}
+                                    animate={{ opacity: 1, y: 0, height: "auto", marginTop: 16 }}
+                                    exit={{ opacity: 0, y: -20, height: 0, marginTop: 0 }}
+                                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                                    className="px-1"
+                                    style={{ overflow: "visible", paddingBottom: "0.25rem" }}
+                                >
 
-                <div className="px-1 mt-6 flex justify-between items-center">
-                    <button
-                        onClick={ButtonOTP}
-                        className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-semibold py-2 px-4 rounded-lg">
-                        Send OTP
-                    </button>
+                                    <label htmlFor="otp" className="block text-white text-base sm:text-lg font-semibold mb-2">
+                                        Enter OTP
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="otp"
+                                        onChange={(e: any) => setOTP(e.target.value)}
+                                        placeholder="123456"
+                                        className="w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400
+                                [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
-                    <button
-                        onClick={ButtonContinue}
-                        className={`bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transform transition-all duration-1000 ease-in-out overflow-hidden
-                                        ${isOtp ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}>
-                        Continue
-                    </button>
+                        <div className="px-1 mt-6 w-full flex flex-col sm:flex-row gap-4 sm:gap-3 sm:justify-between items-center">
+                            <button
+                                onClick={ButtonOTP}
+                                className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-semibold py-2 px-4 rounded-lg w-fit"
+                            >
+                                Send OTP
+                            </button>
 
-                </div>
-            </div>
+                            <AnimatePresence>
+                                {isOtp && (
+                                    <motion.button
+                                        key="continue-btn"
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.5 }}
+                                        onClick={ButtonContinue}
+                                        className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-semibold py-2 px-4 rounded-lg w-fit"
+                                    >
+                                        Continue
+                                    </motion.button>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
         </div>
     );
