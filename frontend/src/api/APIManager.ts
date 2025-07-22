@@ -27,10 +27,7 @@ function checkToken(errorMessage: string) {
     const msg = errorMessage.toString();
     const currentPath = window.location.pathname;
 
-    if (
-        (msg === 'Token Invalid' || msg == 'Token Required') &&
-        !currentPath.startsWith(routeAuth)
-    ) {
+    if ((msg === 'Token Invalid' || msg == 'Token Required') && !currentPath.startsWith(routeAuth)) {
         window.location.replace(routeAuth);
     }
 }

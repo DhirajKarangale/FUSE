@@ -9,7 +9,7 @@ require('dotenv').config();
 async function GetUser(req, res, next) {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
-        return next(throwError(messagesManager.Error('jwtRequired'), statusCode.UNAUTHORIZED));
+        throwError(messagesManager.Error('jwtRequired'), statusCode.UNAUTHORIZED);
     }
 
     try {
@@ -17,7 +17,7 @@ async function GetUser(req, res, next) {
         req.user = decoded.user;
         return decoded.user;
     } catch (err) {
-        return next(throwError(messagesManager.Error('jwtInvalid'), statusCode.FORBIDDEN));
+        throwError(messagesManager.Error('jwtInvalid'), statusCode.FORBIDDEN);
     }
 }
 

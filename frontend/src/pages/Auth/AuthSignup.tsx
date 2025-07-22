@@ -74,9 +74,9 @@ function AuthSignup({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) {
                 {!isExiting && (
                     <motion.div
                         key="auth-modal"
-                        initial={{ opacity: 0, x: -100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
+                        initial={{ opacity: 0, scale: 0.8, y: 40 }}
+                        animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, x: -200 }}
                         transition={{ duration: 0.7, ease: "easeInOut" }}
                         className="w-[90%] sm:w-96 px-4 sm:px-6 pt-6 pb-6 rounded-2xl bg-black/25 backdrop-blur-sm
                 pointer-events-auto shadow-lg relative overflow-hidden"
