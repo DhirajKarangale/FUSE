@@ -1,0 +1,56 @@
+# ===================
+# Node.js Dependencies & Package Managers
+# ===================
+node_modules/
+package-lock.json
+yarn.lock
+*.tgz
+
+# ===================
+# Logs
+# ===================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+frontend/src/logs/
+backend/src/logs/
+frontend/logs/
+backend/logs/
+
+# ===================
+# Environment Files
+# ===================
+.env
+
+# ===================
+# Build Output
+# ===================
+dist/
+build/
+dist-ssr/
+temp/
+tmp/
+coverage/
+
+# ===================
+# OS Specific Files
+# ===================
+.DS_Store
+Thumbs.db
+
+# ===================
+# IDE/Editor Settings
+# ===================
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
