@@ -1,12 +1,82 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+import { type User } from "../../models/modelUser";
+
+import { setUser } from "../../redux/sliceUser";
+import { setLoader } from "../../redux/sliceLoader";
+import { setMessage } from "../../redux/sliceMessageBar";
+import { useAppSelector, useAppDispatch } from "../../redux/hookStore";
+
+import { urlUser } from "../../api/APIs";
+import { putRequest } from "../../api/APIManager";
+
+import GetMessage from "../../utils/MessagesManager";
+import CategoriesSection from "../../components/CategoriesSection";
+
 
 function CustomizeFeed() {
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.user);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (user.isLoaded) {
+            setSelectedCategories(user.categories);
+        }
+    }, [user.isLoaded])
+
+    function ShowMsg(message: string, color: string) {
+        dispatch(setMessage({ message, color }))
+    }
+
+    async function ButtonSave() {
+        if (selectedCategories.length < 1) {
+            ShowMsg(GetMessage('categorySelect'), 'red');
+            return;
+        }
+
+        dispatch(setLoader({ isLoading: true }));
+
+        const { data, error } = await putRequest<User>(urlUser, { categories: selectedCategories });
+        if (data) {
+            dispatch(setUser(data));
+            ShowMsg('Categories updated successfully', 'green');
+        }
+        else {
+            ShowMsg(error, 'red');
+        }
+
+        dispatch(setLoader({ isLoading: false }));
+    }
+
     return (
-        <>
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-white text-3xl">CustomizeFeed</p>
-            </div>
-        </>
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
+            <AnimatePresence>
+                <motion.div
+                    key="auth-categories"
+                    initial={{ opacity: 0, scale: 0.8, x: 200 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, x: -200 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="w-full max-w-[95vw] sm:max-w-4xl h-[95vh] px-4 sm:px-6 pt-4 sm:pt-6 pb-0 rounded-2xl bg-black/25 backdrop-blur-sm pointer-events-auto shadow-lg relative overflow-hidden flex flex-col">
+
+                    <CategoriesSection
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                        onError={(msg: string) => ShowMsg(msg, 'red')}
+                    />
+
+                    <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
+                        <button
+                            onClick={ButtonSave}
+                            className="text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
+                            Save
+                        </button>
+                    </div>
+                </motion.div>
+            </AnimatePresence>
+        </div>
     );
 }
 
