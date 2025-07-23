@@ -120,7 +120,7 @@ function AddPost() {
                     className="w-[90%] sm:w-[700px] max-h-[85vh] sm:max-h-[100vh] rounded-2xl bg-black/30 backdrop-blur-md pointer-events-auto shadow-xl relative overflow-hidden flex flex-col">
 
                     <div className="overflow-y-auto p-4 sm:p-6 space-y-4 custom-scroll">
-                        
+
                         <div>
                             <label htmlFor="title" className="block text-white text-base sm:text-lg font-semibold mb-2">Title</label>
                             <input
@@ -179,6 +179,7 @@ function AddPost() {
                         </div>
 
                         <div className="w-full h-[40vh]">
+                            {/* <div className="w-full max-w-[100vw] sm:max-w-4xl h-[40vh] relative overflow-hidden flex flex-col"> */}
                             <label htmlFor="Category" className="block text-white text-base sm:text-lg font-semibold mb-2">Category</label>
                             <CategoriesSection
                                 selectedCategories={selectedCategories}
