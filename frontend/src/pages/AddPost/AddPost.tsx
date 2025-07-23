@@ -120,7 +120,7 @@ function AddPost() {
                     className="w-[90%] sm:w-[700px] max-h-[85vh] sm:max-h-[100vh] rounded-2xl bg-black/30 backdrop-blur-md pointer-events-auto shadow-xl relative overflow-hidden flex flex-col">
 
                     <div className="overflow-y-auto p-4 sm:p-6 space-y-4 custom-scroll">
-
+                        
                         <div>
                             <label htmlFor="title" className="block text-white text-base sm:text-lg font-semibold mb-2">Title</label>
                             <input
@@ -148,8 +148,16 @@ function AddPost() {
                                 </>
                             ) : (
                                 <div className="relative w-full">
-                                    <img src={mediaPreview} alt="Preview"
-                                        className="w-full max-h-60 object-contain rounded-md border border-white/20" />
+                                    <motion.img
+                                        key={mediaPreview}
+                                        src={mediaPreview}
+                                        alt="Preview"
+                                        initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="w-full max-h-60 object-contain rounded-md border border-white/20"
+                                    />
                                     <button onClick={() => setMediaPreview(null)}
                                         className="absolute top-2 right-2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-full transition">
                                         <Trash2 size={16} />
@@ -181,16 +189,20 @@ function AddPost() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 p-4 border-t border-white/10 bg-black/20">
-                        <button
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.02 }}
                             className="w-full sm:w-1/2 py-1.5 sm:py-2 text-xs sm:text-sm rounded bg-cyan-500 hover:bg-cyan-700 text-white font-medium border border-white/20 transition"
                             onClick={ClearAllFields}>
                             Clear All
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.02 }}
                             className="w-full sm:w-1/2 py-1.5 sm:py-2 text-xs sm:text-sm rounded bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-medium transition"
                             onClick={ButtonAddPost}>
                             Add Post
-                        </button>
+                        </motion.button>
                     </div>
 
                 </motion.div>

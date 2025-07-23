@@ -41,9 +41,7 @@ const CategoryUI = React.memo(
             >
                 <h2
                     onClick={() => ToggleSection(section)}
-                    className={`text-base sm:text-lg font-bold mb-4 select-none cursor-pointer transition duration-200 ${allSelected ? "text-cyan-400" : "text-white hover:text-purple-400"
-                        }`}
-                >
+                    className={`text-base sm:text-lg font-bold mb-4 select-none cursor-pointer transition duration-200 ${allSelected ? "text-cyan-400" : "text-white hover:text-purple-400"}`}>
                     {section}
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -57,6 +55,8 @@ const CategoryUI = React.memo(
                                     onClick={() => ToggleCategory(item)}
                                     initial={{ scale: 0.9, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
+                                    whileTap={{ scale: 1.2 }}
+                                    whileHover={{ scale: 0.95 }}
                                     exit={{ scale: 0.8, opacity: 0 }}
                                     transition={{ duration: 0.2 }}
                                     className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition select-none cursor-pointer break-words max-w-full truncate ${isSelected
@@ -112,25 +112,12 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError,
     }, [isShowMore, onError]);
 
     const ToggleSection = useCallback((section: string) => {
-        // const items = categoriesData[section] || [];
-        // const allSelected = items.every((item) => selectedCategories.includes(item));
-
-        // setSelectedCategories((prev) => {
-        //     if (allSelected) {
-        //         return prev.filter((cat) => !items.includes(cat));
-        //     } else {
-        //         const newSet = new Set(prev);
-        //         items.forEach((item) => newSet.add(item));
-        //         return Array.from(newSet);
-        //     }
-        // });
-
         const items = categoriesData[section] || [];
         const allSelected = items.every((item) => selectedCategories.includes(item));
 
         setSelectedCategories((prev) => {
             if (singleSelect) {
-                return allSelected ? [] : [items[0]]; 
+                return allSelected ? [] : [items[0]];
             }
             if (allSelected) {
                 return prev.filter((cat) => !items.includes(cat));
@@ -144,12 +131,6 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError,
     }, [categoriesData, selectedCategories, setSelectedCategories, singleSelect]);
 
     const ToggleCategory = useCallback((category: string) => {
-        // setSelectedCategories((prev) =>
-        //     prev.includes(category)
-        //         ? prev.filter((c) => c !== category)
-        //         : [...prev, category]
-        // );
-
         setSelectedCategories((prev) => {
             if (singleSelect) return [category];
             return prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category];
