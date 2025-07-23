@@ -16,6 +16,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 frontend/src/logs/
+backend/node_modules/
 backend/src/logs/
 frontend/logs/
 backend/logs/
