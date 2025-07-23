@@ -93,8 +93,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
                             variants={postVariants}
                             initial="hidden"
                             animate="visible"
-                            exit="exit"
-                        >
+                            exit="exit">
                             <PostCard post={post} isUser={isUserPost} />
                         </motion.div>
                     );

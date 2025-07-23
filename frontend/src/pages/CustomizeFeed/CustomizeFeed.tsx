@@ -59,8 +59,8 @@ function CustomizeFeed() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.8, x: -200 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="w-full max-w-[95vw] sm:max-w-4xl h-[95vh] px-4 sm:px-6 pt-4 sm:pt-6 pb-0 rounded-2xl bg-black/25 backdrop-blur-sm pointer-events-auto shadow-lg relative overflow-hidden flex flex-col">
-
+                    className="w-full max-w-[95vw] sm:max-w-4xl max-h-[85vh] sm:max-h-[100vh] px-4 sm:px-6 py-0 sm:pt-6 rounded-2xl bg-black/25 backdrop-blur-sm pointer-events-auto shadow-lg relative overflow-hidden flex flex-col">
+                        
                     <CategoriesSection
                         selectedCategories={selectedCategories}
                         setSelectedCategories={setSelectedCategories}

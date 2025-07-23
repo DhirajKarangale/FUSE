@@ -15,7 +15,7 @@ const navItems = [
 function Navbar() {
     return (
         <>
-            <div className="hidden lg:flex fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur-xl border-r border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-4 z-0">
+            <div className="hidden lg:flex fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur-xl border-r border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-4 z-5">
                 <div className="flex flex-col gap-4">
 
                     {navItems.map((item) => (
