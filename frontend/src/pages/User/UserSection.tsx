@@ -118,6 +118,7 @@ function UserSection({ userId }: UserSectionProps) {
 
     function ButtonLogout() {
         ClearUser();
+        localStorage.removeItem('token');
         ShowMsg(GetMessage('logoutSuccess'), 'orange');
         navigate(routeAuth);
     }
@@ -263,7 +264,6 @@ function UserSection({ userId }: UserSectionProps) {
     if (!user) return null;
 
     return (
-
         <motion.div
             className="w-full px-4 sm:px-6 lg:px-8 mt-5"
             initial="hidden"
