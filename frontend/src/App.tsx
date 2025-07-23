@@ -47,5 +47,3 @@ export default function App() {
     </Provider>
   )
 };
-
-// Dither, Ripple Grid, Particles, Dark Veil, Galaxy
