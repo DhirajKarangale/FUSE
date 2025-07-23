@@ -7,9 +7,9 @@ const messagesManager = require('../utilities/messagesManager');
 async function Post(id, body) {
     validator.ID(id);
     validator.Category(body.category);
-    validator.URL(body.mediaURL);
     validator.PostTitle(body.postTitle);
-    validator.PostBody(body.postBody);
+    if (body.mediaURL) validator.URL(body.mediaURL);
+    if (body.postBody) validator.PostBody(body.postBody);
 
     await modelPost.Post(id, body.postTitle, body.postBody, body.mediaURL, body.category);
 

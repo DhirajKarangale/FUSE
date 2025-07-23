@@ -8,7 +8,7 @@ import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import Popular from './pages/Popular/Popular'
 import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
-import AddPost from './pages/Post/AddPost';
+import AddPost from './pages/AddPost/AddPost';
 import User from './pages/User/User';
 import About from './pages/About/About';
 

@@ -77,7 +77,7 @@ function UserSection({ userId }: UserSectionProps) {
 
         const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
-            ShowMsg(GetMessage('imageSize'), "red");
+            ShowMsg(GetMessage('profileImageSize'), "red");
             return false;
         }
 
@@ -188,7 +188,6 @@ function UserSection({ userId }: UserSectionProps) {
         formData.append("file", file);
         formData.append("upload_preset", UPLOAD_PRESET);
 
-
         try {
             ShowLoader(true);
 
@@ -198,7 +197,10 @@ function UserSection({ userId }: UserSectionProps) {
             });
 
             const dataImageUpload = await res.json();
-            if (!dataImageUpload.secure_url) throw new Error("Upload failed");
+            if (!dataImageUpload.secure_url) {
+                ShowMsg(GetMessage('mediaUploadFail'), 'red')
+                return;
+            }
 
             const oldImage = user.image_url;
 
@@ -214,7 +216,7 @@ function UserSection({ userId }: UserSectionProps) {
                 ShowMsg(error, "red");
             }
         } catch (err) {
-            ShowMsg("Failed to upload image", "red");
+            ShowMsg(GetMessage('mediaUploadFail'), 'red')
         } finally {
             ShowLoader(false);
         }

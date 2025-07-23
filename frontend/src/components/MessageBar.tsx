@@ -37,7 +37,7 @@ function MessageBar() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 1, y: 50 }}
                     transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="fixed bottom-16 w-full flex justify-center z-50 pointer-events-none px-4"
+                    className="fixed bottom-16 w-full flex justify-center z-100 pointer-events-none px-4"
                 >
                     <div className="MessageBar bg-black/30 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15 shadow-md max-w-md w-full pointer-events-auto">
                         <p

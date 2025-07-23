@@ -41,7 +41,7 @@ function CustomizeFeed() {
         const { data, error } = await putRequest<User>(urlUser, { categories: selectedCategories });
         if (data) {
             dispatch(setUser(data));
-            ShowMsg('Categories updated successfully', 'green');
+            ShowMsg(GetMessage('categoriesupdated'), 'green');
         }
         else {
             ShowMsg(error, 'red');
@@ -51,7 +51,7 @@ function CustomizeFeed() {
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
+        <div className="fixed inset-0 flex items-center justify-center z-1 pointer-events-none select-none">
             <AnimatePresence>
                 <motion.div
                     key="auth-categories"
@@ -70,10 +70,11 @@ function CustomizeFeed() {
                     <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
                         <button
                             onClick={ButtonSave}
-                            className="text-white text-sm font-semibold py-2 px-4 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
+                            className="text-white text-sm sm:text-base font-semibold py-1.5 sm:py-2 px-5 sm:px-6 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
                             Save
                         </button>
                     </div>
+
                 </motion.div>
             </AnimatePresence>
         </div>

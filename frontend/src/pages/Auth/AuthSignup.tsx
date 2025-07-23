@@ -64,7 +64,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
   }
 
   return (
-    <div className="absolute inset-0 h-screen overflow-y-auto flex items-center justify-center z-50 pointer-events-none select-none">
+    <div className="absolute inset-0 h-screen overflow-y-auto flex items-center justify-center z-1 pointer-events-none select-none">
       <AnimatePresence>
         {!isExiting && (
           <motion.div

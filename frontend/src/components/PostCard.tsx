@@ -20,7 +20,7 @@ function PostCard({ post, isUser }: Props) {
     const navigate = useNavigate();
     const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
     const hasImage = !!post.media_url;
-    const isTrimmed = useMemo(() => post.post_body.length > 500, [post.post_body]);
+    const isTrimmed = useMemo(() => post.post_body?.length > 500, [post.post_body]);
 
     const handleToggleExpand = useCallback(() => {
         setIsExpanded((prev) => !prev);

@@ -8,6 +8,7 @@ type Props = {
     selectedCategories: string[];
     setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
     onError?: (msg: string) => void;
+    singleSelect?: boolean;
 };
 
 const CategoryUI = React.memo(
@@ -74,7 +75,7 @@ const CategoryUI = React.memo(
     }
 );
 
-function CategoriesSection({ selectedCategories, setSelectedCategories, onError }: Props) {
+function CategoriesSection({ selectedCategories, setSelectedCategories, onError, singleSelect }: Props) {
     const [currPage, setCurrPage] = useState(1);
     const [isShowMore, setIsShowMore] = useState(true);
     const [categoriesData, setCategoriesData] = useState<Record<string, string[]>>({});
@@ -111,10 +112,26 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError 
     }, [isShowMore, onError]);
 
     const ToggleSection = useCallback((section: string) => {
+        // const items = categoriesData[section] || [];
+        // const allSelected = items.every((item) => selectedCategories.includes(item));
+
+        // setSelectedCategories((prev) => {
+        //     if (allSelected) {
+        //         return prev.filter((cat) => !items.includes(cat));
+        //     } else {
+        //         const newSet = new Set(prev);
+        //         items.forEach((item) => newSet.add(item));
+        //         return Array.from(newSet);
+        //     }
+        // });
+
         const items = categoriesData[section] || [];
         const allSelected = items.every((item) => selectedCategories.includes(item));
 
         setSelectedCategories((prev) => {
+            if (singleSelect) {
+                return allSelected ? [] : [items[0]]; 
+            }
             if (allSelected) {
                 return prev.filter((cat) => !items.includes(cat));
             } else {
@@ -123,15 +140,22 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError 
                 return Array.from(newSet);
             }
         });
-    }, [categoriesData, selectedCategories, setSelectedCategories]);
+
+    }, [categoriesData, selectedCategories, setSelectedCategories, singleSelect]);
 
     const ToggleCategory = useCallback((category: string) => {
-        setSelectedCategories((prev) =>
-            prev.includes(category)
-                ? prev.filter((c) => c !== category)
-                : [...prev, category]
-        );
-    }, [setSelectedCategories]);
+        // setSelectedCategories((prev) =>
+        //     prev.includes(category)
+        //         ? prev.filter((c) => c !== category)
+        //         : [...prev, category]
+        // );
+
+        setSelectedCategories((prev) => {
+            if (singleSelect) return [category];
+            return prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category];
+        });
+
+    }, [setSelectedCategories, singleSelect]);
 
     useEffect(() => {
         LoadCategories(1);

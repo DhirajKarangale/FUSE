@@ -8,6 +8,12 @@
     "categorySelect":[
         "Select at least one category"
     ],
+    "categorySelectOne":[
+        "Select one category"
+    ],
+    "categoriesupdated":[
+        "Categories updated successfully"
+    ],
 
     "otpInvalid": [
         "Invalid OTP",
@@ -41,10 +47,34 @@
         "Logged out successfully"
     ],
 
-    "imageSize":[
+    "profileImageSize":[
         "Image must be smaller than 5MB"
+    ],
+    "postImageSize":[
+        "Image must be smaller than 10MB"
     ],
     "imageSuccess":[
         "Image updated"
+    ],
+
+    "mediaUploadFail":[
+        "Media upload failed"
+    ],
+
+    "postTitleMust":[
+        "Post Title is Mandatory"
+    ],
+    "postTitleLess":[
+        "Post title should be more than 4 characters"
+    ],
+    "postTitleGreater":[
+        "Post title should be less than 250 characters"
+    ],
+
+    "postBodyLess":[
+        "Post Body Should be more than 20 characters"
+    ],
+    "postBodyGreater":[
+        "Post Body Should be less than 10000 characters"
     ]
 }

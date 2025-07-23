@@ -33,7 +33,7 @@ function Loader() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm text-white px-4"
+                    className="fixed inset-0 z-99 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm text-white px-4"
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

@@ -30,7 +30,7 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none">
+    <div className="fixed inset-0 flex items-center justify-center z-1 pointer-events-none select-none">
       <AnimatePresence>
         {isVisible && (
           <motion.div

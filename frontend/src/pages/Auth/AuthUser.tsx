@@ -9,8 +9,7 @@ type AuthUserProps = {
     user: User;
 };
 
-const inputClass =
-    "w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400";
+const inputStyleClass = "w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400";
 
 const containerVariants = {
     initial: { opacity: 0, scale: 0.8, x: 200 },
@@ -47,7 +46,7 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none select-none px-2 sm:px-0">
+        <div className="fixed inset-0 flex items-center justify-center z-1 pointer-events-none select-none px-2 sm:px-0">
             <AnimatePresence>
                 {!isExiting && (
                     <motion.div
@@ -60,7 +59,6 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
                         className="w-[90%] sm:w-96 max-w-full px-4 sm:px-6 pt-6 pb-6 rounded-2xl bg-black/30 backdrop-blur-md
               pointer-events-auto shadow-xl relative overflow-hidden"
                     >
-                        {/* Username Input */}
                         <div className="px-1">
                             <label
                                 htmlFor="username"
@@ -74,11 +72,10 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 placeholder="jaadu"
-                                className={inputClass}
+                                className={inputStyleClass}
                             />
                         </div>
 
-                        {/* About Input */}
                         <div className="px-1 mt-4">
                             <label
                                 htmlFor="about"
@@ -92,11 +89,10 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
                                 placeholder="I am an Alien"
                                 value={about}
                                 rows={5}
-                                className={`${inputClass} max-h-48 overflow-y-auto resize-none custom-scroll`}
+                                className={`${inputStyleClass} max-h-48 overflow-y-auto resize-none custom-scroll`}
                             />
                         </div>
 
-                        {/* Continue Button */}
                         <div className="px-1 mt-6 flex justify-center">
                             <motion.button
                                 whileTap={{ scale: 0.95 }}
