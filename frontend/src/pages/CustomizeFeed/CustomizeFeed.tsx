@@ -67,7 +67,13 @@ function CustomizeFeed() {
                         onError={(msg: string) => ShowMsg(msg, 'red')}
                     />
 
-                    <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">
+                    <div className="py-2 px-2 flex gap-2 justify-end items-center rounded-b-2xl">
+                        <button
+                            className="text-white text-sm sm:text-base font-semibold py-1.5 sm:py-2 px-5 sm:px-6 rounded-lg mt-1 transition bg-cyan-500 hover:bg-cyan-700"
+                            onClick={() => setSelectedCategories([])}>
+                            Clear All
+                        </button>
+
                         <button
                             onClick={ButtonSave}
                             className="text-white text-sm sm:text-base font-semibold py-1.5 sm:py-2 px-5 sm:px-6 rounded-lg mt-1 transition bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
