@@ -94,8 +94,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
 
     const handleDeleteComment = async (id: number) => {
         await deleteRequest<string>(`${urlcomment}?id=${id}`);
-        // setComments(prev => prev.filter(c => c.id !== id));
-        // UpdateComment(true, -1);
 
         setComments(prev => {
             const updated = prev.filter(c => c.id !== id);

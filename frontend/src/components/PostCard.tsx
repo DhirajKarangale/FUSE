@@ -90,7 +90,7 @@ function PostCard({ post, isUser }: Props) {
             )}
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                <h2 className="text-lg sm:text-xl font-semibold leading-snug break-words">{post.post_title}</h2>
+                <h2 className="text-lg sm:text-xl font-semibold leading-snug whitespace-pre-wrap break-words break-all">{post.post_title}</h2>
                 {isUser && <div className="text-sm text-white/60">{createdAt}</div>}
             </div>
 
