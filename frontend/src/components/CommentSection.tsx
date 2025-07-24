@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 
 import { urlcomment } from "../api/APIs";
 import { getRequest, deleteRequest, postRequest } from "../api/APIManager";
-
-import ConfirmModal from "./ConfirmModal";
-import GetMessage from "../utils/MessagesManager";
 import { type Comment, type CommentData } from "../models/modelComment";
+
+import Alert from "./Alert";
+import GetMessage from "../utils/MessagesManager";
 
 type Props = {
     postId: number;
@@ -18,23 +18,20 @@ type Props = {
 };
 
 const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
-
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
-
-    const [comments, setComments] = useState<Comment[]>([]);
-    const [commentInput, setCommentInput] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const [currPage, setCurrPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [isFetchingMore, setIsFetchingMore] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [commentInput, setCommentInput] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [currPage, setCurrPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
+    const [isFetchingMore, setIsFetchingMore] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [deleteCallback, setDeleteCallback] = useState<() => void>(() => () => { });
 
-    const handleScroll = () => {
+    function handleScroll() {
         const el = scrollRef.current;
         if (!el || isFetchingMore || currPage >= totalPages) return;
 
@@ -43,18 +40,11 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         }
     };
 
-    useEffect(() => {
-        setComments([]);
-        setCurrPage(1);
-        setTotalPages(1);
-        fetchComments(1);
-    }, [postId]);
-
     function ShowMsg(message: string, color: string) {
         dispatch(setMessage({ message, color }));
     }
 
-    const fetchComments = async (page = 1) => {
+    async function fetchComments(page = 1) {
         if (page > totalPages) return;
 
         if (page === 1) setLoading(true);
@@ -72,7 +62,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         setIsFetchingMore(false);
     };
 
-    const handleAddComment = async () => {
+    async function handleAddComment() {
         if (commentInput.length < 2) {
             ShowMsg(GetMessage('commentLess'), 'red');
             return;
@@ -108,11 +98,18 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         }
     };
 
-    const handleDeleteComment = async (id: number) => {
+    async function handleDeleteComment(id: number) {
         await deleteRequest<string>(`${urlcomment}?id=${id}`);
         UpdateComment(true, -1);
         setComments((prev) => prev.filter((c) => c.id !== id));
     };
+
+    useEffect(() => {
+        setComments([]);
+        setCurrPage(1);
+        setTotalPages(1);
+        fetchComments(1);
+    }, [postId]);
 
     return (
         <div className="mt-4 w-full bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-white shadow-xl overflow-hidden">
@@ -150,7 +147,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                                         onClick={() => {
                                             setDeleteCallback(() => () => handleDeleteComment(comment.id));
                                             setShowConfirm(true);
-                                            // handleDeleteComment(comment.id)
                                         }}
                                         className="text-red-500 hover:text-red-600 ml-2"
                                     >
@@ -166,7 +162,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 )}
             </div>
 
-            {/* Footer */}
             <div className="px-4 py-3 border-t border-white/10 bg-black/50 backdrop-blur sticky bottom-0 z-10">
                 <div className="flex gap-2 items-center">
                     <input
@@ -184,7 +179,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 </div>
             </div>
 
-            <ConfirmModal
+            <Alert
                 isOpen={showConfirm}
                 message="Are you sure you want to delete this comment?"
                 onClose={() => setShowConfirm(false)}
