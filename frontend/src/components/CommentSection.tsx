@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 import { urlcomment } from "../api/APIs";
 import { getRequest, deleteRequest, postRequest } from "../api/APIManager";
 
+import ConfirmModal from "./ConfirmModal";
 import GetMessage from "../utils/MessagesManager";
 import { type Comment, type CommentData } from "../models/modelComment";
 
@@ -29,6 +30,9 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     const [totalPages, setTotalPages] = useState(1);
     const [isFetchingMore, setIsFetchingMore] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [deleteCallback, setDeleteCallback] = useState<() => void>(() => () => { });
 
     const handleScroll = () => {
         const el = scrollRef.current;
@@ -105,9 +109,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const handleDeleteComment = async (id: number) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
-        if (!confirmDelete) return;
-
         await deleteRequest<string>(`${urlcomment}?id=${id}`);
         UpdateComment(true, -1);
         setComments((prev) => prev.filter((c) => c.id !== id));
@@ -146,7 +147,11 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                                 </div>
                                 {comment.isUserComment && (
                                     <button
-                                        onClick={() => handleDeleteComment(comment.id)}
+                                        onClick={() => {
+                                            setDeleteCallback(() => () => handleDeleteComment(comment.id));
+                                            setShowConfirm(true);
+                                            // handleDeleteComment(comment.id)
+                                        }}
                                         className="text-red-500 hover:text-red-600 ml-2"
                                     >
                                         <Trash size={16} />
@@ -178,6 +183,14 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                     </button>
                 </div>
             </div>
+
+            <ConfirmModal
+                isOpen={showConfirm}
+                message="Are you sure you want to delete this comment?"
+                onClose={() => setShowConfirm(false)}
+                onConfirm={deleteCallback}
+            />
+
         </div>
     );
 };
