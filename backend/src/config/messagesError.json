@@ -95,6 +95,12 @@
         "No valid fields provided to update."
     ],
 
+    "commentShort":[
+        "Comment should be greater than 2 characters"
+    ],
+    "commentLong":[
+        "Comment should be less than 500 characters"
+    ],
 
 
 

@@ -65,4 +65,14 @@ function PostBody(postBody) {
     }
 }
 
-module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody };
+function Comment(Comment) {
+    if (typeof Comment !== 'string' || Comment.trim().length < 1) {
+        errorThrow(messagesManager.Error('commentShort'), statusCode.BAD_REQUEST);
+    }
+
+    if (Comment.trim().length > 500) {
+        errorThrow(messagesManager.Error('commentLong'), statusCode.BAD_REQUEST);
+    }
+}
+
+module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody, Comment };

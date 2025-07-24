@@ -32,11 +32,33 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT posts.id, user_id, post_title, post_body, media_url, created_at, category
+            `SELECT 
+                posts.id, 
+                posts.user_id, 
+                posts.post_title, 
+                posts.post_body, 
+                posts.media_url, 
+                posts.created_at, 
+                posts.category, 
+                COALESCE(array_length(posts.likes, 1), 0) AS "likes", 
+                ($1 = ANY(posts.likes)) AS "isLiked",
+                COALESCE(comment_counts.count, 0) AS "comments",
+                CASE WHEN user_comments.user_id IS NOT NULL THEN true ELSE false END AS "isCommented"
             FROM posts 
-            WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '')
-            ORDER BY created_at DESC
-            LIMIT $2 OFFSET $3;`, [userId, pageSize, pageNumber * pageSize]
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) AS count
+                FROM comments 
+                WHERE deactivation IS NULL OR deactivation = ''
+                GROUP BY post_id
+            ) AS comment_counts ON comment_counts.post_id = posts.id
+            LEFT JOIN (
+                SELECT DISTINCT post_id, user_id
+                FROM comments 
+                WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '')
+            ) AS user_comments ON user_comments.post_id = posts.id
+            WHERE posts.user_id = $1 AND (posts.deactivation IS NULL OR posts.deactivation = '')
+            ORDER BY posts.created_at DESC
+            LIMIT $2 OFFSET $3`, [userId, pageSize, pageNumber * pageSize]
         );
 
         posts = res.rows;
@@ -53,8 +75,8 @@ async function GetCategoriesPosts(userId, categories, pageNumber, pageSize) {
 
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM posts
-        WHERE category = ANY($1) AND (deactivation IS NULL OR deactivation = '');
-        `, [categories]);
+        WHERE category = ANY($1) AND (deactivation IS NULL OR deactivation = '');`
+        , [categories]);
     const totalPosts = parseInt(totalResult.rows[0].count);
     const totalPages = Math.ceil(totalPosts / pageSize);
 
@@ -62,13 +84,38 @@ async function GetCategoriesPosts(userId, categories, pageNumber, pageSize) {
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT posts.id, posts.user_id, posts.post_title, posts.post_body, posts.media_url, posts.created_at, posts.category, users.username, users.image_url as user_image_url, COALESCE(array_length(posts.likes, 1), 0) as "likes", ($4 = ANY(posts.likes)) as "isLiked"
-            FROM posts 
+            `SELECT 
+                posts.id,
+                posts.user_id,
+                posts.post_title,
+                posts.post_body,
+                posts.media_url,
+                posts.created_at,
+                posts.category,
+                users.username,
+                users.image_url AS user_image_url,
+                COALESCE(array_length(posts.likes, 1), 0) AS "likes",
+                ($4 = ANY(posts.likes)) AS "isLiked",
+                COALESCE(comment_counts.count, 0) AS "comments",
+                CASE WHEN user_comments.user_id IS NOT NULL THEN true ELSE false END AS "isCommented"
+            FROM posts
             JOIN users ON users.id = posts.user_id
-            WHERE category = ANY($1) AND (posts.deactivation IS NULL OR posts.deactivation = '')
-            ORDER BY created_at DESC
-            LIMIT $2 OFFSET $3;
-            `, [categories, pageSize, pageNumber * pageSize, userId]
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) AS count
+                FROM comments
+                WHERE deactivation IS NULL OR deactivation = ''
+                GROUP BY post_id
+            ) AS comment_counts ON comment_counts.post_id = posts.id
+            LEFT JOIN (
+                SELECT DISTINCT post_id, user_id
+                FROM comments
+                WHERE user_id = $4 AND (deactivation IS NULL OR deactivation = '')
+            ) AS user_comments ON user_comments.post_id = posts.id
+            WHERE category = ANY($1)
+              AND (posts.deactivation IS NULL OR posts.deactivation = '')
+            ORDER BY posts.created_at DESC
+            LIMIT $2 OFFSET $3;`
+            , [categories, pageSize, pageNumber * pageSize, userId]
         );
 
         posts = res.rows;

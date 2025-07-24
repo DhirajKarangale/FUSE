@@ -16,6 +16,8 @@ export interface Post {
     user_image_url: string | null;
     likes: number;
     isLiked: boolean;
+    comments: number;
+    isCommented: boolean;
 }
 
 export const getInitialPosts = (): PostData => ({

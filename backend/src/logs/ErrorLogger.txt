@@ -5,3 +5,247 @@ error: syntax error at or near "array_append"
     at async Object.Like (E:\FUSE\backend\src\services\servicePost.js:53:5)
     at async E:\FUSE\backend\src\routes\routerPost.js:42:26
 
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+TypeError: validator.comment is not a function
+    at Object.Add (E:\FUSE\backend\src\services\serviceComment.js:22:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:18:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+
+error: syntax error at or near "post_id"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Add (E:\FUSE\backend\src\model\modelComment.js:33:5)
+    at async Object.Add (E:\FUSE\backend\src\services\serviceComment.js:24:5)
+    at async E:\FUSE\backend\src\routes\routerComment.js:18:26
+
+error: insert or update on table "comments" violates foreign key constraint "comments_user_id_fkey"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Add (E:\FUSE\backend\src\model\modelComment.js:33:5)
+    at async Object.Add (E:\FUSE\backend\src\services\serviceComment.js:24:5)
+    at async E:\FUSE\backend\src\routes\routerComment.js:18:26
+
+Error: Token Required
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:8:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+error: there is no parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:4:25)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "."
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "ELECT"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:13:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:8:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: syntax error at or near "AS"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: unterminated quoted identifier at or near ""isLiked,
+            COALESCE(comment_counts.count, 0) AS comments
+            FROM posts 
+            JOIN users ON users.id = posts.user_id
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) AS count
+                FROM comments 
+                WHERE deactivation IS NULL OR deactivation = ''
+                GROUP BY post_id
+            ) AS comment_counts ON comment_counts.post_id = posts.id
+            WHERE category = ANY($1) AND (posts.deactivation IS NULL OR posts.deactivation = '')
+            ORDER BY created_at DESC
+            LIMIT $2 OFFSET $3;"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\model\modelPost.js:72:21)
+    at async Object.GetCategoriesPosts (E:\FUSE\backend\src\services\servicePost.js:46:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:9:26
+
+error: column reference "user_id" is ambiguous
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+
+error: column reference "user_id" is ambiguous
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\model\modelPost.js:34:21)
+    at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:20:26
+

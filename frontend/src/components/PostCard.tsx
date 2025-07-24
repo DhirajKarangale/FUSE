@@ -21,6 +21,7 @@ function PostCard({ post, isUser }: Props) {
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
+    const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
     const [likes, setLikes] = useState<number>(post.likes);
 
     const navigate = useNavigate();
@@ -136,11 +137,11 @@ function PostCard({ post, isUser }: Props) {
                         transition={{ duration: 0.4, ease: "easeOut" }}>
                         <Heart className={`w-4 h-4 transition-all duration-200 ${isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
                     </motion.button>
-                    <motion.button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200"
+                    <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${isCommented ? 'text-cyan-500' : 'hover:text-cyan-400'}`}
                         whileTap={{ scale: 1.2 }}
                         whileHover={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}>
-                        <MessageCircle className="w-4 h-4" /> <span>0</span>
+                        <MessageCircle className={`w-4 h-4 transition-all duration-200 ${isCommented ? "fill-cyan-500" : "fill-transparent"}`} /> <span>{post.comments}</span>
                     </motion.button>
                 </div>
                 <span className="text-white/50 text-xs break-all">{post.category}</span>
