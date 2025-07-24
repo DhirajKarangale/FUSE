@@ -11,6 +11,8 @@ import { type Post } from "../models/modelPosts";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
 
+import CommentSection from "./CommentSection";
+
 type Props = {
     post: Post;
     isUser: boolean;
@@ -21,8 +23,11 @@ function PostCard({ post, isUser }: Props) {
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
-    const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
     const [likes, setLikes] = useState<number>(post.likes);
+
+    const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState<number>(post.comments);
+    const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
 
     const navigate = useNavigate();
     const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
@@ -48,11 +53,15 @@ function PostCard({ post, isUser }: Props) {
         }
     }
 
+    function UpdateComment(isUserComment: boolean, amount: number) {
+        setIsCommented(isUserComment);
+        setComments(Number(comments) + amount);
+    }
+
     return (
         <motion.div
             layout
-            className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10"
-        >
+            className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10">
             {!isUser && (
                 <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
                     <div className="relative w-10 h-10 shrink-0">
@@ -138,14 +147,28 @@ function PostCard({ post, isUser }: Props) {
                         <Heart className={`w-4 h-4 transition-all duration-200 ${isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
                     </motion.button>
                     <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${isCommented ? 'text-cyan-500' : 'hover:text-cyan-400'}`}
+                        onClick={() => setShowComments(prev => !prev)}
                         whileTap={{ scale: 1.2 }}
                         whileHover={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}>
-                        <MessageCircle className={`w-4 h-4 transition-all duration-200 ${isCommented ? "fill-cyan-500" : "fill-transparent"}`} /> <span>{post.comments}</span>
+                        <MessageCircle className={`w-4 h-4 transition-all duration-200 ${isCommented ? "fill-cyan-500" : "fill-transparent"}`} /> <span>{comments}</span>
                     </motion.button>
                 </div>
                 <span className="text-white/50 text-xs break-all">{post.category}</span>
             </div>
+
+            {showComments && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                    <CommentSection
+                        postId={post.id}
+                        onClose={() => setShowComments(false)}
+                        UpdateComment={UpdateComment} />
+                </motion.div>
+            )}
+
         </motion.div>
     );
 }

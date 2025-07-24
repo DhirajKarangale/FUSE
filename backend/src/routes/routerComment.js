@@ -3,9 +3,10 @@ const serviceComment = require('../services/serviceComment');
 
 router.get('/', async (req, res, next) => {
     try {
+        const userId = req.user.id;
         const postId = req.query.id;
         const page = req.query.page;
-        const response = await serviceComment.Get(postId, page);
+        const response = await serviceComment.Get(userId, postId, page);
         res.status(200).json(response);
     } catch (error) {
         next(error);

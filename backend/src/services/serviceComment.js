@@ -5,14 +5,14 @@ const statusCode = require('../utilities/statusCodes');
 const validator = require('../utilities/validator');
 const messagesManager = require('../utilities/messagesManager');
 
-async function Get(postId, page) {
+async function Get(userId, postId, page) {
     validator.ID(postId);
 
     const pageSize = 10;
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelComment.Get(postId, validPage, pageSize);
+    return await modelComment.Get(userId, postId, validPage, pageSize);
 }
 
 
@@ -22,10 +22,11 @@ async function Add(userId, body) {
     validator.Comment(body.comment);
 
     await modelComment.Add(userId, body.postId, body.comment);
+    return "Operation Successful"
 }
 
-async function Delete(postId) {
-
+async function Delete(commentId) {
+    await modelComment.Delete(commentId);
 }
 
 

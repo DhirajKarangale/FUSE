@@ -249,3 +249,110 @@ error: column reference "user_id" is ambiguous
     at async Object.GetUserPosts (E:\FUSE\backend\src\services\servicePost.js:26:12)
     at async E:\FUSE\backend\src\routes\routerPost.js:20:26
 
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:14:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:9:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Get (E:\FUSE\backend\src\model\modelComment.js:14:21)
+    at async Object.Get (E:\FUSE\backend\src\services\serviceComment.js:15:12)
+    at async E:\FUSE\backend\src\routes\routerComment.js:9:26
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Invalid Id
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.Get (E:\FUSE\backend\src\services\serviceComment.js:9:15)
+    at E:\FUSE\backend\src\routes\routerComment.js:9:47
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+error: invalid input syntax for type integer: "undefined"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Delete (E:\FUSE\backend\src\model\modelComment.js:39:5)
+    at async Object.Delete (E:\FUSE\backend\src\services\serviceComment.js:29:5)
+    at async E:\FUSE\backend\src\routes\routerComment.js:30:26
+
+error: invalid input syntax for type integer: "undefined"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Delete (E:\FUSE\backend\src\model\modelComment.js:39:5)
+    at async Object.Delete (E:\FUSE\backend\src\services\serviceComment.js:29:5)
+    at async E:\FUSE\backend\src\routes\routerComment.js:30:26
+
+error: invalid input syntax for type integer: "undefined"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Delete (E:\FUSE\backend\src\model\modelComment.js:39:5)
+    at async Object.Delete (E:\FUSE\backend\src\services\serviceComment.js:29:5)
+    at async E:\FUSE\backend\src\routes\routerComment.js:30:26
+

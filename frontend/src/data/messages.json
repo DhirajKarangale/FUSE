@@ -76,5 +76,15 @@
     ],
     "postBodyGreater":[
         "Post Body Should be less than 10000 characters"
+    ],
+
+    "commentAdded":[
+        "Comment added Successfully"
+    ],
+    "commentLess":[
+        "Comment should be more than 1 character"
+    ],
+    "commentMore":[
+        "Comment should be less than 500 character"
     ]
 }

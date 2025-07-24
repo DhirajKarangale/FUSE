@@ -1,6 +1,6 @@
 const db = require('./db');
 
-async function Get(postId, pageNumber, pageSize) {
+async function Get(userId, postId, pageNumber, pageSize) {
     const totalResult = await db.query(`SELECT COUNT(*) FROM comments 
         WHERE post_id = $1 AND (deactivation IS NULL OR deactivation = '')`, [postId]);
 
@@ -12,12 +12,13 @@ async function Get(postId, pageNumber, pageSize) {
     if (pageNumber < totalPages) {
 
         const res = await db.query(`
-            SELECT comments.comment, users.username, users.image_url AS user_image_url
+            SELECT comments.id, comments.comment, comments.created_at, users.username, users.image_url AS user_image_url,
+            CASE WHEN comments.user_id = $4 THEN true ELSE false END AS "isUserComment"
             FROM comments
             JOIN users ON users.id = comments.user_id
             WHERE comments.post_id = $1 AND (comments.deactivation IS NULL OR comments.deactivation = '')
             ORDER BY comments.created_at DESC
-            LIMIT $2 OFFSET $3;`, [postId, pageSize, pageNumber * pageSize]);
+            LIMIT $2 OFFSET $3;`, [postId, pageSize, pageNumber * pageSize, userId]);
 
         comments = res.rows;
     }
@@ -35,7 +36,7 @@ async function Add(userId, postId, comment) {
 }
 
 async function Delete(commentId) {
-
+    await db.query(`DELETE FROM comments WHERE id = $1`, [commentId]);
 }
 
 
