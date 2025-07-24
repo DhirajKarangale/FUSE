@@ -33,9 +33,18 @@ function PostCard({ post, isUser }: Props) {
     }, []);
 
     async function Like() {
-        setLikes(pre => isLiked ? pre - 1 : pre + 1);
-        setIsLiked(pre => !pre);
-        await putRequest(`${urlPostLike}?id=${post.id}`);
+
+        const orgLikes = likes;
+        const orgIsLiked = isLiked;
+
+        setIsLiked(!orgIsLiked);
+        setLikes(orgIsLiked ? orgLikes - 1 : orgLikes + 1);
+
+        const { error } = await putRequest(`${urlPostLike}?id=${post.id}`);
+        if (error) {
+            setLikes(orgLikes);
+            setIsLiked(orgIsLiked);
+        }
     }
 
     return (
@@ -124,7 +133,7 @@ function PostCard({ post, isUser }: Props) {
                         onClick={Like}
                         whileTap={{ scale: 1.2 }}
                         whileHover={{ scale: 0.95 }}
-                        transition={{ duration: 0.2 }}>
+                        transition={{ duration: 0.4, ease: "easeOut" }}>
                         <Heart className={`w-4 h-4 transition-all duration-200 ${isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
                     </motion.button>
                     <motion.button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200"
