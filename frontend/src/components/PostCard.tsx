@@ -61,7 +61,7 @@ function PostCard({ post, isUser }: Props) {
     return (
         <motion.div
             layout
-            className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative overflow-hidden border border-white/10">
+            className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative border border-white/10">
             {!isUser && (
                 <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
                     <div className="relative w-10 h-10 shrink-0">
