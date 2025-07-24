@@ -106,11 +106,20 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
                 </div>
             )}
 
-            {!loading && !hasMore && (
+            {!loading && postData.posts.length === 0 && (
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center text-white/40 py-4 col-span-full">
+                    💤 No posts to show
+                </motion.p>
+            )}
+
+            {/* {!loading && !hasMore && (
                 <p className="text-center text-sm text-white/40 py-4">
                     🎉 You've reached the end!
                 </p>
-            )}
+            )} */}
         </>
     );
 };
