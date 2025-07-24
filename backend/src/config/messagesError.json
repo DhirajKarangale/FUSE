@@ -73,6 +73,10 @@
         "Categories must be an array"
     ],
 
+    "postNotFound":[
+        "Post Not Found"
+    ],
+
     "postTitleShort":[
         "Post Title Should be greater than 5 characters"
     ],

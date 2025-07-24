@@ -1,7 +1,11 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Heart, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+
+import { urlPostLike } from "../api/APIs";
+import { putRequest } from "../api/APIManager";
 import { type Post } from "../models/modelPosts";
 
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
@@ -13,9 +17,11 @@ type Props = {
 };
 
 function PostCard({ post, isUser }: Props) {
-    const [profileLoaded, setProfileLoaded] = useState(false);
-    const [mediaLoaded, setMediaLoaded] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
+    const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+    const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
+    const [likes, setLikes] = useState<number>(post.likes);
 
     const navigate = useNavigate();
     const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
@@ -25,6 +31,12 @@ function PostCard({ post, isUser }: Props) {
     const handleToggleExpand = useCallback(() => {
         setIsExpanded((prev) => !prev);
     }, []);
+
+    async function Like() {
+        setLikes(pre => isLiked ? pre - 1 : pre + 1);
+        setIsLiked(pre => !pre);
+        await putRequest(`${urlPostLike}?id=${post.id}`);
+    }
 
     return (
         <motion.div
@@ -108,12 +120,19 @@ function PostCard({ post, isUser }: Props) {
 
             <div className="flex flex-wrap items-center justify-between text-sm mt-4 pt-4 border-t border-white/10 gap-y-2">
                 <div className="flex gap-4">
-                    <button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200">
-                        <Heart className="w-4 h-4" /> <span>0</span>
-                    </button>
-                    <button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200">
+                    <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
+                        onClick={Like}
+                        whileTap={{ scale: 1.2 }}
+                        whileHover={{ scale: 0.95 }}
+                        transition={{ duration: 0.2 }}>
+                        <Heart className={`w-4 h-4 transition-all duration-200 ${isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
+                    </motion.button>
+                    <motion.button className="flex items-center gap-1 hover:text-cyan-400 transition-colors duration-200"
+                        whileTap={{ scale: 1.2 }}
+                        whileHover={{ scale: 0.95 }}
+                        transition={{ duration: 0.2 }}>
                         <MessageCircle className="w-4 h-4" /> <span>0</span>
-                    </button>
+                    </motion.button>
                 </div>
                 <span className="text-white/50 text-xs break-all">{post.category}</span>
             </div>

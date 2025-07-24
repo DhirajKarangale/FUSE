@@ -26,7 +26,7 @@ async function GetUserPosts(userId, page) {
     return await modelPost.GetUserPosts(userId, validPage, pageSize);
 }
 
-async function GetCategoriesPosts(userCategories, page) {
+async function GetCategoriesPosts(userId, userCategories, page) {
 
     let postCategories;
 
@@ -43,8 +43,16 @@ async function GetCategoriesPosts(userCategories, page) {
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelPost.GetCategoriesPosts(postCategories, validPage, pageSize);
+    return await modelPost.GetCategoriesPosts(userId, postCategories, validPage, pageSize);
 }
 
+async function Like(userId, postId) {
+    validator.ID(userId);
+    validator.ID(postId);
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts }
+    await modelPost.Like(userId, postId);
+
+    return "Operation Successful";
+}
+
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like }

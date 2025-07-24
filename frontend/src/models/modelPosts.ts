@@ -14,6 +14,8 @@ export interface Post {
     category: string;
     username: string;
     user_image_url: string | null;
+    likes: number;
+    isLiked: boolean;
 }
 
 export const getInitialPosts = (): PostData => ({

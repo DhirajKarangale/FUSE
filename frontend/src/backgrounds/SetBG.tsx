@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 
 import BGAurora from "./BGAurora";
 import BGSquares from "./BGSquares";
-import BGDarkVeil from "./BGDarkVeil";
-import BGLightRays from "./BGLightRays";
-import BGParticles from "./BGParticles";
+// import BGDarkVeil from "./BGDarkVeil";
+// import BGLightRays from "./BGLightRays";
+// import BGParticles from "./BGParticles";
 import BGHyperspeed from "./BGHyperspeed";
 
 import { routeAuth } from "../utils/Routes";
