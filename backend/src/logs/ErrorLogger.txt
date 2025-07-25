@@ -426,3 +426,21 @@ error: invalid input syntax for type integer: "0.65"
     at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
     at async E:\FUSE\backend\src\routes\routerPost.js:31:26
 
+Error: Value for your time, OTP Expired
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:69:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
+Error: OTP expired, you ediot
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:69:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
+Error: Value for your time, OTP Expired
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:69:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+

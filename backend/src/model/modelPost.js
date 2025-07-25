@@ -5,11 +5,12 @@ const statusCode = require('../utilities/statusCodes');
 const messagesManager = require('../utilities/messagesManager');
 
 async function Post(userId, postTitle, postBody, mediaURL, category) {
+    const now = new Date();
     const res = await db.query(
-        `INSERT INTO posts (user_id, post_title, post_body, media_url, category) 
-         VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO posts (user_id, post_title, post_body, media_url, category, created_at) 
+         VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING id;`,
-        [userId, postTitle, postBody, mediaURL, category]
+        [userId, postTitle, postBody, mediaURL, category, now]
     );
 
     const postId = res.rows[0].id;

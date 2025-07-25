@@ -30,9 +30,9 @@ async function Get(userId, postId, pageNumber, pageSize) {
     }
 }
 
-
 async function Add(userId, postId, comment) {
-    await db.query(`INSERT INTO comments (post_id, user_id, comment) VALUES ($1, $2, $3)`, [postId, userId, comment]);
+    const now = new Date();
+    await db.query(`INSERT INTO comments (post_id, user_id, comment, created_at) VALUES ($1, $2, $3, $4)`, [postId, userId, comment, now]);
 }
 
 async function Delete(commentId) {

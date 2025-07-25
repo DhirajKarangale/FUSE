@@ -1,7 +1,8 @@
 const db = require('./db');
 
 async function CreateUser(email) {
-    await db.query('INSERT INTO users (email) VALUES ($1)', [email]);
+    const now = new Date();
+    await db.query('INSERT INTO users (email, created_at) VALUES ($1, $2)', [email, now]);
     return await GetUserByEmail(email);
 }
 
