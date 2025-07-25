@@ -3,6 +3,7 @@ import { X, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { setMessage } from "../redux/sliceMessageBar";
+import { setLoader } from "../redux/sliceLoader";
 import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 
 import { urlcomment } from "../api/APIs";
@@ -59,7 +60,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         setIsFetchingMore(false);
     };
 
-    const handleAddComment = async () => {
+    const AddComment = async () => {
         if (commentInput.length < 2) {
             ShowMsg(GetMessage('commentLess'), 'red');
             return;
@@ -69,6 +70,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             return;
         }
 
+        // dispatch(setLoader({ isLoading: true }));
         const { data, error } = await postRequest<string>(urlcomment, {
             postId,
             comment: commentInput,
@@ -90,17 +92,35 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         } else {
             ShowMsg(error, 'red');
         }
+
+        // dispatch(setLoader({ isLoading: false }));
     };
 
     const DeleteComment = async (id: number) => {
-        await deleteRequest<string>(`${urlcomment}?id=${id}`);
+        let deletedComment: Comment | undefined;
+        let deletedIndex: number = -1;
 
         setComments(prev => {
+            deletedIndex = prev.findIndex(c => c.id === id);
+            deletedComment = prev[deletedIndex];
             const updated = prev.filter(c => c.id !== id);
             const isUserCommentStillPresent = updated.some(c => c.username === user.username);
             UpdateComment(isUserCommentStillPresent, -1);
             return updated;
         });
+
+        const { error } = await deleteRequest<string>(`${urlcomment}?id=${id}`);
+
+        if (error && deletedComment && deletedIndex !== -1) {
+            setComments(prev => {
+                const newComments = [...prev];
+                newComments.splice(deletedIndex, 0, deletedComment!);
+                const isUserCommentStillPresent = newComments.some(c => c.username === user.username);
+                UpdateComment(isUserCommentStillPresent, 1);
+                return newComments;
+            });
+            dispatch(setMessage({ message: error, color: 'red' }));
+        }
     };
 
     useEffect(() => {
@@ -189,7 +209,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={handleAddComment}
+                            onClick={AddComment}
                             className="px-4 py-2 bg-cyan-500 text-white text-sm font-semibold rounded-lg hover:bg-cyan-600 transition"
                         >
                             Comment
