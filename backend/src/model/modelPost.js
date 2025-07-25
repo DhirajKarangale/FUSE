@@ -146,4 +146,8 @@ async function Like(userId, postId) {
     }
 }
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like };
+async function Delete(postId) {
+    await db.query(`UPDATE posts SET deactivation = 'Deleted' WHERE id = $1`, [postId]);
+}
+
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like, Delete };

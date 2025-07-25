@@ -1,24 +1,25 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Heart, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle, Trash } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { urlPostLike } from "../api/APIs";
 import { putRequest } from "../api/APIManager";
 import { type Post } from "../models/modelPosts";
 
+import Alert from "./Alert";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
-
 import CommentSection from "./CommentSection";
 
 type Props = {
     post: Post;
     isUser: boolean;
+    DeletePost: (postId: number) => void;
 };
 
-function PostCard({ post, isUser }: Props) {
+function PostCard({ post, isUser, DeletePost }: Props) {
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -28,6 +29,7 @@ function PostCard({ post, isUser }: Props) {
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState<number>(post.comments);
     const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
@@ -62,6 +64,17 @@ function PostCard({ post, isUser }: Props) {
         <motion.div
             layout
             className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative border border-white/10">
+
+            {isUser && (
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowAlert(true)}
+                    className="absolute top-2 right-2 text-red-400 hover:text-red-600 transition-colors duration-200">
+                    <Trash size={15} />
+                </motion.button>
+            )}
+
             {!isUser && (
                 <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
                     <div className="relative w-10 h-10 shrink-0">
@@ -169,6 +182,12 @@ function PostCard({ post, isUser }: Props) {
                 </motion.div>
             )}
 
+            <Alert
+                isOpen={showAlert}
+                message="Are you sure you want to delete this post?"
+                onClose={() => setShowAlert(false)}
+                onConfirm={() => DeletePost(post.id)}
+            />
         </motion.div>
     );
 }

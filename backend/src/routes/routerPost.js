@@ -46,4 +46,14 @@ router.put('/like', async (req, res, next) => {
     }
 });
 
+router.delete('/', async (req, res, next) => {
+    try {
+        const postId = req.query.id;
+        const response = await servicePost.Delete(postId);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

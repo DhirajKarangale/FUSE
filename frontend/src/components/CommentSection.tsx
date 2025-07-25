@@ -29,7 +29,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     const [currPage, setCurrPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [isFetchingMore, setIsFetchingMore] = useState(false);
-    const [showConfirm, setShowConfirm] = useState(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
     const [deleteCallback, setDeleteCallback] = useState<() => void>(() => () => { });
 
     const handleScroll = () => {
@@ -92,7 +92,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         }
     };
 
-    const handleDeleteComment = async (id: number) => {
+    const DeleteComment = async (id: number) => {
         await deleteRequest<string>(`${urlcomment}?id=${id}`);
 
         setComments(prev => {
@@ -155,8 +155,8 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => {
-                                                    setDeleteCallback(() => () => handleDeleteComment(comment.id));
-                                                    setShowConfirm(true);
+                                                    setDeleteCallback(() => () => DeleteComment(comment.id));
+                                                    setShowAlert(true);
                                                 }}
                                                 className="text-red-500 hover:text-red-600"
                                             >
@@ -198,9 +198,9 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 </motion.div>
 
                 <Alert
-                    isOpen={showConfirm}
+                    isOpen={showAlert}
                     message="Are you sure you want to delete this comment?"
-                    onClose={() => setShowConfirm(false)}
+                    onClose={() => setShowAlert(false)}
                     onConfirm={deleteCallback}
                 />
             </motion.div>

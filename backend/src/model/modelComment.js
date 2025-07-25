@@ -36,7 +36,7 @@ async function Add(userId, postId, comment) {
 }
 
 async function Delete(commentId) {
-    await db.query(`DELETE FROM comments WHERE id = $1`, [commentId]);
+    await db.query(`UPDATE comments SET deactivation = 'Deleted' WHERE id = $1`, [commentId]);
 }
 
 

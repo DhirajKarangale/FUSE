@@ -55,4 +55,8 @@ async function Like(userId, postId) {
     return "Operation Successful";
 }
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like }
+async function Delete(postId) {
+    await modelPost.Delete(postId);
+}
+
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like, Delete }

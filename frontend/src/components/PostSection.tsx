@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { getRequest } from "../api/APIManager";
-import { type PostData, getInitialPosts } from "../models/modelPosts";
+
+import { setMessage } from "../redux/sliceMessageBar";
+import { useAppDispatch } from "../redux/hookStore";
+
+import { urlPost } from "../api/APIs";
+import { getRequest, deleteRequest } from "../api/APIManager";
+import { type PostData, type Post, getInitialPosts } from "../models/modelPosts";
+
 import PostCard from "./PostCard";
 import SkeletonPost from "./SkeletonPost";
 
@@ -11,10 +17,12 @@ type PostSectionProps = {
 };
 
 const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
+    const dispatch = useAppDispatch();
+
     const [page, setPage] = useState(1);
     const [postData, setPostData] = useState<PostData>(getInitialPosts());
-    const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const observer = useRef<IntersectionObserver | null>(null);
     const isInitialMount = useRef(true);
@@ -58,6 +66,29 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
         if (node) observer.current.observe(node);
     }, [loading, hasMore]);
 
+    const DeletePost = async (id: number) => {
+        let deletedPost: Post | undefined;
+
+        setPostData(pre => {
+            deletedPost = pre.posts.find(post => post.id === id);
+            return {
+                ...pre,
+                posts: pre.posts.filter(post => post.id !== id)
+            }
+        })
+
+        const { error } = await deleteRequest<string>(`${urlPost}?id=${id}`);
+
+        if (error) {
+            dispatch(setMessage({ message: error, color: 'red' }));
+
+            setPostData(pre => ({
+                ...pre,
+                posts: [deletedPost!, ...pre.posts]
+            }));
+        }
+    };
+
     useEffect(() => {
         setPage(1);
         setPostData(getInitialPosts());
@@ -94,7 +125,10 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
                             initial="hidden"
                             animate="visible"
                             exit="exit">
-                            <PostCard post={post} isUser={isUserPost} />
+                            <PostCard
+                                post={post}
+                                isUser={isUserPost}
+                                DeletePost={DeletePost} />
                         </motion.div>
                     );
                 })}
