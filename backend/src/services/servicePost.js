@@ -26,6 +26,16 @@ async function GetUserPosts(userId, page) {
     return await modelPost.GetUserPosts(userId, validPage, pageSize);
 }
 
+async function GetPopularPosts(page) {
+    const pageSize = 10;
+    const commentWeight = 1.0;
+    const likeWeight = 0.65;
+    const pageNumber = parseInt(page);
+    const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+
+    return await modelPost.GetPopularPosts(validPage, pageSize, commentWeight, likeWeight);
+}
+
 async function GetCategoriesPosts(userId, userCategories, page) {
 
     let postCategories;
@@ -59,4 +69,4 @@ async function Delete(postId) {
     await modelPost.Delete(postId);
 }
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like, Delete }
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, GetPopularPosts, Like, Delete }

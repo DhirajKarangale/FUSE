@@ -24,6 +24,17 @@ router.get('/user', async (req, res, next) => {
     }
 });
 
+router.get('/popular', async (req, res, next) => {
+    try {
+        console.log('Popular');
+        const page = req.query.page;
+        const response = await servicePost.GetPopularPosts(page);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
         const id = req.user.id;

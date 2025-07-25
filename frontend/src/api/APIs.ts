@@ -8,6 +8,7 @@ export const urlCategories = `${urlBase}/user/categories`;
 
 export const urlPost = `${urlBase}/post`
 export const urlPostUser = `${urlBase}/post/user`
+export const urlPostPopular = `${urlBase}/post/popular`
 export const urlPostLike = `${urlBase}/post/like`
 
 export const urlcomment = `${urlBase}/comment`

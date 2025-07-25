@@ -71,6 +71,55 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
     }
 }
 
+async function GetPopularPosts(pageNumber, pageSize, commentWeight, likeWeight) {
+    const totalResult = await db.query(`
+        SELECT COUNT(*) FROM posts 
+        WHERE deactivation IS NULL OR deactivation = '';
+    `);
+    const totalPosts = parseInt(totalResult.rows[0].count);
+    const totalPages = Math.ceil(totalPosts / pageSize);
+
+    let posts = [];
+
+    if (pageNumber < totalPages) {
+        const res = await db.query(
+            `SELECT 
+            posts.id,
+            posts.user_id,
+            posts.post_title,
+            posts.post_body,
+            posts.media_url,
+            posts.created_at,
+            posts.category,
+            COALESCE(array_length(posts.likes, 1), 0) AS likes,
+            COALESCE(comment_counts.count, 0) AS comments,
+            (COALESCE(comment_counts.count, 0)::numeric * $3::numeric + COALESCE(array_length(posts.likes, 1), 0)::numeric * $4::numeric) AS popularity
+            FROM posts
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) AS count
+                FROM comments
+                WHERE deactivation IS NULL OR deactivation = ''
+                GROUP BY post_id
+            ) AS comment_counts ON comment_counts.post_id = posts.id    
+            WHERE posts.deactivation IS NULL OR posts.deactivation = ''
+            ORDER BY 
+            popularity DESC,
+            posts.created_at DESC
+            LIMIT $1 OFFSET $2;
+            `,
+            [pageSize, pageNumber * pageSize, commentWeight, likeWeight]
+        );
+
+        posts = res.rows;
+    }
+
+    return {
+        posts,
+        currPage: pageNumber + 1,
+        totalPages
+    };
+}
+
 async function GetCategoriesPosts(userId, categories, pageNumber, pageSize) {
 
     const totalResult = await db.query(`
@@ -150,4 +199,4 @@ async function Delete(postId) {
     await db.query(`UPDATE posts SET deactivation = 'Deleted' WHERE id = $1`, [postId]);
 }
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts, Like, Delete };
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, GetPopularPosts, Like, Delete };

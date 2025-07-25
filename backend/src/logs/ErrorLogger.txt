@@ -356,3 +356,73 @@ error: invalid input syntax for type integer: "undefined"
     at async Object.Delete (E:\FUSE\backend\src\services\serviceComment.js:29:5)
     at async E:\FUSE\backend\src\routes\routerComment.js:30:26
 
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:30:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:30:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:30:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:30:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:30:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:85:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:15)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+

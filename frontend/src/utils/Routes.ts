@@ -1,6 +1,6 @@
 export const routeAuth = '/auth'; 
-export const routeFeed = '/'; 
-export const routePopular = '/popular'; 
+export const routeFeed = '/feed'; 
+export const routePopular = '/'; 
 export const routeCustomizeFeed = '/customizefeed'; 
 export const routeAddPost = '/addpost'; 
 export const routeUser = '/user/:userId'; 
