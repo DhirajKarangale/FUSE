@@ -23,12 +23,11 @@ function PostCard({ post, isUser, DeletePost }: Props) {
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
-    const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
-    const [likes, setLikes] = useState<number>(post.likes);
-
+    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [likes, setLikes] = useState<number>(0);
     const [showComments, setShowComments] = useState(false);
-    const [comments, setComments] = useState<number>(post.comments);
-    const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
+    const [comments, setComments] = useState<number>(0);
+    const [isCommented, setIsCommented] = useState<boolean>(false);
     const [showAlert, setShowAlert] = useState<boolean>(false);
 
     const navigate = useNavigate();

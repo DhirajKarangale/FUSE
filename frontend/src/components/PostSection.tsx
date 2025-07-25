@@ -101,9 +101,18 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
             setLoading(true);
             const data = await fetchPosts(page);
             if (data) {
+                // setPostData((prev) => ({
+                //     ...data,
+                //     posts: page === 1 ? data.posts : [...prev.posts, ...data.posts],
+                // }));
+
                 setPostData((prev) => ({
                     ...data,
-                    posts: page === 1 ? data.posts : [...prev.posts, ...data.posts],
+                    posts: (page === 1 ? data.posts : [...prev.posts, ...data.posts]).map(p => ({
+                        ...p,
+                        isLiked: !!p.isLiked,
+                        isCommented: !!p.isCommented,
+                    })),
                 }));
                 setHasMore(data.posts.length > 0);
             }
