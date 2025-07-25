@@ -72,7 +72,8 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
     }
 }
 
-async function GetPopularPosts(pageNumber, pageSize, commentWeight, likeWeight) {
+async function GetPopularPosts(userId, pageNumber, pageSize, commentWeight, likeWeight) {
+
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM posts 
         WHERE deactivation IS NULL OR deactivation = '';
@@ -85,30 +86,38 @@ async function GetPopularPosts(pageNumber, pageSize, commentWeight, likeWeight) 
     if (pageNumber < totalPages) {
         const res = await db.query(
             `SELECT 
-            posts.id,
-            posts.user_id,
-            posts.post_title,
-            posts.post_body,
-            posts.media_url,
-            posts.created_at,
-            posts.category,
-            COALESCE(array_length(posts.likes, 1), 0) AS likes,
-            COALESCE(comment_counts.count, 0) AS comments,
-            (COALESCE(comment_counts.count, 0)::numeric * $3::numeric + COALESCE(array_length(posts.likes, 1), 0)::numeric * $4::numeric) AS popularity
+                posts.id,
+                posts.user_id,
+                posts.post_title,
+                posts.post_body,
+                posts.media_url,
+                posts.created_at,
+                posts.category,
+                users.username,
+                users.image_url AS user_image_url,
+                COALESCE(array_length(posts.likes, 1), 0) AS "likes",
+                ($3 = ANY(posts.likes)) AS "isLiked",
+                COALESCE(comment_counts.count, 0) AS "comments",
+                CASE WHEN user_comments.user_id IS NOT NULL THEN true ELSE false END AS "isCommented",
+                -- Cast to numeric for decimal weights
+                (COALESCE(comment_counts.count, 0)::numeric * $4 + COALESCE(array_length(posts.likes, 1), 0)::numeric * $5) AS "popularity"
             FROM posts
+            JOIN users ON users.id = posts.user_id
             LEFT JOIN (
                 SELECT post_id, COUNT(*) AS count
                 FROM comments
                 WHERE deactivation IS NULL OR deactivation = ''
                 GROUP BY post_id
-            ) AS comment_counts ON comment_counts.post_id = posts.id    
-            WHERE posts.deactivation IS NULL OR posts.deactivation = ''
-            ORDER BY 
-            popularity DESC,
-            posts.created_at DESC
-            LIMIT $1 OFFSET $2;
-            `,
-            [pageSize, pageNumber * pageSize, commentWeight, likeWeight]
+            ) AS comment_counts ON comment_counts.post_id = posts.id
+            LEFT JOIN (
+                SELECT DISTINCT post_id, user_id
+                FROM comments
+                WHERE user_id = $3 AND (deactivation IS NULL OR deactivation = '')
+            ) AS user_comments ON user_comments.post_id = posts.id
+            WHERE (posts.deactivation IS NULL OR posts.deactivation = '')
+            ORDER BY popularity DESC, posts.created_at DESC
+            LIMIT $1 OFFSET $2;`,
+            [pageSize, pageNumber * pageSize, userId, commentWeight, likeWeight] // commentWeight & likeWeight can be floats like 0.65
         );
 
         posts = res.rows;

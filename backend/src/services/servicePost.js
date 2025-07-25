@@ -26,14 +26,14 @@ async function GetUserPosts(userId, page) {
     return await modelPost.GetUserPosts(userId, validPage, pageSize);
 }
 
-async function GetPopularPosts(page) {
+async function GetPopularPosts(userId, page) {
     const pageSize = 10;
     const commentWeight = 1.0;
     const likeWeight = 0.65;
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelPost.GetPopularPosts(validPage, pageSize, commentWeight, likeWeight);
+    return await modelPost.GetPopularPosts(userId, validPage, pageSize, commentWeight, likeWeight);
 }
 
 async function GetCategoriesPosts(userId, userCategories, page) {

@@ -444,3 +444,132 @@ Error: Value for your time, OTP Expired
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
 
+error: could not determine data type of parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: could not determine data type of parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: could not determine data type of parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: could not determine data type of parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: syntax error at or near "COALESCE"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: missing FROM-clause entry for table "user_comments"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+ReferenceError: categories is not defined
+    at Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:151:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+ReferenceError: categories is not defined
+    at Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:150:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: bind message supplies 3 parameters, but prepared statement "" requires 4
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:119:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: missing FROM-clause entry for table "user_comments"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: missing FROM-clause entry for table "user_comments"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:86:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+ReferenceError: userId is not defined
+    at Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:113:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: missing FROM-clause entry for table "user_comments"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:87:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type bigint: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:87:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+ReferenceError: res is not defined
+    at Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:120:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: could not determine data type of parameter $1
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:87:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:122:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:122:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+
+error: invalid input syntax for type integer: "0.65"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\model\modelPost.js:122:21)
+    at async Object.GetPopularPosts (E:\FUSE\backend\src\services\servicePost.js:36:12)
+    at async E:\FUSE\backend\src\routes\routerPost.js:31:26
+

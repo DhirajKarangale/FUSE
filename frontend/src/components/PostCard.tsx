@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Heart, MessageCircle, Trash } from "lucide-react";
@@ -23,11 +23,12 @@ function PostCard({ post, isUser, DeletePost }: Props) {
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
-    const [isLiked, setIsLiked] = useState<boolean>(false);
-    const [likes, setLikes] = useState<number>(0);
+    const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
+    const [likes, setLikes] = useState<number>(post.likes);
+
     const [showComments, setShowComments] = useState(false);
-    const [comments, setComments] = useState<number>(0);
-    const [isCommented, setIsCommented] = useState<boolean>(false);
+    const [comments, setComments] = useState<number>(post.comments);
+    const [isCommented, setIsCommented] = useState<boolean>(post.isCommented);
     const [showAlert, setShowAlert] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ function PostCard({ post, isUser, DeletePost }: Props) {
     async function Like() {
 
         const orgLikes = likes;
-        const orgIsLiked = post.isLiked;
+        const orgIsLiked = isLiked;
 
         setIsLiked(!orgIsLiked);
         setLikes(orgIsLiked ? orgLikes - 1 : orgLikes + 1);
@@ -66,13 +67,6 @@ function PostCard({ post, isUser, DeletePost }: Props) {
         setIsCommented(isUserComment);
         setComments(Number(comments) + amount);
     }
-
-    useEffect(() => {
-        setIsLiked(post.isLiked);
-        setLikes(post.likes);
-        setComments(post.comments);
-        setIsCommented(post.isCommented);
-    }, [post.isLiked, post.likes, post.comments, post.isCommented]);
 
     return (
         <motion.div
@@ -144,26 +138,6 @@ function PostCard({ post, isUser, DeletePost }: Props) {
                 </div>
             )}
 
-            {/* <div className="relative">
-                {isExpanded ? (
-                    <div className="custom-scroll text-white/90 text-sm leading-relaxed break-words whitespace-pre-wrap pr-1 h-30 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
-                        {post.post_body}
-                    </div>
-                ) : (
-                    <p className="text-white/90 text-sm leading-relaxed break-words h-30">
-                        {trimmedBody}
-                    </p>
-                )}
-
-                {isTrimmed && (
-                    <button
-                        onClick={handleToggleExpand}
-                        className="text-cyan-400 text-sm hover:underline">
-                        {isExpanded ? "Show Less" : "More"}
-                    </button>
-                )}
-            </div> */}
-
             <div className="relative">
                 <div
                     className={`custom-scroll text-white/90 text-sm leading-relaxed break-words whitespace-pre-wrap pr-1 h-28 transition-all duration-300
@@ -182,12 +156,12 @@ function PostCard({ post, isUser, DeletePost }: Props) {
 
             <div className="flex flex-wrap items-center justify-between text-sm mt-4 pt-4 border-t border-white/10 gap-y-2">
                 <div className="flex gap-4">
-                    <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${post.isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
+                    <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
                         onClick={Like}
                         whileTap={{ scale: 1.2 }}
                         whileHover={{ scale: 0.95 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}>
-                        <Heart className={`w-4 h-4 transition-all duration-200 ${post.isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
+                        <Heart className={`w-4 h-4 transition-all duration-200 ${isLiked ? "fill-red-500" : "fill-transparent"}`} /> <span>{likes}</span>
                     </motion.button>
                     <motion.button className={`flex items-center gap-1 transition-colors duration-200 ${isCommented ? 'text-cyan-500' : 'hover:text-cyan-400'}`}
                         onClick={() => setShowComments(prev => !prev)}
