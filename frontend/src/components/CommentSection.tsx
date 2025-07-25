@@ -33,7 +33,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [deleteCallback, setDeleteCallback] = useState<() => void>(() => () => { });
 
-    const handleScroll = () => {
+    function handleScroll() {
         const el = scrollRef.current;
         if (!el || isFetchingMore || currPage >= totalPages) return;
 
