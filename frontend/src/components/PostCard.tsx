@@ -138,18 +138,13 @@ function PostCard({ post, isUser, DeletePost }: Props) {
                 </div>
             )}
 
-            <div className="relative">
+            {/* <div className="relative">
                 {isExpanded ? (
                     <div className="custom-scroll text-white/90 text-sm leading-relaxed break-words whitespace-pre-wrap pr-1 h-30 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                         {post.post_body}
                     </div>
                 ) : (
-                    // <p className="text-white/90 text-sm leading-relaxed break-words break-all line-clamp-[2] h-30 overflow-hidden">
-                    //     {post.post_body}
-                    // </p>
-
                     <p className="text-white/90 text-sm leading-relaxed break-words h-30">
-                        {/* {isExpanded ? post.post_body : `${post.post_body.slice(0, 400)}${isTrimmed ? '...' : ''}`} */}
                         {trimmedBody}
                     </p>
                 )}
@@ -158,6 +153,22 @@ function PostCard({ post, isUser, DeletePost }: Props) {
                     <button
                         onClick={handleToggleExpand}
                         className="text-cyan-400 text-sm hover:underline">
+                        {isExpanded ? "Show Less" : "More"}
+                    </button>
+                )}
+            </div> */}
+
+            <div className="relative">
+                <div
+                    className={`custom-scroll text-white/90 text-sm leading-relaxed break-words whitespace-pre-wrap pr-1 h-28 transition-all duration-300
+                    ${isExpanded ? "overflow-y-auto scrollbar-thin scrollbar-thumb-white/30" : "overflow-hidden"}`}>
+                    {isExpanded ? post.post_body : trimmedBody}
+                </div>
+
+                {isTrimmed && (
+                    <button
+                        onClick={handleToggleExpand}
+                        className="text-cyan-400 text-sm hover:underline mt-1">
                         {isExpanded ? "Show Less" : "More"}
                     </button>
                 )}
