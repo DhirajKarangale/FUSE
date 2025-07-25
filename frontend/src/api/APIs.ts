@@ -1,4 +1,5 @@
-export const urlBase = `http://localhost:1000`;
+// export const urlBase = `http://localhost:1000`;
+export const urlBase = `https://fuse-ca2q.onrender.com`;
 
 export const urlOTP = `${urlBase}/otp`;
 
