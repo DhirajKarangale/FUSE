@@ -34,7 +34,15 @@ function PostCard({ post, isUser, DeletePost }: Props) {
     const navigate = useNavigate();
     const createdAt = useMemo(() => new Date(post.created_at).toLocaleDateString(), [post.created_at]);
     const hasImage = !!post.media_url;
-    const isTrimmed = useMemo(() => post.post_body?.length > 500, [post.post_body]);
+
+    const bodyCharacters = 350;
+    const isTrimmed = useMemo(() => post.post_body?.length > bodyCharacters, [post.post_body]);
+    const trimmedBody = useMemo(() => {
+        if (!post.post_body) return "";
+        return isTrimmed
+            ? post.post_body.slice(0, bodyCharacters).trim().replace(/\s+\S*$/, "") + "..."
+            : post.post_body;
+    }, [post.post_body, isTrimmed]);
 
     const handleToggleExpand = useCallback(() => {
         setIsExpanded((prev) => !prev);
@@ -136,8 +144,13 @@ function PostCard({ post, isUser, DeletePost }: Props) {
                         {post.post_body}
                     </div>
                 ) : (
-                    <p className="text-white/90 text-sm leading-relaxed break-words line-clamp-[5] h-30 overflow-hidden">
-                        {post.post_body}
+                    // <p className="text-white/90 text-sm leading-relaxed break-words break-all line-clamp-[2] h-30 overflow-hidden">
+                    //     {post.post_body}
+                    // </p>
+
+                    <p className="text-white/90 text-sm leading-relaxed break-words h-30">
+                        {/* {isExpanded ? post.post_body : `${post.post_body.slice(0, 400)}${isTrimmed ? '...' : ''}`} */}
+                        {trimmedBody}
                     </p>
                 )}
 

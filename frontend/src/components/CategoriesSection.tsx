@@ -37,8 +37,7 @@ const CategoryUI = React.memo(
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white/10 p-4 sm:p-5 rounded-xl shadow-md border border-white/20 w-full"
-            >
+                className="bg-white/10 p-4 sm:p-5 rounded-xl shadow-md border border-white/20 w-full">
                 <h2
                     onClick={() => ToggleSection(section)}
                     className={`text-base sm:text-lg font-bold mb-4 select-none cursor-pointer transition duration-200 ${allSelected ? "text-cyan-400" : "text-white hover:text-purple-400"}`}>
@@ -62,8 +61,7 @@ const CategoryUI = React.memo(
                                     className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition select-none cursor-pointer break-words max-w-full truncate ${isSelected
                                         ? "bg-purple-600 text-white"
                                         : "bg-pink-600 text-white hover:bg-pink-700"
-                                        }`}
-                                >
+                                        }`}>
                                     {item}
                                 </motion.span>
                             );
@@ -163,8 +161,7 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError,
     const CategorySkeleton = () => (
         <motion.div
             layout
-            className="bg-white/10 p-4 rounded-xl shadow-md border border-white/20 w-full animate-pulse space-y-3"
-        >
+            className="bg-white/10 p-4 rounded-xl shadow-md border border-white/20 w-full animate-pulse space-y-3">
             <div className="h-5 bg-white/30 rounded w-1/3" />
             <div className="flex flex-wrap gap-2">
                 {[...Array(6)].map((_, i) => (

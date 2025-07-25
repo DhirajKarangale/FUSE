@@ -99,8 +99,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
                   exit={{ opacity: 0, y: -20, height: 0, marginTop: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="px-1"
-                  style={{ overflow: "visible", paddingBottom: "0.25rem" }}
-                >
+                  style={{ overflow: "visible", paddingBottom: "0.25rem" }}>
                   <label htmlFor="otp" className="block text-white text-base sm:text-lg font-semibold mb-2">
                     Enter OTP
                   </label>
@@ -116,7 +115,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
               )}
             </AnimatePresence>
 
-            <div className="px-1 mt-6 w-full flex flex-col sm:flex-row gap-4 sm:gap-3 sm:justify-between items-center">
+            <div className="px-1 mt-6 w-full flex flex-col-reverse sm:flex-row gap-4 sm:gap-3 sm:justify-between items-center">
               <button
                 onClick={ButtonOTP}
                 className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-semibold py-2 px-4 rounded-lg w-fit"

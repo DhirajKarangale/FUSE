@@ -41,8 +41,8 @@ function Navbar() {
                             key={item.path}
                             to={item.path}
                             className={({ isActive }) =>
-                                `flex flex-col items-center justify-center text-white text-xs font-medium transition-all duration-200 px-0 py-1
-                             ${isActive ? "text-cyan-400" : "hover:text-cyan-300"}`}>
+                                `flex flex-col items-center justify-center text-white text-xs font-medium transition-all duration-200 px-0 w-full py-2
+                             ${isActive ? "bg-cyan-600 text-cyan-400 rounded-md" : "hover:text-cyan-300"}`}>
                             {item.icon}
                         </NavLink>
                     ))}
