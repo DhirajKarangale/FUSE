@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Heart, MessageCircle, Trash } from "lucide-react";
@@ -67,6 +67,13 @@ function PostCard({ post, isUser, DeletePost }: Props) {
         setIsCommented(isUserComment);
         setComments(Number(comments) + amount);
     }
+
+    useEffect(() => {
+        setIsLiked(post.isLiked);
+        setLikes(post.likes);
+        setComments(post.comments);
+        setIsCommented(post.isCommented);
+    }, [post.isLiked, post.likes, post.comments, post.isCommented]);
 
     return (
         <motion.div
