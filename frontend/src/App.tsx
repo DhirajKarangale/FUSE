@@ -11,6 +11,7 @@ import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
 import AddPost from './pages/AddPost/AddPost';
 import User from './pages/User/User';
 import About from './pages/About/About';
+import Messages from './pages/Messages/Messages';
 
 import AutoLogin from './components/AutoLogin';
 import SetBG from './backgrounds/SetBG';
@@ -18,7 +19,7 @@ import LayoutNavbar from './components/LayoutNavbar';
 import MessageBar from './components/MessageBar';
 import Loader from './components/Loader';
 
-import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout } from './utils/Routes';
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages } from './utils/Routes';
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
             <Route path={routeAddPost} element={<AddPost />} />
             <Route path={routeUser} element={<User />} />
             <Route path={routeAbout} element={<About />} />
+            <Route path={routeMessages} element={<Messages />} />
           </Route>
 
         </Routes>
