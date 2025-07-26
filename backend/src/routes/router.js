@@ -4,6 +4,7 @@ const routerAuth = require('./routerAuth');
 const routerUser = require('./routerUser');
 const routerPost = require('./routerPost');
 const routerComment = require('./routerComment');
+const routerMessage = require('./routerMessage');
 
 const jwt = require('../utilities/jwt');
 const errorLogger = require('../utilities/errorLogger');
@@ -16,6 +17,7 @@ router.use('/auth', routerAuth);
 router.use('/user', routerUser);
 router.use('/post', routerPost);
 router.use('/comment', routerComment);
+router.use('/message', routerMessage);
 
 router.use(errorLogger);
 

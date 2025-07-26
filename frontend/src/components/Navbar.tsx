@@ -6,7 +6,7 @@ import { routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, r
 const navItems = [
     { name: 'Feed', path: routeFeed, icon: <Home size={20} /> },
     { name: 'Popular', path: routePopular, icon: <Flame size={20} /> },
-    // { name: 'Messages', path: routeMessages, icon: <LucideMessageSquareText size={20} /> },
+    { name: 'Messages', path: routeMessages, icon: <LucideMessageSquareText size={20} /> },
     { name: 'Customize Feed', path: routeCustomizeFeed, icon: <SlidersHorizontal size={20} /> },
     { name: 'AddPost', path: routeAddPost, icon: <FilePlus2 size={20} /> },
     { name: 'User', path: routeUser, icon: <User size={20} /> },

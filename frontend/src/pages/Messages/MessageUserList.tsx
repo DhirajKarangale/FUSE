@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { urlUserSearch, urlMessageUserSearch } from "../../api/APIs";
+import { getRequest } from "../../api/APIManager";
+import { type MessageUser, type MessageUserData } from "../../models/modelMessage";
+
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 const users = [
@@ -39,6 +44,11 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
         user.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    async function FetchUser() {
+        const { data } = await getRequest<MessageUserData>(urlMessageUserSearch);
+        // set data
+    }
+
     return (
         <div className="w-full max-w-sm h-full bg-black/25 backdrop-blur-md shadow-xl flex flex-col">
             <div className="sm:px-4 sm:py-3 px-1 py-1 border-b border-white/10 bg-black/30">
@@ -61,8 +71,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                             className="text-white/60 text-center mt-10"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        >
+                            exit={{ opacity: 0 }}>
                             No users found.
                         </motion.div>
                     ) : (
@@ -77,9 +86,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer select-none"
-                                // onClick={() => console.log("Open chat with", user.name)}
-                                onClick={onUserClick}
-                            >
+                                onClick={onUserClick}>
                                 <img
                                     src={user.image}
                                     alt={user.name}

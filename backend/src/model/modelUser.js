@@ -33,14 +33,16 @@ async function UpdateUser(fields, index, values) {
 }
 
 async function Search(term, pageNumber, pageSize) {
+    const searchTerm = `%${term}%`;
+    
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM users 
         WHERE (deactivation IS NULL OR deactivation = '') 
-        AND username ILIKE $1;`, [term]);
+        AND username ILIKE $1;`, [searchTerm]);
     const totalPosts = parseInt(totalResult.rows[0].count);
     const totalPages = Math.ceil(totalPosts / pageSize);
 
-    let posts = [];
+    let users = [];
 
     if (pageNumber < totalPages) {
         const res = await db.query(
@@ -49,14 +51,14 @@ async function Search(term, pageNumber, pageSize) {
             AND username ILIKE $1
             ORDER BY username
             LIMIT $2 OFFSET $3;`,
-            [term, pageSize, pageNumber * pageSize,]
+            [searchTerm, pageSize, pageNumber * pageSize,]
         );
 
-        posts = res.rows;
+        users = res.rows;
     }
 
     return {
-        posts,
+        users,
         currPage: pageNumber + 1,
         totalPages
     };

@@ -3,6 +3,7 @@ export const urlBase = import.meta.env.VITE_URL_BASE;
 export const urlOTP = `${urlBase}/otp`;
 
 export const urlUser = `${urlBase}/user`;
+export const urlUserSearch = `${urlBase}/user/search`;
 export const urlUserImageDelete = `${urlBase}/user/image`;
 export const urlCategories = `${urlBase}/user/categories`;
 
@@ -11,4 +12,6 @@ export const urlPostUser = `${urlBase}/post/user`
 export const urlPostPopular = `${urlBase}/post/popular`
 export const urlPostLike = `${urlBase}/post/like`
 
-export const urlcomment = `${urlBase}/comment`
+export const urlComment = `${urlBase}/comment`
+
+export const urlMessageUserSearch = `${urlBase}/message/usersearch`

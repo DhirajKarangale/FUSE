@@ -6,7 +6,7 @@ import { setMessage } from "../redux/sliceMessageBar";
 import { setLoader } from "../redux/sliceLoader";
 import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 
-import { urlcomment } from "../api/APIs";
+import { urlComment } from "../api/APIs";
 import { getRequest, deleteRequest, postRequest } from "../api/APIManager";
 import { type Comment, type CommentData } from "../models/modelComment";
 
@@ -50,7 +50,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         if (page > totalPages) return;
 
         page === 1 ? setLoading(true) : setIsFetchingMore(true);
-        const { data } = await getRequest<CommentData>(`${urlcomment}?id=${postId}&page=${page}`);
+        const { data } = await getRequest<CommentData>(`${urlComment}?id=${postId}&page=${page}`);
         if (data) {
             setComments(prev => page === 1 ? data.comments : [...prev, ...data.comments]);
             setCurrPage(data.currPage);
@@ -71,7 +71,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         }
 
         // dispatch(setLoader({ isLoading: true }));
-        const { data, error } = await postRequest<string>(urlcomment, {
+        const { data, error } = await postRequest<string>(urlComment, {
             postId,
             comment: commentInput,
         });
@@ -109,7 +109,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             return updated;
         });
 
-        const { error } = await deleteRequest<string>(`${urlcomment}?id=${id}`);
+        const { error } = await deleteRequest<string>(`${urlComment}?id=${id}`);
 
         if (error && deletedComment && deletedIndex !== -1) {
             setComments(prev => {
