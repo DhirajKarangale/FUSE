@@ -6,12 +6,12 @@ import { urlPostPopular } from "../../api/APIs";
 import PostSection from "../../components/PostSection";
 
 function Popular() {
-    const { isLoaded } = useAppSelector(state => state.user);
+    const { isLoaded, id } = useAppSelector(state => state.user);
     if (!isLoaded) return null;
 
     return (
         <div className="pb-2 space-y-4">
-            <PostSection baseUrl={urlPostPopular} isUserPost={false} />
+            <PostSection baseUrl={urlPostPopular} isUserPost={false} currUserId={id} />
         </div>
     );
 }

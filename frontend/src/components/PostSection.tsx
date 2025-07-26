@@ -14,9 +14,10 @@ import SkeletonPost from "./SkeletonPost";
 type PostSectionProps = {
     baseUrl: string;
     isUserPost: boolean;
+    currUserId: number;
 };
 
-const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
+const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost, currUserId }) => {
     const dispatch = useAppDispatch();
 
     const [page, setPage] = useState(1);
@@ -129,6 +130,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost }) => {
                             <PostCard
                                 post={post}
                                 isUser={isUserPost}
+                                currUserId={currUserId}
                                 DeletePost={DeletePost} />
                         </motion.div>
                     );

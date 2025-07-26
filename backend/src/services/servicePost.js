@@ -16,14 +16,14 @@ async function Post(id, body) {
     return messagesManager.Success('postAdded');
 }
 
-async function GetUserPosts(userId, page) {
+async function GetUserPosts(userId, currUserId, page) {
     validator.ID(userId);
 
     const pageSize = 10;
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelPost.GetUserPosts(userId, validPage, pageSize);
+    return await modelPost.GetUserPosts(userId, currUserId, validPage, pageSize);
 }
 
 async function GetPopularPosts(userId, page) {

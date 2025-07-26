@@ -6,13 +6,13 @@ import { urlPost } from "../../api/APIs";
 import PostSection from "../../components/PostSection";
 
 function Feed() {
-    const { isLoaded, categories } = useAppSelector(state => state.user);
+    const { isLoaded, categories, id } = useAppSelector(state => state.user);
     if (!isLoaded) return null;
     let url = categories.length > 0 ? `${urlPost}?categories=${categories.join(",")}` : urlPost;
 
     return (
         <div className="pb-2 space-y-4">
-            <PostSection baseUrl={url} isUserPost={false} />
+            <PostSection baseUrl={url} isUserPost={false} currUserId={id} />
         </div>
     );
 }

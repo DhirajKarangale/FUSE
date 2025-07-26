@@ -375,14 +375,14 @@ function UserSection({ userId }: UserSectionProps) {
                                 />
                             )}
 
-                            <img
+                            {user.image_url && <img
                                 loading="lazy"
-                                src={user.image_url || ""}
+                                src={user.image_url}
                                 alt="User"
                                 onLoad={() => setImageLoaded(true)}
                                 className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
                                 onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
-                            />
+                            />}
                         </div>
 
                     </div>

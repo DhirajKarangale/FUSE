@@ -16,7 +16,7 @@ function User() {
     return (
         <>
             <UserSection userId={userId} />
-            <UserPost userId={userId} />
+            <UserPost userId={userId} currUserId={user.id} />
         </>
     );
 }

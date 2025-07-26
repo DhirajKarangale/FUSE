@@ -16,8 +16,9 @@ router.get('/', async (req, res, next) => {
 router.get('/user', async (req, res, next) => {
     try {
         const id = req.query.userId;
+        const currUserId = req.user.id;
         const page = req.query.page;
-        const response = await servicePost.GetUserPosts(id, page);
+        const response = await servicePost.GetUserPosts(id, currUserId, page);
         res.status(200).json(response);
     } catch (error) {
         next(error);

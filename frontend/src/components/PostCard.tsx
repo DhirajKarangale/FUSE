@@ -16,10 +16,11 @@ import CommentSection from "./CommentSection";
 type Props = {
     post: Post;
     isUser: boolean;
+    currUserId: number;
     DeletePost: (postId: number) => void;
 };
 
-function PostCard({ post, isUser, DeletePost }: Props) {
+function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -73,7 +74,7 @@ function PostCard({ post, isUser, DeletePost }: Props) {
             layout
             className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative border border-white/10">
 
-            {isUser && (
+            {isUser && currUserId == post.user_id && (
                 <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
@@ -93,14 +94,13 @@ function PostCard({ post, isUser, DeletePost }: Props) {
                                 className="absolute w-full h-full rounded-full object-cover border border-white/20"
                             />
                         )}
-                        <img
+                        {post.user_image_url && <img
                             loading="lazy"
-                            src={post.user_image_url || ProfilePlaceholder}
+                            src={post.user_image_url}
                             alt={post.username}
                             onLoad={() => setProfileLoaded(true)}
-                            className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"
-                                }`}
-                        />
+                            className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"}`}
+                        />}
                     </div>
 
                     <div>

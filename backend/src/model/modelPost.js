@@ -20,12 +20,12 @@ async function Post(userId, postTitle, postBody, mediaURL, category) {
         WHERE id = $2;`, [[postId], userId]);
 }
 
-async function GetUserPosts(userId, pageNumber, pageSize) {
+async function GetUserPosts(userId, currentUser, pageNumber, pageSize) {
 
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM posts
-        WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '');
-        `, [userId]);
+        WHERE user_id = $1 AND (deactivation IS NULL OR deactivation = '');`
+        , [userId]);
     const totalPosts = parseInt(totalResult.rows[0].count);
     const totalPages = Math.ceil(totalPosts / pageSize);
 
@@ -42,7 +42,7 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
                 posts.created_at, 
                 posts.category, 
                 COALESCE(array_length(posts.likes, 1), 0) AS "likes", 
-                ($1 = ANY(posts.likes)) AS "isLiked",
+                ($4 = ANY(posts.likes)) AS "isLiked",
                 COALESCE(comment_counts.count, 0) AS "comments",
                 CASE WHEN user_comments.user_id IS NOT NULL THEN true ELSE false END AS "isCommented"
             FROM posts 
@@ -59,7 +59,7 @@ async function GetUserPosts(userId, pageNumber, pageSize) {
             ) AS user_comments ON user_comments.post_id = posts.id
             WHERE posts.user_id = $1 AND (posts.deactivation IS NULL OR posts.deactivation = '')
             ORDER BY posts.created_at DESC
-            LIMIT $2 OFFSET $3`, [userId, pageSize, pageNumber * pageSize]
+            LIMIT $2 OFFSET $3`, [userId, pageSize, pageNumber * pageSize, currentUser]
         );
 
         posts = res.rows;
@@ -117,7 +117,7 @@ async function GetPopularPosts(userId, pageNumber, pageSize, commentWeight, like
             WHERE (posts.deactivation IS NULL OR posts.deactivation = '')
             ORDER BY popularity DESC, posts.created_at DESC
             LIMIT $1 OFFSET $2;`,
-            [pageSize, pageNumber * pageSize, userId, commentWeight, likeWeight] 
+            [pageSize, pageNumber * pageSize, userId, commentWeight, likeWeight]
         );
 
         posts = res.rows;
