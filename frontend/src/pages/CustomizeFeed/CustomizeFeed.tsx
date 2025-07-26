@@ -51,7 +51,7 @@ function CustomizeFeed() {
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-1 pointer-events-none select-none">
+        <div className="flex items-center justify-center z-1 pointer-events-none select-none">
             <AnimatePresence>
                 <motion.div
                     key="auth-categories"
