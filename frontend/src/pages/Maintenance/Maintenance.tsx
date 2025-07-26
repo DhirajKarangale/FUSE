@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { RefreshCcw } from "lucide-react";
+import { routeFeed } from "../../utils/Routes";
 import maintenanceMessages from "../../data/maintenanceMessages.json";
 
 const Maintenance = () => {
@@ -14,8 +15,8 @@ const Maintenance = () => {
     const handleRetry = () => {
         setLoading(true);
         setTimeout(() => {
-            window.location.reload();
-        }, 500); 
+            window.location.replace(routeFeed);
+        }, 500);
     };
 
     const containerVariants: Variants = {
@@ -70,11 +71,10 @@ const Maintenance = () => {
                         whileTap={!loading ? { scale: 0.95 } : {}}
                         disabled={loading}
                         onClick={handleRetry}
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm transition shadow-md ${
-                            loading
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm transition shadow-md ${loading
                                 ? "opacity-50 cursor-not-allowed"
                                 : "hover:from-pink-600 hover:to-purple-700"
-                        }`}
+                            }`}
                     >
                         <motion.div
                             animate={loading ? { rotate: 360 } : false}
