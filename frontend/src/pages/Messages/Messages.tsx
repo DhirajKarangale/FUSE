@@ -124,15 +124,6 @@ const Messages = () => {
         // </div>
 
         <>
-            {/* <div className="flex h-full w-full justify-between overflow-hidden">
-                <MessageUserList />
-
-                {showChatBox && (
-                    <MessageChatBox onClose={() => setShowChatBox(false)} />
-                )}
-            </div> */}
-
-
             <div className="flex h-full w-full justify-between overflow-hidden">
                 {(!isMobile || !showChatBox) && (
                     < MessageUserList onUserClick={() => setShowChatBox(true)} />

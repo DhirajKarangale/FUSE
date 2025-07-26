@@ -41,7 +41,6 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
 
     return (
         <div className="w-full max-w-sm h-full bg-black/25 backdrop-blur-md shadow-xl flex flex-col">
-            {/* Header - Search Box */}
             <div className="sm:px-4 sm:py-3 px-1 py-1 border-b border-white/10 bg-black/30">
                 <div className="relative">
                     <Search className="absolute left-3 top-2.5 w-5 h-5 text-white/50" />
@@ -55,7 +54,6 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                 </div>
             </div>
 
-            {/* Scrollable User List */}
             <div className="flex-1 overflow-y-auto px-2 py-3 space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent bg-black/20 border-t border-white/10 rounded-b-lg">
                 <AnimatePresence>
                     {filteredUsers.length === 0 ? (
@@ -105,7 +103,6 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                     )}
                 </AnimatePresence>
 
-                {/* Spacer to avoid last user being too close to bottom */}
                 <div className="h-4" />
             </div>
         </div>

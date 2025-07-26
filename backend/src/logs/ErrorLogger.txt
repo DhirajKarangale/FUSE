@@ -1293,3 +1293,87 @@ Error: Token’s gone rogue. Try logging in again.
     at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
 
+Error: Token missing. Did you eat it?
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: We need a token to party. Bring one!
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token’s gone rogue. Try logging in again.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token missing. Did you eat it?
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token expired. Like your cereal without milk.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Token’s gone rogue. Try logging in again.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FUSE\backend\src\utilities\requestLogger.js:11:5)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Error: Bruh, that OTP expired like your 2020 resolutions.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+
+Error: Oopsie! That OTP's as wrong as pineapple on pizza.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.VerifyOtp (E:\FUSE\backend\src\services\serviceOTP.js:70:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
+

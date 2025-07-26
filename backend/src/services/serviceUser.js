@@ -90,7 +90,7 @@ async function GetCategories(page) {
     const start = validPage * pageSize;
     const end = start + pageSize;
     const slicedKeys = categoryKeys.slice(start, end);
-    
+
     const result = {};
     if (slicedKeys.length > 0) {
         slicedKeys.forEach(key => {
@@ -101,4 +101,12 @@ async function GetCategories(page) {
     return { categories: result, currPage: pageNumber | 1, totalPages: totalPages };
 }
 
-module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser, GetCategories };
+async function Search(term, page) {
+    const pageSize = 10;
+    const pageNumber = parseInt(page);
+    const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+
+    return await modelUser.Search(term, validPage, pageSize);
+}
+
+module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser, GetCategories, Search };

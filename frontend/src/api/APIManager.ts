@@ -23,11 +23,11 @@ axiosInstance.interceptors.request.use((config) => {
     return config;
 });
 
-function checkToken(errorMessage: string) {
+function checkToken(errorMessage: string, status: number) {
     const msg = errorMessage.toString();
     const currentPath = window.location.pathname;
 
-    if ((msg === 'Token Invalid' || msg == 'Token Required') && !currentPath.startsWith(routeAuth)) {
+    if ((msg === 'Token Invalid' || msg == 'Token Required' || status === 401) && !currentPath.startsWith(routeAuth)) {
         window.location.replace(routeAuth);
     }
 }
@@ -49,7 +49,7 @@ const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResul
         const isTimeout = error.code === 'ECONNABORTED';
         const errorMessage = isTimeout ? 'Request timed out, please try again.' : error.response?.data || error.message || 'Unknown error';
         checkServer(errorMessage);
-        checkToken(errorMessage);
+        checkToken(errorMessage, error.status);
         return { error: errorMessage };
     }
 };

@@ -32,4 +32,34 @@ async function UpdateUser(fields, index, values) {
     return result.rows[0];
 }
 
-module.exports = { CreateUser, GetUser, GetUserByEmail, GetUserByUsername, UpdateUser };
+async function Search(term, pageNumber, pageSize) {
+    const totalResult = await db.query(`
+        SELECT COUNT(*) FROM users 
+        WHERE (deactivation IS NULL OR deactivation = '') 
+        AND username ILIKE $1;`, [term]);
+    const totalPosts = parseInt(totalResult.rows[0].count);
+    const totalPages = Math.ceil(totalPosts / pageSize);
+
+    let posts = [];
+
+    if (pageNumber < totalPages) {
+        const res = await db.query(
+            `SELECT id, username, image_url FROM users
+            WHERE (deactivation IS NULL OR deactivation = '')
+            AND username ILIKE $1
+            ORDER BY username
+            LIMIT $2 OFFSET $3;`,
+            [term, pageSize, pageNumber * pageSize,]
+        );
+
+        posts = res.rows;
+    }
+
+    return {
+        posts,
+        currPage: pageNumber + 1,
+        totalPages
+    };
+}
+
+module.exports = { CreateUser, GetUser, GetUserByEmail, GetUserByUsername, UpdateUser, Search };
