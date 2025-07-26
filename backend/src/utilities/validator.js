@@ -75,4 +75,12 @@ function Comment(Comment) {
     }
 }
 
-module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody, Comment };
+function ValidateDate(date) {
+    console.log(date);
+    const parsedDate = new Date(date);
+    if (!(parsedDate instanceof Date) || isNaN(parsedDate.getTime())) {
+        errorThrow(messagesManager.Error('invalidDate'), statusCode.BAD_REQUEST);
+    }
+}
+
+module.exports = { Email, OTP, ID, Username, About, URL, Category, PostTitle, PostBody, Comment, ValidateDate };

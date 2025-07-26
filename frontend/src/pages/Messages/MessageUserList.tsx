@@ -133,8 +133,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                             className="text-white/60 text-center mt-10"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        >
+                            exit={{ opacity: 0 }}>
                             No users found.
                         </motion.div>
                     ) : (
@@ -151,7 +150,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                                 className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer select-none"
                                 onClick={() => UserClick(user)}>
 
-                                <div className="relative w-12 h-12 shrink-0">
+                                <div className="relative w-9 h-9 shrink-0">
                                     {!profileLoadedMap[user.id] && (
                                         <img
                                             src={ProfilePlaceholder}

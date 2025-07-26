@@ -180,5 +180,8 @@
         "Comment rejected for being too dramatic!",
         "Say more than just \u2018Hi\u2019. Be bold!",
         "Too short to be spicy, try again."
+    ],
+    "invalidDate": [
+        "Invalid date format"
     ]
 }

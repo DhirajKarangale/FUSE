@@ -13,6 +13,7 @@ interface MessageChatBoxProps {
 const MAX_CHARS = 300;
 
 const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
+    const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const prevMessageCount = useRef<number>(0);
@@ -55,15 +56,24 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                     <motion.button
                         className="flex items-center gap-3"
                         whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                    >
-                        <img
-                            src={ProfilePlaceholder}
-                            alt="User"
-                            width={36}
-                            height={36}
-                            className="rounded-full"
-                        />
+                        whileTap={{ scale: 0.9 }}>
+                        <div className="relative w-9 h-9 shrink-0">
+                            {!profileLoaded && (
+                                <img
+                                    alt="User"
+                                    className="absolute w-full h-full rounded-full object-cover border border-white/20"
+                                    src={ProfilePlaceholder}
+                                />
+                            )}
+                            {user.image_url && <img
+                                loading="lazy"
+                                src={user.image_url}
+                                alt={user.username}
+                                onLoad={() => setProfileLoaded(true)}
+                                className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"}`}
+                            />}
+                        </div>
+
                         <div className="text-sm sm:text-base font-semibold text-white">
                             {user.username}
                         </div>
@@ -73,8 +83,7 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={onClose}
-                        className="p-1 rounded hover:bg-white/10 transition"
-                    >
+                        className="p-1 rounded hover:bg-white/10 transition">
                         <X className="w-5 h-5 text-white" />
                     </motion.button>
                 </div>

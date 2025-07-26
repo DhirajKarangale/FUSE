@@ -74,6 +74,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
             comment: commentInput,
+            created_at: new Date().toISOString()
         });
 
         if (data) {

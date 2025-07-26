@@ -101,6 +101,7 @@ function AddPost() {
             category: selectedCategories[0],
             ...(fieldValues.postBody?.trim() && { postBody: fieldValues.postBody }),
             ...(uploadedMediaURL?.trim() && { mediaURL: uploadedMediaURL }),
+            created_at: new Date().toISOString()
         };
 
         const { data, error } = await postRequest<string>(urlPost, body);

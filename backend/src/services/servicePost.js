@@ -8,10 +8,11 @@ async function Post(id, body) {
     validator.ID(id);
     validator.Category(body.category);
     validator.PostTitle(body.postTitle);
+    validator.ValidateDate(body.created_at);
     if (body.mediaURL) validator.URL(body.mediaURL);
     if (body.postBody) validator.PostBody(body.postBody);
 
-    await modelPost.Post(id, body.postTitle, body.postBody, body.mediaURL, body.category);
+    await modelPost.Post(id, body.postTitle, body.postBody, body.mediaURL, body.category, body.created_at);
 
     return messagesManager.Success('postAdded');
 }
