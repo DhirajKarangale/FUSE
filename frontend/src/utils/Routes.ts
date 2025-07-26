@@ -6,3 +6,4 @@ export const routeAddPost = '/addpost';
 export const routeUser = '/user/:userId';
 export const routeAbout = '/about';
 export const routeMessages = '/messages';
+export const routeMaintenance = '/maintenance';

@@ -8,12 +8,12 @@ import BGSquares from "./BGSquares";
 // import BGParticles from "./BGParticles";
 import BGHyperspeed from "./BGHyperspeed";
 
-import { routeAuth } from "../utils/Routes";
+import { routeAuth, routeMaintenance } from "../utils/Routes";
 
 function SetBG() {
     const location = useLocation();
 
-    const isAuth = location.pathname === routeAuth;
+    const isAuth = location.pathname === routeAuth || routeMaintenance;
 
     const Background = useMemo(() => {
         if (isAuth) return BGHyperspeed;

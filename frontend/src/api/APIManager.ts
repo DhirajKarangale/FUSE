@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { urlBase } from './APIs';
-import { routeAuth } from '../utils/Routes';
+import { routeAuth, routeMaintenance } from '../utils/Routes';
 
 export interface ApiResult<T = any> {
     data?: T;
@@ -32,6 +32,15 @@ function checkToken(errorMessage: string) {
     }
 }
 
+function checkServer(errorMessage: string) {
+    const msg = errorMessage.toString();
+    const currentPath = window.location.pathname;
+
+    if ((msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
+        window.location.replace(routeMaintenance);
+    }
+}
+
 const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResult<T>> => {
     try {
         const response = await promise;
@@ -39,6 +48,7 @@ const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResul
     } catch (error: any) {
         const isTimeout = error.code === 'ECONNABORTED';
         const errorMessage = isTimeout ? 'Request timed out, please try again.' : error.response?.data || error.message || 'Unknown error';
+        checkServer(errorMessage);
         checkToken(errorMessage);
         return { error: errorMessage };
     }
