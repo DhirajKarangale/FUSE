@@ -2,8 +2,10 @@ const cloudinary = require('cloudinary').v2;
 const throwError = require('../utilities/throwError');
 const statusCode = require('../utilities/statusCodes');
 
+require('dotenv').config();
+
 cloudinary.config({
-    cloud_name: 'dfamljkyo',
+    cloud_name: process.env.CLOUD_NAME,
     api_key: '577476425439393',
     api_secret: 'VKcQbeLnPXGLE4Wwg01s6-WbFNw',
 });

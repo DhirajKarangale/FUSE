@@ -1,90 +1,170 @@
 {
     "emailInvalid": [
-        "Invalid Email",
-        "Invalid Email 2",
-        "Invalid Email 3"
+        "This ain't an email, it's a cry for help.",
+        "That email looks like it came from 2003.",
+        "Email? More like e-fail.",
+        "You're one typo away from the dark web.",
+        "Fix your email before the internet fixes you."
     ],
-
-    "categorySelect":[
-        "Select at least one category"
+    "categorySelect": [
+        "Pick a category, don't make us guess your vibe.",
+        "No category? How will the algorithm judge you?",
+        "One category. That\u2019s all we ask. Not your soul.",
+        "Choose something. Even potato memes count.",
+        "Without a category, you're basically a digital nomad."
     ],
-    "categorySelectOne":[
-        "Select one category"
+    "categorySelectOne": [
+        "Only ONE. This ain\u2019t a buffet.",
+        "You're not Thanos. Pick ONE power.",
+        "One category to rule them all. That\u2019s it.",
+        "We said one. Uno. Not fifty.",
+        "Just one, like your last brain cell at 3AM."
     ],
-    "categoriesupdated":[
-        "Categories updated successfully"
+    "categoriesupdated": [
+        "Boom. Your vibe\u2019s been upgraded.",
+        "Categories locked and loaded, Captain!",
+        "New categories, new drama inbound.",
+        "You're now subscribed to chaos. Congrats.",
+        "Algorithm has been fed. Let the doom scroll begin."
     ],
-
     "otpInvalid": [
-        "Invalid OTP",
-        "Invalid OTP 2",
-        "Invalid OTP 3"
+        "Wrong OTP. FBI is watching now.",
+        "That code was faker than reality TV.",
+        "Nope. Not even close, detective.",
+        "That OTP expired like your gym membership.",
+        "Retry. And maybe this time, actually read it."
     ],
     "otpVerified": [
-        "Otp Verified",
-        "Otp Verified 2",
-        "Otp Verified 3"
+        "OTP on point! We love a responsible adult.",
+        "Boom! Verified like an influencer.",
+        "You did it! Now don't brag.",
+        "Success! You cracked the 'not so hard' code.",
+        "Vibes: \u2705 OTP: \u2705 Mood: \ud83d\ude0e"
     ],
-
     "usernameMandatory": [
-        "User Name is Mandatory"
+        "Nameless wanderer? Nah. Enter a username.",
+        "Give us a name. Even Batman had one.",
+        "You need a name, not a mystery.",
+        "No username? Might as well be a ghost.",
+        "Name yourself, legend. Don\u2019t be shy."
     ],
     "usernameLess": [
-        "User Name Should be more that 1 char"
+        "That's not a name, it's a whisper.",
+        "Need at least 2 letters. Try harder.",
+        "One letter? What are you, a variable?",
+        "Short names are cool, but not *that* short.",
+        "Try again. Put some alphabet into it."
     ],
     "usernameMore": [
-        "User Name Should be less that 20 char"
+        "That name\u2019s longer than Monday.",
+        "Chill. It\u2019s a username, not your thesis.",
+        "Twitter wouldn\u2019t even allow this much.",
+        "Too many characters. Like your group chat.",
+        "Name\u2019s too long. The scroll bar gave up."
     ],
-
-    "aboutLess":[
-        "About should be more than 5 char."
+    "aboutLess": [
+        "Tell us more. We won't bite.",
+        "5+ characters please. Emojis don\u2019t count.",
+        "That's barely an intro, buddy.",
+        "You gotta flex a bit. This ain\u2019t enough.",
+        "Give us some lore. We\u2019re curious."
     ],
-    "aboutMore":[
-        "About should be less than 500 char."
+    "aboutMore": [
+        "Woah. That bio\u2019s longer than my last relationship.",
+        "We said 'About you', not your autobiography.",
+        "500 characters max. Save some mystery.",
+        "Leave something for the sequel.",
+        "This isn\u2019t your TED Talk, friend."
     ],
-
-    "logoutSuccess":[
-        "Logged out successfully"
+    "logoutSuccess": [
+        "You've ghosted us. Respect.",
+        "Logged out like a true ninja.",
+        "Poof! You\u2019re gone. Magic.",
+        "Bye! Don\u2019t forget to text back.",
+        "Logged out. Now go touch grass."
     ],
-
-    "profileImageSize":[
-        "Image must be smaller than 5MB"
+    "profileImageSize": [
+        "That image is dummy thicc. Max 5MB pls.",
+        "Too heavy! Put it on a data diet.",
+        "Shrink that image like your weekend plans.",
+        "Try again with something less chunky.",
+        "This ain\u2019t a movie poster. Compress it."
     ],
-    "postImageSize":[
-        "Image must be smaller than 10MB"
+    "postImageSize": [
+        "Image too thicc. Max 10MB allowed.",
+        "Our server said \u2018nah\u2019 to that size.",
+        "Even Photoshop said it's too big.",
+        "Upload smaller stuff. This ain't IMAX.",
+        "Chunky image alert \ud83d\udea8 Try again."
     ],
-    "imageSuccess":[
-        "Image updated"
+    "imageSuccess": [
+        "Lookin\u2019 good! Pic uploaded.",
+        "Image upgraded. Slay mode: ON.",
+        "Fresh pic! Internet ready.",
+        "Upload success. You cute now.",
+        "Image updated. Catfishing potential increased."
     ],
-
-    "mediaUploadFail":[
-        "Media upload failed"
+    "mediaUploadFail": [
+        "Upload failed. The internet said 'NOPE'.",
+        "Retry. This one got lost in the cloud.",
+        "Your file took the L. Try again.",
+        "Upload went on vacation. Didn\u2019t come back.",
+        "RIP upload. Gone but not forgotten."
     ],
-
-    "postTitleMust":[
-        "Post Title is Mandatory"
+    "postTitleMust": [
+        "Title it like you mean it.",
+        "Even memes need a title.",
+        "No title? No glory.",
+        "Give it a name. Even a weird one.",
+        "Title or it didn\u2019t happen."
     ],
-    "postTitleLess":[
-        "Post title should be more than 4 characters"
+    "postTitleLess": [
+        "Need more letters. Don\u2019t be lazy.",
+        "That title\u2019s starving. Feed it.",
+        "More than 4 chars. You can do it.",
+        "Add some spice to that title.",
+        "We said title, not grunt."
     ],
-    "postTitleGreater":[
-        "Post title should be less than 250 characters"
+    "postTitleGreater": [
+        "250 chars max. Not an audiobook.",
+        "Too long. Nobody reads that much.",
+        "Your title needs editing, fast.",
+        "Shrink it down, Hemingway.",
+        "Even YouTube won\u2019t allow that mess."
     ],
-
-    "postBodyLess":[
-        "Post Body Should be more than 20 characters"
+    "postBodyLess": [
+        "Your post's starving. Add more words.",
+        "20+ characters. We want tea, not crumbs.",
+        "That's a sneeze, not a post.",
+        "Say something worth scrolling.",
+        "Longer post pls. We believe in you."
     ],
-    "postBodyGreater":[
-        "Post Body Should be less than 10000 characters"
+    "postBodyGreater": [
+        "10K chars max. Not your diary.",
+        "Too long. Our scroll bar is crying.",
+        "Your essay is showing. Trim it.",
+        "Even ChatGPT said 'that\u2019s too much'.",
+        "Save the saga for Netflix."
     ],
-
-    "commentAdded":[
-        "Comment added Successfully"
+    "commentAdded": [
+        "Boom! Comment sent into the void.",
+        "Comment locked & delivered!",
+        "Mic drop. Comment posted.",
+        "Your opinion has entered the chat.",
+        "Nice! You made the internet louder."
     ],
-    "commentLess":[
-        "Comment should be more than 1 character"
+    "commentLess": [
+        "Say more. Or say nothing.",
+        "That's too short. Like your patience.",
+        "One letter? Really?",
+        "Try again. We believe in full sentences.",
+        "Emoji-only comments not allowed (yet)."
     ],
-    "commentMore":[
-        "Comment should be less than 500 character"
+    "commentMore": [
+        "500 chars max. Keep it snackable.",
+        "You wrote too much. Internet isn\u2019t ready.",
+        "Cut it down, Shakespeare.",
+        "Comment overflow. We need lifeboats.",
+        "Summarize like your battery\u2019s at 1%."
     ]
 }

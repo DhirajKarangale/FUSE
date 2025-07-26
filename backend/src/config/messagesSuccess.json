@@ -1,21 +1,44 @@
 {
     "otpSent": [
-        "OTP Sent successfully"
+        "OTP launched like a rocket \ud83d\ude80",
+        "OTP's on its way... treat it like treasure \ud83c\udff4\u200d\u2620\ufe0f",
+        "Bruhh, check your inbox \u2013 OTP arrived \ud83d\udce8",
+        "Your one-time pain (OTP) has been sent \ud83d\ude24",
+        "OTP deployed! Mission: Verify \ud83d\udd10"
     ],
     "otpVerifycation": [
-        "OTP verified successfully"
+        "OTP matched! You\u2019re verified like a celeb \u2705",
+        "Boom! You cracked the code \ud83d\udd13",
+        "You and the OTP? A perfect match \ud83d\udc98",
+        "OTP verified... we trust you (for now) \ud83d\udc40",
+        "OTP check passed, hacker denied! \ud83d\udee1\ufe0f"
     ],
     "userLogin": [
-        "User logged in successfully"
+        "You're in! Welcome to the chaos \ud83c\udf00",
+        "Login successful \u2013 let the scroll begin \ud83d\udcf1",
+        "Welcome back, internet explorer \ud83e\udded",
+        "You're logged in... now don\u2019t break stuff \ud83e\udde8",
+        "Access granted! No cap \ud83e\udde2"
     ],
     "userUpdate": [
-        "User Data updated successfully"
+        "Your data got a glow-up \u2728",
+        "Profile upgraded, just like your taste \ud83d\ude0e",
+        "Changes saved. You\u2019re officially cooler now \u2705",
+        "User data updated! Hope you remembered the password \ud83d\ude05",
+        "Done and dusted. Your profile\u2019s fresh AF \ud83d\udc85"
     ],
     "userData": [
-        "User Data fetched successfully"
+        "Your data is here! Don\u2019t get too attached \ud83d\udc7b",
+        "User info fetched... no stalking \ud83d\udd75\ufe0f\u200d\u2640\ufe0f",
+        "Got your deets! We swear we won\u2019t leak it \ud83d\ude07",
+        "Data loaded. Like your secrets, but safer \ud83d\uddc2\ufe0f",
+        "User data retrieved like a pro hacker \ud83c\udfaf"
     ],
-
     "postAdded": [
-        "Post successfully added"
+        "Your post has entered the chat \ud83d\udcac",
+        "Boom! Post dropped like a banger \ud83c\udfa4",
+        "Posted! Let's see if anyone cares \ud83d\ude05",
+        "Post added. Expect likes... or not \ud83d\ude36",
+        "You posted it \u2013 now let the chaos unfold \ud83c\udf2a\ufe0f"
     ]
 }

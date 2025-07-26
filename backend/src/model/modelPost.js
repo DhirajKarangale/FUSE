@@ -117,7 +117,7 @@ async function GetPopularPosts(userId, pageNumber, pageSize, commentWeight, like
             WHERE (posts.deactivation IS NULL OR posts.deactivation = '')
             ORDER BY popularity DESC, posts.created_at DESC
             LIMIT $1 OFFSET $2;`,
-            [pageSize, pageNumber * pageSize, userId, commentWeight, likeWeight] // commentWeight & likeWeight can be floats like 0.65
+            [pageSize, pageNumber * pageSize, userId, commentWeight, likeWeight] 
         );
 
         posts = res.rows;

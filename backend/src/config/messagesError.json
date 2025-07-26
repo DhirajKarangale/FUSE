@@ -1,141 +1,184 @@
 {
     "otpInvalid": [
-        "Invalid OTP 1",
-        "Invalid OTP 2",
-        "Invalid OTP 3"
+        "Nice try, hacker. But that OTP is invalid.",
+        "That OTP? It left the chat. Try a new one.",
+        "Bruh, that OTP expired like your 2020 resolutions.",
+        "Wrong OTP detected. Please stop guessing like it's a lottery.",
+        "Oopsie! That OTP's as wrong as pineapple on pizza."
     ],
     "otpWrong": [
-        "Wrong OTP 1",
-        "Wrong OTP 2",
-        "Wrong OTP 3"
+        "That OTP? It left the chat. Try a new one.",
+        "Oopsie! That OTP's as wrong as pineapple on pizza.",
+        "Bruh, that OTP expired like your 2020 resolutions.",
+        "Nice try, hacker. But that OTP is invalid.",
+        "Wrong OTP detected. Please stop guessing like it's a lottery."
     ],
     "otpExpire": [
-        "OTP expired, you ediot",
-        "Value for your time, OTP Expired",
-        "Your OTP is expired."
+        "That OTP? It left the chat. Try a new one.",
+        "Bruh, that OTP expired like your 2020 resolutions.",
+        "Nice try, hacker. But that OTP is invalid.",
+        "Wrong OTP detected. Please stop guessing like it's a lottery.",
+        "Oopsie! That OTP's as wrong as pineapple on pizza."
     ],
     "otpEmailNotFound": [
-        "OTP not found for this email"
+        "That OTP? It left the chat. Try a new one.",
+        "Wrong OTP detected. Please stop guessing like it's a lottery.",
+        "Oopsie! That OTP's as wrong as pineapple on pizza.",
+        "Bruh, that OTP expired like your 2020 resolutions.",
+        "Nice try, hacker. But that OTP is invalid."
     ],
-    "otpNF":[
-        "OTP not Found"
+    "otpNF": [
+        "Wrong OTP detected. Please stop guessing like it's a lottery.",
+        "Bruh, that OTP expired like your 2020 resolutions.",
+        "Oopsie! That OTP's as wrong as pineapple on pizza.",
+        "Nice try, hacker. But that OTP is invalid.",
+        "That OTP? It left the chat. Try a new one."
     ],
-    
-    "emailInvalid":[
-        "Invalid Email"
+    "emailInvalid": [
+        "That email already exists\u2014just like your bad decisions.",
+        "We don\u2019t speak typo. Fix that email!",
+        "Email not found. Are you living in 3024?",
+        "Email\u2019s looking sus \ud83d\udc40",
+        "Try again! That\u2019s not a valid email, my dude."
     ],
     "emailExist": [
-        "Email already exists",
-        "Email already exists 2",
-        "Email already exists 3"
+        "Email\u2019s looking sus \ud83d\udc40",
+        "We don\u2019t speak typo. Fix that email!",
+        "That email already exists\u2014just like your bad decisions.",
+        "Email not found. Are you living in 3024?",
+        "Try again! That\u2019s not a valid email, my dude."
     ],
-
-    "idInvalid" :[
-        "Invalid Id"
+    "idInvalid": [
+        "This ID has ghosted us.",
+        "Who gave you this ID? Your imagination?",
+        "ID mismatch. Call tech support (aka you).",
+        "Invalid ID. Maybe it\u2019s hiding?",
+        "That ID doesn\u2019t exist, just like your sleep schedule."
     ],
-
-    "aboutInvalidLess":[
-        "Invalid About, about should be greater than 5 char"
+    "aboutInvalidLess": [
+        "This ain\u2019t a secret club, write a real about!",
+        "500+ characters? Shakespeare much?",
+        "Give us some spicy info\u2014but keep it brief!",
+        "\u2018About\u2019 needs more meat, not just breadcrumbs.",
+        "Tell us more about you. 5 letters isn\u2019t enough!"
     ],
-    "aboutInvalidLarge":[
-        "Invalid About, about should be less than 500 char"
+    "aboutInvalidLarge": [
+        "\u2018About\u2019 needs more meat, not just breadcrumbs.",
+        "Tell us more about you. 5 letters isn\u2019t enough!",
+        "Give us some spicy info\u2014but keep it brief!",
+        "This ain\u2019t a secret club, write a real about!",
+        "500+ characters? Shakespeare much?"
     ],
-
-    "userNameLess":[
-        "Usernmae should be greater than 1 characters"
+    "userNameLess": [
+        "Short usernames are cool, but this is too cool (and short).",
+        "Be unique! That username is yesterday's news.",
+        "Nope, that username is already vibing with someone else.",
+        "That name\u2019s taken. So is your crush. Try again!",
+        "Username too long. Are you writing a novel?"
     ],
-    "userNameMore":[
-        "Usernmae should be less than 20 characters"
+    "userNameMore": [
+        "Nope, that username is already vibing with someone else.",
+        "Be unique! That username is yesterday's news.",
+        "Short usernames are cool, but this is too cool (and short).",
+        "Username too long. Are you writing a novel?",
+        "That name\u2019s taken. So is your crush. Try again!"
     ],
     "usernameExist": [
-        "Username already exists",
-        "Username already exists 2",
-        "Username already exists 3"
+        "Short usernames are cool, but this is too cool (and short).",
+        "Username too long. Are you writing a novel?",
+        "That name\u2019s taken. So is your crush. Try again!",
+        "Be unique! That username is yesterday's news.",
+        "Nope, that username is already vibing with someone else."
     ],
-
     "urlInvalid": [
-        "Invalid URL"
+        "URL broken like your last relationship.",
+        "Try again\u2014this isn\u2019t a meme link.",
+        "Even Google doesn\u2019t recognize that URL.",
+        "Nope. That URL ain't it, chief.",
+        "That\u2019s not a URL. That\u2019s a mess."
     ],
-    
     "jwtInvalid": [
-        "Token Invalid"
+        "That\u2019s not a token, that\u2019s a toadstool!",
+        "Token missing. Did you eat it?",
+        "We need a token to party. Bring one!",
+        "Token expired. Like your cereal without milk.",
+        "Token\u2019s gone rogue. Try logging in again."
     ],
     "jwtRequired": [
-        "Token Required"
+        "That\u2019s not a token, that\u2019s a toadstool!",
+        "Token missing. Did you eat it?",
+        "Token expired. Like your cereal without milk.",
+        "We need a token to party. Bring one!",
+        "Token\u2019s gone rogue. Try logging in again."
     ],
-
     "categoryInvalid": [
-        "Category Invalid 1",
-        "Category Invalid 2",
-        "Category Invalid 3"
+        "This category is as fake as filters on IG.",
+        "Invalid category. What even is this?",
+        "Choose a category, don\u2019t ghost us.",
+        "Array of categories please, not your mixtape.",
+        "Pick a real category, not a fantasy."
     ],
-    "categoriesArray":[
-        "Categories must be an array"
+    "categoriesArray": [
+        "System says 'nah'. Try again!",
+        "Oops! Something went goof mode.",
+        "Try again, but this time with style!",
+        "That's a no from me, fam.",
+        "Nope. Nada. Try something else."
     ],
-
-    "postNotFound":[
-        "Post Not Found"
+    "postNotFound": [
+        "Woah! That post title is longer than a Netflix series.",
+        "Post not found\u2014maybe it went on vacation.",
+        "This post title too tiny. Make it shout!",
+        "10,000 characters? Who are you, Tolkien?",
+        "Body too short. Add more drama!"
     ],
-
-    "postTitleShort":[
-        "Post Title Should be greater than 5 characters"
+    "postTitleShort": [
+        "Body too short. Add more drama!",
+        "Post not found\u2014maybe it went on vacation.",
+        "10,000 characters? Who are you, Tolkien?",
+        "This post title too tiny. Make it shout!",
+        "Woah! That post title is longer than a Netflix series."
     ],
-    "postTitleLong":[
-        "Post Title Should be less than 250 characters"
+    "postTitleLong": [
+        "This post title too tiny. Make it shout!",
+        "Post not found\u2014maybe it went on vacation.",
+        "Body too short. Add more drama!",
+        "Woah! That post title is longer than a Netflix series.",
+        "10,000 characters? Who are you, Tolkien?"
     ],
-
-    "postBodyShort":[
-        "Post body must be at least 20 characters long."
+    "postBodyShort": [
+        "Post not found\u2014maybe it went on vacation.",
+        "This post title too tiny. Make it shout!",
+        "Body too short. Add more drama!",
+        "10,000 characters? Who are you, Tolkien?",
+        "Woah! That post title is longer than a Netflix series."
     ],
-    "postBodyLong":[
-        "Post body must not exceed 10,000 characters."
+    "postBodyLong": [
+        "Body too short. Add more drama!",
+        "This post title too tiny. Make it shout!",
+        "Post not found\u2014maybe it went on vacation.",
+        "Woah! That post title is longer than a Netflix series.",
+        "10,000 characters? Who are you, Tolkien?"
     ],
-
-    "noFieldToUpdate":[
-        "No valid fields provided to update."
+    "noFieldToUpdate": [
+        "That's a no from me, fam.",
+        "Nope. Nada. Try something else.",
+        "Try again, but this time with style!",
+        "Oops! Something went goof mode.",
+        "System says 'nah'. Try again!"
     ],
-
-    "commentShort":[
-        "Comment should be greater than 2 characters"
+    "commentShort": [
+        "Comments aren\u2019t essays. Chill!",
+        "Comment rejected for being too dramatic!",
+        "Too short to be spicy, try again.",
+        "Nice try. But that\u2019s not comment-worthy.",
+        "Say more than just \u2018Hi\u2019. Be bold!"
     ],
-    "commentLong":[
-        "Comment should be less than 500 characters"
-    ],
-
-
-
-
-
-    "otpEmpty": [
-        "OTP not provided",
-        "OTP not provided 2",
-        "OTP not provided 3"
-    ],
-    "otpSent": [
-        "Failed to sent otp, try again",
-        "Failed to sent otp, try again 2",
-        "Failed to sent otp, try again 3"
-    ],
-    "emailNF": [
-        "Email not provided",
-        "Email not provided 2",
-        "Email not provided 3"
-    ],
-    
-    
-    "userNF": [
-        "User not found",
-        "User not found 1",
-        "User not found 2"
-    ],
-    "userNU": [
-        "User not update",
-        "User not update 1",
-        "User not update 2"
-    ],
-    "userCreate": [
-        "Failed to create user",
-        "Failed to create user 1",
-        "Failed to create user 2"
+    "commentLong": [
+        "Nice try. But that\u2019s not comment-worthy.",
+        "Comments aren\u2019t essays. Chill!",
+        "Comment rejected for being too dramatic!",
+        "Say more than just \u2018Hi\u2019. Be bold!",
+        "Too short to be spicy, try again."
     ]
 }

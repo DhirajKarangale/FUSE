@@ -41,7 +41,7 @@ function CustomizeFeed() {
         const { data, error } = await putRequest<User>(urlUser, { categories: selectedCategories });
         if (data) {
             dispatch(setUser(data));
-            ShowMsg(GetMessage('categoriesupdated'), 'green');
+            ShowMsg(GetMessage('categoriesupdated'), 'yellow');
         }
         else {
             ShowMsg(error, 'red');

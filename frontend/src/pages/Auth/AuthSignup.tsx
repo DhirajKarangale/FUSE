@@ -36,7 +36,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
 
     if (data) {
       localStorage.setItem("token", data.token);
-      ShowMsg(GetMessage("otpVerified"), "green");
+      ShowMsg(GetMessage("otpVerified"), "yellow");
       setIsExiting(true);
       setTimeout(() => SetUser(data.user), 500);
     } else {
@@ -55,7 +55,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
 
     if (data) {
       setIsOTP(true);
-      ShowMsg(data, "green");
+      ShowMsg(data, "yellow");
     } else {
       ShowMsg(error, "red");
     }

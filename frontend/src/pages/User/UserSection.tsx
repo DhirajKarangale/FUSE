@@ -36,8 +36,8 @@ function UserSection({ userId }: UserSectionProps) {
     const prevImageUrlRef = useRef<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const CLOUD_NAME = "dfamljkyo";
-    const UPLOAD_PRESET = "changexl";
+    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+    const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
     const isLocalUser = userId === localUser.id;
 
     const [fieldValues, setFieldValues] = useState({
@@ -152,7 +152,7 @@ function UserSection({ userId }: UserSectionProps) {
         const { data, error } = await putRequest<User>(urlUser, body);
         if (data) {
             SetUser(data);
-            ShowMsg(`${field.charAt(0).toUpperCase() + field.slice(1)} updated`, "green");
+            ShowMsg(`${field.charAt(0).toUpperCase() + field.slice(1)} updated`, "yellow");
             setEditField(null);
         }
         else {
@@ -169,7 +169,7 @@ function UserSection({ userId }: UserSectionProps) {
         ShowLoader(true);
         const { data, error } = await getRequest<string>(`${urlOTP}?email=${fieldValues.email}`);
 
-        if (data) ShowMsg(data, "green");
+        if (data) ShowMsg(data, "yellow");
         else ShowMsg(error, "red");
 
         ShowLoader(false);
@@ -211,7 +211,7 @@ function UserSection({ userId }: UserSectionProps) {
 
             if (data) {
                 SetUser(data);
-                ShowMsg(GetMessage('imageSuccess'), "green");
+                ShowMsg(GetMessage('imageSuccess'), "yellow");
             } else {
                 ShowMsg(error, "red");
             }

@@ -88,7 +88,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             setComments(prev => [newComment, ...prev]);
             setCommentInput('');
             UpdateComment(true, 1);
-            ShowMsg(GetMessage('commentAdded'), 'green');
+            ShowMsg(GetMessage('commentAdded'), 'yellow');
         } else {
             ShowMsg(error, 'red');
         }

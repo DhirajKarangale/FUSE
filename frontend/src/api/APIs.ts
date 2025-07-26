@@ -1,5 +1,4 @@
-// export const urlBase = `http://localhost:1000`;
-export const urlBase = `https://fuse-ca2q.onrender.com`;
+export const urlBase = import.meta.env.VITE_URL_BASE;
 
 export const urlOTP = `${urlBase}/otp`;
 

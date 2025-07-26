@@ -13,8 +13,8 @@ import { urlPost } from "../../api/APIs";
 import { postRequest } from "../../api/APIManager";
 
 function AddPost() {
-    const CLOUD_NAME = "dfamljkyo";
-    const UPLOAD_PRESET = "changexl";
+    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+    const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
     const dispatch = useAppDispatch();
 
     const [fieldValues, setFieldValues] = useState({ postTitle: '', postBody: '', mediaURL: '' });
@@ -105,7 +105,7 @@ function AddPost() {
 
         const { data, error } = await postRequest<string>(urlPost, body);
         if (data) ClearAllFields();
-        ShowMsg(data || error, data ? "green" : "red");
+        ShowMsg(data || error, data ? "yellow" : "red");
         ShowLoader(false);
     };
 
