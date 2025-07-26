@@ -1,75 +1,76 @@
 import React, { useEffect, useState } from "react";
 import socket from "./socket";
-import { type Message } from "../../models/modelMessage";
+import { type MessageUser } from "../../models/modelMessage";
 
 import MessageUserList from "./MessageUserList";
 import MessageChatBox from "./MessageChatBox";
 
-function getRoomName(id1: string, id2: string) {
-    return [id1, id2].sort().join('_');
-}
+// function getRoomName(id1: string, id2: string) {
+//     return [id1, id2].sort().join('_');
+// }
 
 const Messages = () => {
-
     const [showChatBox, setShowChatBox] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<null | MessageUser>(null);
 
-    const [senderId, setSenderId] = useState('');
-    const [receiverId, setReceiverId] = useState('');
-    const [message, setMessage] = useState('');
 
-    const [currentRoom, setCurrentRoom] = useState('');
-    const [messages, setMessages] = useState<{ [room: string]: Message[] }>({});
 
-    useEffect(() => {
-        if (!senderId || !receiverId) return;
+    // const [senderId, setSenderId] = useState('');
+    // const [receiverId, setReceiverId] = useState('');
+    // const [message, setMessage] = useState('');
 
-        const room = getRoomName(senderId, receiverId);
-        setCurrentRoom(room);
-        socket.emit('join_room', { senderId, receiverId });
-    }, [senderId, receiverId]);
+    // const [currentRoom, setCurrentRoom] = useState('');
+    // const [messages, setMessages] = useState<{ [room: string]: Message[] }>({});
 
-    const sendMessage = () => {
-        if (!message.trim()) return;
+    // useEffect(() => {
+    //     if (!senderId || !receiverId) return;
 
-        const msg: Message = {
-            senderId,
-            receiverId,
-            message,
-            media_url: '',
-            timestamp: new Date().toISOString(),
-        };
+    //     const room = getRoomName(senderId, receiverId);
+    //     setCurrentRoom(room);
+    //     socket.emit('join_room', { senderId, receiverId });
+    // }, [senderId, receiverId]);
 
-        socket.emit('send_message', msg);
+    // const sendMessage = () => {
+    //     if (!message.trim()) return;
 
-        setMessages(prev => {
-            const updated = { ...prev };
-            const room = getRoomName(senderId, receiverId);
-            updated[room] = [...(updated[room] || []), msg];
-            return updated;
-        });
+    //     const msg: Message = {
+    //         senderId,
+    //         receiverId,
+    //         message,
+    //         media_url: '',
+    //         timestamp: new Date().toISOString(),
+    //     };
 
-        setMessage('');
-    };
+    //     socket.emit('send_message', msg);
 
-    useEffect(() => {
-        const handleReceive = (msg: Message) => {
-            const room = getRoomName(msg.senderId, msg.receiverId);
+    //     setMessages(prev => {
+    //         const updated = { ...prev };
+    //         const room = getRoomName(senderId, receiverId);
+    //         updated[room] = [...(updated[room] || []), msg];
+    //         return updated;
+    //     });
 
-            setMessages(prev => {
-                const updated = { ...prev };
-                updated[room] = [...(updated[room] || []), msg];
-                return updated;
-            });
-        };
+    //     setMessage('');
+    // };
 
-        socket.on('receive_message', handleReceive);
+    // useEffect(() => {
+    //     const handleReceive = (msg: Message) => {
+    //         const room = getRoomName(msg.senderId, msg.receiverId);
 
-        return () => {
-            socket.off('receive_message', handleReceive);
-        };
-    }, []);
+    //         setMessages(prev => {
+    //             const updated = { ...prev };
+    //             updated[room] = [...(updated[room] || []), msg];
+    //             return updated;
+    //         });
+    //     };
 
+    //     socket.on('receive_message', handleReceive);
+
+    //     return () => {
+    //         socket.off('receive_message', handleReceive);
+    //     };
+    // }, []);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -125,12 +126,14 @@ const Messages = () => {
 
         <>
             <div className="flex h-full w-full justify-between overflow-hidden">
-                {(!isMobile || !showChatBox) && (
-                    < MessageUserList onUserClick={() => setShowChatBox(true)} />
+                {(!isMobile || !selectedUser) && (
+                    <MessageUserList onUserClick={(user) => setSelectedUser(user)} />
                 )}
 
-                {(!isMobile || showChatBox) && (
-                    <MessageChatBox onClose={() => setShowChatBox(false)} />
+                {(!isMobile && selectedUser) && (
+                    <MessageChatBox
+                        user={selectedUser}
+                        onClose={() => setSelectedUser(null)}/>
                 )}
             </div>
         </>

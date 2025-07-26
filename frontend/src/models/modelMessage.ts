@@ -15,7 +15,7 @@ export interface MessageUserData {
 export interface MessageUser {
     id: number;
     username: string;
-    image_url: number;
+    image_url: string;
     message: string;
     created_at: string;
 }

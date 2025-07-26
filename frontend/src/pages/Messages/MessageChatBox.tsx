@@ -3,13 +3,16 @@ import { X, Send, Paperclip } from "lucide-react";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { type MessageUser } from "../../models/modelMessage";
+
 interface MessageChatBoxProps {
+    user: MessageUser;
     onClose: () => void;
 }
 
 const MAX_CHARS = 300;
 
-const MessageChatBox = ({ onClose }: MessageChatBoxProps) => {
+const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const prevMessageCount = useRef<number>(0);
@@ -62,7 +65,7 @@ const MessageChatBox = ({ onClose }: MessageChatBoxProps) => {
                             className="rounded-full"
                         />
                         <div className="text-sm sm:text-base font-semibold text-white">
-                            John Doe
+                            {user.username}
                         </div>
                     </motion.button>
 
@@ -94,11 +97,10 @@ const MessageChatBox = ({ onClose }: MessageChatBoxProps) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: 10 }}
                                     transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                                    className={`rounded-lg px-3 py-2 max-w-xs break-words relative ${
-                                        idx % 2 === 0
-                                            ? "bg-white/10 text-white"
-                                            : "bg-cyan-500 text-white self-end ml-auto"
-                                    }`}
+                                    className={`rounded-lg px-3 py-2 max-w-xs break-words relative ${idx % 2 === 0
+                                        ? "bg-white/10 text-white"
+                                        : "bg-cyan-500 text-white self-end ml-auto"
+                                        }`}
                                 >
                                     <div className="text-sm whitespace-pre-wrap break-words">
                                         {displayText}
