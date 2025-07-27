@@ -102,7 +102,9 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         const message = msgInput.trim();
         if (!message) return;
 
-        const msgId = messages[0].id + 1;
+        let lastMessageId = 0;
+        if (messages && messages.length > 0) lastMessageId = messages[0].id;
+        let msgId = lastMessageId + 1;
 
         const msg: Message = {
             id: msgId,
