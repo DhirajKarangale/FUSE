@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import socket from "./socket";
+
+import { useAppSelector } from "../../redux/hookStore";
 import { type MessageUser } from "../../models/modelMessage";
 
 import MessageUserList from "./MessageUserList";
@@ -10,6 +12,7 @@ import MessageChatBox from "./MessageChatBox";
 // }
 
 const Messages = () => {
+    const localUser = useAppSelector(state => state.user);
     const [isMobile, setIsMobile] = useState(false);
     const [selectedUser, setSelectedUser] = useState<null | MessageUser>(null);
 
@@ -78,6 +81,9 @@ const Messages = () => {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
+
+    if (!localUser) return <div className="text-white p-4">Loading data...</div>;;
+
     return (
         // <div className="max-w-md mx-auto p-4 border rounded-md shadow text-white">
         //     <h2 className="text-xl font-bold mb-2">Chat with {receiverId}</h2>
@@ -132,6 +138,7 @@ const Messages = () => {
                 {(selectedUser) && (
                     <MessageChatBox
                         user={selectedUser}
+                        localUser={localUser}
                         onClose={() => setSelectedUser(null)} />
                 )}
             </div>

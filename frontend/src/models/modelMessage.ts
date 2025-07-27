@@ -12,6 +12,14 @@ export interface Message {
     isSend: boolean;
 }
 
+export interface MessageSent {
+    senderId: number;
+    receiverId: number;
+    message: string;
+    media_url: string,
+    created_at: string;
+}
+
 export interface MessageUserData {
     users: MessageUser[];
     currPage: number;

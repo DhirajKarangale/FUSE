@@ -3,21 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { X, Send, Paperclip } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import socket from "./socket";
+
 import { urlMessages } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { type MessageUser, type Message, type MessageData } from "../../models/modelMessage";
+import { type User } from "../../models/modelUser";
+import { type MessageUser, type Message, type MessageSent, type MessageData } from "../../models/modelMessage";
 
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 interface MessageChatBoxProps {
     user: MessageUser;
+    localUser: User;
     onClose: () => void;
 }
 
 const MAX_CHARS = 300;
 
-const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
+const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const navigate = useNavigate();
 
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
@@ -25,11 +29,15 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
     const [mediaLoadedMap, setMediaLoadedMap] = useState<Record<number, boolean>>({});
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
     const [currPage, setCurrPage] = useState<number>(1);
+    const [msgInput, setMsgInput] = useState<string>('');
     const [totalPages, setTotalPages] = useState<number>(0);
     const [messages, setMessages] = useState<Message[]>([]);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const senderId = localUser.id;
+    const receiverId = user.id;
 
 
     function formatTimestamp(dateStr: string) {
@@ -90,6 +98,55 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
         );
     };
 
+    function getRoomName(id1: number, id2: number) {
+        return [id1, id2].sort().join('_');
+    }
+
+    const ReceiveMessages = (roomMsg: Message) => {
+        // const room = getRoomName(localUser.id, user.id);
+
+        // setMessages(prev => {
+        //     const updated = { ...prev };
+        //     updated[room] = [...(updated[room] || []), msg];
+        //     return updated;
+        // });
+
+        setMessages(pre => [...pre, roomMsg]);
+    };
+
+    const SendMessage = () => {
+        const message = msgInput.trim();
+        if (!message) return;
+
+        const msg: MessageSent = {
+            senderId,
+            receiverId,
+            message,
+            media_url: '',
+            created_at: new Date().toISOString(),
+        };
+
+        socket.emit('send_message', msg);
+        
+        const sentMsg: Message = {
+            id: 1,
+            message: message,
+            media_url: '',
+            created_at: new Date().toISOString(),
+            isSend: true,
+        };
+
+        setMessages(pre => [...pre, sentMsg]);
+        // setMessages(prev => {
+        //     const updated = { ...prev };
+        //     const room = getRoomName(senderId, receiverId);
+        //     updated[room] = [...(updated[room] || []), msg];
+        //     return updated;
+        // });
+
+        setMsgInput('');
+    };
+
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -107,6 +164,9 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
 
     useEffect(() => {
         Fetch(0);
+        socket.emit('join_room', { senderId, receiverId });
+        socket.on('receive_message', ReceiveMessages);
+        return () => { socket.off('receive_message', ReceiveMessages); };
     }, []);
 
     useEffect(() => {
