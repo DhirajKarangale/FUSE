@@ -1,8 +1,14 @@
 const modelMessage = require('../model/modelMessage');
+const userSocketMap = new Map();
 
 function SocketConnection(io) {
     io.on('connection', (socket) => {
         console.log('A user connected: ' + socket.id);
+
+        socket.on('register_user', (userId) => {
+            userSocketMap.set(userId, socket.id);
+            console.log(`User ${userId} registered with socket ${socket.id}`);
+        });
 
         socket.on('join_room', ({ senderId, receiver_id }) => {
             const roomName = GetRoomName(senderId, receiver_id);
@@ -16,12 +22,28 @@ function SocketConnection(io) {
 
             console.log(`Message in room ${roomName}:`, message);
 
-            socket.to(roomName).emit('receive_message', data);
+            // socket.to(roomName).emit('receive_message', data);
+            
+            const receiverSocketId = userSocketMap.get(receiver_id);
+            if (receiverSocketId) {
+                io.to(receiverSocketId).emit('receive_message', data);
+            } else {
+                console.log(`Receiver ${receiver_id} is offline. Message saved to DB.`);
+            }
+            
             await modelMessage.StoreMessage(sender_id, receiver_id, message, media_url, created_at);
         });
 
         socket.on('disconnect', () => {
             console.log('User disconnected:', socket.id);
+
+            for (const [userId, id] of userSocketMap.entries()) {
+                if (id === socket.id) {
+                    userSocketMap.delete(userId);
+                    console.log(`User ${userId} disconnected and removed from socket map`);
+                    break;
+                }
+            }
         });
     });
 }

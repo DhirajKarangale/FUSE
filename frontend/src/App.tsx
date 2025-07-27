@@ -20,6 +20,8 @@ import LayoutNavbar from './components/LayoutNavbar';
 import MessageBar from './components/MessageBar';
 import Loader from './components/Loader';
 
+import SocketConnection from './pages/Messages/SocketConnection';
+
 import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance } from './utils/Routes';
 
 export default function App() {
@@ -28,6 +30,7 @@ export default function App() {
       <Router>
         <SetBG />
         <AutoLogin />
+        <SocketConnection />
 
         <Routes>
           <Route path={routeAuth} element={<Auth />} />
