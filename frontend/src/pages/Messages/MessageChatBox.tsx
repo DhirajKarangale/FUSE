@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, Send, Paperclip } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,7 +34,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const [messages, setMessages] = useState<Message[]>([]);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const sender_id = localUser.id;
     const receiver_id = user.id;
@@ -158,25 +157,19 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     }, [senderId, receiver_id]);
 
     // useEffect(() => {
-    //     if (currPage === 0 && messagesEndRef.current) {
-    //         messagesEndRef.current.scrollIntoView({ behavior: "auto" });
-    //     }
-    // }, [messages]);
+    //     const container = containerRef.current;
+    //     if (!container) return;
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
+    //     const handleScroll = async () => {
 
-        const handleScroll = async () => {
+    //         const scroll = -container.scrollTop;
+    //         const height = container.scrollHeight - container.clientHeight - 400;
+    //         if (scroll >= height) await Fetch(currPage + 1);
+    //     };
 
-            const scroll = -container.scrollTop;
-            const height = container.scrollHeight - container.clientHeight - 400;
-            if (scroll >= height) await Fetch(currPage + 1);
-        };
-
-        container.addEventListener("scroll", handleScroll);
-        return () => container.removeEventListener("scroll", handleScroll);
-    }, [currPage, totalPages, messages]);
+    //     container.addEventListener("scroll", handleScroll);
+    //     return () => container.removeEventListener("scroll", handleScroll);
+    // }, [currPage, totalPages, messages]);
 
     return (
         <AnimatePresence mode="wait">
@@ -326,7 +319,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         placeholder="Type a message"
                         value={msgInput}
                         onChange={(e) => setMsgInput(e.target.value)}
-                        onKeyDown={ChangeInputMsg}
+                        onKeyDown={(e) => ChangeInputMsg(e)}
                         className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
                     />
                     <motion.button
