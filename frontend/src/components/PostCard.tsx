@@ -71,7 +71,7 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
 
     return (
         <motion.div
-            layout
+            // layout
             className="select-none w-full max-w-full sm:max-w-xl mx-auto my-4 px-4 sm:px-6 py-4 sm:py-6 rounded-2xl bg-black/25 backdrop-blur-sm shadow-lg text-white relative border border-white/10">
 
             {isUser && currUserId == post.user_id && (
