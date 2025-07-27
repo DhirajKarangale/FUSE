@@ -10,7 +10,6 @@ import MessageChatBox from "./MessageChatBox";
 // }
 
 const Messages = () => {
-    const [showChatBox, setShowChatBox] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [selectedUser, setSelectedUser] = useState<null | MessageUser>(null);
 
@@ -130,10 +129,10 @@ const Messages = () => {
                     <MessageUserList onUserClick={(user) => setSelectedUser(user)} />
                 )}
 
-                {(!isMobile && selectedUser) && (
+                {(selectedUser) && (
                     <MessageChatBox
                         user={selectedUser}
-                        onClose={() => setSelectedUser(null)}/>
+                        onClose={() => setSelectedUser(null)} />
                 )}
             </div>
         </>

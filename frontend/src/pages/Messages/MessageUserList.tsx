@@ -109,7 +109,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
 
 
     return (
-        <div className="w-full max-w-sm h-full bg-black/25 backdrop-blur-md shadow-xl flex flex-col">
+        <div className="w-full h-full flex flex-col">
             <div className="sm:px-4 sm:py-3 px-1 py-1 border-b border-white/10 bg-black/30">
                 <div className="relative">
                     <SearchIcon className="absolute left-3 top-2.5 w-5 h-5 text-white/50" />
@@ -144,10 +144,10 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
-                                whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
+                                whileHover={{ scale: 1, backgroundColor: "rgba(255,255,255,0.05)" }}
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer select-none"
+                                className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer select-none bg-white/10 backdrop-blur-md shadow-xl"
                                 onClick={() => UserClick(user)}>
 
                                 <div className="relative w-9 h-9 shrink-0">

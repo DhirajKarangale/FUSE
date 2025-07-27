@@ -34,7 +34,7 @@ function Navbar() {
                 </div>
             </div>
 
-            <div className="lg:hidden fixed bottom-0 left-0 w-full h-10 p-0 m-0 z-0 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur-xl border-r border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+            <div className="lg:hidden fixed bottom-0 left-0 w-full h-10 p-0 m-0 z-5 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur-xl border-r border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
                 <div className="flex justify-around items-center px-0 py-1">
                     {navItems.map((item) => (
                         <NavLink

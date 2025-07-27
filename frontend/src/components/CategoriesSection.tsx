@@ -174,7 +174,7 @@ function CategoriesSection({ selectedCategories, setSelectedCategories, onError,
     return (
         <div
             ref={containerRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden pr-2 custom-scroll space-y-6"
+            className="flex-1 overflow-y-auto overflow-x-hidden custom-scroll space-y-6"
         >
             <AnimatePresence initial={false}>
                 {Object.entries(categoriesData).map(([section, items]) => (

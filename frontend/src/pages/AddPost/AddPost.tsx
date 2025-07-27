@@ -111,7 +111,7 @@ function AddPost() {
     };
 
     return (
-        <div className="flex items-center justify-center z-1 pointer-events-none select-none px-2 sm:px-0">
+        <div className="flex w-full h-full items-center justify-center z-1 pointer-events-none select-none px-2 sm:px-0">
             <AnimatePresence>
                 <motion.div
                     key="add-post"
