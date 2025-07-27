@@ -99,6 +99,9 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     };
 
     const ReceiveMessages = (roomMsg: MessageSent) => {
+
+        console.log('ReceiveMessages: ', roomMsg);
+
         const sentMsg: Message = {
             id: roomMsg.senderId,
             message: roomMsg.message,
@@ -157,13 +160,16 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     useEffect(() => {
         Fetch(0);
 
-        const room = [senderId, receiverId].sort().join("_");
-        socket.emit("join_room", { room });
-        // socket.emit('join_room', { senderId, receiverId });
-
         socket.on('receive_message', ReceiveMessages);
         return () => { socket.off('receive_message', ReceiveMessages); };
     }, []);
+
+
+    useEffect(() => {
+        const room = [localUser.id, user.id].sort().join("_");
+        socket.emit("join_room", { room });
+        // socket.emit('join_room', { senderId, receiverId });
+    }, [localUser.id, user.id]);
 
     useEffect(() => {
         if (currPage === 0 && messagesEndRef.current) {
