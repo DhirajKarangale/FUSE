@@ -8,7 +8,7 @@ import socket from "./socket";
 import { urlMessages } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type User } from "../../models/modelUser";
-import { type MessageUser, type Message, type MessageSent, type MessageData } from "../../models/modelMessage";
+import { type MessageUser, type Message, type MessageData } from "../../models/modelMessage";
 
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
@@ -98,47 +98,24 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         );
     };
 
-    const ReceiveMessages = (roomMsg: MessageSent) => {
-
-        console.log('ReceiveMessages: ', roomMsg);
-
-        const sentMsg: Message = {
-            id: roomMsg.senderId,
-            message: roomMsg.message,
-            media_url: '',
-            created_at: new Date().toISOString(),
-            isSend: true,
-        };
-        setMessages(pre => [sentMsg, ...pre]);
-    };
-
     function SendMessage() {
         const message = msgInput.trim();
         if (!message) return;
 
-        const msg: MessageSent = {
-            senderId,
-            receiverId,
+        const msgId = messages[0].id + 1;
+
+        const msg: Message = {
+            id: msgId,
+            sender_id: senderId,
+            receiver_id: receiverId,
             message,
             media_url: '',
             created_at: new Date().toISOString(),
         };
 
-        console.log('SendMessage : ', msgInput);
         socket.emit('send_message', msg);
 
-        const min = Math.ceil(5000);
-        const max = Math.floor(999999);
-
-        const sentMsg: Message = {
-            id: Math.floor(Math.random() * (max - min + 1)) + min,
-            message: message,
-            media_url: '',
-            created_at: new Date().toISOString(),
-            isSend: true,
-        };
-
-        setMessages(pre => [sentMsg, ...pre]);
+        setMessages(pre => [msg, ...pre]);
         setMsgInput('');
     };
 
@@ -159,30 +136,15 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
     useEffect(() => {
         Fetch(0);
-
-        // socket.on('receive_message', ReceiveMessages);
-        // return () => { socket.off('receive_message', ReceiveMessages); };
     }, []);
 
     useEffect(() => {
-        const handleReceive = (roomMsg: MessageSent) => {
-            console.log('ReceiveMessages: ', roomMsg);
-
-            const sentMsg: Message = {
-                id: roomMsg.senderId,
-                message: roomMsg.message,
-                media_url: '',
-                created_at: new Date().toISOString(),
-                isSend: true,
-            };
-            setMessages(pre => [sentMsg, ...pre]);
+        const ReceiveMsg = (roomMsg: Message) => {
+            setMessages(pre => [roomMsg, ...pre]);
         };
 
-        socket.on('receive_message', handleReceive);
-
-        return () => {
-            socket.off('receive_message', handleReceive);
-        };
+        socket.on('receive_message', ReceiveMsg);
+        return () => { socket.off('receive_message', ReceiveMsg); };
     }, []);
 
     useEffect(() => {
@@ -205,7 +167,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95, x: 100 }}
                 transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                className="w-full pb-16 sm:pb-0 max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
+                className="w-full max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
@@ -264,7 +226,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: 10 }}
                                     transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                                    className={`rounded-lg px-3 py-2 max-w-xs break-words relative ${message.isSend
+                                    className={`rounded-lg px-3 py-2 max-w-xs break-words relative ${message.sender_id == localUser.id
                                         ? "bg-cyan-500 text-white self-end ml-auto"
                                         : "bg-white/10 text-white"
                                         }`}>
@@ -302,7 +264,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                                     )}
 
                                     <div
-                                        className={`mt-1 text-[10px] ${message.isSend ? "text-white text-right" : "text-white/60 text-left"}`}>
+                                        className={`mt-1 text-[10px] ${message.sender_id == localUser.id ? "text-white text-right" : "text-white/60 text-left"}`}>
                                         {formatTimestamp(message.created_at)}
                                     </div>
 
@@ -345,6 +307,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                     <textarea
                         rows={1}
                         placeholder="Type a message"
+                        value={msgInput}
                         onChange={(e) => setMsgInput(e.target.value)}
                         className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
                     />

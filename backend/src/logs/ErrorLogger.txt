@@ -52,3 +52,17 @@ TypeError: Cannot read properties of undefined (reading 'count')
     at async Object.GetMessage (E:\FUSE\backend\src\services\serviceMessage.js:47:12)
     at async E:\FUSE\backend\src\routes\routerMessage.js:20:26
 
+error: syntax error at or near "FROM"
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetMessage (E:\FUSE\backend\src\model\modelMessage.js:67:24)
+    at async Object.GetMessage (E:\FUSE\backend\src\services\serviceMessage.js:47:12)
+    at async E:\FUSE\backend\src\routes\routerMessage.js:20:26
+
+error: column "senderid" does not exist
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetMessage (E:\FUSE\backend\src\model\modelMessage.js:67:24)
+    at async Object.GetMessage (E:\FUSE\backend\src\services\serviceMessage.js:47:12)
+    at async E:\FUSE\backend\src\routes\routerMessage.js:20:26
+

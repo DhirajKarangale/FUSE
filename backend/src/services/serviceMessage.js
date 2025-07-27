@@ -10,15 +10,14 @@ function SocketConnection(io) {
             console.log(`User ${senderId} joined room: ${roomName}`);
         });
 
-        socket.on('send_message', (data) => {
-            const { senderId, receiverId, message, timestamp } = data;
+        socket.on('send_message', async (data) => {
+            const { id, sender_id, receiver_id, message, media_url, created_at } = data;
             const roomName = GetRoomName(senderId, receiverId);
 
             console.log(`Message in room ${roomName}:`, message);
 
-            // await db.query('INSERT INTO ...', [senderId, receiverId, message, timestamp]);
-
             socket.to(roomName).emit('receive_message', data);
+            await modelMessage.StoreMessage(sender_id, receiver_id, message, media_url, created_at);
         });
 
         socket.on('disconnect', () => {

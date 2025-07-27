@@ -71,7 +71,8 @@ async function GetMessage(currUserId, userId, pageNumber, pageSize) {
                 message,
                 media_url,
                 created_at,
-                sender_id = $1 AS "isSend"
+                sender_id,
+                receiver_id
             FROM messages
             WHERE 
                 (sender_id = $1 AND receiver_id = $2)
@@ -93,4 +94,13 @@ async function GetMessage(currUserId, userId, pageNumber, pageSize) {
     };
 }
 
-module.exports = { Search, GetMessage };
+async function StoreMessage(sender_id, receiver_id, message, media_url, created_at) {
+    await db.query(
+        `INSERT INTO messages (sender_id, receiver_id, message, media_url, created_at) 
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id;`,
+        [sender_id, receiver_id, message, media_url, created_at]
+    );
+}
+
+module.exports = { Search, GetMessage, StoreMessage };

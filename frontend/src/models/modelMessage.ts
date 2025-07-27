@@ -6,15 +6,8 @@ export interface MessageData {
 
 export interface Message {
     id: number;
-    message: string;
-    media_url: string,
-    created_at: string;
-    isSend: boolean;
-}
-
-export interface MessageSent {
-    senderId: number;
-    receiverId: number;
+    sender_id: number;
+    receiver_id: number;
     message: string;
     media_url: string,
     created_at: string;
