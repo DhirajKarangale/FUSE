@@ -147,7 +147,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost, currUser
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-center text-white/40 py-4 col-span-full">
+                    className="text-center text-white/40 py-4 col-span-full select-none">
                     💤 No posts to show
                 </motion.p>
             )}
