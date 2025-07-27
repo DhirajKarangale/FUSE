@@ -23,7 +23,7 @@ const Messages = () => {
 
     return (
         <>
-            <div className="flex h-full w-full justify-between overflow-hidden">
+            <div className="flex gap-3 h-full w-full justify-between overflow-hidden">
                 {(!isMobile || !selectedUser) && (
                     <MessageUserList onUserClick={(user) => setSelectedUser(user)} />
                 )}

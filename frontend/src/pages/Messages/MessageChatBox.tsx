@@ -118,13 +118,21 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
         socket.emit('send_message', msg);
 
-        setMessages(pre => [msg, ...pre]);
+        // setMessages(pre => [msg, ...pre]);
+        setMessages(pre => {
+            if (pre.some(m => m.id === msg.id)) return pre;
+            return [msg, ...pre];
+        });
         setMsgInput('');
     };
 
     useEffect(() => {
         const handleReceive = (roomMsg: Message) => {
-            setMessages(pre => [roomMsg, ...pre]);
+            // setMessages(pre => [roomMsg, ...pre]);
+            setMessages(pre => {
+                if (pre.some(m => m.id === roomMsg.id)) return pre;
+                return [roomMsg, ...pre];
+            });
         };
 
         socket.on('receive_message', handleReceive);
@@ -132,12 +140,13 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     }, []);
 
     useEffect(() => {
+        setMessages([]);
         Fetch(0);
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (!senderId || !receiver_id) return;
-        socket.emit('join_room', {senderId, receiver_id});
+        socket.emit('join_room', { senderId, receiver_id });
     }, [senderId, receiver_id]);
 
     useEffect(() => {
@@ -169,7 +178,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95, x: 100 }}
                 transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                className="w-full max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
+                className="w-full h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl pb-7 bg-gradient-to-br from-[#0b0b10] via-[#1a0f1f] to-[#0c1118] shadow-[0_0_6px_rgba(88,28,135,0.2)]">
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button

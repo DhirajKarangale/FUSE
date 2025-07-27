@@ -109,7 +109,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
 
 
     return (
-        <div className="w-full h-full flex flex-col">
+        <div className="w-full h-full flex flex-col pb-7">
             <div className="sm:px-4 sm:py-3 px-1 py-1 border-b border-white/10 bg-black/30">
                 <div className="relative">
                     <SearchIcon className="absolute left-3 top-2.5 w-5 h-5 text-white/50" />
