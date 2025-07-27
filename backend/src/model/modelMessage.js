@@ -46,4 +46,51 @@ async function Search(userId, pageNumber, pageSize) {
     };
 }
 
-module.exports = { Search };
+async function GetMessage(currUserId, userId, pageNumber, pageSize) {
+    const countResult = await db.query(
+        `
+        SELECT COUNT(*) FROM messages
+        WHERE 
+            (sender_id = $1 AND receiver_id = $2)
+            OR
+            (sender_id = $2 AND receiver_id = $1)
+        `,
+        [currUserId, userId]
+    );
+
+    const totalMessages = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalMessages / pageSize);
+
+    let messages = [];
+
+    if (pageNumber < totalPages) {
+        const result = await db.query(
+            `
+            SELECT 
+                id,
+                message,
+                media_url,
+                created_at,
+                sender_id = $1 AS "isSend"
+            FROM messages
+            WHERE 
+                (sender_id = $1 AND receiver_id = $2)
+                OR
+                (sender_id = $2 AND receiver_id = $1)
+            ORDER BY created_at DESC
+            LIMIT $3 OFFSET $4
+            `,
+            [currUserId, userId, pageSize, pageNumber * pageSize]
+        );
+
+        messages = result.rows;
+    }
+
+    return {
+        messages,
+        currPage: pageNumber + 1,
+        totalPages
+    };
+}
+
+module.exports = { Search, GetMessage };

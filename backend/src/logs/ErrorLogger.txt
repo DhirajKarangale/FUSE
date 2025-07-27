@@ -46,3 +46,9 @@ RangeError: Maximum call stack size exceeded
     at new Date (E:\FUSE\backend\src\utilities\validator.js:80:24)
     at new Date (E:\FUSE\backend\src\utilities\validator.js:80:24)
 
+TypeError: Cannot read properties of undefined (reading 'count')
+    at Object.Search (E:\FUSE\backend\src\model\modelMessage.js:55:53)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetMessage (E:\FUSE\backend\src\services\serviceMessage.js:47:12)
+    at async E:\FUSE\backend\src\routes\routerMessage.js:20:26
+

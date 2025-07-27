@@ -1,9 +1,15 @@
+export interface MessageData {
+    messages: Message[];
+    currPage: number;
+    totalPages: number;
+}
+
 export interface Message {
-    senderId: string;
-    receiverId: string;
+    id: number;
     message: string;
-    media_url: string;
-    timestamp: string;
+    media_url: string,
+    created_at: string;
+    isSend: boolean;
 }
 
 export interface MessageUserData {

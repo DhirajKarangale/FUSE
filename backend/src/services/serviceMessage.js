@@ -39,4 +39,12 @@ async function SearchUser(userId, page) {
     return await modelMessage.Search(userId, validPage, pageSize);
 }
 
-module.exports = { SearchUser, SocketConnection };
+async function GetMessage(currUserId, userId, page) {
+    const pageSize = 20;
+    const pageNumber = parseInt(page);
+    const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
+
+    return await modelMessage.GetMessage(currUserId, userId, validPage, pageSize);
+}
+
+module.exports = { SearchUser, GetMessage, SocketConnection };

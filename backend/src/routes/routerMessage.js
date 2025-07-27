@@ -12,4 +12,16 @@ router.get('/usersearch', async (req, res, next) => {
     }
 });
 
+router.get('/', async (req, res, next) => {
+    try {
+        const currUserId = req.user.id;
+        const userId = req.query.userId;
+        const page = req.query.page;
+        const response = await serviceMessage.GetMessage(currUserId, userId, page);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

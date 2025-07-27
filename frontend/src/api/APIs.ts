@@ -14,4 +14,5 @@ export const urlPostLike = `${urlBase}/post/like`
 
 export const urlComment = `${urlBase}/comment`
 
+export const urlMessages = `${urlBase}/message`
 export const urlMessageUserSearch = `${urlBase}/message/usersearch`
