@@ -38,6 +38,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
     const sender_id = localUser.id;
     const receiver_id = user.id;
+    const senderId = localUser.id;
 
 
     function formatTimestamp(dateStr: string) {
@@ -55,7 +56,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         if (page > totalPages || messageLoading) return;
 
         setMessageLoading(true);
-        const { data } = await getRequest<MessageData>(`${urlMessages}?userId=${user.id}&page=${page}`);
+        const { data } = await getRequest<MessageData>(`${urlMessages}?userId=${receiver_id}&page=${page}`);
         setTimeout(() => { setMessageLoading(false); }, 100);
         if (!data) return;
 
@@ -122,6 +123,30 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     };
 
     useEffect(() => {
+        const handleReceive = (roomMsg: Message) => {
+            setMessages(pre => [roomMsg, ...pre]);
+        };
+
+        socket.on('receive_message', handleReceive);
+        return () => { socket.off('receive_message', handleReceive); };
+    }, []);
+
+    useEffect(() => {
+        Fetch(0);
+    }, []);
+
+    useEffect(() => {
+        if (!senderId || !receiver_id) return;
+        socket.emit('join_room', {senderId, receiver_id});
+    }, [senderId, receiver_id]);
+
+    useEffect(() => {
+        if (currPage === 0 && messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+        }
+    }, [messages]);
+
+    useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
@@ -135,31 +160,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         container.addEventListener("scroll", handleScroll);
         return () => container.removeEventListener("scroll", handleScroll);
     }, [currPage, totalPages, messages]);
-
-    useEffect(() => {
-        Fetch(0);
-    }, []);
-
-    useEffect(() => {
-        const ReceiveMsg = (roomMsg: Message) => {
-            setMessages(pre => [roomMsg, ...pre]);
-        };
-
-        socket.on('receive_message', ReceiveMsg);
-        return () => { socket.off('receive_message', ReceiveMsg); };
-    }, []);
-
-    useEffect(() => {
-        if (!sender_id || !receiver_id) return;
-        socket.emit('join_room', { sender_id, receiver_id });
-    }, [sender_id, receiver_id]);
-
-
-    useEffect(() => {
-        if (currPage === 0 && messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "auto" });
-        }
-    }, [messages]);
 
     return (
         <AnimatePresence mode="wait">
@@ -314,7 +314,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
                     />
                     <motion.button
-                        onClick={SendMessage}
+                        onClick={() => SendMessage()}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-2 rounded hover:bg-white/10 transition">
