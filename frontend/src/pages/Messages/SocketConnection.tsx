@@ -14,7 +14,7 @@ function SocketConnection() {
 
     useEffect(() => {
         const handleReceive = (roomMsg: Message) => {
-            console.log('Received: ', roomMsg);
+            console.log('Received messages: ', roomMsg);
         };
 
         socket.on('receive_message', handleReceive);
