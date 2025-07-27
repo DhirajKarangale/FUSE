@@ -357,34 +357,6 @@ function UserSection({ userId }: UserSectionProps) {
 
                     </div>
 
-                    {/* <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            ref={fileInputRef}
-                            className="hidden"
-                            onChange={UploadImage}
-                        />
-
-                        <div className="relative w-20 h-20">
-                            {!imageLoaded && <img
-                                src={ProfilePlaceholder}
-                                alt="Placeholder"
-                                className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
-                            />}
-
-                            {user.image_url && <img
-                                loading="lazy"
-                                src={user.image_url}
-                                alt="User"
-                                onLoad={() => setImageLoaded(true)}
-                                className={`w-full h-full rounded-full border-2 border-cyan-200 object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"} cursor-pointer`}
-                                onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
-                            />}
-                        </div>
-
-                    </div> */}
-
                     <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white">
                         <img
                             src={imageLoaded && user.image_url ? user.image_url : ProfilePlaceholder}

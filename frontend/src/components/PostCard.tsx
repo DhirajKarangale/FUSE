@@ -80,7 +80,8 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setShowAlert(true)}
                     className="absolute top-2 right-2 text-red-400 hover:text-red-600 transition-colors duration-200">
-                    <Trash size={15} />
+                    {/* <Trash size={15} /> */}
+                    <Trash className="w-4 h-4 sm:w-[15px] sm:h-[15px]" />
                 </motion.button>
             )}
 
