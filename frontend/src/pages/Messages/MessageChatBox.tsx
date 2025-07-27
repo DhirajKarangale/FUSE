@@ -55,14 +55,11 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     async function Fetch(page: number) {
         if (page > totalPages || messageLoading) return;
 
-        console.log('Fetch');
-        
         setMessageLoading(true);
         const { data } = await getRequest<MessageData>(`${urlMessages}?userId=${receiver_id}&page=${page}`);
         setTimeout(() => { setMessageLoading(false); }, 100);
         if (!data) return;
-        
-        console.log('Setting message in fetch: ', data);
+
         setMessages(prev => {
             const existingIds = new Set(prev.map(msg => msg.id));
             const newMessages = data.messages
@@ -103,29 +100,29 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     };
 
     function SendMessage() {
-        // const message = msgInput.trim();
-        // if (!message) return;
+        const message = msgInput.trim();
+        if (!message) return;
 
-        // let lastMessageId = 0;
-        // if (messages && messages.length > 0) lastMessageId = messages[0].id;
-        // let msgId = lastMessageId + 1;
+        let lastMessageId = 0;
+        if (messages && messages.length > 0) lastMessageId = messages[0].id;
+        let msgId = lastMessageId + 1;
 
-        // const msg: Message = {
-        //     id: msgId,
-        //     sender_id,
-        //     receiver_id,
-        //     message,
-        //     media_url: '',
-        //     created_at: new Date().toISOString(),
-        // };
+        const msg: Message = {
+            id: msgId,
+            sender_id,
+            receiver_id,
+            message,
+            media_url: '',
+            created_at: new Date().toISOString(),
+        };
 
-        // socket.emit('send_message', msg);
+        socket.emit('send_message', msg);
 
-        // setMessages(pre => {
-        //     if (pre.some(m => m.id === msg.id)) return pre;
-        //     return [msg, ...pre];
-        // });
-        // setMsgInput('');
+        setMessages(pre => {
+            if (pre.some(m => m.id === msg.id)) return pre;
+            return [msg, ...pre];
+        });
+        setMsgInput('');
     };
 
     function ChangeInputMsg(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -135,20 +132,20 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         }
     }
 
-    // useEffect(() => {
-    //     const handleReceive = (roomMsg: Message) => {
-    //         setMessages(pre => {
-    //             if (pre.some(m => m.id === roomMsg.id)) return pre;
-    //             return [roomMsg, ...pre];
-    //         });
-    //     };
+    useEffect(() => {
+        const handleReceive = (roomMsg: Message) => {
+            setMessages(pre => {
+                if (pre.some(m => m.id === roomMsg.id)) return pre;
+                return [roomMsg, ...pre];
+            });
+        };
 
-    //     socket.on('receive_message', handleReceive);
-    //     return () => { socket.off('receive_message', handleReceive); };
-    // }, []);
+        socket.on('receive_message', handleReceive);
+        return () => { socket.off('receive_message', handleReceive); };
+    }, []);
 
     useEffect(() => {
-        // setMessages([]);
+        setMessages([]);
         Fetch(0);
     }, [user]);
 
@@ -223,7 +220,8 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                     className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse space-y-reverse space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
 
                     <AnimatePresence initial={false}>
-                        {messages.reverse().map((message) => {
+                        {/* {[...messages].reverse().map((message) => { */}
+                        {messages.map((message) => {
                             const isLong = message.message.length > MAX_CHARS;
                             const isExpanded = expanded.has(message.id);
                             const displayText = isExpanded || !isLong ? message.message : message.message.slice(0, MAX_CHARS) + "...";
