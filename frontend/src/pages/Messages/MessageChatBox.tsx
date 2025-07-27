@@ -69,6 +69,24 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
         setMediaLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
+    function MessageSkeleton({ isSend }: { isSend: boolean }) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`flex ${isSend ? "justify-end" : "justify-start"} px-2`}>
+                <div
+                    className={`max-w-xs w-[70%] sm:w-[60%] p-3 rounded-2xl animate-pulse ${isSend ? "bg-cyan-800 rounded-br-none" : "bg-white/10 rounded-bl-none"}`}>
+                    {/* <div className="h-3 bg-white/30 rounded w-4/5 mb-2" /> */}
+                    <div className="h-3 bg-white/20 rounded w-2/3 mb-2" />
+                    <div className="h-3 bg-white/10 rounded w-1/2" />
+                </div>
+            </motion.div>
+        );
+    };
+
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -83,7 +101,6 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
         container.addEventListener("scroll", handleScroll);
         return () => container.removeEventListener("scroll", handleScroll);
     }, [currPage, totalPages, messages]);
-
 
     useEffect(() => {
         Fetch(0);
@@ -104,7 +121,7 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                 exit={{ opacity: 0, scale: 0.95, x: 100 }}
                 transition={{ type: "spring", stiffness: 100, damping: 18 }}
                 className="w-full max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
-                {/* Header */}
+
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
                         className="flex items-center gap-3"
@@ -144,8 +161,6 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                 <div
                     ref={containerRef}
                     className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse space-y-reverse space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-
-
 
                     <AnimatePresence initial={false}>
                         {messages.reverse().map((message) => {
@@ -210,7 +225,7 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                         })}
                     </AnimatePresence>
 
-                    {messageLoading && (
+                    {/* {messageLoading && (
                         <div className="w-full flex justify-center py-2">
                             <motion.div
                                 key="loading"
@@ -221,6 +236,14 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                                 Loading messages...
                             </motion.div>
                         </div>
+                    )} */}
+
+                    {messageLoading && (
+                        <>
+                            {[...Array(3)].map((_, idx) => (
+                                <MessageSkeleton key={idx} isSend={idx % 2 === 0} />
+                            ))}
+                        </>
                     )}
 
                 </div>
