@@ -98,23 +98,11 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         );
     };
 
-    function getRoomName(id1: number, id2: number) {
-        return [id1, id2].sort().join('_');
-    }
-
     const ReceiveMessages = (roomMsg: Message) => {
-        // const room = getRoomName(localUser.id, user.id);
-
-        // setMessages(prev => {
-        //     const updated = { ...prev };
-        //     updated[room] = [...(updated[room] || []), msg];
-        //     return updated;
-        // });
-
-        setMessages(pre => [...pre, roomMsg]);
+        setMessages(pre => [roomMsg, ...pre]);
     };
 
-    const SendMessage = () => {
+    function SendMessage() {
         const message = msgInput.trim();
         if (!message) return;
 
@@ -126,24 +114,21 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
             created_at: new Date().toISOString(),
         };
 
+        console.log('SendMessage : ', msgInput);
         socket.emit('send_message', msg);
 
+        const min = Math.ceil(5000);
+        const max = Math.floor(999999);
+
         const sentMsg: Message = {
-            id: 1,
+            id: Math.floor(Math.random() * (max - min + 1)) + min,
             message: message,
             media_url: '',
             created_at: new Date().toISOString(),
             isSend: true,
         };
 
-        setMessages(pre => [...pre, sentMsg]);
-        // setMessages(prev => {
-        //     const updated = { ...prev };
-        //     const room = getRoomName(senderId, receiverId);
-        //     updated[room] = [...(updated[room] || []), msg];
-        //     return updated;
-        // });
-
+        setMessages(pre => [sentMsg, ...pre]);
         setMsgInput('');
     };
 
@@ -164,7 +149,11 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
     useEffect(() => {
         Fetch(0);
-        socket.emit('join_room', { senderId, receiverId });
+
+        const room = [senderId, receiverId].sort().join("_");
+        socket.emit("join_room", { room });
+        // socket.emit('join_room', { senderId, receiverId });
+
         socket.on('receive_message', ReceiveMessages);
         return () => { socket.off('receive_message', ReceiveMessages); };
     }, []);
@@ -183,7 +172,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95, x: 100 }}
                 transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                className="w-full max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
+                className="w-full pb-16 sm:pb-0 max-w-[520px] h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl">
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
@@ -323,14 +312,15 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                     <textarea
                         rows={1}
                         placeholder="Type a message"
+                        onChange={(e) => setMsgInput(e.target.value)}
                         className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
                     />
                     <motion.button
+                        onClick={SendMessage}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-2 rounded hover:bg-white/10 transition">
-                        <Send className="w-5 h-5 text-white"
-                            onClick={SendMessage} />
+                        <Send className="w-5 h-5 text-white" />
                     </motion.button>
                 </div>
             </motion.div>
