@@ -36,8 +36,8 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const senderId = localUser.id;
-    const receiverId = user.id;
+    const sender_id = localUser.id;
+    const receiver_id = user.id;
 
 
     function formatTimestamp(dateStr: string) {
@@ -108,8 +108,8 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
         const msg: Message = {
             id: msgId,
-            sender_id: senderId,
-            receiver_id: receiverId,
+            sender_id,
+            receiver_id,
             message,
             media_url: '',
             created_at: new Date().toISOString(),
@@ -150,9 +150,9 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     }, []);
 
     useEffect(() => {
-        if (!senderId || !receiverId) return;
-        socket.emit('join_room', { senderId, receiverId });
-    }, [senderId, receiverId]);
+        if (!sender_id || !receiver_id) return;
+        socket.emit('join_room', { sender_id, receiver_id });
+    }, [sender_id, receiver_id]);
 
 
     useEffect(() => {

@@ -4,15 +4,15 @@ function SocketConnection(io) {
     io.on('connection', (socket) => {
         console.log('A user connected: ' + socket.id);
 
-        socket.on('join_room', ({ senderId, receiverId }) => {
-            const roomName = GetRoomName(senderId, receiverId);
+        socket.on('join_room', ({ senderId, receiver_id }) => {
+            const roomName = GetRoomName(senderId, receiver_id);
             socket.join(roomName);
             console.log(`User ${senderId} joined room: ${roomName}`);
         });
 
         socket.on('send_message', async (data) => {
             const { id, sender_id, receiver_id, message, media_url, created_at } = data;
-            const roomName = GetRoomName(senderId, receiverId);
+            const roomName = GetRoomName(sender_id, receiver_id);
 
             console.log(`Message in room ${roomName}:`, message);
 
