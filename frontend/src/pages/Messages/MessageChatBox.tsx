@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { X, Send, Paperclip } from "lucide-react";
-import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { urlMessages } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type MessageUser, type Message, type MessageData } from "../../models/modelMessage";
+
+import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
+import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 interface MessageChatBoxProps {
     user: MessageUser;
@@ -16,8 +18,10 @@ const MAX_CHARS = 300;
 
 const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
+    const [messageLoading, setMessageLoading] = useState<boolean>(false);
+    const [mediaLoadedMap, setMediaLoadedMap] = useState<Record<number, boolean>>({});
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
-    const [currPage, setCurrPage] = useState<number>(0);
+    const [currPage, setCurrPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [messages, setMessages] = useState<Message[]>([]);
 
@@ -37,9 +41,11 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
     }
 
     async function Fetch(page: number) {
-        if (page > totalPages) return;
+        if (page > totalPages || messageLoading) return;
 
+        setMessageLoading(true);
         const { data } = await getRequest<MessageData>(`${urlMessages}?userId=${user.id}&page=${page}`);
+        setTimeout(() => { setMessageLoading(false); }, 100);
         if (!data) return;
 
         setMessages(prev => {
@@ -59,17 +65,19 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
         setExpanded(newSet);
     };
 
+    function MediaLoad(userId: number) {
+        setMediaLoadedMap((prev) => ({ ...prev, [userId]: true }));
+    };
+
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         const handleScroll = async () => {
-            console.log('Scroll : ', container.scrollTop);
-            console.log('Width : ', container.scrollWidth);
 
-            if (container.scrollTop <= - container.scrollWidth) {
-                await Fetch(currPage + 1);
-            }
+            const scroll = -container.scrollTop;
+            const height = container.scrollHeight - container.clientHeight - 400;
+            if (scroll >= height) await Fetch(currPage + 1);
         };
 
         container.addEventListener("scroll", handleScroll);
@@ -135,8 +143,10 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
 
                 <div
                     ref={containerRef}
-                    className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse space-y-reverse space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
-                >
+                    className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse space-y-reverse space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+
+
+
                     <AnimatePresence initial={false}>
                         {messages.reverse().map((message) => {
                             const isLong = message.message.length > MAX_CHARS;
@@ -161,6 +171,26 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                                         {displayText}
                                     </div>
 
+                                    {message.media_url && <div className="w-full aspect-video my-2 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
+                                        {!mediaLoadedMap[message.id] && (
+                                            <img
+                                                src={MediaPlaceholder}
+                                                alt="placeholder"
+                                                className="w-full h-full object-cover absolute top-0 left-0"
+                                            />
+                                        )}
+                                        <motion.img
+                                            loading="lazy"
+                                            src={message.media_url}
+                                            alt="post"
+                                            onLoad={() => MediaLoad(message.id)}
+                                            initial={{ scale: 0.95, opacity: 0 }}
+                                            animate={mediaLoadedMap[message.id] ? { scale: 1, opacity: 1 } : {}}
+                                            transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                                            className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoadedMap[message.id] ? "opacity-100" : "opacity-0"}`}
+                                        />
+                                    </div>}
+
                                     {isLong && (
                                         <button
                                             onClick={() => toggleExpand(message.id)}
@@ -179,6 +209,20 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                             );
                         })}
                     </AnimatePresence>
+
+                    {messageLoading && (
+                        <div className="w-full flex justify-center py-2">
+                            <motion.div
+                                key="loading"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="text-xs text-white/70">
+                                Loading messages...
+                            </motion.div>
+                        </div>
+                    )}
+
                 </div>
 
                 <div className="px-4 py-3 bg-black/30 border-t border-white/10 flex items-center gap-2 shrink-0 rounded-b-xl border-b border-white/10">
