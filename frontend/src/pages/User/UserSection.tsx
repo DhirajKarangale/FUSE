@@ -241,8 +241,8 @@ function UserSection({ userId }: UserSectionProps) {
             if (data) {
                 setUserData(data);
                 if (data.image_url !== prevImageUrl) {
-                    setImageLoaded(false);
                     prevImageUrlRef.current = data.image_url;
+                    setImageLoaded(false);
                 }
             } else {
                 ShowMsg(error, 'red');
@@ -357,7 +357,7 @@ function UserSection({ userId }: UserSectionProps) {
 
                     </div>
 
-                    <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
+                    {/* <div className="relative w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0">
                         <input
                             type="file"
                             accept="image/*"
@@ -367,13 +367,11 @@ function UserSection({ userId }: UserSectionProps) {
                         />
 
                         <div className="relative w-20 h-20">
-                            {(!imageLoaded) && (
-                                <img
-                                    src={ProfilePlaceholder}
-                                    alt="Placeholder"
-                                    className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
-                                />
-                            )}
+                            {!imageLoaded && <img
+                                src={ProfilePlaceholder}
+                                alt="Placeholder"
+                                className="w-full h-full rounded-full border-2 border-cyan-200 object-cover absolute top-0 left-0"
+                            />}
 
                             {user.image_url && <img
                                 loading="lazy"
@@ -385,6 +383,25 @@ function UserSection({ userId }: UserSectionProps) {
                             />}
                         </div>
 
+                    </div> */}
+
+                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white">
+                        <img
+                            src={imageLoaded && user.image_url ? user.image_url : ProfilePlaceholder}
+                            alt="Profile"
+                            loading="lazy"
+                            onClick={() => { if (isLocalUser) fileInputRef.current?.click() }}
+                            onLoad={() => setImageLoaded(true)}
+                            className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                        />
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={UploadImage}
+                        />
                     </div>
 
                 </div>

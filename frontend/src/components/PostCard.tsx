@@ -132,8 +132,7 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={mediaLoaded ? { scale: 1, opacity: 1 } : {}}
                         transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                        className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"
-                            }`}
+                        className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoaded ? "opacity-100" : "opacity-0"}`}
                     />
                 </div>
             )}

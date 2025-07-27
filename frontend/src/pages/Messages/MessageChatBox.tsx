@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { X, Send, Paperclip } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,6 +18,8 @@ interface MessageChatBoxProps {
 const MAX_CHARS = 300;
 
 const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
+    const navigate = useNavigate();
+
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [messageLoading, setMessageLoading] = useState<boolean>(false);
     const [mediaLoadedMap, setMediaLoadedMap] = useState<Record<number, boolean>>({});
@@ -124,9 +127,10 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
+                        onClick={() => navigate(`/user/${user.id}`)}
                         className="flex items-center gap-3"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}>
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}>
                         <div className="relative w-9 h-9 shrink-0">
                             {!profileLoaded && (
                                 <img
@@ -225,7 +229,7 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                         })}
                     </AnimatePresence>
 
-                    {/* {messageLoading && (
+                    {messageLoading && (
                         <div className="w-full flex justify-center py-2">
                             <motion.div
                                 key="loading"
@@ -236,15 +240,15 @@ const MessageChatBox = ({ onClose, user }: MessageChatBoxProps) => {
                                 Loading messages...
                             </motion.div>
                         </div>
-                    )} */}
+                    )}
 
-                    {messageLoading && (
+                    {/* {messageLoading && (
                         <>
                             {[...Array(3)].map((_, idx) => (
                                 <MessageSkeleton key={idx} isSend={idx % 2 === 0} />
                             ))}
                         </>
-                    )}
+                    )} */}
 
                 </div>
 
