@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, Send, Paperclip } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -39,6 +39,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const sender_id = localUser.id;
     const receiver_id = user.id;
     const senderId = localUser.id;
+
 
 
     function formatTimestamp(dateStr: string) {
@@ -118,17 +119,24 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
         socket.emit('send_message', msg);
 
-        // setMessages(pre => [msg, ...pre]);
         setMessages(pre => {
             if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
         setMsgInput('');
+
+        console.log(messages);
     };
+
+    function ChangeInputMsg(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            SendMessage();
+        }
+    }
 
     useEffect(() => {
         const handleReceive = (roomMsg: Message) => {
-            // setMessages(pre => [roomMsg, ...pre]);
             setMessages(pre => {
                 if (pre.some(m => m.id === roomMsg.id)) return pre;
                 return [roomMsg, ...pre];
@@ -149,11 +157,11 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         socket.emit('join_room', { senderId, receiver_id });
     }, [senderId, receiver_id]);
 
-    useEffect(() => {
-        if (currPage === 0 && messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "auto" });
-        }
-    }, [messages]);
+    // useEffect(() => {
+    //     if (currPage === 0 && messagesEndRef.current) {
+    //         messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+    //     }
+    // }, [messages]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -268,8 +276,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                                     {isLong && (
                                         <button
                                             onClick={() => toggleExpand(message.id)}
-                                            className="mt-1 underline text-xs text-white/70 hover:text-white"
-                                        >
+                                            className="mt-1 underline text-xs text-white/70 hover:text-white">
                                             {isExpanded ? "Show less" : "More"}
                                         </button>
                                     )}
@@ -311,8 +318,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                     <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className="p-2 rounded hover:bg-white/10 transition"
-                    >
+                        className="p-2 rounded hover:bg-white/10 transition">
                         <Paperclip className="w-5 h-5 text-white" />
                     </motion.button>
                     <textarea
@@ -320,6 +326,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         placeholder="Type a message"
                         value={msgInput}
                         onChange={(e) => setMsgInput(e.target.value)}
+                        onKeyDown={ChangeInputMsg}
                         className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
                     />
                     <motion.button
