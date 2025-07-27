@@ -160,16 +160,36 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     useEffect(() => {
         Fetch(0);
 
-        socket.on('receive_message', ReceiveMessages);
-        return () => { socket.off('receive_message', ReceiveMessages); };
+        // socket.on('receive_message', ReceiveMessages);
+        // return () => { socket.off('receive_message', ReceiveMessages); };
     }, []);
 
+    useEffect(() => {
+        const handleReceive = (roomMsg: MessageSent) => {
+            console.log('ReceiveMessages: ', roomMsg);
+
+            const sentMsg: Message = {
+                id: roomMsg.senderId,
+                message: roomMsg.message,
+                media_url: '',
+                created_at: new Date().toISOString(),
+                isSend: true,
+            };
+            setMessages(pre => [sentMsg, ...pre]);
+        };
+
+        socket.on('receive_message', handleReceive);
+
+        return () => {
+            socket.off('receive_message', handleReceive);
+        };
+    }, []);
 
     useEffect(() => {
-        const room = [localUser.id, user.id].sort().join("_");
-        socket.emit("join_room", { room });
-        // socket.emit('join_room', { senderId, receiverId });
-    }, [localUser.id, user.id]);
+        if (!senderId || !receiverId) return;
+        socket.emit('join_room', { senderId, receiverId });
+    }, [senderId, receiverId]);
+
 
     useEffect(() => {
         if (currPage === 0 && messagesEndRef.current) {

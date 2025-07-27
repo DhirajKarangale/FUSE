@@ -135,7 +135,7 @@ const Messages = () => {
                     <MessageUserList onUserClick={(user) => setSelectedUser(user)} />
                 )}
 
-                {(selectedUser) && (
+                {selectedUser && localUser && (
                     <MessageChatBox
                         user={selectedUser}
                         localUser={localUser}
