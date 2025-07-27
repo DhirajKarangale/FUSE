@@ -12,16 +12,17 @@ const PORT = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = ['http://localhost:5173', 'https://fuse-phi.vercel.app/'];
+
 const io = new Server(server, {
     cors: {
-        origin: true,
+        origin: allowedOrigins,
         credentials: true
     }
 });
 
 app.use(cors({
-    origin: true,
-    // origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true
 }));
 
