@@ -127,7 +127,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         };
 
         socket.emit('send_message', msg);
-        
+
         const sentMsg: Message = {
             id: 1,
             message: message,
@@ -329,7 +329,8 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-2 rounded hover:bg-white/10 transition">
-                        <Send className="w-5 h-5 text-white" />
+                        <Send className="w-5 h-5 text-white"
+                            onClick={SendMessage} />
                     </motion.button>
                 </div>
             </motion.div>
