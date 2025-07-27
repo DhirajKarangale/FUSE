@@ -98,8 +98,15 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         );
     };
 
-    const ReceiveMessages = (roomMsg: Message) => {
-        setMessages(pre => [roomMsg, ...pre]);
+    const ReceiveMessages = (roomMsg: MessageSent) => {
+        const sentMsg: Message = {
+            id: roomMsg.senderId,
+            message: roomMsg.message,
+            media_url: '',
+            created_at: new Date().toISOString(),
+            isSend: true,
+        };
+        setMessages(pre => [sentMsg, ...pre]);
     };
 
     function SendMessage() {
