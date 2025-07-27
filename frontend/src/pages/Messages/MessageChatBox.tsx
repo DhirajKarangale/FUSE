@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, Send, Paperclip } from "lucide-react";
+import { X, Send, Paperclip, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import socket from "./socket";
+
+import GetMessage from "../../utils/MessagesManager";
+import { setLoader } from "../../redux/sliceLoader";
+import { setMessage } from "../../redux/sliceMessageBar";
+import { useAppDispatch } from "../../redux/hookStore";
 
 import { urlMessages } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
@@ -23,6 +28,7 @@ const MAX_CHARS = 300;
 
 const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [messageLoading, setMessageLoading] = useState<boolean>(false);
@@ -30,16 +36,27 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
     const [currPage, setCurrPage] = useState<number>(1);
     const [msgInput, setMsgInput] = useState<string>('');
+    const [mediaPreview, setMediaPreview] = useState<string | null>(null);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [messages, setMessages] = useState<Message[]>([]);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const containerRef = useRef<HTMLDivElement>(null);
 
     const sender_id = localUser.id;
     const receiver_id = user.id;
     const senderId = localUser.id;
+    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+    const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 
 
+    function ShowMsg(message: string, color: string) {
+        dispatch(setMessage({ message, color }));
+    }
+
+    function ShowLoader(isLoading: boolean) {
+        dispatch(setLoader({ isLoading }));
+    }
 
     function formatTimestamp(dateStr: string) {
         const date = new Date(dateStr);
@@ -99,7 +116,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         );
     };
 
-    function SendMessage() {
+    async function SendMessage() {
         const message = msgInput.trim();
         if (!message) return;
 
@@ -107,12 +124,19 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         if (messages && messages.length > 0) lastMessageId = messages[0].id;
         let msgId = lastMessageId + 1;
 
+        let mediaURL = '';
+        if (selectedFile) {
+            ShowLoader(true);
+            mediaURL = await UploadMedia(selectedFile);
+            ShowLoader(false);
+        }
+
         const msg: Message = {
             id: msgId,
             sender_id,
             receiver_id,
             message,
-            media_url: '',
+            media_url: mediaURL,
             created_at: new Date().toISOString(),
         };
 
@@ -122,7 +146,10 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
             if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
+
         setMsgInput('');
+        setSelectedFile(null);
+        setMediaPreview(null);
     };
 
     function ChangeInputMsg(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -131,6 +158,41 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
             SendMessage();
         }
     }
+
+    const ValidateFile = (file: File) => {
+        const validTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!validTypes.includes(file.type)) return ShowMsg("Only JPG, PNG or WEBP images are allowed", "red"), false;
+        if (file.size > 10 * 1024 * 1024) return ShowMsg(GetMessage('postImageSize'), "red"), false;
+        return true;
+    };
+
+    async function UploadMedia(file: File) {
+        if (!ValidateFile(file)) return null;
+
+        const formData = new FormData();
+        formData.append("folder", "fuse");
+        formData.append("file", file);
+        formData.append("upload_preset", UPLOAD_PRESET);
+
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: "POST", body: formData });
+            const data = await res.json();
+            return data?.secure_url ?? null;
+        } catch (err) {
+            console.log("Uploading fail:", err);
+            return null;
+        }
+    };
+
+    function SelectMedia(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setSelectedFile(file);
+        const reader = new FileReader();
+        reader.onloadend = () => setMediaPreview(reader.result as string);
+        reader.readAsDataURL(file);
+    };
 
     useEffect(() => {
         const handleReceive = (roomMsg: Message) => {
@@ -220,7 +282,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                     className="flex-1 overflow-y-auto px-4 py-3 flex flex-col-reverse space-y-reverse space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
 
                     <AnimatePresence initial={false}>
-                        {/* {[...messages].reverse().map((message) => { */}
                         {messages.map((message) => {
                             const isLong = message.message.length > MAX_CHARS;
                             const isExpanded = expanded.has(message.id);
@@ -303,13 +364,39 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
                 </div>
 
-                <div className="px-4 py-3 bg-black/30 border-t border-white/10 flex items-center gap-2 shrink-0 rounded-b-xl border-b border-white/10">
-                    <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 rounded hover:bg-white/10 transition">
-                        <Paperclip className="w-5 h-5 text-white" />
-                    </motion.button>
+                {/* <div className={`px-4 py-3 bg-black/30 border-t border-white/10 shrink-0 rounded-b-xl border-b border-white/10
+                        ${mediaPreview ? 'flex flex-col gap-2' : 'flex items-center gap-2'}`}>
+                    {!mediaPreview ?
+                        <div className="flex items-center space-x-2">
+                            <label htmlFor="media-input" className="cursor-pointer hover:scale-105 transition">
+                                <Paperclip className="text-white" />
+                            </label>
+                            <input
+                                id="media-input"
+                                type="file"
+                                accept="image/jpeg, image/png, image/webp"
+                                className="hidden"
+                                onChange={SelectMedia}
+                            />
+                        </div>
+                        :
+                        <div className="relative w-full">
+                            <motion.img
+                                key={mediaPreview}
+                                src={mediaPreview}
+                                alt="Preview"
+                                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3 }}
+                                className="w-full max-h-60 object-contain rounded-md border border-white/20"
+                            />
+                            <button onClick={() => setMediaPreview(null)}
+                                className="absolute top-2 right-2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-full transition">
+                                <Trash2 size={16} />
+                            </button>
+                        </div>}
+
                     <textarea
                         rows={1}
                         placeholder="Type a message"
@@ -325,7 +412,71 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         className="p-2 rounded hover:bg-white/10 transition">
                         <Send className="w-5 h-5 text-white" />
                     </motion.button>
+                </div> */}
+
+
+                <div className={`px-4 py-3 bg-black/30 border-t border-white/10 shrink-0 rounded-b-xl border-b border-white/10 
+                    ${mediaPreview ? 'flex flex-col gap-2' : 'flex items-center gap-2'}`}>
+
+                    {mediaPreview ? (
+                        <div className="relative w-full">
+                            <motion.img
+                                key={mediaPreview}
+                                src={mediaPreview}
+                                alt="Preview"
+                                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3 }}
+                                className="w-full max-h-60 object-contain rounded-md border border-white/20"
+                            />
+                            <button
+                                onClick={() => {
+                                    setSelectedFile(null);
+                                    setMediaPreview(null);
+                                }}
+                                className="absolute top-2 right-2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-full transition">
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
+                    ) : null}
+
+                    <div className="flex items-center gap-2 w-full">
+                        {!mediaPreview && (
+                            <>
+                                <label htmlFor="media-input" className="cursor-pointer hover:scale-105 transition">
+                                    <Paperclip className="text-white" />
+                                </label>
+                                <input
+                                    id="media-input"
+                                    type="file"
+                                    accept="image/jpeg, image/png, image/webp"
+                                    className="hidden"
+                                    onChange={SelectMedia}
+                                />
+                            </>
+                        )}
+
+                        <textarea
+                            rows={1}
+                            placeholder="Type a message"
+                            value={msgInput}
+                            onChange={(e) => setMsgInput(e.target.value)}
+                            onKeyDown={(e) => ChangeInputMsg(e)}
+                            className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
+                        />
+                        <motion.button
+                            onClick={() => SendMessage()}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="p-2 rounded hover:bg-white/10 transition">
+                            <Send className="w-5 h-5 text-white" />
+                        </motion.button>
+                    </div>
                 </div>
+
+
+
             </motion.div>
         </AnimatePresence>
     );
