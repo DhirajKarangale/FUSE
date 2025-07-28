@@ -14,10 +14,10 @@ const pageSize = 10;
 
 interface MessageUserListProps {
     isActive: boolean;
-    onUserClick: (message: Message) => void;
+    onMessageClick: (message: Message) => void;
 }
 
-function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
+function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserListProps) {
     const receivedMessage = useAppSelector(state => state.messages);
 
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -39,9 +39,8 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
             ? `${urlUserSearch}?term=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`
             : `${urlMessageUserSearch}?page=${page}&size=${pageSize}`;
         const { data } = await getRequest<MessageData>(url);
+        
         if (!data) return;
-
-        console.log(data);
 
         if (isSearchMode) {
             setSearchUsers((prev) => {
@@ -85,6 +84,7 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
     };
 
     useEffect(() => {
+        console.log('Message received');
         if (!receivedMessage || !receivedMessage.sender_id) return;
 
         setCachedUsers((prevUsers) => {
@@ -132,10 +132,10 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
         return () => el?.removeEventListener("scroll", Scroll);
     }, [currPage, totalPages, loading]);
 
-    if (!isActive) return null;
+    // if (!isActive) return null;
 
     return (
-        <div className="w-full h-full flex flex-col pb-7">
+        <div className={`w-full h-full flex flex-col pb-7`}>
             <div className="sm:px-4 sm:py-3 px-1 py-1 border-b border-white/10 bg-black/30">
                 <div className="relative">
                     <SearchIcon className="absolute left-3 top-2.5 w-5 h-5 text-white/50" />

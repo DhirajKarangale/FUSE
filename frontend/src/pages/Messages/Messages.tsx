@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useAppSelector } from "../../redux/hookStore";
-import { type MessageUser } from "../../models/modelMessage";
+import { type Message } from "../../models/modelMessage";
 
 import MessageUserList from "./MessageUserList";
 import MessageChatBox from "./MessageChatBox";
@@ -9,7 +9,7 @@ import MessageChatBox from "./MessageChatBox";
 const Messages = () => {
     const localUser = useAppSelector(state => state.user);
     const [isMobile, setIsMobile] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<null | MessageUser>(null);
+    const [selectedMessage, setSelectedMessage] = useState<null | Message>(null);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -23,19 +23,39 @@ const Messages = () => {
 
     return (
         <>
-            <div className="flex gap-3 h-full w-full justify-between overflow-hidden">
-                <MessageUserList
-                    onUserClick={(user) => setSelectedUser(user)}
-                    isActive={!isMobile || !selectedUser}
-                />
+            {/* <div className="flex gap-3 h-full w-full justify-between overflow-hidden">
+                {(!isMobile || !selectedMessage) && (
+                    <MessageUserList
+                        onMessageClick={(user) => setSelectedMessage(user)}
+                        isActive={isMobile && selectedMessage !== null} />
+                )}
 
-                {selectedUser && localUser && (
+                {selectedMessage && localUser && (
                     <MessageChatBox
-                        message={selectedUser}
+                        message={selectedMessage}
                         localUser={localUser}
-                        onClose={() => setSelectedUser(null)} />
+                        onClose={() => setSelectedMessage(null)} />
+                )}
+            </div> */}
+
+            <div className="flex h-full w-full">
+                <div className={` h-full ${selectedMessage && isMobile ? "hidden" : "block"} ${selectedMessage && !isMobile ? "w-1/3" : "w-full"}`}>
+                    <MessageUserList
+                        onMessageClick={(user) => setSelectedMessage(user)}
+                        isActive={false}
+                    />
+                </div>
+                {selectedMessage && localUser && (
+                    <div className={`h-full ${isMobile ? "w-full" : "w-2/3"}`}>
+                        <MessageChatBox
+                            message={selectedMessage}
+                            localUser={localUser}
+                            onClose={() => setSelectedMessage(null)}
+                        />
+                    </div>
                 )}
             </div>
+
         </>
     );
 };

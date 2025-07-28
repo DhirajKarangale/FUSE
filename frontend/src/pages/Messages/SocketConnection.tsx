@@ -26,9 +26,8 @@ function SocketConnection() {
     }
 
     function ReceiveMessage(message: Message) {
-        console.log('Received messages: ', message);
-        SetMessage(message.sender_username, message.message);
         dispatch(setMessage(message))
+        SetMessage(message.sender_username, message.message);
     };
 
     useEffect(() => {

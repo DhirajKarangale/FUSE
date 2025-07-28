@@ -206,9 +206,7 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
 
     useEffect(() => {
         if (!receivedMessage || receivedMessage.sender_id != receiver_id) return;
-
         let msg = receivedMessage;
-
         setMessages(pre => {
             // if (pre.some(m => m.id === msg.id)) msg.id = receivedMessage.id + 1;
             return [msg, ...pre];
@@ -217,6 +215,7 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
     }, [receivedMessage]);
 
     useEffect(() => {
+        console.log('Chat box, message chaged');
         setMessages([]);
         Fetch(0);
     }, [message]);
