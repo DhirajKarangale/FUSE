@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import socket from "./socket";
 
-import GetMessage from "../../utils/MessagesManager";
+import { clearMessage } from "../../redux/sliceMessages";
 import { setLoader } from "../../redux/sliceLoader";
 import { setMessageBar } from "../../redux/sliceMessageBar";
 import { useAppSelector, useAppDispatch } from "../../redux/hookStore";
@@ -15,6 +15,7 @@ import { getRequest } from "../../api/APIManager";
 import { type User } from "../../models/modelUser";
 import { type Message, type MessageData } from "../../models/modelMessage";
 
+import GetMessage from "../../utils/MessagesManager";
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 import ColorManager from "../../utils/ColorManager";
@@ -213,6 +214,10 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
             // if (pre.some(m => m.id === msg.id)) msg.id = receivedMessage.id + 1;
             return [msg, ...pre];
         });
+
+        setTimeout(() => {
+            dispatch(clearMessage());
+        }, 2000);
 
     }, [receivedMessage]);
 

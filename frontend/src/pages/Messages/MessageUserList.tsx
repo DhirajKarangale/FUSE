@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { setMessageBar } from "../../redux/sliceMessageBar";
 import { clearMessage } from "../../redux/sliceMessages";
 import { useAppDispatch, useAppSelector } from "../../redux/hookStore";
 
@@ -9,7 +10,9 @@ import { urlUserSearch, urlMessageUserSearch } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type Message, type MessageData } from "../../models/modelMessage";
 
+import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
+import ColorManager from "../../utils/ColorManager";
 
 const pageSize = 10;
 
@@ -25,8 +28,9 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     const dispatch = useAppDispatch();
 
     const receivedMessage = useAppSelector(state => state.messages);
-    const [unreadSenders, setUnreadSenders] = useState<Set<number>>(new Set());
+    const localUser = useAppSelector(state => state.user);
 
+    const [unreadSenders, setUnreadSenders] = useState<Set<number>>(new Set());
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [cachedUsers, setCachedUsers] = useState<Message[]>([]);
     const [searchUsers, setSearchUsers] = useState<Message[]>([]);
@@ -73,6 +77,12 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     };
 
     function UserClick(message: Message) {
+
+        if (message.sender_id == localUser.id) {
+            dispatch(setMessageBar({ message: GetMessage('selfMessage'), color: ColorManager.msgError }));
+            return;
+        }
+
         if (isSearchMode) {
             setCachedUsers((prev) => {
                 const exists = prev.some((u) => u.sender_id === message.sender_id);
@@ -202,7 +212,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
                         usersToRender.map((message) => (
                             <motion.div
                                 key={message.sender_id}
-                                layout
+                                // layout
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
@@ -231,7 +241,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
                                     )}
 
                                     {unreadSenders.has(message.sender_id) &&
-                                        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-orange-400 rounded-full border-2 border-black animate-pulse"></span>}
+                                        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-orange-400 rounded-full border-1 border-black animate-pulse"></span>}
 
                                 </div>
 

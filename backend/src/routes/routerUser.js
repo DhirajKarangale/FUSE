@@ -48,7 +48,8 @@ router.get('/search', async (req, res, next) => {
     try {
         const term = req.query.term;
         const page = req.query.page;
-        const response = await serviceUser.Search(term, page);
+        const userId = req.user.id;
+        const response = await serviceUser.Search(userId, term, page);
         res.status(200).json(response);
     } catch (error) {
         next(error);

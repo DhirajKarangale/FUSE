@@ -22,15 +22,12 @@ function Navbar() {
     const [messagesNotification, setMessagesNotification] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!receivedMessage || receivedMessage.id == 0) {
+        const currentPath = location.pathname;
+        if (currentPath.startsWith(routeMessages) || !receivedMessage || receivedMessage.id == 0) {
             setMessagesNotification(false);
             return;
         }
-
-        console.log('Navbar: ', receivedMessage);
-
-        const currentPath = location.pathname;
-        setMessagesNotification(!currentPath.startsWith(routeMessages));
+        setMessagesNotification(true);
     }, [receivedMessage, location.pathname])
 
     return (

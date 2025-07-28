@@ -101,12 +101,12 @@ async function GetCategories(page) {
     return { categories: result, currPage: pageNumber | 1, totalPages: totalPages };
 }
 
-async function Search(term, page) {
+async function Search(userId, term, page) {
     const pageSize = 10;
     const pageNumber = parseInt(page);
     const validPage = isNaN(pageNumber) || pageNumber <= 1 ? 0 : pageNumber - 1;
 
-    return await modelUser.Search(term, validPage, pageSize);
+    return await modelUser.Search(userId, term, validPage, pageSize);
 }
 
 module.exports = { GetUser, GetOrCreateUserByEmail, UpdateUser, GetCategories, Search };

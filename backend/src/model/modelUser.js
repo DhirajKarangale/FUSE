@@ -32,13 +32,14 @@ async function UpdateUser(fields, index, values) {
     return result.rows[0];
 }
 
-async function Search(term, pageNumber, pageSize) {
+async function Search(userId, term, pageNumber, pageSize) {
     const searchTerm = `%${term}%`;
-    
+
     const totalResult = await db.query(`
         SELECT COUNT(*) FROM users 
         WHERE (deactivation IS NULL OR deactivation = '') 
-        AND username ILIKE $1;`, [searchTerm]);
+        AND username ILIKE $1
+        AND id != $2;`, [searchTerm, userId]);
     const totalPosts = parseInt(totalResult.rows[0].count);
     const totalPages = Math.ceil(totalPosts / pageSize);
 
@@ -49,9 +50,10 @@ async function Search(term, pageNumber, pageSize) {
             `SELECT id AS "sender_id", username AS "sender_username", image_url AS "sender_image_url" FROM users
             WHERE (deactivation IS NULL OR deactivation = '')
             AND username ILIKE $1
+            AND id != $4
             ORDER BY username
             LIMIT $2 OFFSET $3;`,
-            [searchTerm, pageSize, pageNumber * pageSize,]
+            [searchTerm, pageSize, pageNumber * pageSize, userId]
         );
 
         messages = res.rows;
