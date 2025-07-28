@@ -42,11 +42,11 @@ async function Search(term, pageNumber, pageSize) {
     const totalPosts = parseInt(totalResult.rows[0].count);
     const totalPages = Math.ceil(totalPosts / pageSize);
 
-    let users = [];
+    let messages = [];
 
     if (pageNumber < totalPages) {
         const res = await db.query(
-            `SELECT id, username, image_url FROM users
+            `SELECT id AS "sender_id", username AS "sender_username", image_url AS "sender_image_url" FROM users
             WHERE (deactivation IS NULL OR deactivation = '')
             AND username ILIKE $1
             ORDER BY username
@@ -54,11 +54,11 @@ async function Search(term, pageNumber, pageSize) {
             [searchTerm, pageSize, pageNumber * pageSize,]
         );
 
-        users = res.rows;
+        messages = res.rows;
     }
 
     return {
-        users,
+        messages,
         currPage: pageNumber + 1,
         totalPages
     };

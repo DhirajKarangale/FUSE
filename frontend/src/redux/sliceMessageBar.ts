@@ -20,7 +20,7 @@ const sliceMessageBar = createSlice({
     name: 'messagebar',
     initialState,
     reducers: {
-        setMessage(state, action: PayloadAction<{ message: string, color?: string }>) {
+        setMessageBar(state, action: PayloadAction<{ message: string, color?: string }>) {
             state.message = action.payload.message;
             state.color = action.payload.color || 'white';
             state.key += 1;
@@ -28,5 +28,5 @@ const sliceMessageBar = createSlice({
     }
 });
 
-export const { setMessage } = sliceMessageBar.actions;
+export const { setMessageBar } = sliceMessageBar.actions;
 export default sliceMessageBar.reducer;

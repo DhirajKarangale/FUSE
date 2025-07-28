@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import GetMessage from "../../utils/MessagesManager";
 import CategoriesSection from "../../components/CategoriesSection";
 
-import { setMessage } from "../../redux/sliceMessageBar";
+import { setMessageBar } from "../../redux/sliceMessageBar";
 import { setLoader } from "../../redux/sliceLoader";
 import { useAppDispatch } from "../../redux/hookStore";
 
@@ -24,7 +24,7 @@ function AddPost() {
 
     const inputClass = "w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400";
 
-    const ShowMsg = (msg: string, color: string) => dispatch(setMessage({ message: msg, color }));
+    const ShowMsg = (msg: string, color: string) => dispatch(setMessageBar({ message: msg, color }));
     const ShowLoader = (val: boolean) => dispatch(setLoader({ isLoading: val }));
 
     const ValidateData = () => {

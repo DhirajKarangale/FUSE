@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { X, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { setMessage } from "../redux/sliceMessageBar";
+import { setMessageBar } from "../redux/sliceMessageBar";
 import { setLoader } from "../redux/sliceLoader";
 import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 
@@ -43,7 +43,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const ShowMsg = (message: string, color: string) => {
-        dispatch(setMessage({ message, color }));
+        dispatch(setMessageBar({ message, color }));
     };
 
     const fetchComments = async (page = 1) => {
@@ -120,7 +120,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 UpdateComment(isUserCommentStillPresent, 1);
                 return newComments;
             });
-            dispatch(setMessage({ message: error, color: 'red' }));
+            dispatch(setMessageBar({ message: error, color: 'red' }));
         }
     };
 

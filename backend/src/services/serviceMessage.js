@@ -3,20 +3,14 @@ const userSocketMap = new Map();
 
 function SocketConnection(io) {
     io.on('connection', (socket) => {
-
-        socket.on('register_user', (userId) => {
-            userSocketMap.set(userId, socket.id);
-        });
+        socket.on('register_user', (userId) => { userSocketMap.set(userId, socket.id); });
 
         socket.on('send_message', async (data) => {
             const { sender_id, receiver_id, message, media_url, created_at } = data;
 
             const receiverSocketId = userSocketMap.get(receiver_id);
-            if (receiverSocketId) {
-                io.to(receiverSocketId).emit('receive_message', data);
-            } else {
-                console.log(`Receiver ${receiver_id} is offline. Message saved to DB.`);
-            }
+            if (receiverSocketId) io.to(receiverSocketId).emit('receive_message', data);
+            else console.log(`Receiver ${receiver_id} is offline.`);
 
             await modelMessage.StoreMessage(sender_id, receiver_id, message, media_url, created_at);
         });

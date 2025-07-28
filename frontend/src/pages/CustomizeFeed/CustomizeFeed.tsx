@@ -5,7 +5,7 @@ import { type User } from "../../models/modelUser";
 
 import { setUser } from "../../redux/sliceUser";
 import { setLoader } from "../../redux/sliceLoader";
-import { setMessage } from "../../redux/sliceMessageBar";
+import { setMessageBar } from "../../redux/sliceMessageBar";
 import { useAppSelector, useAppDispatch } from "../../redux/hookStore";
 
 import { urlUser } from "../../api/APIs";
@@ -27,7 +27,7 @@ function CustomizeFeed() {
     }, [user.isLoaded])
 
     function ShowMsg(message: string, color: string) {
-        dispatch(setMessage({ message, color }))
+        dispatch(setMessageBar({ message, color }))
     }
 
     async function ButtonSave() {

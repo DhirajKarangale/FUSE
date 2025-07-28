@@ -7,28 +7,30 @@ import socket from "./socket";
 
 import GetMessage from "../../utils/MessagesManager";
 import { setLoader } from "../../redux/sliceLoader";
-import { setMessage } from "../../redux/sliceMessageBar";
-import { useAppDispatch } from "../../redux/hookStore";
+import { setMessageBar } from "../../redux/sliceMessageBar";
+import { useAppSelector, useAppDispatch } from "../../redux/hookStore";
 
 import { urlMessages } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
 import { type User } from "../../models/modelUser";
-import { type MessageUser, type Message, type MessageData } from "../../models/modelMessage";
+import { type Message, type MessageData } from "../../models/modelMessage";
 
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 interface MessageChatBoxProps {
-    user: MessageUser;
+    message: Message;
     localUser: User;
     onClose: () => void;
 }
 
 const MAX_CHARS = 300;
 
-const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
+const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    const receivedMessage = useAppSelector(state => state.messages)
 
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [messageLoading, setMessageLoading] = useState<boolean>(false);
@@ -44,20 +46,20 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const sender_id = localUser.id;
-    const receiver_id = user.id;
+    const receiver_id = message.sender_id;
     const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
     const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 
 
     function ShowMsg(message: string, color: string) {
-        dispatch(setMessage({ message, color }));
+        dispatch(setMessageBar({ message, color }));
     }
 
     function ShowLoader(isLoading: boolean) {
         dispatch(setLoader({ isLoading }));
     }
 
-    function formatTimestamp(dateStr: string) {
+    function FormatTimestamp(dateStr: string) {
         const date = new Date(dateStr);
         return date.toLocaleString("en-US", {
             hour: "2-digit",
@@ -87,7 +89,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         setCurrPage(data.currPage);
     }
 
-    function toggleExpand(index: number) {
+    function ToggleExpand(index: number) {
         const newSet = new Set(expanded);
         newSet.has(index) ? newSet.delete(index) : newSet.add(index);
         setExpanded(newSet);
@@ -134,6 +136,8 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
             id: msgId,
             sender_id,
             receiver_id,
+            sender_username: localUser.username,
+            sender_image_url: localUser.image_url,
             message,
             media_url: mediaURL,
             created_at: new Date().toISOString(),
@@ -194,21 +198,19 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
     };
 
     useEffect(() => {
-        const handleReceive = (roomMsg: Message) => {
-            setMessages(pre => {
-                if (pre.some(m => m.id === roomMsg.id)) return pre;
-                return [roomMsg, ...pre];
-            });
-        };
+        if (!receivedMessage || receivedMessage.sender_id != sender_id) return;
+      
+        setMessages(pre => {
+            if (pre.some(m => m.id === receivedMessage.id)) return pre;
+            return [receivedMessage, ...pre];
+        });
 
-        socket.on('receive_message', handleReceive);
-        return () => { socket.off('receive_message', handleReceive); };
-    }, []);
+    }, [receivedMessage]);
 
     useEffect(() => {
         setMessages([]);
         Fetch(0);
-    }, [user]);
+    }, [message]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -236,7 +238,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
-                        onClick={() => navigate(`/user/${user.id}`)}
+                        onClick={() => navigate(`/message/${sender_id}`)}
                         className="flex items-center gap-3"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}>
@@ -248,17 +250,17 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                                     src={ProfilePlaceholder}
                                 />
                             )}
-                            {user.image_url && <img
+                            {message.sender_image_url && <img
                                 loading="lazy"
-                                src={user.image_url}
-                                alt={user.username}
+                                src={message.sender_image_url}
+                                alt={message.sender_username}
                                 onLoad={() => setProfileLoaded(true)}
                                 className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoaded ? "opacity-100" : "opacity-0"}`}
                             />}
                         </div>
 
                         <div className="text-sm sm:text-base font-semibold text-white">
-                            {user.username}
+                            {message.sender_username}
                         </div>
                     </motion.button>
 
@@ -319,7 +321,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
                                     {isLong && (
                                         <button
-                                            onClick={() => toggleExpand(message.id)}
+                                            onClick={() => ToggleExpand(message.id)}
                                             className="mt-1 underline text-xs text-white/70 hover:text-white">
                                             {isExpanded ? "Show less" : "More"}
                                         </button>
@@ -327,7 +329,7 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
                                     <div
                                         className={`mt-1 text-[10px] ${message.sender_id == localUser.id ? "text-white text-right" : "text-white/60 text-left"}`}>
-                                        {formatTimestamp(message.created_at)}
+                                        {FormatTimestamp(message.created_at)}
                                     </div>
 
                                 </motion.div>

@@ -8,7 +8,7 @@ import { getRequest, putRequest, deleteRequest } from "../../api/APIManager";
 import { type User } from "../../models/modelUser";
 import { setUser, clearUser } from '../../redux/sliceUser';
 import { setLoader } from '../../redux/sliceLoader';
-import { setMessage } from '../../redux/sliceMessageBar';
+import { setMessageBar } from '../../redux/sliceMessageBar';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
 import { routeFeed, routeAuth } from '../../utils/Routes';
@@ -53,7 +53,7 @@ function UserSection({ userId }: UserSectionProps) {
     };
 
     function ShowMsg(message: string, color?: string) {
-        dispatch(setMessage({ message, color }));
+        dispatch(setMessageBar({ message, color }));
     }
 
     function ShowLoader(isLoading: boolean) {

@@ -2,9 +2,11 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { useAppSelector } from "../../redux/hookStore";
+
 import { urlUserSearch, urlMessageUserSearch } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
-import { type MessageUser, type MessageUserData } from "../../models/modelMessage";
+import { type Message, type MessageData } from "../../models/modelMessage";
 
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
@@ -12,42 +14,45 @@ const pageSize = 10;
 
 interface MessageUserListProps {
     isActive: boolean;
-    onUserClick: (user: MessageUser) => void;
+    onUserClick: (message: Message) => void;
 }
 
 function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
+    const receivedMessage = useAppSelector(state => state.messages);
+
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [cachedUsers, setCachedUsers] = useState<MessageUser[]>([]);
-    const [searchUsers, setSearchUsers] = useState<MessageUser[]>([]);
+    const [cachedUsers, setCachedUsers] = useState<Message[]>([]);
+    const [searchUsers, setSearchUsers] = useState<Message[]>([]);
     const [currPage, setCurrPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [profileLoadedMap, setProfileLoadedMap] = useState<Record<number, boolean>>({});
-
     const listRef = useRef<HTMLDivElement | null>(null);
     const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const usersToRender = isSearchMode ? searchUsers : cachedUsers;
 
-    const fetchUsers = useCallback(async (page: number) => {
+    const FetchUsers = useCallback(async (page: number) => {
         setLoading(true);
         const url = isSearchMode
             ? `${urlUserSearch}?term=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`
             : `${urlMessageUserSearch}?page=${page}&size=${pageSize}`;
-        const { data } = await getRequest<MessageUserData>(url);
+        const { data } = await getRequest<MessageData>(url);
         if (!data) return;
+
+        console.log(data);
 
         if (isSearchMode) {
             setSearchUsers((prev) => {
-                const existingIds = new Set(prev.map((u) => u.id));
-                const newUsers = data.users.filter((u) => !existingIds.has(u.id));
+                const existingIds = new Set(prev.map((u) => u.sender_id));
+                const newUsers = data.messages.filter((u) => !existingIds.has(u.sender_id));
                 return [...prev, ...newUsers];
             });
         } else {
             setCachedUsers((prev) => {
-                const existingIds = new Set(prev.map((u) => u.id));
-                const newUsers = data.users.filter((u) => !existingIds.has(u.id));
+                const existingIds = new Set(prev.map((u) => u.sender_id));
+                const newUsers = data.messages.filter((u) => !existingIds.has(u.sender_id));
                 return [...prev, ...newUsers];
             });
         }
@@ -61,28 +66,49 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
         setProfileLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
-    function UserClick(user: MessageUser) {
+    function UserClick(message: Message) {
         if (isSearchMode) {
             setCachedUsers((prev) => {
-                const exists = prev.some((u) => u.id === user.id);
-                return exists ? prev : [user, ...prev];
+                const exists = prev.some((u) => u.sender_id === message.sender_id);
+                return exists ? prev : [message, ...prev];
             });
         }
-        onUserClick(user);
+        onUserClick(message);
     };
 
     function Scroll() {
         const el = listRef.current;
         if (!el || loading) return;
         if (el.scrollTop + el.clientHeight >= el.scrollHeight - 50 && currPage < totalPages) {
-            fetchUsers(currPage);
+            FetchUsers(currPage);
         }
     };
 
+    useEffect(() => {
+        if (!receivedMessage || !receivedMessage.sender_id) return;
+
+        setCachedUsers((prevUsers) => {
+            const existingIndex = prevUsers.findIndex(user => user.sender_id === receivedMessage.sender_id);
+
+            if (existingIndex !== -1) {
+                const updatedUser = {
+                    ...prevUsers[existingIndex],
+                    message: receivedMessage.message,
+                    created_at: receivedMessage.created_at,
+                };
+                const newUsers = [...prevUsers];
+                newUsers.splice(existingIndex, 1);
+                return [updatedUser, ...newUsers];
+            }
+
+            return [receivedMessage, ...prevUsers];
+        });
+
+    }, [receivedMessage]);
 
     useEffect(() => {
-        fetchUsers(0);
-    }, [isSearchMode, fetchUsers]);
+        FetchUsers(0);
+    }, [isSearchMode, FetchUsers]);
 
     useEffect(() => {
         if (searchTerm.trim()) {
@@ -91,9 +117,7 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
             setCurrPage(0);
             setTotalPages(1);
             if (debounceTimer.current) clearTimeout(debounceTimer.current);
-            debounceTimer.current = setTimeout(() => {
-                fetchUsers(0);
-            }, 500);
+            debounceTimer.current = setTimeout(() => { FetchUsers(0); }, 500);
         } else {
             setIsSearchMode(false);
             setSearchUsers([]);
@@ -139,9 +163,9 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
                             No users found.
                         </motion.div>
                     ) : (
-                        usersToRender.map((user) => (
+                        usersToRender.map((message) => (
                             <motion.div
-                                key={user.id}
+                                key={message.sender_id}
                                 layout
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -150,23 +174,23 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer select-none bg-white/10 backdrop-blur-md shadow-xl"
-                                onClick={() => UserClick(user)}>
+                                onClick={() => UserClick(message)}>
 
                                 <div className="relative w-9 h-9 shrink-0">
-                                    {!profileLoadedMap[user.id] && (
+                                    {!profileLoadedMap[message.sender_id] && (
                                         <img
                                             src={ProfilePlaceholder}
                                             alt="placeholder"
                                             className="absolute w-full h-full rounded-full object-cover border border-white/20"
                                         />
                                     )}
-                                    {user.image_url && (
+                                    {message.sender_image_url && (
                                         <img
                                             loading="lazy"
-                                            src={user.image_url}
-                                            alt={user.username}
-                                            onLoad={() => ImageLoad(user.id)}
-                                            className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoadedMap[user.id] ? "opacity-100" : "opacity-0"}`}
+                                            src={message.sender_image_url}
+                                            alt={message.sender_username}
+                                            onLoad={() => ImageLoad(message.sender_id)}
+                                            className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoadedMap[message.sender_id] ? "opacity-100" : "opacity-0"}`}
                                         />
                                     )}
                                 </div>
@@ -174,14 +198,14 @@ function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
                                 <div className="flex flex-col flex-1 min-w-0">
                                     <div className="flex justify-between items-center">
                                         <span className="text-white font-medium truncate">
-                                            {user.username}
+                                            {message.sender_username}
                                         </span>
-                                        {user.created_at && <span className="text-xs text-white/50 whitespace-nowrap">
-                                            {new Date(user.created_at).toLocaleDateString()}
+                                        {message.created_at && <span className="text-xs text-white/50 whitespace-nowrap">
+                                            {new Date(message.created_at).toLocaleDateString()}
                                         </span>}
                                     </div>
                                     <span className="text-sm text-white/60 truncate">
-                                        {user.message}
+                                        {message.message}
                                     </span>
                                 </div>
 

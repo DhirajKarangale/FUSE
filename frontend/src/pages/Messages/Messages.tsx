@@ -31,7 +31,7 @@ const Messages = () => {
 
                 {selectedUser && localUser && (
                     <MessageChatBox
-                        user={selectedUser}
+                        message={selectedUser}
                         localUser={localUser}
                         onClose={() => setSelectedUser(null)} />
                 )}

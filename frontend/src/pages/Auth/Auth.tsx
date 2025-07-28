@@ -11,7 +11,7 @@ import { putRequest } from '../../api/APIManager';
 import { type User } from "../../models/modelUser";
 import { setUser } from '../../redux/sliceUser';
 import { setLoader } from '../../redux/sliceLoader';
-import { setMessage } from '../../redux/sliceMessageBar';
+import { setMessageBar } from '../../redux/sliceMessageBar';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
 import { routeFeed } from '../../utils/Routes';
@@ -36,7 +36,7 @@ function Auth() {
     }
 
     function ShowMsg(msg: string, color?: string) {
-        dispatch(setMessage({ message: msg, color: color }))
+        dispatch(setMessageBar({ message: msg, color: color }))
     }
 
     async function SetScreen() {

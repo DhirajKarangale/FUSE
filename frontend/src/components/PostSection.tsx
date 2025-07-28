@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 
-import { setMessage } from "../redux/sliceMessageBar";
+import { setMessageBar } from "../redux/sliceMessageBar";
 import { useAppDispatch } from "../redux/hookStore";
 
 import { urlPost } from "../api/APIs";
@@ -81,7 +81,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost, currUser
         const { error } = await deleteRequest<string>(`${urlPost}?id=${id}`);
 
         if (error) {
-            dispatch(setMessage({ message: error, color: 'red' }));
+            dispatch(setMessageBar({ message: error, color: 'red' }));
 
             setPostData(pre => ({
                 ...pre,

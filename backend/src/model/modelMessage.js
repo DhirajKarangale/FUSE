@@ -14,14 +14,14 @@ async function Search(userId, pageNumber, pageSize) {
     const totalUsers = parseInt(countResult.rows[0].count);
     const totalPages = Math.ceil(totalUsers / pageSize);
 
-    let users = [];
+    let messages = [];
 
     if (pageNumber < totalPages) {
         const result = await db.query(
             `SELECT DISTINCT ON (other_user.id)
-              other_user.id,
-              other_user.username,
-              other_user.image_url,
+              other_user.id AS "sender_id",
+              other_user.username AS "sender_username",
+              other_user.image_url AS "sender_image_url",
               m.message,
               m.created_at
            FROM messages m
@@ -36,11 +36,11 @@ async function Search(userId, pageNumber, pageSize) {
             [userId, pageSize, pageNumber * pageSize]
         );
 
-        users = result.rows;
+        messages = result.rows;
     }
 
     return {
-        users,
+        messages,
         currPage: pageNumber + 1,
         totalPages
     };
