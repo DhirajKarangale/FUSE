@@ -15,6 +15,7 @@ import { getRequest } from "../../api/APIManager";
 import { type User } from "../../models/modelUser";
 import { type Message, type MessageData } from "../../models/modelMessage";
 
+import ImageViewer from "../../components/ImageViewer";
 import GetMessage from "../../utils/MessagesManager";
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
@@ -41,6 +42,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
     const [expanded, setExpanded] = useState<Set<number>>(new Set());
     const [currPage, setCurrPage] = useState<number>(1);
     const [msgInput, setMsgInput] = useState<string>('');
+    const [selectedImageViewer, setSelectedImageViewer] = useState<string>('');
     const [mediaPreview, setMediaPreview] = useState<string | null>(null);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -122,7 +124,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
 
     async function SendMessage() {
         const message = msgInput.trim();
-        if (!message) return;
+        if (!message && !selectedFile) return;
 
         if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
 
@@ -307,13 +309,13 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
                                     transition={{ type: "spring", stiffness: 100, damping: 18 }}
                                     className={`rounded-lg px-3 py-2 max-w-xs break-words relative ${message.sender_id == localUser.id
                                         ? "bg-cyan-500 text-white self-end ml-auto"
-                                        : "bg-white/10 text-white"
-                                        }`}>
+                                        : "bg-white/10 text-white"}`}>
                                     <div className="text-sm whitespace-pre-wrap break-words">
                                         {displayText}
                                     </div>
 
-                                    {message.media_url && <div className="w-full aspect-video my-2 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
+                                    {message.media_url && <div
+                                        className="w-full aspect-video my-2 rounded-lg border border-white/20 overflow-hidden relative bg-white/5">
                                         {!mediaLoadedMap[message.id] && (
                                             <img
                                                 src={MediaPlaceholder}
@@ -323,6 +325,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
                                         )}
                                         <motion.img
                                             loading="lazy"
+                                            onClick={() => { setSelectedImageViewer(message.media_url) }}
                                             src={message.media_url}
                                             alt="post"
                                             onLoad={() => MediaLoad(message.id)}
@@ -332,6 +335,13 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
                                             className={`w-full h-full object-cover transition-opacity duration-500 ${mediaLoadedMap[message.id] ? "opacity-100" : "opacity-0"}`}
                                         />
                                     </div>}
+
+                                    {selectedImageViewer && (
+                                        <ImageViewer
+                                            imageUrl={selectedImageViewer}
+                                            onClose={() => setSelectedImageViewer('')}
+                                        />
+                                    )}
 
                                     {isLong && (
                                         <button

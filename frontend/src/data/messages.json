@@ -173,5 +173,19 @@
         "Sorry, no echo chamber here 🔇",
         "You can't message yourself. Go make a friend 🫂",
         "Nice try, but we don't support self-love *that* much 💌"
+    ],
+    "imageDownloadSuccess": [
+        "Image downloaded! Now go stare at it like a weirdo 🖼️",
+        "Boom! Image secured. Picasso would be proud 🎨",
+        "Saved! Add it to your collection of 1000+ random pics 📸",
+        "Download complete. Bet you won't open it again 😂",
+        "Got the image! Hope it was worth the storage space 📁"
+    ],
+    "imageDownloadFail": [
+        "Download failed. Even the image didn't wanna be saved 💀",
+        "Oops! That image just ghosted you 👻",
+        "Couldn't save it. Blame the WiFi, not us 📡",
+        "Fail! That image said 'nope' and dipped 🏃‍♂️💨",
+        "Download flopped harder than your selfie attempts 🤳❌"
     ]
 }

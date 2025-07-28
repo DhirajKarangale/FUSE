@@ -8,6 +8,7 @@ import { urlPostLike } from "../api/APIs";
 import { putRequest } from "../api/APIManager";
 import { type Post } from "../models/modelPosts";
 
+import ImageViewer from "./ImageViewer";
 import Alert from "./Alert";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 import MediaPlaceholder from "../assets/images/MediaPlaceholder.png";
@@ -21,6 +22,9 @@ type Props = {
 };
 
 function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
+    const [showImageViewer, setShowImageViewer] = useState(false);
+
+
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -125,6 +129,7 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                         />
                     )}
                     <motion.img
+                        onClick={() => setShowImageViewer(true)}
                         loading="lazy"
                         src={post.media_url}
                         alt="post"
@@ -191,6 +196,14 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                 onClose={() => setShowAlert(false)}
                 onConfirm={() => DeletePost(post.id)}
             />
+
+            {showImageViewer && (
+                <ImageViewer
+                    imageUrl={post.media_url}
+                    onClose={() => setShowImageViewer(false)}
+                />
+            )}
+
         </motion.div>
     );
 }
