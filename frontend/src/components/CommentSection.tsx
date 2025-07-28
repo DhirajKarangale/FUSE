@@ -61,15 +61,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const AddComment = async () => {
-        if (commentInput.length < 2) {
-            ShowMsg(GetMessage('commentLess'), 'red');
-            return;
-        }
-        if (commentInput.length > 500) {
-            ShowMsg(GetMessage('commentMore'), 'red');
-            return;
-        }
-
         // dispatch(setLoader({ isLoading: true }));
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
@@ -89,7 +80,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             setComments(prev => [newComment, ...prev]);
             setCommentInput('');
             UpdateComment(true, 1);
-            ShowMsg(GetMessage('commentAdded'), 'yellow');
+            ShowMsg(data, 'yellow');
         } else {
             ShowMsg(error, 'red');
         }

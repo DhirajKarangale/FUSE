@@ -23,7 +23,7 @@ async function Add(userId, body) {
     validator.ValidateDate(body.created_at);
 
     await modelComment.Add(userId, body.postId, body.comment, body.created_at);
-    return "Operation Successful"
+    return messagesManager.Success('commentAdded');
 }
 
 async function Delete(commentId) {

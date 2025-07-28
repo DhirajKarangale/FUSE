@@ -28,8 +28,7 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
     "w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400";
 
   async function ButtonContinue() {
-    const otpRegex = /^\d{6}$/;
-    if (!otpRegex.test(otp)) return ShowMsg(GetMessage("otpInvalid"), "red");
+    if (!otp || otp.length < 1) return ShowMsg(GetMessage('otpInvalid'), 'red');
 
     SetLoader(true);
     const { data, error } = await postRequest<UserData>(urlOTP, { email, otp });

@@ -130,8 +130,6 @@ function UserSection({ userId }: UserSectionProps) {
         if (!value) return;
 
         if (field === "username") {
-            if (value.length < 2) return ShowMsg(GetMessage('usernameLess'), "red");
-            if (value.length > 20) return ShowMsg(GetMessage('usernameMore'), "red");
             body.username = fieldValues.username;
         }
 
@@ -143,8 +141,6 @@ function UserSection({ userId }: UserSectionProps) {
         }
 
         if (field === "about") {
-            if (value.length < 5) return ShowMsg(GetMessage('aboutLess'), "red");
-            if (value.length > 500) return ShowMsg(GetMessage('aboutMore'), "red");
             body.about = fieldValues.about;
         }
 

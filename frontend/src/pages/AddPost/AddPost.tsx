@@ -28,17 +28,9 @@ function AddPost() {
     const ShowLoader = (val: boolean) => dispatch(setLoader({ isLoading: val }));
 
     const ValidateData = () => {
-        const { postTitle, postBody } = fieldValues;
+        const { postTitle } = fieldValues;
         if (!postTitle) return ShowMsg(GetMessage('postTitleMust'), 'red'), false;
-        if (postTitle.length < 3) return ShowMsg(GetMessage('postTitleLess'), 'red'), false;
-        if (postTitle.length > 250) return ShowMsg(GetMessage('postTitleGreater'), 'red'), false;
-
-        if (postBody) {
-            if (postBody.length < 20) return ShowMsg(GetMessage('postBodyLess'), 'red'), false;
-            if (postBody.length > 10000) return ShowMsg(GetMessage('postBodyGreater'), 'red'), false;
-        }
-
-        if (selectedCategories.length !== 1) return ShowMsg(GetMessage('categorySelectOne'), 'red'), false;
+        if (selectedCategories.length < 1) return ShowMsg(GetMessage('categorySelect'), 'red'), false;
 
         return true;
     };

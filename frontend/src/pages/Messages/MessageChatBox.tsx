@@ -121,6 +121,8 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
         const message = msgInput.trim();
         if (!message) return;
 
+        if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), 'red');
+
         const lastMessageId = Array.isArray(messages) && messages.length > 0
             ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
             : 0;
@@ -203,7 +205,6 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
 
     useEffect(() => {
         if (!receivedMessage || receivedMessage.sender_id != receiver_id) return;
-        console.log('Setting message');
 
         let msg = receivedMessage;
 

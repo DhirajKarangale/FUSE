@@ -27,14 +27,6 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
             ShowMsg(GetMessage("usernameMandatory"), "red");
             return false;
         }
-        if (username.length < 2) {
-            ShowMsg(GetMessage("usernameLess"), "red");
-            return false;
-        }
-        if (username.length > 20) {
-            ShowMsg(GetMessage("usernameMore"), "red");
-            return false;
-        }
         return true;
     }
 

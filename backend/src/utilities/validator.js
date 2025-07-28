@@ -32,6 +32,10 @@ function About(about) {
 }
 
 function Category(category) {
+    if(!category) {
+        errorThrow(messagesManager.Error('categoryInvalid'), statusCode.BAD_REQUEST);
+    }
+
     const normalize = str => str.replace(/\s+/g, '').toLowerCase();
 
     const normalizedInput = normalize(category);
@@ -76,7 +80,6 @@ function Comment(Comment) {
 }
 
 function ValidateDate(date) {
-    console.log(date);
     const parsedDate = new Date(date);
     if (!(parsedDate instanceof Date) || isNaN(parsedDate.getTime())) {
         errorThrow(messagesManager.Error('invalidDate'), statusCode.BAD_REQUEST);

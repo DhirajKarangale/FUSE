@@ -1,44 +1,51 @@
 {
     "otpSent": [
-        "OTP launched like a rocket \ud83d\ude80",
-        "OTP's on its way... treat it like treasure \ud83c\udff4\u200d\u2620\ufe0f",
-        "Bruhh, check your inbox \u2013 OTP arrived \ud83d\udce8",
-        "Your one-time pain (OTP) has been sent \ud83d\ude24",
-        "OTP deployed! Mission: Verify \ud83d\udd10"
+        "OTP launched! Try not to forget it 🚀",
+        "OTP's flying in... don't blink or you'll miss it 👀",
+        "OTP sent. Check your inbox, genius 📬",
+        "It's OTP, not rocket science. Go grab it 🧠",
+        "OTP's out. Don't enter your birth year this time 😑"
     ],
     "otpVerifycation": [
-        "OTP matched! You\u2019re verified like a celeb \u2705",
-        "Boom! You cracked the code \ud83d\udd13",
-        "You and the OTP? A perfect match \ud83d\udc98",
-        "OTP verified... we trust you (for now) \ud83d\udc40",
-        "OTP check passed, hacker denied! \ud83d\udee1\ufe0f"
+        "OTP verified. Finally, some brain activity ✅",
+        "You did it! Took only 3 tries 🔓",
+        "Wow, correct OTP. Miracles do happen 🧙",
+        "You're in. Don't act like a hacker now 👨‍💻",
+        "OTP matched. We're as surprised as you are 🤯"
     ],
     "userLogin": [
-        "You're in! Welcome to the chaos \ud83c\udf00",
-        "Login successful \u2013 let the scroll begin \ud83d\udcf1",
-        "Welcome back, internet explorer \ud83e\udded",
-        "You're logged in... now don\u2019t break stuff \ud83e\udde8",
-        "Access granted! No cap \ud83e\udde2"
+        "Logged in... try not to ruin things 😅",
+        "You're back. We were doing fine without you 🧍",
+        "Access granted. Regret loading... 🫠",
+        "Welcome back, digital menace 📱",
+        "You're in. Don't forget your password again 🗝️"
     ],
     "userUpdate": [
-        "Your data got a glow-up \u2728",
-        "Profile upgraded, just like your taste \ud83d\ude0e",
-        "Changes saved. You\u2019re officially cooler now \u2705",
-        "User data updated! Hope you remembered the password \ud83d\ude05",
-        "Done and dusted. Your profile\u2019s fresh AF \ud83d\udc85"
+        "Updated! Finally, your data caught up with 2025 📆",
+        "Profile refreshed... barely improved 😌",
+        "Saved! You're 0.01% cooler now 😎",
+        "Changes applied. Hope that typo was on purpose ✍️",
+        "Your profile just leveled up from 'meh' to 'ok' 💅"
     ],
     "userData": [
-        "Your data is here! Don\u2019t get too attached \ud83d\udc7b",
-        "User info fetched... no stalking \ud83d\udd75\ufe0f\u200d\u2640\ufe0f",
-        "Got your deets! We swear we won\u2019t leak it \ud83d\ude07",
-        "Data loaded. Like your secrets, but safer \ud83d\uddc2\ufe0f",
-        "User data retrieved like a pro hacker \ud83c\udfaf"
+        "Fetched your info. It's... a lot 🧾",
+        "Got your data. Still boring though 😴",
+        "Loaded your deets. We promise not to roast (much) 🔍",
+        "Info's here. You sure that's your real pic? 🤔",
+        "User data loaded. Not judging... but 👀"
     ],
     "postAdded": [
-        "Your post has entered the chat \ud83d\udcac",
-        "Boom! Post dropped like a banger \ud83c\udfa4",
-        "Posted! Let's see if anyone cares \ud83d\ude05",
-        "Post added. Expect likes... or not \ud83d\ude36",
-        "You posted it \u2013 now let the chaos unfold \ud83c\udf2a\ufe0f"
+        "Post live! Let the silence begin 📢",
+        "Posted. Don't expect applause 👏",
+        "Your thoughts are out there now... yikes 🧠",
+        "Boom. Another post no one asked for 💣",
+        "Congrats! You just made the feed worse 📉"
+    ],
+    "commentAdded": [
+        "Comment dropped like a truth bomb 💥",
+        "You said it. Can't unsay it now 🫨",
+        "Comment posted. Chaos initiated 🗯️",
+        "Your opinion is out there. May the internet forgive you 🙏",
+        "You typed that... on purpose? Bold move 🫣"
     ]
 }
