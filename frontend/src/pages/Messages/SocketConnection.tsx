@@ -21,7 +21,7 @@ function SocketConnection() {
         if (currentPath.startsWith(routeMessages)) return;
         
         const receivedMsg = msg.length > 50 ? msg.slice(0, 50) + '...' : msg;
-        const message = `${GetMessage('messageReceived')}${username}: ${receivedMsg}`;
+        const message = `${GetMessage('messageReceived')} ${username}, ${receivedMsg}`;
         dispatch(setMessageBar({ message, color: ColorManager.msgSuccess}))
     }
 

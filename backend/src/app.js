@@ -34,7 +34,7 @@ serviceMessage.SocketConnection(io);
 
 (async () => {
     try {
-        server.listen(PORT, () => { console.log("Server started on port " + PORT); });
+        server.listen(PORT, () => { console.log("Server started at port " + PORT); });
     } catch (error) {
         console.error("Failed to connect to the database:", error.message);
     }
