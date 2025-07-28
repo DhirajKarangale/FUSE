@@ -121,9 +121,11 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
         const message = msgInput.trim();
         if (!message) return;
 
-        let lastMessageId = 0;
-        if (messages && messages.length > 0) lastMessageId = messages[0].id;
-        let msgId = lastMessageId + 1;
+        const lastMessageId = Array.isArray(messages) && messages.length > 0
+            ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
+            : 0;
+
+        const msgId = lastMessageId + 1;
 
         let mediaURL = '';
         if (selectedFile) {
@@ -146,7 +148,7 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
         socket.emit('send_message', msg);
 
         setMessages(pre => {
-            if (pre.some(m => m.id === msg.id)) return pre;
+            // if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
 
@@ -198,11 +200,14 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
     };
 
     useEffect(() => {
-        if (!receivedMessage || receivedMessage.sender_id != sender_id) return;
-      
+        if (!receivedMessage || receivedMessage.sender_id != receiver_id) return;
+        console.log('Setting message');
+
+        let msg = receivedMessage;
+
         setMessages(pre => {
-            if (pre.some(m => m.id === receivedMessage.id)) return pre;
-            return [receivedMessage, ...pre];
+            // if (pre.some(m => m.id === msg.id)) msg.id = receivedMessage.id + 1;
+            return [msg, ...pre];
         });
 
     }, [receivedMessage]);

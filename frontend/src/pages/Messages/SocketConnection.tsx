@@ -23,7 +23,7 @@ function SocketConnection() {
 
     function ReceiveMessage(message: Message) {
         console.log('Received messages: ', message);
-        SetMessage(message.message);
+        SetMessage(message.sender_username);
         dispatch(setMessage(message))
     };
 
