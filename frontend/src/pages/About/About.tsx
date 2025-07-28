@@ -25,7 +25,7 @@ function About() {
                     </GradientText>
                 </div>
 
-                <div className="w-full max-w-xl flex flex-col items-center flex-grow">
+                <div className="w-full max-w-xl flex flex-col items-center justify-center flex-grow">
                     <div className="w-full rounded-xl p-4 sm:p-6 overflow-y-auto max-h-[60vh] border border-white/20 bg-black/10 backdrop-blur-sm custom-scroll">
                         <p className="text-sm sm:text-lg leading-relaxed whitespace-pre-line text-white/90">
                             {`Welcome to FUSE - the ultimate timepass turned tech startup that nobody asked for, but here we are 🚀
@@ -41,13 +41,24 @@ FUSE = Where chaos meets category. Vibing is mandatory, logic is optional.
 *Note: If this app starts lagging... just blame the government or Mercury retrograde.* 🙃`}
                         </p>
                     </div>
+                </div>
 
-                    {/* Links */}
+                <div className="flex flex-col gap-2 w-full max-w-xl text-center mt-6 text-sm text-gray-300">
                     <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline cursor-pointer mt-4 text-sm">
                         <a onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
                         <a onClick={() => setShowTerms(true)}>Terms & Conditions</a>
                     </div>
+                    
+                    <div>
+                        For any query, contact us at{" "}
+                        <a
+                            href="mailto:changexel.contacts@gmail.com"
+                            className="text-blue-400 underline">
+                            changexel.contacts@gmail.com
+                        </a>
+                    </div>
                 </div>
+
 
                 <div className="w-full max-w-xl mt-10 border-t border-white/10 sm:pt-4 py-0 text-center">
                     <div className="text-xs sm:text-sm text-gray-400">
