@@ -11,10 +11,11 @@ import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 const pageSize = 10;
 
 interface MessageUserListProps {
+    isActive: boolean;
     onUserClick: (user: MessageUser) => void;
 }
 
-function MessageUserList({ onUserClick }: MessageUserListProps) {
+function MessageUserList({ onUserClick, isActive }: MessageUserListProps) {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [cachedUsers, setCachedUsers] = useState<MessageUser[]>([]);
     const [searchUsers, setSearchUsers] = useState<MessageUser[]>([]);
@@ -26,7 +27,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
 
     const listRef = useRef<HTMLDivElement | null>(null);
     const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    
+
     const usersToRender = isSearchMode ? searchUsers : cachedUsers;
 
     const fetchUsers = useCallback(async (page: number) => {
@@ -107,6 +108,7 @@ function MessageUserList({ onUserClick }: MessageUserListProps) {
         return () => el?.removeEventListener("scroll", Scroll);
     }, [currPage, totalPages, loading]);
 
+    if (!isActive) return null;
 
     return (
         <div className="w-full h-full flex flex-col pb-7">

@@ -211,10 +211,10 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         Fetch(0);
     }, [user]);
 
-    useEffect(() => {
-        if (!senderId || !receiver_id) return;
-        socket.emit('join_room', { senderId, receiver_id });
-    }, [senderId, receiver_id]);
+    // useEffect(() => {
+    //     if (!senderId || !receiver_id) return;
+    //     socket.emit('join_room', { senderId, receiver_id });
+    // }, [senderId, receiver_id]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -364,57 +364,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
                 </div>
 
-                {/* <div className={`px-4 py-3 bg-black/30 border-t border-white/10 shrink-0 rounded-b-xl border-b border-white/10
-                        ${mediaPreview ? 'flex flex-col gap-2' : 'flex items-center gap-2'}`}>
-                    {!mediaPreview ?
-                        <div className="flex items-center space-x-2">
-                            <label htmlFor="media-input" className="cursor-pointer hover:scale-105 transition">
-                                <Paperclip className="text-white" />
-                            </label>
-                            <input
-                                id="media-input"
-                                type="file"
-                                accept="image/jpeg, image/png, image/webp"
-                                className="hidden"
-                                onChange={SelectMedia}
-                            />
-                        </div>
-                        :
-                        <div className="relative w-full">
-                            <motion.img
-                                key={mediaPreview}
-                                src={mediaPreview}
-                                alt="Preview"
-                                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3 }}
-                                className="w-full max-h-60 object-contain rounded-md border border-white/20"
-                            />
-                            <button onClick={() => setMediaPreview(null)}
-                                className="absolute top-2 right-2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-full transition">
-                                <Trash2 size={16} />
-                            </button>
-                        </div>}
-
-                    <textarea
-                        rows={1}
-                        placeholder="Type a message"
-                        value={msgInput}
-                        onChange={(e) => setMsgInput(e.target.value)}
-                        onKeyDown={(e) => ChangeInputMsg(e)}
-                        className="flex-1 resize-none bg-white/10 rounded-lg px-3 py-2 text-white placeholder-white/50 focus:outline-none"
-                    />
-                    <motion.button
-                        onClick={() => SendMessage()}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 rounded hover:bg-white/10 transition">
-                        <Send className="w-5 h-5 text-white" />
-                    </motion.button>
-                </div> */}
-
-
                 <div className={`px-4 py-3 bg-black/30 border-t border-white/10 shrink-0 rounded-b-xl border-b border-white/10 
                     ${mediaPreview ? 'flex flex-col gap-2' : 'flex items-center gap-2'}`}>
 
@@ -474,8 +423,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
                         </motion.button>
                     </div>
                 </div>
-
-
 
             </motion.div>
         </AnimatePresence>

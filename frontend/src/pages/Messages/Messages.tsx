@@ -24,9 +24,10 @@ const Messages = () => {
     return (
         <>
             <div className="flex gap-3 h-full w-full justify-between overflow-hidden">
-                {(!isMobile || !selectedUser) && (
-                    <MessageUserList onUserClick={(user) => setSelectedUser(user)} />
-                )}
+                <MessageUserList
+                    onUserClick={(user) => setSelectedUser(user)}
+                    isActive={!isMobile || !selectedUser}
+                />
 
                 {selectedUser && localUser && (
                     <MessageChatBox
