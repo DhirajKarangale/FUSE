@@ -3,26 +3,13 @@ const userSocketMap = new Map();
 
 function SocketConnection(io) {
     io.on('connection', (socket) => {
-        // console.log('A user connected: ' + socket.id);
 
         socket.on('register_user', (userId) => {
             userSocketMap.set(userId, socket.id);
-            // console.log(`User ${userId} registered with socket ${socket.id}`);
         });
-
-        // socket.on('join_room', ({ senderId, receiver_id }) => {
-        //     const roomName = GetRoomName(senderId, receiver_id);
-        //     socket.join(roomName);
-        //     // console.log(`User ${senderId} joined room: ${roomName}`);
-        // });
 
         socket.on('send_message', async (data) => {
             const { sender_id, receiver_id, message, media_url, created_at } = data;
-
-            // const roomName = GetRoomName(sender_id, receiver_id);
-            // console.log(`Message in room ${roomName}:`, message);
-
-            // socket.to(roomName).emit('receive_message', data);
 
             const receiverSocketId = userSocketMap.get(receiver_id);
             if (receiverSocketId) {
@@ -35,21 +22,14 @@ function SocketConnection(io) {
         });
 
         socket.on('disconnect', () => {
-            // console.log('User disconnected:', socket.id);
-
             for (const [userId, id] of userSocketMap.entries()) {
                 if (id === socket.id) {
                     userSocketMap.delete(userId);
-                    // console.log(`User ${userId} disconnected and removed from socket map`);
                     break;
                 }
             }
         });
     });
-}
-
-function GetRoomName(user1, user2) {
-    return [user1, user2].sort().join('_');
 }
 
 async function SearchUser(userId, page) {

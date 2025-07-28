@@ -45,7 +45,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
 
     const sender_id = localUser.id;
     const receiver_id = user.id;
-    const senderId = localUser.id;
     const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
     const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 
@@ -210,11 +209,6 @@ const MessageChatBox = ({ onClose, user, localUser }: MessageChatBoxProps) => {
         setMessages([]);
         Fetch(0);
     }, [user]);
-
-    // useEffect(() => {
-    //     if (!senderId || !receiver_id) return;
-    //     socket.emit('join_room', { senderId, receiver_id });
-    // }, [senderId, receiver_id]);
 
     useEffect(() => {
         const container = containerRef.current;
