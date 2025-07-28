@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../redux/hookStore";
+
 import { Home, Flame, User, Info, SlidersHorizontal, FilePlus2, LucideMessageSquareText } from 'lucide-react';
 import { routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages } from '../utils/Routes';
 
@@ -14,6 +17,22 @@ const navItems = [
 ];
 
 function Navbar() {
+    const location = useLocation();
+    const receivedMessage = useAppSelector(state => state.messages);
+    const [messagesNotification, setMessagesNotification] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!receivedMessage || receivedMessage.id == 0) {
+            setMessagesNotification(false);
+            return;
+        }
+
+        console.log('Navbar: ', receivedMessage);
+
+        const currentPath = location.pathname;
+        setMessagesNotification(!currentPath.startsWith(routeMessages));
+    }, [receivedMessage, location.pathname])
+
     return (
         <>
             <div className="hidden lg:flex fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur-xl border-r border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] p-4 z-5">
@@ -26,7 +45,10 @@ function Navbar() {
                             className={({ isActive }) =>
                                 `flex items-center gap-3 px-4 py-3 rounded-lg text-white text-base font-medium transition-all duration-300
                         ${isActive ? "bg-cyan-600" : "hover:bg-cyan-600/30"}`}>
-                            {item.icon}
+                            <div className="relative">
+                                {item.icon}
+                                {messagesNotification && item.name == 'Messages' && <span className="absolute -top-1 -right-1 w-2 h-2 bg-orange-400 rounded-full" />}
+                            </div>
                             <span className="select-none">{item.name}</span>
                         </NavLink>
                     ))}
@@ -43,12 +65,16 @@ function Navbar() {
                             className={({ isActive }) =>
                                 `flex flex-col items-center justify-center text-white text-xs font-medium transition-all duration-200 px-0 w-full py-2
                              ${isActive ? "bg-cyan-600 text-cyan-400 rounded-md" : "hover:text-cyan-300"}`}>
-                            {item.icon}
+                            {/* {item.icon} */}
+
+                            <div className="relative">
+                                {item.icon}
+                                {messagesNotification && item.name == 'Messages' && <span className="absolute -top-1 -right-1 w-2 h-2 bg-orange-400 rounded-full" />}
+                            </div>
                         </NavLink>
                     ))}
                 </div>
             </div>
-
         </>
     );
 }

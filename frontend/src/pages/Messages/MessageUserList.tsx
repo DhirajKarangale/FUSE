@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useAppSelector } from "../../redux/hookStore";
+import { clearMessage } from "../../redux/sliceMessages";
+import { useAppDispatch, useAppSelector } from "../../redux/hookStore";
 
 import { urlUserSearch, urlMessageUserSearch } from "../../api/APIs";
 import { getRequest } from "../../api/APIManager";
@@ -14,11 +15,17 @@ const pageSize = 10;
 
 interface MessageUserListProps {
     sentMessage?: Message;
+    selectedMessage: null | Message;
     onMessageClick: (message: Message) => void;
 }
 
-function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) {
+
+function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: MessageUserListProps) {
+
+    const dispatch = useAppDispatch();
+
     const receivedMessage = useAppSelector(state => state.messages);
+    const [unreadSenders, setUnreadSenders] = useState<Set<number>>(new Set());
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [cachedUsers, setCachedUsers] = useState<Message[]>([]);
@@ -72,6 +79,15 @@ function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) 
                 return exists ? prev : [message, ...prev];
             });
         }
+
+        if (unreadSenders.has(message.sender_id)) dispatch(clearMessage());
+
+        setUnreadSenders(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(message.sender_id);
+            return newSet;
+        });
+
         onMessageClick(message);
     };
 
@@ -84,7 +100,6 @@ function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) 
     };
 
     useEffect(() => {
-        console.log('MessageUserList Receive: ', receivedMessage);
         if (!receivedMessage || !receivedMessage.sender_id) return;
 
         setCachedUsers((prevUsers) => {
@@ -104,6 +119,7 @@ function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) 
             return [receivedMessage, ...prevUsers];
         });
 
+        if (selectedMessage?.sender_id !== receivedMessage.sender_id) setUnreadSenders(prev => new Set(prev.add(receivedMessage.sender_id)));
     }, [receivedMessage]);
 
     useEffect(() => {
@@ -213,6 +229,10 @@ function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) 
                                             className={`w-full h-full rounded-full object-cover border border-white/20 transition-opacity duration-500 ${profileLoadedMap[message.sender_id] ? "opacity-100" : "opacity-0"}`}
                                         />
                                     )}
+
+                                    {unreadSenders.has(message.sender_id) &&
+                                        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-orange-400 rounded-full border-2 border-black animate-pulse"></span>}
+
                                 </div>
 
                                 <div className="flex flex-col flex-1 min-w-0">

@@ -9,9 +9,12 @@ const sliceMessage = createSlice({
     reducers: {
         setMessage(_state, action: PayloadAction<Message>) {
             return action.payload;
+        },
+        clearMessage() {
+            return getInitialMessage();
         }
     },
 });
 
-export const { setMessage } = sliceMessage.actions;
+export const { setMessage, clearMessage } = sliceMessage.actions;
 export default sliceMessage.reducer;

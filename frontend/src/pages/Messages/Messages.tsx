@@ -15,6 +15,7 @@ const Messages = () => {
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
+
         window.addEventListener("resize", checkMobile);
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
@@ -28,6 +29,7 @@ const Messages = () => {
                     <MessageUserList
                         onMessageClick={(user) => setSelectedMessage(user)}
                         sentMessage={sentMessage}
+                        selectedMessage={selectedMessage}
                     />
                 </div>
                 {selectedMessage && localUser && (
