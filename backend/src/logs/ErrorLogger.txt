@@ -264,3 +264,51 @@ Error: LOL, not even close. Wrong OTP.
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async E:\FUSE\backend\src\routes\routerOTP.js:17:26
 
+Error: Title's longer than your to-do list.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.PostTitle (E:\FUSE\backend\src\utilities\validator.js:58:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:10:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:43:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Post title too tiny. Pump it up!
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.PostTitle (E:\FUSE\backend\src\utilities\validator.js:54:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:10:15)
+    at E:\FUSE\backend\src\routes\routerPost.js:43:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: The body needs body!
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.PostBody (E:\FUSE\backend\src\utilities\validator.js:64:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:13:34)
+    at E:\FUSE\backend\src\routes\routerPost.js:43:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+
+Error: Give us the full story, not a tweet.
+    at Throw (E:\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.PostBody (E:\FUSE\backend\src\utilities\validator.js:64:9)
+    at Object.Post (E:\FUSE\backend\src\services\servicePost.js:13:34)
+    at E:\FUSE\backend\src\routes\routerPost.js:43:44
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FUSE\backend\node_modules\router\index.js:295:15
+

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GetMessage from "../../utils/MessagesManager";
 import { type User } from "../../models/modelUser";
+import ColorManager from "../../utils/ColorManager";
 
 type AuthUserProps = {
     ShowMsg: (msg: string, color?: string) => void;
@@ -24,9 +25,29 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
 
     function Validate(): boolean {
         if (!username) {
-            ShowMsg(GetMessage("usernameMandatory"), "red");
+            ShowMsg(GetMessage("usernameMandatory"), ColorManager.msgError);
             return false;
         }
+        if (username.length < 2) {
+            ShowMsg(GetMessage('userNameLess'), ColorManager.msgError);
+            return false;
+        }
+        else if (username.length > 20) {
+            ShowMsg(GetMessage('userNameLarge'), ColorManager.msgError);
+            return false;
+        }
+
+        if (about) {
+            if (about.length < 5) {
+                ShowMsg(GetMessage('aboutLess'), ColorManager.msgError);
+                return false;
+            }
+            else if (about.length > 500) {
+                ShowMsg(GetMessage('aboutLarge'), ColorManager.msgError);
+                return false;
+            }
+        }
+
         return true;
     }
 

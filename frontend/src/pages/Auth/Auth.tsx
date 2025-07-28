@@ -15,6 +15,7 @@ import { setMessageBar } from '../../redux/sliceMessageBar';
 import { useAppDispatch, useAppSelector } from '../../redux/hookStore';
 
 import { routeFeed } from '../../utils/Routes';
+import ColorManager from '../../utils/ColorManager';
 
 
 function Auth() {
@@ -63,7 +64,7 @@ function Auth() {
                 SetLoader(false);
 
                 if (data) navigate(routeFeed);
-                else ShowMsg(error, 'red');
+                else ShowMsg(error, ColorManager.msgError);
             }
             else {
                 navigate(routeFeed);

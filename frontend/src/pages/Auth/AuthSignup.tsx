@@ -5,6 +5,7 @@ import GetMessage from "../../utils/MessagesManager";
 import { urlOTP } from "../../api/APIs";
 import { getRequest, postRequest } from "../../api/APIManager";
 import { type UserData, type User } from "../../models/modelUser";
+import ColorManager from "../../utils/ColorManager";
 
 type AuthSignupProps = {
   ShowMsg: (msg: string, color?: string) => void;
@@ -28,18 +29,18 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
     "w-full p-3 text-sm sm:text-base rounded-md bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400";
 
   async function ButtonContinue() {
-    if (!otp || otp.length < 1) return ShowMsg(GetMessage('otpInvalid'), 'red');
+    if (!otp || otp.length < 1) return ShowMsg(GetMessage('otpInvalid'), ColorManager.msgError);
 
     SetLoader(true);
     const { data, error } = await postRequest<UserData>(urlOTP, { email, otp });
 
     if (data) {
       localStorage.setItem("token", data.token);
-      ShowMsg(GetMessage("otpVerified"), "yellow");
+      ShowMsg(GetMessage("otpVerified"), ColorManager.msgSuccess);
       setIsExiting(true);
       setTimeout(() => SetUser(data.user), 500);
     } else {
-      ShowMsg(error, "red");
+      ShowMsg(error, ColorManager.msgError);
     }
 
     SetLoader(false);
@@ -47,16 +48,16 @@ const AuthSignup = ({ ShowMsg, SetUser, SetLoader }: AuthSignupProps) => {
 
   async function ButtonOTP() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) return ShowMsg(GetMessage("emailInvalid"), "red");
+    if (!emailRegex.test(email)) return ShowMsg(GetMessage("emailInvalid"), ColorManager.msgError);
 
     SetLoader(true);
     const { data, error } = await getRequest<string>(`${urlOTP}?email=${email}`);
 
     if (data) {
       setIsOTP(true);
-      ShowMsg(data, "yellow");
+      ShowMsg(data, ColorManager.msgSuccess);
     } else {
-      ShowMsg(error, "red");
+      ShowMsg(error, ColorManager.msgError);
     }
 
     SetLoader(false);

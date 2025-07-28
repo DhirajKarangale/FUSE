@@ -18,7 +18,7 @@ function ID(id) {
 
 function Username(username) {
     if (username.length < 2) errorThrow(messagesManager.Error('userNameLess'), statusCode.BAD_REQUEST);
-    if (username.length > 20) errorThrow(messagesManager.Error('userNameMore'), statusCode.BAD_REQUEST);
+    if (username.length > 20) errorThrow(messagesManager.Error('userNameLarge'), statusCode.BAD_REQUEST);
 }
 
 function URL(url) {
@@ -27,8 +27,8 @@ function URL(url) {
 }
 
 function About(about) {
-    if (about.length < 5) errorThrow(messagesManager.Error('aboutInvalidLess'), statusCode.BAD_REQUEST);
-    else if (about.length > 500) errorThrow(messagesManager.Error('aboutInvalidLarge'), statusCode.BAD_REQUEST);
+    if (about.length < 5) errorThrow(messagesManager.Error('aboutLess'), statusCode.BAD_REQUEST);
+    else if (about.length > 500) errorThrow(messagesManager.Error('aboutLarge'), statusCode.BAD_REQUEST);
 }
 
 function Category(category) {
@@ -51,31 +51,31 @@ function Category(category) {
 
 function PostTitle(postTitle) {
     if (typeof postTitle !== 'string' || postTitle.trim().length < 5) {
-        errorThrow(messagesManager.Error('postTitleShort'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('postTitleLess'), statusCode.BAD_REQUEST);
     }
 
     if (postTitle.trim().length > 250) {
-        errorThrow(messagesManager.Error('postTitleLong'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('postTitleMore'), statusCode.BAD_REQUEST);
     }
 }
 
 function PostBody(postBody) {
     if (typeof postBody !== 'string' || postBody.trim().length < 20) {
-        errorThrow(messagesManager.Error('postBodyShort'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('postBodyLess'), statusCode.BAD_REQUEST);
     }
 
     if (postBody.trim().length > 10000) {
-        errorThrow(messagesManager.Error('postBodyLong'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('postBodyMore'), statusCode.BAD_REQUEST);
     }
 }
 
 function Comment(Comment) {
     if (typeof Comment !== 'string' || Comment.trim().length < 1) {
-        errorThrow(messagesManager.Error('commentShort'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('commentLess'), statusCode.BAD_REQUEST);
     }
 
     if (Comment.trim().length > 500) {
-        errorThrow(messagesManager.Error('commentLong'), statusCode.BAD_REQUEST);
+        errorThrow(messagesManager.Error('commentMore'), statusCode.BAD_REQUEST);
     }
 }
 

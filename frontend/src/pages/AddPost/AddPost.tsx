@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Trash2 } from "lucide-react";
 
+import ColorManager from "../../utils/ColorManager";
 import GetMessage from "../../utils/MessagesManager";
 import CategoriesSection from "../../components/CategoriesSection";
 
@@ -28,17 +29,24 @@ function AddPost() {
     const ShowLoader = (val: boolean) => dispatch(setLoader({ isLoading: val }));
 
     const ValidateData = () => {
-        const { postTitle } = fieldValues;
-        if (!postTitle) return ShowMsg(GetMessage('postTitleMust'), 'red'), false;
-        if (selectedCategories.length < 1) return ShowMsg(GetMessage('categorySelect'), 'red'), false;
+        const { postTitle, postBody } = fieldValues;
+        if (!postTitle) return ShowMsg(GetMessage('postTitleMust'), ColorManager.msgError), false;
+        if (postTitle.length < 5) return ShowMsg(GetMessage('postTitleLess'), ColorManager.msgError), false;
+        if (postTitle.length > 250) return ShowMsg(GetMessage('postTitleMore'), ColorManager.msgError), false;
+        if (selectedCategories.length < 1) return ShowMsg(GetMessage('categorySelect'), ColorManager.msgError), false;
+
+        if (postBody) {
+            if (postBody.length < 20) return ShowMsg(GetMessage('postBodyLess'), ColorManager.msgError), false;
+            if (postBody.length > 10000) return ShowMsg(GetMessage('postBodyMore'), ColorManager.msgError), false;
+        }
 
         return true;
     };
 
     const ValidateFile = (file: File) => {
         const validTypes = ["image/jpeg", "image/png", "image/webp"];
-        if (!validTypes.includes(file.type)) return ShowMsg("Only JPG, PNG or WEBP images are allowed", "red"), false;
-        if (file.size > 10 * 1024 * 1024) return ShowMsg(GetMessage('postImageSize'), "red"), false;
+        if (!validTypes.includes(file.type)) return ShowMsg("Only JPG, PNG or WEBP images are allowed", ColorManager.msgError), false;
+        if (file.size > 10 * 1024 * 1024) return ShowMsg(GetMessage('postImageSize'), ColorManager.msgError), false;
         return true;
     };
 
@@ -84,7 +92,7 @@ function AddPost() {
         let uploadedMediaURL = '';
         if (selectedFile) {
             const url = await UploadMedia(selectedFile);
-            if (!url) return ShowMsg(GetMessage('mediaUploadFail'), "red"), ShowLoader(false);
+            if (!url) return ShowMsg(GetMessage('mediaUploadFail'), ColorManager.msgError), ShowLoader(false);
             uploadedMediaURL = url;
         }
 
@@ -98,7 +106,7 @@ function AddPost() {
 
         const { data, error } = await postRequest<string>(urlPost, body);
         if (data) ClearAllFields();
-        ShowMsg(data || error, data ? "yellow" : "red");
+        ShowMsg(data || error, data ? ColorManager.msgSuccess : ColorManager.msgError);
         ShowLoader(false);
     };
 
@@ -182,7 +190,7 @@ function AddPost() {
                             <CategoriesSection
                                 selectedCategories={selectedCategories}
                                 setSelectedCategories={setSelectedCategories}
-                                onError={(msg) => ShowMsg(msg, 'red')}
+                                onError={(msg) => ShowMsg(msg, ColorManager.msgError)}
                                 singleSelect />
                         </div>
                     </div>

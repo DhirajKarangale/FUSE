@@ -16,6 +16,7 @@ import GetMessage from "../../utils/MessagesManager";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 
 import { motion } from "framer-motion";
+import ColorManager from "../../utils/ColorManager";
 
 type UserSectionProps = {
     userId: number
@@ -71,13 +72,13 @@ function UserSection({ userId }: UserSectionProps) {
     function ValidateFile(file: File) {
         const validTypes = ["image/jpeg", "image/png", "image/webp"];
         if (!validTypes.includes(file.type)) {
-            ShowMsg("Only JPG, PNG or WEBP images are allowed", "red");
+            ShowMsg("Only JPG, PNG or WEBP images are allowed", ColorManager.msgError);
             return false;
         }
 
         const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
-            ShowMsg(GetMessage('profileImageSize'), "red");
+            ShowMsg(GetMessage('profileImageSize'), ColorManager.msgError);
             return false;
         }
 
@@ -119,7 +120,7 @@ function UserSection({ userId }: UserSectionProps) {
     function ButtonLogout() {
         ClearUser();
         localStorage.removeItem('token');
-        ShowMsg(GetMessage('logoutSuccess'), 'orange');
+        ShowMsg(GetMessage('logoutSuccess'), ColorManager.msgSuccess);
         navigate(routeAuth);
     }
 
@@ -130,17 +131,21 @@ function UserSection({ userId }: UserSectionProps) {
         if (!value) return;
 
         if (field === "username") {
+            if (!fieldValues.username || fieldValues.username.length < 2) return ShowMsg(GetMessage('userNameLess'), ColorManager.msgError);
+            else if (fieldValues.username.length > 20) return ShowMsg(GetMessage('userNameLarge'), ColorManager.msgError);
             body.username = fieldValues.username;
         }
 
         if (field === "email") {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) return ShowMsg(GetMessage('emailInvalid'), "red");
+            if (!emailRegex.test(value)) return ShowMsg(GetMessage('emailInvalid'), ColorManager.msgError);
             body.email = fieldValues.email;
             body.otp = fieldValues.otp;
         }
 
         if (field === "about") {
+            if (fieldValues.about.length < 5) return ShowMsg(GetMessage('aboutLess'), ColorManager.msgError);
+            else if (fieldValues.about.length > 500) return ShowMsg(GetMessage('aboutLarge'), ColorManager.msgError);
             body.about = fieldValues.about;
         }
 
@@ -148,11 +153,11 @@ function UserSection({ userId }: UserSectionProps) {
         const { data, error } = await putRequest<User>(urlUser, body);
         if (data) {
             SetUser(data);
-            ShowMsg(`${field.charAt(0).toUpperCase() + field.slice(1)} updated`, "yellow");
+            ShowMsg(`${field.charAt(0).toUpperCase() + field.slice(1)} updated`, ColorManager.msgSuccess);
             setEditField(null);
         }
         else {
-            ShowMsg(error, 'red');
+            ShowMsg(error, ColorManager.msgError);
         }
 
         ShowLoader(false);
@@ -160,13 +165,13 @@ function UserSection({ userId }: UserSectionProps) {
 
     async function ButtonOTP() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!fieldValues.email || !emailRegex.test(fieldValues.email)) return ShowMsg(GetMessage("emailInvalid"), "red");
+        if (!fieldValues.email || !emailRegex.test(fieldValues.email)) return ShowMsg(GetMessage("emailInvalid"), ColorManager.msgError);
 
         ShowLoader(true);
         const { data, error } = await getRequest<string>(`${urlOTP}?email=${fieldValues.email}`);
 
-        if (data) ShowMsg(data, "yellow");
-        else ShowMsg(error, "red");
+        if (data) ShowMsg(data, ColorManager.msgSuccess);
+        else ShowMsg(error, ColorManager.msgError);
 
         ShowLoader(false);
     }
@@ -194,7 +199,7 @@ function UserSection({ userId }: UserSectionProps) {
 
             const dataImageUpload = await res.json();
             if (!dataImageUpload.secure_url) {
-                ShowMsg(GetMessage('mediaUploadFail'), 'red')
+                ShowMsg(GetMessage('mediaUploadFail'), ColorManager.msgError)
                 return;
             }
 
@@ -207,12 +212,12 @@ function UserSection({ userId }: UserSectionProps) {
 
             if (data) {
                 SetUser(data);
-                ShowMsg(GetMessage('imageSuccess'), "yellow");
+                ShowMsg(GetMessage('imageSuccess'), ColorManager.msgSuccess);
             } else {
-                ShowMsg(error, "red");
+                ShowMsg(error, ColorManager.msgError);
             }
         } catch (err) {
-            ShowMsg(GetMessage('mediaUploadFail'), 'red')
+            ShowMsg(GetMessage('mediaUploadFail'), ColorManager.msgError)
         } finally {
             ShowLoader(false);
         }
@@ -241,7 +246,7 @@ function UserSection({ userId }: UserSectionProps) {
                     setImageLoaded(false);
                 }
             } else {
-                ShowMsg(error, 'red');
+                ShowMsg(error, ColorManager.msgError);
                 navigate(routeFeed);
             }
             ShowLoader(false);

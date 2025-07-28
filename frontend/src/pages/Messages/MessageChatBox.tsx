@@ -17,6 +17,7 @@ import { type Message, type MessageData } from "../../models/modelMessage";
 
 import MediaPlaceholder from "../../assets/images/MediaPlaceholder.png";
 import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
+import ColorManager from "../../utils/ColorManager";
 
 interface MessageChatBoxProps {
     message: Message;
@@ -121,7 +122,7 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
         const message = msgInput.trim();
         if (!message) return;
 
-        if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), 'red');
+        if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
 
         const lastMessageId = Array.isArray(messages) && messages.length > 0
             ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
@@ -170,8 +171,8 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
 
     const ValidateFile = (file: File) => {
         const validTypes = ["image/jpeg", "image/png", "image/webp"];
-        if (!validTypes.includes(file.type)) return ShowMsg("Only JPG, PNG or WEBP images are allowed", "red"), false;
-        if (file.size > 10 * 1024 * 1024) return ShowMsg(GetMessage('postImageSize'), "red"), false;
+        if (!validTypes.includes(file.type)) return ShowMsg("Only JPG, PNG or WEBP images are allowed", ColorManager.msgError), false;
+        if (file.size > 10 * 1024 * 1024) return ShowMsg(GetMessage('postImageSize'), ColorManager.msgError), false;
         return true;
     };
 

@@ -3,6 +3,7 @@ import { type User } from "../../models/modelUser";
 import GetMessage from "../../utils/MessagesManager";
 import { motion, AnimatePresence } from "framer-motion";
 import CategoriesSection from "../../components/CategoriesSection";
+import ColorManager from "../../utils/ColorManager";
 
 type AuthCategoriesProps = {
   ShowMsg: (msg: string, color?: string) => void;
@@ -16,7 +17,7 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
 
   function ButtonContinue() {
     if (selectedCategories.length < 1) {
-      ShowMsg(GetMessage('categorySelect'), 'red');
+      ShowMsg(GetMessage('categorySelect'), ColorManager.msgError);
       return;
     }
     setIsVisible(false);
@@ -44,7 +45,7 @@ function AuthCategories({ ShowMsg, SetUser, user }: AuthCategoriesProps) {
             <CategoriesSection
               selectedCategories={selectedCategories}
               setSelectedCategories={setSelectedCategories}
-              onError={(msg : string) => ShowMsg(msg, 'red')}
+              onError={(msg : string) => ShowMsg(msg, ColorManager.msgError)}
             />
 
             <div className="py-2 px-2 flex justify-end items-center rounded-b-2xl">

@@ -10,6 +10,7 @@ import { urlComment } from "../api/APIs";
 import { getRequest, deleteRequest, postRequest } from "../api/APIManager";
 import { type Comment, type CommentData } from "../models/modelComment";
 
+import ColorManager from "../utils/ColorManager";
 import Alert from "./Alert";
 import GetMessage from "../utils/MessagesManager";
 
@@ -61,6 +62,15 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const AddComment = async () => {
+        if (commentInput.length < 1) {
+            ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
+            return;
+        }
+        if (commentInput.length > 500) {
+            ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
+            return;
+        }
+
         // dispatch(setLoader({ isLoading: true }));
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
@@ -80,9 +90,9 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             setComments(prev => [newComment, ...prev]);
             setCommentInput('');
             UpdateComment(true, 1);
-            ShowMsg(data, 'yellow');
+            ShowMsg(data, ColorManager.msgSuccess);
         } else {
-            ShowMsg(error, 'red');
+            ShowMsg(error, ColorManager.msgError);
         }
 
         // dispatch(setLoader({ isLoading: false }));
@@ -111,7 +121,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 UpdateComment(isUserCommentStillPresent, 1);
                 return newComments;
             });
-            dispatch(setMessageBar({ message: error, color: 'red' }));
+            dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
         }
     };
 
@@ -129,7 +139,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="mt-4 w-full bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-white shadow-xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
+                className="mt-4 w-full bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-white shadow-xl max-h-[60vh] sm:max-h-[60vh] flex flex-col">
                 <div className="flex justify-between items-center px-4 py-3 border-b border-white/10 bg-black/50 sticky top-0 z-10">
                     <h2 className="text-base font-semibold tracking-wide">💬 Comments</h2>
                     <button onClick={onClose} className="text-white/60 hover:text-red-400 transition">

@@ -8,6 +8,7 @@ import { urlPost } from "../api/APIs";
 import { getRequest, deleteRequest } from "../api/APIManager";
 import { type PostData, type Post, getInitialPosts } from "../models/modelPosts";
 
+import ColorManager from "../utils/ColorManager";
 import PostCard from "./PostCard";
 import SkeletonPost from "./SkeletonPost";
 
@@ -81,7 +82,7 @@ const PostSection: React.FC<PostSectionProps> = ({ baseUrl, isUserPost, currUser
         const { error } = await deleteRequest<string>(`${urlPost}?id=${id}`);
 
         if (error) {
-            dispatch(setMessageBar({ message: error, color: 'red' }));
+            dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
 
             setPostData(pre => ({
                 ...pre,

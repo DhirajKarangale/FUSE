@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hookStore";
 import { type Message } from "../../models/modelMessage";
 
 import GetMessage from "../../utils/MessagesManager";
+import ColorManager from "../../utils/ColorManager";
 
 function SocketConnection() {
     const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ function SocketConnection() {
         
         const receivedMsg = msg.length > 50 ? msg.slice(0, 50) + '...' : msg;
         const message = `${GetMessage('messageReceived')}${username}: ${receivedMsg}`;
-        dispatch(setMessageBar({ message, color: 'yellow' }))
+        dispatch(setMessageBar({ message, color: ColorManager.msgSuccess}))
     }
 
     function ReceiveMessage(message: Message) {

@@ -13,6 +13,7 @@ import { putRequest } from "../../api/APIManager";
 
 import GetMessage from "../../utils/MessagesManager";
 import CategoriesSection from "../../components/CategoriesSection";
+import ColorManager from "../../utils/ColorManager";
 
 
 function CustomizeFeed() {
@@ -32,7 +33,7 @@ function CustomizeFeed() {
 
     async function ButtonSave() {
         if (selectedCategories.length < 1) {
-            ShowMsg(GetMessage('categorySelect'), 'red');
+            ShowMsg(GetMessage('categorySelect'), ColorManager.msgError);
             return;
         }
 
@@ -41,10 +42,10 @@ function CustomizeFeed() {
         const { data, error } = await putRequest<User>(urlUser, { categories: selectedCategories });
         if (data) {
             dispatch(setUser(data));
-            ShowMsg(GetMessage('categoriesupdated'), 'yellow');
+            ShowMsg(GetMessage('categoriesupdated'), ColorManager.msgSuccess);
         }
         else {
-            ShowMsg(error, 'red');
+            ShowMsg(error, ColorManager.msgError);
         }
 
         dispatch(setLoader({ isLoading: false }));
@@ -64,7 +65,7 @@ function CustomizeFeed() {
                     <CategoriesSection
                         selectedCategories={selectedCategories}
                         setSelectedCategories={setSelectedCategories}
-                        onError={(msg: string) => ShowMsg(msg, 'red')}
+                        onError={(msg: string) => ShowMsg(msg, ColorManager.msgError)}
                     />
 
                     <div className="py-2 px-2 flex gap-2 justify-end items-center rounded-b-2xl">
