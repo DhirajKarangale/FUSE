@@ -312,3 +312,17 @@ Error: Give us the full story, not a tweet.
     at Layer.handleRequest (E:\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FUSE\backend\node_modules\router\index.js:295:15
 
+error: SELECT DISTINCT ON expressions must match initial ORDER BY expressions
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Search (E:\FUSE\backend\src\model\modelMessage.js:20:24)
+    at async Object.SearchUser (E:\FUSE\backend\src\services\serviceMessage.js:37:12)
+    at async E:\FUSE\backend\src\routes\routerMessage.js:8:26
+
+error: SELECT DISTINCT ON expressions must match initial ORDER BY expressions
+    at E:\FUSE\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.Search (E:\FUSE\backend\src\model\modelMessage.js:20:24)
+    at async Object.SearchUser (E:\FUSE\backend\src\services\serviceMessage.js:37:12)
+    at async E:\FUSE\backend\src\routes\routerMessage.js:8:26
+

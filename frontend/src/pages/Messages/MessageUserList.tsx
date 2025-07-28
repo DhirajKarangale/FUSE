@@ -77,7 +77,6 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     };
 
     function UserClick(message: Message) {
-
         if (message.sender_id == localUser.id) {
             dispatch(setMessageBar({ message: GetMessage('selfMessage'), color: ColorManager.msgError }));
             return;
