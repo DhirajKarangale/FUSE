@@ -10,6 +10,7 @@ function MessageBar() {
     const [msgColor, setMsgColor] = useState('white');
     const [animationKey, setAnimationKey] = useState(0);
     const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const disableTime = 5000;
 
     function ShowMsg() {
         setMsg(message);
@@ -19,9 +20,7 @@ function MessageBar() {
         if (msgTimer.current) clearTimeout(msgTimer.current);
         if (!message) return;
 
-        msgTimer.current = setTimeout(() => {
-            setMsg('');
-        }, 3000);
+        msgTimer.current = setTimeout(() => { setMsg(''); }, disableTime);
     }
 
     useEffect(() => {

@@ -182,6 +182,10 @@
         "Too short to be spicy, try again."
     ],
     "invalidDate": [
-        "Invalid date format"
+        "That's not a date, that's a typo in disguise.",
+        "Nice try, but that's not how time works.",
+        "Nope. That date flunked the calendar test.",
+        "Invalid date. Maybe your watch is from another dimension.",
+        "Invalid date. Even time travelers are confused."
     ]
 }

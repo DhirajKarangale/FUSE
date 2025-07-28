@@ -166,5 +166,12 @@
         "Cut it down, Shakespeare.",
         "Comment overflow. We need lifeboats.",
         "Summarize like your battery\u2019s at 1%."
+    ],
+    "messageReceived": [
+        "Your phone has a purpose again thanks to ",
+        "Your social life just leveled up, ",
+        "Look alive! DM detected from",
+        "Guess who remembered you? ",
+        "You're not dreaming someone actually messaged, "
     ]
 }

@@ -125,7 +125,9 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
             ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
             : 0;
 
-        const msgId = lastMessageId + 1;
+        const min = Math.ceil(999);
+        const max = Math.floor(999999999999);
+        const msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
 
         let mediaURL = '';
         if (selectedFile) {
