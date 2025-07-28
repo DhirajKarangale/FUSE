@@ -1,6 +1,6 @@
 const time = "10 minutes";
 const companyName = "ChangeXel";
-const companyURL = "https://dksoftware.netlify.app/";
+const companyURL = "https://dhirajkarangale.netlify.app/";
 
 function Login(otp) {
     const body = `
@@ -66,6 +66,20 @@ function Login(otp) {
             margin-top: 20px;
             text-shadow: 0 2px 5px rgba(0, 246, 255, 0.8); /* Subtle glow */
         }
+        a.company-link {
+            text-decoration: none;
+        }
+        a.company-link .company {
+            color: #00f6ff;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 2px 5px rgba(0, 246, 255, 0.8);
+        }
+        a.company-link:hover .company {
+            color: #ffd700; /* Yellow on hover */
+        }
         .footer {
             margin-top: 30px;
             font-size: 12px;
@@ -91,7 +105,7 @@ function Login(otp) {
         <p>Use the one-time password (OTP) to begin your adventure. The code will expire in <strong>${time}</strong>, so act fast!</p>
         <div class="otp">${otp}</div>
         <p>Keep this code secure and don't share it with anyone else.</p>
-        <p>The adventure begins with <span class="company">${companyName}</span>.</p>
+        <p>The adventure begins with <a class="company-link" href="${companyURL}"><span class="company">${companyName}</span></a>.</p>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} <a href="${companyURL}">${companyName}</a>. All rights reserved.</p>
         </div>
@@ -167,6 +181,20 @@ function ChangeUserData(otp) {
             margin-top: 20px;
             text-shadow: 0 2px 5px rgba(0, 246, 255, 0.8); /* Subtle glow */
         }
+        a.company-link {
+            text-decoration: none;
+        }
+        a.company-link .company {
+            color: #00f6ff;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 2px 5px rgba(0, 246, 255, 0.8);
+        }
+        a.company-link:hover .company {
+            color: #ffd700; /* Yellow on hover */
+        }
         .footer {
             margin-top: 30px;
             font-size: 12px;
@@ -192,7 +220,7 @@ function ChangeUserData(otp) {
         <p>Use the one-time password (OTP) below to confirm changes to your account information. The code will expire in <strong>${time}</strong>, so act fast!</p>
         <div class="otp">${otp}</div>
         <p>Ensure this code is kept confidential and is not shared with anyone for your security.</p>
-        <p>Change securely with <span class="company">${companyName}</span>.</p>
+        <p>Change securely with <a class="company-link" href="${companyURL}"><span class="company">${companyName}</span></a>.</p>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} <a href="${companyURL}">${companyName}</a>. All rights reserved.</p>
         </div>

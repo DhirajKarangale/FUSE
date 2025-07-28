@@ -42,7 +42,7 @@ function AuthUser({ ShowMsg, SetUser, user }: AuthUserProps) {
                 ShowMsg(GetMessage('aboutLess'), ColorManager.msgError);
                 return false;
             }
-            else if (about.length > 500) {
+            else if (about.length > 1000) {
                 ShowMsg(GetMessage('aboutLarge'), ColorManager.msgError);
                 return false;
             }

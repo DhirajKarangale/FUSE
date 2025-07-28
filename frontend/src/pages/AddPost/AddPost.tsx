@@ -182,16 +182,18 @@ function AddPost() {
 
                         <div className="w-full h-[40vh]">
 
-                            <hr className="border-t border-dashed border-white/30 my-2" />
+                            {/* <hr className="border-t border-dashed border-white/30 my-2" /> */}
                             {/* <div className="h-0.5 w-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 opacity-60 rounded-full" /> */}
 
-                            {/* <div className="w-full max-w-[100vw] sm:max-w-4xl h-[40vh] relative overflow-hidden flex flex-col"> */}
-                            <label htmlFor="Category" className="block text-white text-base sm:text-lg font-semibold mb-2">Category</label>
-                            <CategoriesSection
-                                selectedCategories={selectedCategories}
-                                setSelectedCategories={setSelectedCategories}
-                                onError={(msg) => ShowMsg(msg, ColorManager.msgError)}
-                                singleSelect />
+                            <div className="w-full max-w-[100vw] sm:max-w-4xl h-[40vh] relative overflow-hidden flex flex-col">
+                                <label htmlFor="Category" className="block text-white text-base sm:text-lg font-semibold mb-2">Category</label>
+                                <CategoriesSection
+                                    selectedCategories={selectedCategories}
+                                    setSelectedCategories={setSelectedCategories}
+                                    onError={(msg) => ShowMsg(msg, ColorManager.msgError)}
+                                    singleSelect />
+                            </div>
+
                         </div>
                     </div>
 

@@ -66,7 +66,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
             return;
         }
-        if (commentInput.length > 500) {
+        if (commentInput.length > 1000) {
             ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
             return;
         }

@@ -33,6 +33,7 @@ function UserSection({ userId }: UserSectionProps) {
     const [user, setUserData] = useState<User | null>(null);
     const [imageLoaded, setImageLoaded] = useState<boolean>(false);
     const [editField, setEditField] = useState<EditableField | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     const prevImageUrlRef = useRef<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -184,6 +185,7 @@ function UserSection({ userId }: UserSectionProps) {
 
         if (!ValidateFile(file)) return;
 
+        setPreviewUrl(URL.createObjectURL(file));
         const formData = new FormData();
         formData.append("folder", "fuse");
         formData.append("file", file);
@@ -367,6 +369,12 @@ function UserSection({ userId }: UserSectionProps) {
                             onLoad={() => setImageLoaded(true)}
                             className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                         />
+
+                        {previewUrl &&
+                            <img src={previewUrl}
+                                alt="Preview"
+                                className="w-full h-full object-cover transition-opacity duration-500"
+                            />}
 
                         <input
                             type="file"

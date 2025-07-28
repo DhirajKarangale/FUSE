@@ -28,7 +28,7 @@ function URL(url) {
 
 function About(about) {
     if (about.length < 5) errorThrow(messagesManager.Error('aboutLess'), statusCode.BAD_REQUEST);
-    else if (about.length > 500) errorThrow(messagesManager.Error('aboutLarge'), statusCode.BAD_REQUEST);
+    else if (about.length > 1000) errorThrow(messagesManager.Error('aboutLarge'), statusCode.BAD_REQUEST);
 }
 
 function Category(category) {
@@ -74,7 +74,7 @@ function Comment(Comment) {
         errorThrow(messagesManager.Error('commentLess'), statusCode.BAD_REQUEST);
     }
 
-    if (Comment.trim().length > 500) {
+    if (Comment.trim().length > 1000) {
         errorThrow(messagesManager.Error('commentMore'), statusCode.BAD_REQUEST);
     }
 }
