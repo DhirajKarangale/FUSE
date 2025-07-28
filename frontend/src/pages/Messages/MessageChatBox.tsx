@@ -99,23 +99,23 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
         setMediaLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
-    // function MessageSkeleton({ isSend }: { isSend: boolean }) {
-    //     return (
-    //         <motion.div
-    //             initial={{ opacity: 0, y: 10 }}
-    //             animate={{ opacity: 1, y: 0 }}
-    //             exit={{ opacity: 0 }}
-    //             transition={{ duration: 0.3 }}
-    //             className={`flex ${isSend ? "justify-end" : "justify-start"} px-2`}>
-    //             <div
-    //                 className={`max-w-xs w-[70%] sm:w-[60%] p-3 rounded-2xl animate-pulse ${isSend ? "bg-cyan-800 rounded-br-none" : "bg-white/10 rounded-bl-none"}`}>
-    //                 {/* <div className="h-3 bg-white/30 rounded w-4/5 mb-2" /> */}
-    //                 <div className="h-3 bg-white/20 rounded w-2/3 mb-2" />
-    //                 <div className="h-3 bg-white/10 rounded w-1/2" />
-    //             </div>
-    //         </motion.div>
-    //     );
-    // };
+    function MessageSkeleton({ isSend }: { isSend: boolean }) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`flex ${isSend ? "justify-end" : "justify-start"} px-2`}>
+                <div
+                    className={`max-w-xs w-[70%] sm:w-[60%] p-3 rounded-2xl animate-pulse ${isSend ? "bg-cyan-800 rounded-br-none" : "bg-white/10 rounded-bl-none"}`}>
+                    {/* <div className="h-3 bg-white/30 rounded w-4/5 mb-2" /> */}
+                    <div className="h-3 bg-white/20 rounded w-2/3 mb-2" />
+                    <div className="h-3 bg-white/10 rounded w-1/2" />
+                </div>
+            </motion.div>
+        );
+    };
 
     async function SendMessage() {
         const message = msgInput.trim();
