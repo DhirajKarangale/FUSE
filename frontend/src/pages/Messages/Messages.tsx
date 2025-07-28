@@ -10,6 +10,7 @@ const Messages = () => {
     const localUser = useAppSelector(state => state.user);
     const [isMobile, setIsMobile] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState<null | Message>(null);
+    const [sentMessage, setSentMessage] = useState<Message>();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -18,31 +19,15 @@ const Messages = () => {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-
     if (!localUser) return <div className="text-white p-4">Loading data...</div>;;
 
     return (
         <>
-            {/* <div className="flex gap-3 h-full w-full justify-between overflow-hidden">
-                {(!isMobile || !selectedMessage) && (
-                    <MessageUserList
-                        onMessageClick={(user) => setSelectedMessage(user)}
-                        isActive={isMobile && selectedMessage !== null} />
-                )}
-
-                {selectedMessage && localUser && (
-                    <MessageChatBox
-                        message={selectedMessage}
-                        localUser={localUser}
-                        onClose={() => setSelectedMessage(null)} />
-                )}
-            </div> */}
-
-            <div className="flex h-full w-full">
+            <div className="flex h-full w-full gap-3">
                 <div className={` h-full ${selectedMessage && isMobile ? "hidden" : "block"} ${selectedMessage && !isMobile ? "w-1/3" : "w-full"}`}>
                     <MessageUserList
                         onMessageClick={(user) => setSelectedMessage(user)}
-                        isActive={false}
+                        sentMessage={sentMessage}
                     />
                 </div>
                 {selectedMessage && localUser && (
@@ -50,12 +35,12 @@ const Messages = () => {
                         <MessageChatBox
                             message={selectedMessage}
                             localUser={localUser}
+                            setSentMessage={(msg) => setSentMessage(msg)}
                             onClose={() => setSelectedMessage(null)}
                         />
                     </div>
                 )}
             </div>
-
         </>
     );
 };

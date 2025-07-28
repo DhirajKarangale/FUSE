@@ -22,12 +22,13 @@ import ColorManager from "../../utils/ColorManager";
 interface MessageChatBoxProps {
     message: Message;
     localUser: User;
+    setSentMessage: (sentMessage: Message) => void;
     onClose: () => void;
 }
 
 const MAX_CHARS = 300;
 
-const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) => {
+const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: MessageChatBoxProps) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -150,12 +151,14 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
             created_at: new Date().toISOString(),
         };
 
+        setSentMessage(msg);
         socket.emit('send_message', msg);
 
         setMessages(pre => {
             // if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
+
 
         setMsgInput('');
         setSelectedFile(null);
@@ -189,7 +192,6 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
             const data = await res.json();
             return data?.secure_url ?? null;
         } catch (err) {
-            console.log("Uploading fail:", err);
             return null;
         }
     };
@@ -215,7 +217,6 @@ const MessageChatBox = ({ onClose, message, localUser }: MessageChatBoxProps) =>
     }, [receivedMessage]);
 
     useEffect(() => {
-        console.log('Chat box, message chaged');
         setMessages([]);
         Fetch(0);
     }, [message]);

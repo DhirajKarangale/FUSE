@@ -13,11 +13,11 @@ import ProfilePlaceholder from "../../assets/images/ProfilePlaceholder.png";
 const pageSize = 10;
 
 interface MessageUserListProps {
-    isActive: boolean;
+    sentMessage?: Message;
     onMessageClick: (message: Message) => void;
 }
 
-function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserListProps) {
+function MessageUserList({ onMessageClick, sentMessage }: MessageUserListProps) {
     const receivedMessage = useAppSelector(state => state.messages);
 
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -39,7 +39,7 @@ function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserL
             ? `${urlUserSearch}?term=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`
             : `${urlMessageUserSearch}?page=${page}&size=${pageSize}`;
         const { data } = await getRequest<MessageData>(url);
-        
+
         if (!data) return;
 
         if (isSearchMode) {
@@ -72,7 +72,7 @@ function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserL
                 return exists ? prev : [message, ...prev];
             });
         }
-        onUserClick(message);
+        onMessageClick(message);
     };
 
     function Scroll() {
@@ -84,7 +84,7 @@ function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserL
     };
 
     useEffect(() => {
-        console.log('Message received');
+        console.log('MessageUserList Receive: ', receivedMessage);
         if (!receivedMessage || !receivedMessage.sender_id) return;
 
         setCachedUsers((prevUsers) => {
@@ -105,6 +105,28 @@ function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserL
         });
 
     }, [receivedMessage]);
+
+    useEffect(() => {
+        if (!sentMessage || !sentMessage.receiver_id) return;
+
+        setCachedUsers((prevUsers) => {
+            const existingIndex = prevUsers.findIndex(user => user.sender_id === sentMessage.receiver_id);
+
+            if (existingIndex !== -1) {
+                const updatedUser = {
+                    ...prevUsers[existingIndex],
+                    message: sentMessage.message,
+                    created_at: sentMessage.created_at,
+                };
+                const newUsers = [...prevUsers];
+                newUsers.splice(existingIndex, 1);
+                return [updatedUser, ...newUsers];
+            }
+
+            return [sentMessage, ...prevUsers];
+        });
+
+    }, [sentMessage]);
 
     useEffect(() => {
         FetchUsers(0);
@@ -131,8 +153,6 @@ function MessageUserList({ onMessageClick: onUserClick, isActive }: MessageUserL
         if (el) el.addEventListener("scroll", Scroll);
         return () => el?.removeEventListener("scroll", Scroll);
     }, [currPage, totalPages, loading]);
-
-    // if (!isActive) return null;
 
     return (
         <div className={`w-full h-full flex flex-col pb-7`}>

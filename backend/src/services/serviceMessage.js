@@ -3,10 +3,13 @@ const userSocketMap = new Map();
 
 function SocketConnection(io) {
     io.on('connection', (socket) => {
+        console.log(`Connected: `, socket.id);
+
         socket.on('register_user', (userId) => { userSocketMap.set(userId, socket.id); });
 
         socket.on('send_message', async (data) => {
             const { sender_id, receiver_id, message, media_url, created_at } = data;
+            console.log(`From ${sender_id}, To ${receiver_id} Msg: ${message}`);
 
             const receiverSocketId = userSocketMap.get(receiver_id);
             if (receiverSocketId) io.to(receiverSocketId).emit('receive_message', data);

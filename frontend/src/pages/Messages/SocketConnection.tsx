@@ -26,6 +26,7 @@ function SocketConnection() {
     }
 
     function ReceiveMessage(message: Message) {
+        console.log('SocketConnection Receive: ', message);
         dispatch(setMessage(message))
         SetMessage(message.sender_username, message.message);
     };
