@@ -162,7 +162,6 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
             return [msg, ...pre];
         });
 
-
         setMsgInput('');
         setSelectedFile(null);
         setMediaPreview(null);
@@ -214,13 +213,11 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
         let msg = receivedMessage;
         setMessages(pre => {
             // if (pre.some(m => m.id === msg.id)) msg.id = receivedMessage.id + 1;
+            if (pre.some(m => m.id === msg.id)) pre;
             return [msg, ...pre];
         });
 
-        setTimeout(() => {
-            dispatch(clearMessage());
-        }, 2000);
-
+        setTimeout(() => { dispatch(clearMessage()); }, 2000);
     }, [receivedMessage]);
 
     useEffect(() => {
