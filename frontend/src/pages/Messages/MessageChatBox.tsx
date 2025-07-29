@@ -123,6 +123,8 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
     };
 
     async function SendMessage() {
+
+
         const message = msgInput.trim();
         if (!message && !selectedFile) return;
 
@@ -134,7 +136,9 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
 
         const min = Math.ceil(999);
         const max = Math.floor(999999999999);
-        const msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
+        let msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
+        const timestampId = new Date().valueOf();
+        msgId = timestampId;
 
         let mediaURL = '';
         if (selectedFile) {
@@ -158,7 +162,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
         socket.emit('send_message', msg);
 
         setMessages(pre => {
-            // if (pre.some(m => m.id === msg.id)) return pre;
+            if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
 
@@ -213,7 +217,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
         let msg = receivedMessage;
         setMessages(pre => {
             // if (pre.some(m => m.id === msg.id)) msg.id = receivedMessage.id + 1;
-            if (pre.some(m => m.id === msg.id)) pre;
+            if (pre.some(m => m.id === msg.id)) return pre;
             return [msg, ...pre];
         });
 
