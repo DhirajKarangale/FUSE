@@ -1,4 +1,4 @@
-# 🔥 FUSE – Category-Based Social Media Platform
+# 🔥 FUSE
 
 [FUSE](https://fuse-phi.vercel.app/) is a modern social media platform focused on **interest-based interaction**, allowing users to post and explore content within predefined categories. It also includes a **real-time messaging feature** with support for **text and media sharing**.
 
