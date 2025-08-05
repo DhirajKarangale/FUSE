@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const routerOTP = require('./routerOTP');
+const routerHealth = require('./routerHealth');
 const routerAuth = require('./routerAuth');
 const routerUser = require('./routerUser');
 const routerPost = require('./routerPost');
@@ -11,6 +12,7 @@ const errorLogger = require('../utilities/errorLogger');
 const requestLogger = require('../utilities/requestLogger');
 
 router.use(requestLogger);
+router.use('/health', routerHealth);
 router.use('/otp', routerOTP);
 router.use(jwt.ValidateToken);
 router.use('/auth', routerAuth);
