@@ -14,7 +14,7 @@ export interface ApiResult<T = any> {
 
 const axiosInstance = axios.create({
     baseURL: urlBase,
-    timeout: 5000,
+    timeout: 20000,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -58,7 +58,8 @@ function checkServer(errorMessage: string, isTimeout: boolean) {
         }, 15000);
     }
 
-    if ((timeoutTry <= 0) || (msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
+    // if ((timeoutTry <= 0) || (msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
+    if ((msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
         window.location.replace(routeMaintenance);
     }
 }
