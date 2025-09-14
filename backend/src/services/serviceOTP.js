@@ -40,7 +40,7 @@ async function SendMail(email, otp, type) {
 
     try {
         console.log('Sending OTP');
-        // await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
         console.log('Mail Send');
         return messagesManager.Success('otpSent');
     } catch (error) {
@@ -54,7 +54,6 @@ async function GetOtp(email, type) {
     const otp = GenerateOTP(6);
     console.log('OTP: ', otp);
     await modelOtp.SetOtp(email, otp)
-    console.log('Set OTP in DB');
     return await SendMail(email, otp, type);
 }
 
