@@ -2,6 +2,11 @@ import axios from 'axios';
 import { urlBase } from './APIs';
 import { routeAuth, routeMaintenance } from '../utils/Routes';
 
+let timeoutTry = 0;
+const mxTimeoutTry = 2;
+let timeoutResetId: ReturnType<typeof setTimeout> | null = null;
+
+
 export interface ApiResult<T = any> {
     data?: T;
     error: string;
@@ -32,11 +37,28 @@ function checkToken(errorMessage: string, status: number) {
     }
 }
 
-function checkServer(errorMessage: string) {
+function resetTimeoutCounter() {
+    timeoutTry = mxTimeoutTry;
+    timeoutResetId = null;
+}
+
+function checkServer(errorMessage: string, isTimeout: boolean) {
     const msg = errorMessage.toString();
     const currentPath = window.location.pathname;
 
-    if ((msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
+    if (isTimeout) {
+        timeoutTry--;
+
+        if (timeoutResetId) {
+            clearTimeout(timeoutResetId);
+        }
+
+        timeoutResetId = setTimeout(() => {
+            resetTimeoutCounter();
+        }, 15000);
+    }
+
+    if ((timeoutTry <= 0) || (msg === 'net::ERR_CONNECTION_REFUSED' || msg === 'Network Error') && !currentPath.startsWith(routeMaintenance)) {
         window.location.replace(routeMaintenance);
     }
 }
@@ -48,7 +70,7 @@ const handleRequest = async <T>(promise: Promise<{ data: T }>): Promise<ApiResul
     } catch (error: any) {
         const isTimeout = error.code === 'ECONNABORTED';
         const errorMessage = isTimeout ? 'Request timed out, please try again.' : error.response?.data || error.message || 'Unknown error';
-        checkServer(errorMessage);
+        checkServer(errorMessage, isTimeout);
         checkToken(errorMessage, error.status);
         return { error: errorMessage };
     }
