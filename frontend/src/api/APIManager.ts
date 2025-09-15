@@ -4,6 +4,7 @@ import { routeAuth, routeMaintenance } from '../utils/Routes';
 
 let timeoutTry = 0;
 const mxTimeoutTry = 2;
+const timeout = 5000;
 let timeoutResetId: ReturnType<typeof setTimeout> | null = null;
 
 
@@ -14,7 +15,7 @@ export interface ApiResult<T = any> {
 
 const axiosInstance = axios.create({
     baseURL: urlBase,
-    timeout: 20000,
+    timeout: timeout,
     headers: {
         'Content-Type': 'application/json',
     },
