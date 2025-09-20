@@ -70,9 +70,9 @@ FUSE/
 
 ## 🖼️ Screenshots
 
-| Customize Feed | Download Post | Feed |
-|----------------|---------------|------|
-| ![Customize Feed](frontend/public/Screenshots/CustomizeFeed.png) | ![Download Post](frontend/public/Screenshots/download.jpg) | ![Feed](frontend/public/Screenshots/Feed.png) |
+| Customize Feed | Feed |
+|----------------|------|
+| ![Customize Feed](frontend/public/Screenshots/CustomizeFeed.png) | ![Feed](frontend/public/Screenshots/Feed.png) |
 
 | Message | Messages | User Profile |
 |---------|----------|--------------|
