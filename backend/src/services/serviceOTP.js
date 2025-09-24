@@ -54,7 +54,8 @@ async function GetOtp(email, type) {
     const otp = GenerateOTP(6);
     console.log('OTP: ', otp);
     await modelOtp.SetOtp(email, otp)
-    return await SendMail(email, otp, type);
+    return `OTP- ${otp}`;
+    // return await SendMail(email, otp, type);
 }
 
 async function VerifyOtp(email, otp) {
@@ -74,7 +75,7 @@ async function VerifyOtp(email, otp) {
 
     const user = await serviceUser.GetOrCreateUserByEmail(email);
     const token = jwt.GenerateToken(user);
-    
+
     return { user, token }
 }
 
