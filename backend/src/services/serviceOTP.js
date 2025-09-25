@@ -1,3 +1,4 @@
+const axios = require("axios");
 const nodemailer = require('nodemailer');
 const modelOtp = require('../model/modelOtp');
 const validator = require('../utilities/validator');
@@ -21,31 +22,28 @@ function GenerateOTP(length) {
 }
 
 async function SendMail(email, otp, type) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.Email,
-            pass: process.env.EMAILPASS
-        }
-    });
-
     const { subject, body } = emailContent(otp, type);
 
-    const mailOptions = {
-        from: `"ChangeXel" <${process.env.Email}>`,
-        to: email,
-        subject: subject,
-        html: body,
-    };
-
     try {
-        console.log('Sending OTP');
-        await transporter.sendMail(mailOptions);
-        console.log('Mail Send');
-        return messagesManager.Success('otpSent');
-    } catch (error) {
-        console.log('Error in sending mail');
-        throw throwError(messagesManager.Error('otpSent'), statusCode.SERVICE_UNAVAILABLE);
+        const res = await axios.post(
+            "https://api.brevo.com/v3/smtp/email",
+            {
+                sender: { name: "DK", email: process.env.Email },
+                to: [{ email }],
+                subject: subject,
+                htmlContent: body
+            },
+            {
+                headers: {
+                    "api-key": process.env.BREVO_API_KEY,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+        return messagesManager.Success("otpSent");
+    } catch (err) {
+        console.error("Brevo error:", err.response?.data || err.message);
+        throw throwError(messagesManager.Error("otpSent"), statusCode.SERVICE_UNAVAILABLE);
     }
 }
 
@@ -54,8 +52,8 @@ async function GetOtp(email, type) {
     const otp = GenerateOTP(6);
     console.log('OTP: ', otp);
     await modelOtp.SetOtp(email, otp)
-    return `OTP- ${otp}`;
-    // return await SendMail(email, otp, type);
+    // return `OTP- ${otp}`;
+    return await SendMail(email, otp, type);
 }
 
 async function VerifyOtp(email, otp) {

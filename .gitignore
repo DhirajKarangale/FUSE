@@ -59,3 +59,4 @@ Thumbs.db
 *.sln
 *.sw?
 backend/src/logs/RequestLogger.txt
+backend/.env

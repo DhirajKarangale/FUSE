@@ -1,6 +1,7 @@
 const time = "10 minutes";
 const companyName = "ChangeXel";
-const companyURL = "https://dhirajkarangale.netlify.app/";
+const companyURL = "https://dhirajkarangale.netlify.app";
+const unsubscribeURL = "https://unsubscribe-service.vercel.app";
 
 function Login(otp) {
     const body = `
@@ -108,6 +109,7 @@ function Login(otp) {
         <p>The adventure begins with <a class="company-link" href="${companyURL}"><span class="company">${companyName}</span></a>.</p>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} <a href="${companyURL}">${companyName}</a>. All rights reserved.</p>
+            <p>If you wish to unsubscribe, click <a href="${unsubscribeURL}">here</a>.</p>
         </div>
     </div>
 </body>
@@ -223,6 +225,7 @@ function ChangeUserData(otp) {
         <p>Change securely with <a class="company-link" href="${companyURL}"><span class="company">${companyName}</span></a>.</p>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} <a href="${companyURL}">${companyName}</a>. All rights reserved.</p>
+            <p>If you wish to unsubscribe, click <a href="${unsubscribeURL}">here</a>.</p>
         </div>
     </div>
 </body>
