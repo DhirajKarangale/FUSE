@@ -33,7 +33,6 @@ FUSE/
 **Explanation:**
 - **backend/**: Handles database, authentication, APIs, and real-time messaging using Socket.IO.  
 - **frontend/**: React app with Tailwind CSS, Redux Toolkit, Framer Motion, and Cloudinary integration.  
-- **Screenshots**: Stored in `frontend/public/Screenshots` for README preview.
 
 ---
 
@@ -85,7 +84,7 @@ FUSE/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/fuse.git
+git clone https://github.com/DhirajKarangale/FUSE
 cd fuse
 ```
 
@@ -172,7 +171,7 @@ You can now open the app in your browser at the URL shown in the terminal, e.g.,
 
 ## 📂 Repository
 
-[GitHub Repo](https://github.com/yourusername/fuse)
+[GitHub Repo](https://github.com/DhirajKarangale/FUSE)
 
 ---
 
