@@ -4,7 +4,7 @@ import { routeAuth, routeMaintenance } from '../utils/Routes';
 
 let timeoutTry = 0;
 const mxTimeoutTry = 2;
-const timeout = 5000;
+const timeout = 10000;
 let timeoutResetId: ReturnType<typeof setTimeout> | null = null;
 
 
