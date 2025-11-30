@@ -68,12 +68,7 @@ FUSE/
 ---
 
 ## 🖼️ Preview
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/DhirajKarangale/Fuse/main/public/preview/Fuse.gif" alt="Fuse Preview" width="800" />
-</div>
-
-<br/>
+![PipelineX Demo](/frontend/public/preview/Fuse.gif)
 
 | Customize Feed | Feed |
 |----------------|------|
