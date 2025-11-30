@@ -20,7 +20,7 @@ FUSE/
 │   └── app.js
 ├── frontend/     # React TypeScript client
 │   ├── public/
-│   │   └── Screenshots/  # UI screenshots
+│   │   └── preview/  # UI previews
 │   ├── src/
 │   ├── App.tsx
 │   └── main.tsx
@@ -67,15 +67,21 @@ FUSE/
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Preview
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/DhirajKarangale/Fuse/main/public/preview/Fuse.gif" alt="Fuse Preview" width="800" />
+</div>
+
+<br/>
 
 | Customize Feed | Feed |
 |----------------|------|
-| ![Customize Feed](frontend/public/Screenshots/CustomizeFeed.png) | ![Feed](frontend/public/Screenshots/Feed.png) |
+| ![Customize Feed](frontend/public/preview/CustomizeFeed.png) | ![Feed](frontend/public/preview/Feed.png) |
 
 | Message | Messages | User Profile |
 |---------|----------|--------------|
-| ![Message](frontend/public/Screenshots/Message.png) | ![Messages](frontend/public/Screenshots/Messages.png) | ![User](frontend/public/Screenshots/User.png) |
+| ![Message](frontend/public/preview/Message.png) | ![Messages](frontend/public/preview/Messages.png) | ![User](frontend/public/preview/User.png) |
 
 ---
 

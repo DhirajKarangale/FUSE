@@ -1,10 +1,13 @@
 # ===================
-# Node.js Dependencies & Package Managers
+# Node.js Dependencies
 # ===================
 node_modules/
+*.tgz
+
+# Package managers
 package-lock.json
 yarn.lock
-*.tgz
+pnpm-lock.yaml
 
 # ===================
 # Logs
@@ -16,11 +19,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-frontend/src/logs/
-backend/node_modules/
+
+# Project logs (Backend + Frontend)
 backend/src/logs/
 frontend/logs/
-backend/src/logs/
 
 # ===================
 # Environment Files
@@ -28,6 +30,12 @@ backend/src/logs/
 *.env
 backend/.env
 frontend/.env
+
+*.env
+backend/.env
+frontend/.env
+backend/src/logs/
+frontend/logs/
 
 # ===================
 # Build Output
@@ -38,6 +46,9 @@ dist-ssr/
 temp/
 tmp/
 coverage/
+
+# Vite specific
+.vite/
 
 # ===================
 # OS Specific Files
@@ -58,5 +69,8 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-backend/src/logs/RequestLogger.txt
-backend/.env
+
+# ===================
+# Misc Cleanup
+# ===================
+backend/node_modules/

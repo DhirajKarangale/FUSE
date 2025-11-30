@@ -130,3 +130,34 @@ Thu Sep 25 2025 19:31:09 GMT+0530 (India Standard Time) GET /user->Error: Token 
     at RequestLogger (E:\Full Stack\FUSE\backend\src\utilities\requestLogger.js:12:5)
     at Layer.handleRequest (E:\Full Stack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
 
+Sun Nov 30 2025 21:11:04 GMT+0530 (India Standard Time) GET /otp?email=dakarangale02@gmail.com->Error: An error occurred
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at SendMail (E:\FullStack\FUSE\backend\src\services\serviceOTP.js:46:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Object.GetOtp (E:\FullStack\FUSE\backend\src\services\serviceOTP.js:56:12)
+    at async E:\FullStack\FUSE\backend\src\routes\routerOTP.js:7:26
+
+Sun Nov 30 2025 22:43:51 GMT+0530 (India Standard Time) GET /user->Error: Bring your ticket next time!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Sun Nov 30 2025 22:43:51 GMT+0530 (India Standard Time) GET /user->Error: Access denied. Token's missing!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
