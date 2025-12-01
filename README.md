@@ -68,7 +68,7 @@ FUSE/
 ---
 
 ## 🖼️ Preview
-![PipelineX Demo](/frontend/public/preview/Fuse.gif)
+![Fuse Demo](/frontend/public/preview/Fuse.gif)
 
 | Customize Feed | Feed |
 |----------------|------|
