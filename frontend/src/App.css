@@ -39,3 +39,27 @@
     scrollbar-width: thin;
     scrollbar-color: #01DEFF #1f2937;
 }
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(1, 222, 255, 0.6) rgba(15, 23, 42, 0.4);
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(1, 222, 255, 0.6);
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-button {
+    display: none;
+}
