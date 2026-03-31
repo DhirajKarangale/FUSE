@@ -28,7 +28,7 @@ yarn-error.log*
 *.war
 *.iml
 *.out/
-backend/src/logs
+# backend/src/logs
 
 # Misc
 *.tmp
@@ -36,3 +36,7 @@ backend/src/logs
 *.swo
 *.bak
 *.backup
+
+*.env
+backend/.env
+frontend/.env

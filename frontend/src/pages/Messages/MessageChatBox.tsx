@@ -104,69 +104,45 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
         setMediaLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
-    function MessageSkeleton({ isSend }: { isSend: boolean }) {
-        return (
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className={`flex ${isSend ? "justify-end" : "justify-start"} px-2`}>
-                <div
-                    className={`max-w-xs w-[70%] sm:w-[60%] p-3 rounded-2xl animate-pulse ${isSend ? "bg-cyan-800 rounded-br-none" : "bg-white/10 rounded-bl-none"}`}>
-                    {/* <div className="h-3 bg-white/30 rounded w-4/5 mb-2" /> */}
-                    <div className="h-3 bg-white/20 rounded w-2/3 mb-2" />
-                    <div className="h-3 bg-white/10 rounded w-1/2" />
-                </div>
-            </motion.div>
-        );
-    };
-
     async function SendMessage() {
-        // const message = msgInput.trim();
-        // if (!message && !selectedFile) return;
+        const message = msgInput.trim();
+        if (!message && !selectedFile) return;
 
-        // if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
+        if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
+        
+        const time = Date.now().toString(36);
+        const random = crypto.getRandomValues(new Uint32Array(1))[0].toString(36);
+        const msgId = `${time}${random}`;
 
-        // const lastMessageId = Array.isArray(messages) && messages.length > 0
-        //     ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
-        //     : 0;
+        let mediaURL = '';
+        if (selectedFile) {
+            ShowLoader(true);
+            mediaURL = await UploadMedia(selectedFile);
+            ShowLoader(false);
+        }
 
-        // const min = Math.ceil(999);
-        // const max = Math.floor(999999999999);
-        // let msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
-        // const timestampId = new Date().valueOf();
-        // msgId = timestampId;
+        const msg: Message = {
+            id: msgId,
+            sender_id,
+            receiver_id,
+            sender_username: localUser.username,
+            sender_image_url: localUser.image_url,
+            message,
+            media_url: mediaURL,
+            created_at: new Date().toISOString(),
+        };
 
-        // let mediaURL = '';
-        // if (selectedFile) {
-        //     ShowLoader(true);
-        //     mediaURL = await UploadMedia(selectedFile);
-        //     ShowLoader(false);
-        // }
+        setSentMessage(msg);
+        socket.emit('send_message', msg);
 
-        // const msg: Message = {
-        //     id: msgId,
-        //     sender_id,
-        //     receiver_id,
-        //     sender_username: localUser.username,
-        //     sender_image_url: localUser.image_url,
-        //     message,
-        //     media_url: mediaURL,
-        //     created_at: new Date().toISOString(),
-        // };
+        setMessages(pre => {
+            if (pre.some(m => m.id === msg.id)) return pre;
+            return [msg, ...pre];
+        });
 
-        // setSentMessage(msg);
-        // socket.emit('send_message', msg);
-
-        // setMessages(pre => {
-        //     if (pre.some(m => m.id === msg.id)) return pre;
-        //     return [msg, ...pre];
-        // });
-
-        // setMsgInput('');
-        // setSelectedFile(null);
-        // setMediaPreview(null);
+        setMsgInput('');
+        setSelectedFile(null);
+        setMediaPreview(null);
     };
 
     function ChangeInputMsg(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -249,7 +225,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95, x: 100 }}
                 transition={{ type: "spring", stiffness: 100, damping: 18 }}
-                className="w-full h-full flex flex-col bg-black/25 backdrop-blur-md shadow-2xl rounded-l-xl pb-7 bg-gradient-to-br from-[#0b0b10] via-[#1a0f1f] to-[#0c1118] shadow-[0_0_6px_rgba(88,28,135,0.2)]">
+                className="w-full h-full flex flex-col bg-black/25 backdrop-blur-md rounded-l-xl pb-7 bg-gradient-to-br from-[#0b0b10] via-[#1a0f1f] to-[#0c1118] shadow-[0_0_6px_rgba(88,28,135,0.2)]">
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
@@ -373,17 +349,9 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
                         </div>
                     )}
 
-                    {/* {messageLoading && (
-                        <>
-                            {[...Array(3)].map((_, idx) => (
-                                <MessageSkeleton key={idx} isSend={idx % 2 === 0} />
-                            ))}
-                        </>
-                    )} */}
-
                 </div>
 
-                <div className={`px-4 py-3 bg-black/30 border-t border-white/10 shrink-0 rounded-b-xl border-b border-white/10 
+                <div className={`px-4 py-3 bg-black/30 border-t shrink-0 rounded-b-xl border-b border-white/10 
                     ${mediaPreview ? 'flex flex-col gap-2' : 'flex items-center gap-2'}`}>
 
                     {mediaPreview ? (

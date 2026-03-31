@@ -5,23 +5,33 @@ function SocketConnection(io) {
     io.on('connection', (socket) => {
         console.log(`Connected: `, socket.id);
 
-        socket.on('register_user', (userId) => { userSocketMap.set(userId, socket.id); });
+        socket.on('handshake', (userId) => {
+            if (!userId) return;
+
+            if (!userSocketMap.has(userId)) userSocketMap.set(userId, new Set());
+            userSocketMap.get(userId).add(socket.id);
+        });
 
         socket.on('send_message', async (data) => {
+            if (!data) return;
             const { sender_id, receiver_id, message, media_url, created_at } = data;
-            console.log(`From ${sender_id}, To ${receiver_id} Msg: ${message}`);
+            if (!sender_id || !receiver_id) return;
 
-            const receiverSocketId = userSocketMap.get(receiver_id);
-            if (receiverSocketId) io.to(receiverSocketId).emit('receive_message', data);
-            else console.log(`Receiver ${receiver_id} is offline.`);
+            const sockets = userSocketMap.get(receiver_id);
+            if (sockets) {
+                for (const id of sockets) {
+                    io.to(id).emit('receive_message', data);
+                }
+            }
 
             await modelMessage.StoreMessage(sender_id, receiver_id, message, media_url, created_at);
         });
 
         socket.on('disconnect', () => {
-            for (const [userId, id] of userSocketMap.entries()) {
-                if (id === socket.id) {
-                    userSocketMap.delete(userId);
+            for (const [userId, sockets] of userSocketMap.entries()) {
+                if (sockets.has(socket.id)) {
+                    sockets.delete(socket.id);
+                    if (sockets.size === 0) userSocketMap.delete(userId);
                     break;
                 }
             }

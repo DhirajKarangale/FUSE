@@ -16,29 +16,44 @@ function SocketConnection() {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
 
-    function SetMessage(username: string, msg: string) {
+    function SetMessage(username: string) {
         const currentPath = window.location.pathname;
         if (currentPath.startsWith(routeMessages)) return;
-        
-        const receivedMsg = msg.length > 50 ? msg.slice(0, 50) + '...' : msg;
-        const message = `${GetMessage('messageReceived')} ${username} - ${receivedMsg}`;
-        dispatch(setMessageBar({ message, color: ColorManager.msgSuccess}))
+
+        const message = `${GetMessage('messageReceived')} ${username}`;
+        dispatch(setMessageBar({ message, color: ColorManager.msgSuccess }))
     }
 
     function ReceiveMessage(message: Message) {
-        console.log('SocketConnection Receive: ', message);
+        if (!message) return;
         dispatch(setMessage(message))
-        SetMessage(message.sender_username, message.message);
+        SetMessage(message.sender_username);
     };
 
     useEffect(() => {
         if (!user) return;
-        socket.emit('register_user', user.id);
-    }, [user])
+
+        const sendHandshake = () => {
+            socket.emit('handshake', user.id);
+        };
+
+        if (socket.connected) {
+            sendHandshake();
+        }
+
+        socket.on('connect', sendHandshake);
+
+        return () => {
+            socket.off('connect', sendHandshake);
+        };
+    }, [user]);
 
     useEffect(() => {
         socket.on('receive_message', ReceiveMessage);
-        return () => { socket.off('receive_message', ReceiveMessage); };
+
+        return () => {
+            socket.off('receive_message', ReceiveMessage);
+        };
     }, []);
 
     return null;
