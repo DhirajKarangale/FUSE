@@ -229,7 +229,7 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
 
                 <div className="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 shrink-0">
                     <motion.button
-                        onClick={() => navigate(`/message/${sender_id}`)}
+                        onClick={() => navigate(`/user/${receiver_id}`)}
                         className="flex items-center gap-3"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}>

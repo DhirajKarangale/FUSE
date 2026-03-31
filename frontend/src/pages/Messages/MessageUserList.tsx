@@ -30,7 +30,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     const receivedMessage = useAppSelector(state => state.messages);
     const localUser = useAppSelector(state => state.user);
 
-    const [unreadSenders, setUnreadSenders] = useState<Set<string>>(new Set());
+    const [unreadSenders, setUnreadSenders] = useState<Set<number>>(new Set());
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [cachedUsers, setCachedUsers] = useState<Message[]>([]);
     const [searchUsers, setSearchUsers] = useState<Message[]>([]);
@@ -72,7 +72,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
         setLoading(false);
     }, [isSearchMode, searchTerm]);
 
-    function ImageLoad(userId: string) {
+    function ImageLoad(userId: number) {
         setProfileLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
