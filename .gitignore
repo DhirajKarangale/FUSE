@@ -1,15 +1,3 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.sqlite3
-*.env
-venv/
-ENV/
-env/
-*.log
-
 # VS Code
 .vscode/
 .history/
@@ -40,9 +28,7 @@ yarn-error.log*
 *.war
 *.iml
 *.out/
-
-# Python virtual environment inside AI folder
-AI/venv/
+backend/src/logs
 
 # Misc
 *.tmp

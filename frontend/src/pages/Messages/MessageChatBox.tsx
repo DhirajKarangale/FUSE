@@ -38,8 +38,8 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
 
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [messageLoading, setMessageLoading] = useState<boolean>(false);
-    const [mediaLoadedMap, setMediaLoadedMap] = useState<Record<number, boolean>>({});
-    const [expanded, setExpanded] = useState<Set<number>>(new Set());
+    const [mediaLoadedMap, setMediaLoadedMap] = useState<Record<string, boolean>>({});
+    const [expanded, setExpanded] = useState<Set<string>>(new Set());
     const [currPage, setCurrPage] = useState<number>(1);
     const [msgInput, setMsgInput] = useState<string>('');
     const [selectedImageViewer, setSelectedImageViewer] = useState<string>('');
@@ -94,13 +94,13 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
         setCurrPage(data.currPage);
     }
 
-    function ToggleExpand(index: number) {
+    function ToggleExpand(index: string) {
         const newSet = new Set(expanded);
         newSet.has(index) ? newSet.delete(index) : newSet.add(index);
         setExpanded(newSet);
     };
 
-    function MediaLoad(userId: number) {
+    function MediaLoad(userId: string) {
         setMediaLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 
@@ -123,52 +123,50 @@ const MessageChatBox = ({ onClose, message, localUser, setSentMessage }: Message
     };
 
     async function SendMessage() {
+        // const message = msgInput.trim();
+        // if (!message && !selectedFile) return;
 
+        // if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
 
-        const message = msgInput.trim();
-        if (!message && !selectedFile) return;
+        // const lastMessageId = Array.isArray(messages) && messages.length > 0
+        //     ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
+        //     : 0;
 
-        if (message.length > 4000) return ShowMsg(GetMessage('messageLong'), ColorManager.msgError);
+        // const min = Math.ceil(999);
+        // const max = Math.floor(999999999999);
+        // let msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
+        // const timestampId = new Date().valueOf();
+        // msgId = timestampId;
 
-        const lastMessageId = Array.isArray(messages) && messages.length > 0
-            ? messages.reduce((maxId, msg) => Math.max(maxId, msg.id), 0)
-            : 0;
+        // let mediaURL = '';
+        // if (selectedFile) {
+        //     ShowLoader(true);
+        //     mediaURL = await UploadMedia(selectedFile);
+        //     ShowLoader(false);
+        // }
 
-        const min = Math.ceil(999);
-        const max = Math.floor(999999999999);
-        let msgId = lastMessageId + 1 + Math.floor(Math.random() * (max - min + 1)) + min;
-        const timestampId = new Date().valueOf();
-        msgId = timestampId;
+        // const msg: Message = {
+        //     id: msgId,
+        //     sender_id,
+        //     receiver_id,
+        //     sender_username: localUser.username,
+        //     sender_image_url: localUser.image_url,
+        //     message,
+        //     media_url: mediaURL,
+        //     created_at: new Date().toISOString(),
+        // };
 
-        let mediaURL = '';
-        if (selectedFile) {
-            ShowLoader(true);
-            mediaURL = await UploadMedia(selectedFile);
-            ShowLoader(false);
-        }
+        // setSentMessage(msg);
+        // socket.emit('send_message', msg);
 
-        const msg: Message = {
-            id: msgId,
-            sender_id,
-            receiver_id,
-            sender_username: localUser.username,
-            sender_image_url: localUser.image_url,
-            message,
-            media_url: mediaURL,
-            created_at: new Date().toISOString(),
-        };
+        // setMessages(pre => {
+        //     if (pre.some(m => m.id === msg.id)) return pre;
+        //     return [msg, ...pre];
+        // });
 
-        setSentMessage(msg);
-        socket.emit('send_message', msg);
-
-        setMessages(pre => {
-            if (pre.some(m => m.id === msg.id)) return pre;
-            return [msg, ...pre];
-        });
-
-        setMsgInput('');
-        setSelectedFile(null);
-        setMediaPreview(null);
+        // setMsgInput('');
+        // setSelectedFile(null);
+        // setMediaPreview(null);
     };
 
     function ChangeInputMsg(e: React.KeyboardEvent<HTMLTextAreaElement>) {

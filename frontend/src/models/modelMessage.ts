@@ -5,9 +5,9 @@ export interface MessageData {
 }
 
 export interface Message {
-    id: number;
-    sender_id: number;
-    receiver_id: number;
+    id: string;
+    sender_id: string;
+    receiver_id: string;
     sender_username: string;
     sender_image_url: string;
     message: string;
@@ -16,9 +16,9 @@ export interface Message {
 }
 
 export const getInitialMessage = (): Message => ({
-    id: 0,
-    sender_id: 0,
-    receiver_id: 0,
+    id: '',
+    sender_id: '',
+    receiver_id: '',
     sender_username: '',
     sender_image_url: '',
     message: '',

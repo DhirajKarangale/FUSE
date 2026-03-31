@@ -30,7 +30,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     const receivedMessage = useAppSelector(state => state.messages);
     const localUser = useAppSelector(state => state.user);
 
-    const [unreadSenders, setUnreadSenders] = useState<Set<number>>(new Set());
+    const [unreadSenders, setUnreadSenders] = useState<Set<string>>(new Set());
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [cachedUsers, setCachedUsers] = useState<Message[]>([]);
     const [searchUsers, setSearchUsers] = useState<Message[]>([]);
@@ -38,7 +38,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
     const [totalPages, setTotalPages] = useState<number>(1);
     const [isSearchMode, setIsSearchMode] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [profileLoadedMap, setProfileLoadedMap] = useState<Record<number, boolean>>({});
+    const [profileLoadedMap, setProfileLoadedMap] = useState<Record<string, boolean>>({});
     const listRef = useRef<HTMLDivElement | null>(null);
     const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -72,7 +72,7 @@ function MessageUserList({ onMessageClick, sentMessage, selectedMessage }: Messa
         setLoading(false);
     }, [isSearchMode, searchTerm]);
 
-    function ImageLoad(userId: number) {
+    function ImageLoad(userId: string) {
         setProfileLoadedMap((prev) => ({ ...prev, [userId]: true }));
     };
 

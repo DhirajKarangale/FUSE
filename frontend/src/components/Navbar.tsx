@@ -23,7 +23,7 @@ function Navbar() {
 
     useEffect(() => {
         const currentPath = location.pathname;
-        if (currentPath.startsWith(routeMessages) || !receivedMessage || receivedMessage.id == 0) {
+        if (currentPath.startsWith(routeMessages) || !receivedMessage || receivedMessage.id == "") {
             setMessagesNotification(false);
             return;
         }

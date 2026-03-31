@@ -4,7 +4,7 @@ export interface UserData {
 }
 
 export interface User {
-    id: number;
+    id: string;
     username: string;
     email: string;
     about: string;
@@ -17,7 +17,7 @@ export interface User {
 }
 
 export const getInitialUser = (): User => ({
-    id: 0,
+    id: '',
     username: '',
     email: '',
     about: '',
