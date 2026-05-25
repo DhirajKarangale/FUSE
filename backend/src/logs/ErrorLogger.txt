@@ -38,3 +38,123 @@ Tue Mar 31 2026 23:08:51 GMT+0530 (India Standard Time) GET /otp?email=dakaranga
     at async Object.GetOtp (E:\FullStack\FUSE\backend\src\services\serviceOTP.js:56:12)
     at async E:\FullStack\FUSE\backend\src\routes\routerOTP.js:7:26
 
+Mon May 25 2026 15:11:31 GMT+0530 (India Standard Time) GET /user->Error: Token required. This ain't free entry.
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:11:31 GMT+0530 (India Standard Time) GET /user->Error: Access denied. Token's missing!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:20:28 GMT+0530 (India Standard Time) GET /user->Error: Access denied. Token's missing!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:20:28 GMT+0530 (India Standard Time) GET /user->Error: Access denied. Token's missing!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:20:55 GMT+0530 (India Standard Time) GET /user->Error: Bring your ticket next time!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:20:58 GMT+0530 (India Standard Time) GET /user->Error: Where's your token, explorer?
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:20:58 GMT+0530 (India Standard Time) GET /user->Error: No token, no fun.
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:25:44 GMT+0530 (India Standard Time) GET /user->Error: Bring your ticket next time!
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:25:46 GMT+0530 (India Standard Time) GET /user->Error: No token, no fun.
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+
+Mon May 25 2026 15:25:46 GMT+0530 (India Standard Time) GET /user->Error: Where's your token, explorer?
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at GetUser (E:\FullStack\FUSE\backend\src\utilities\jwt.js:12:9)
+    at ValidateToken (E:\FullStack\FUSE\backend\src\utilities\jwt.js:25:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (E:\FullStack\FUSE\backend\node_modules\router\index.js:342:13)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:297:9
+    at processParams (E:\FullStack\FUSE\backend\node_modules\router\index.js:582:12)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\index.js:291:5)
+    at RequestLogger (E:\FullStack\FUSE\backend\src\utilities\requestLogger.js:12:5)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+

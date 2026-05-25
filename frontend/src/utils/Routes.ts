@@ -7,3 +7,7 @@ export const routeUser = '/user/:userId';
 export const routeAbout = '/about';
 export const routeMessages = '/messages';
 export const routeMaintenance = '/maintenance';
+
+export const routeAboutus = '/aboutus';
+export const routePrivacyPolicy = '/privacy-policy';
+export const routeTermsAndConditions = '/terms-and-conditions';

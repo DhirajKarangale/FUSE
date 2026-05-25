@@ -14,6 +14,12 @@ import About from './pages/About/About';
 import Maintenance from './pages/Maintenance/Maintenance';
 import Messages from './pages/Messages/Messages';
 
+import Aboutus from './pages/StaticPages/AboutUs';
+import PrivacyPolicy from './pages/StaticPages/PrivacyPolicy';
+import TermsAndConditions from './pages/StaticPages/TermsAndConditions';
+import PageNotFound from './pages/StaticPages/PageNotFound';
+import ProtectedRoute from './components/ProtectedRoute';
+
 import AutoLogin from './components/AutoLogin';
 import SetBG from './backgrounds/SetBG';
 import LayoutNavbar from './components/LayoutNavbar';
@@ -22,7 +28,7 @@ import Loader from './components/Loader';
 
 import SocketConnection from './pages/Messages/SocketConnection';
 
-import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance } from './utils/Routes';
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions } from './utils/Routes';
 
 export default function App() {
   return (
@@ -33,6 +39,41 @@ export default function App() {
         <SocketConnection />
 
         <Routes>
+
+          <Route path={routeAboutus} element={<Aboutus />} />
+          <Route path={routePrivacyPolicy} element={<PrivacyPolicy />} />
+          <Route path={routeTermsAndConditions} element={<TermsAndConditions />} />
+
+          <Route path={routeAuth} element={<Auth />} />
+          <Route path={routeMaintenance} element={<Maintenance />} />
+
+          <Route element={<ProtectedRoute />}>
+
+            <Route element={<LayoutNavbar />}>
+
+              <Route path={routeFeed} element={<Feed />} />
+              <Route path={routePopular} element={<Popular />} />
+              <Route path={routeCustomizeFeed} element={<CustomizeFeed />} />
+              <Route path={routeAddPost} element={<AddPost />} />
+              <Route path={routeUser} element={<User />} />
+              <Route path={routeAbout} element={<About />} />
+              <Route path={routeMessages} element={<Messages />} />
+
+            </Route>
+
+          </Route>
+          
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+
+
+
+
+        {/* <Routes>
+          <Route path={routeAboutus} element={<Aboutus />} />
+          <Route path={routePrivacyPolicy} element={<PrivacyPolicy />} />
+          <Route path={routeTermsAndConditions} element={<TermsAndConditions />} />
+
           <Route path={routeAuth} element={<Auth />} />
           <Route path={routeMaintenance} element={<Maintenance />} />
 
@@ -46,7 +87,7 @@ export default function App() {
             <Route path={routeMessages} element={<Messages />} />
           </Route>
 
-        </Routes>
+        </Routes> */}
       </Router>
 
       <MessageBar />
