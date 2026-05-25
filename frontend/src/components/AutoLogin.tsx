@@ -6,15 +6,22 @@ import { setLoader } from "../redux/sliceLoader";
 
 import { useAppDispatch } from '../redux/hookStore';
 
-import { routeMaintenance } from "../utils/Routes";
 import { urlUser } from "../api/APIs";
 import { getRequest } from "../api/APIManager";
+import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions } from "../utils/Routes";
 
 function AutoLogin() {
   const dispatch = useAppDispatch();
 
   async function fetchUser() {
-    if (window.location.pathname.startsWith(routeMaintenance)) return;
+    if (
+      window.location.pathname.startsWith(routeMaintenance) ||
+      window.location.pathname.startsWith(routeAboutus) ||
+      window.location.pathname.startsWith(routePrivacyPolicy) ||
+      window.location.pathname.startsWith(routeTermsAndConditions)
+    ) {
+      return;
+    }
 
     dispatch(setLoader({ isLoading: true }));
 

@@ -23,8 +23,6 @@ type Props = {
 
 function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
     const [showImageViewer, setShowImageViewer] = useState(false);
-
-
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
