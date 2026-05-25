@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import Popular from './pages/Popular/Popular'
+import AutoLogin from './components/AutoLogin';
 import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
 import AddPost from './pages/AddPost/AddPost';
 import User from './pages/User/User';
@@ -34,6 +35,7 @@ export default function App() {
     <Provider store={store}>
       <Router>
         <SetBG />
+        <AutoLogin />
         <SocketConnection />
 
         <Routes>
