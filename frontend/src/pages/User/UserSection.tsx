@@ -239,7 +239,6 @@ function UserSection({ userId }: UserSectionProps) {
         }
 
         async function fetchUser() {
-            ShowLoader(true);
             const { data, error } = await getRequest<User>(`${urlUser}?id=${userId}`);
             if (data) {
                 setUserData(data);
@@ -251,7 +250,6 @@ function UserSection({ userId }: UserSectionProps) {
                 ShowMsg(error, ColorManager.msgError);
                 navigate(routeFeed);
             }
-            ShowLoader(false);
         }
 
         fetchUser();
