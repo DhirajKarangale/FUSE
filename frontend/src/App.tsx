@@ -20,7 +20,6 @@ import TermsAndConditions from './pages/StaticPages/TermsAndConditions';
 import PageNotFound from './pages/StaticPages/PageNotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 
-import AutoLogin from './components/AutoLogin';
 import SetBG from './backgrounds/SetBG';
 import LayoutNavbar from './components/LayoutNavbar';
 import MessageBar from './components/MessageBar';
@@ -35,7 +34,6 @@ export default function App() {
     <Provider store={store}>
       <Router>
         <SetBG />
-        <AutoLogin />
         <SocketConnection />
 
         <Routes>
@@ -62,32 +60,9 @@ export default function App() {
             </Route>
 
           </Route>
-          
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-
-
-
-
-        {/* <Routes>
-          <Route path={routeAboutus} element={<Aboutus />} />
-          <Route path={routePrivacyPolicy} element={<PrivacyPolicy />} />
-          <Route path={routeTermsAndConditions} element={<TermsAndConditions />} />
-
-          <Route path={routeAuth} element={<Auth />} />
-          <Route path={routeMaintenance} element={<Maintenance />} />
-
-          <Route element={<LayoutNavbar />}>
-            <Route path={routeFeed} element={<Feed />} />
-            <Route path={routePopular} element={<Popular />} />
-            <Route path={routeCustomizeFeed} element={<CustomizeFeed />} />
-            <Route path={routeAddPost} element={<AddPost />} />
-            <Route path={routeUser} element={<User />} />
-            <Route path={routeAbout} element={<About />} />
-            <Route path={routeMessages} element={<Messages />} />
-          </Route>
-
-        </Routes> */}
       </Router>
 
       <MessageBar />
