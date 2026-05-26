@@ -77,12 +77,12 @@ function PostDetails() {
   async function GetComments() {
 
     setIsLoadingComments(true);
-    
+
     const url = `${urlAllComment}?postId=${postId}`;
     const { data, error } = await getRequest<AllComment[]>(url);
-    
+
     setIsLoadingComments(false);
-    
+
     if (error || !data) {
       dispatch(setLoader({ isLoading: false }));
       return;
@@ -220,134 +220,43 @@ function PostDetails() {
 
 
           <div
-            className="
-        rounded-3xl
-        border
-        border-white/10
-        bg-black/20
-        backdrop-blur-md
-        p-4
-        space-y-4
-    "
+            className="rounded-3xl border border-white/10 bg-black/20 backdrop-blur-md p-4 space-y-4"
           >
 
-            {isLoadingComments ? (
-
-              <div className="
-                text-center
-                text-white/50
-            ">
-                Loading comments...
-              </div>
-
-            ) : comments.length === 0 ? (
-
-              <motion.div
-                initial={{
-                  opacity: 0
-                }}
-                animate={{
-                  opacity: 1
-                }}
-                className="
-                    py-10
-                    text-center
-                "
-              >
-
-                <div className="
-                    text-4xl
-                    mb-3
-                ">
-                  💭
+            {isLoadingComments ?
+              (
+                <div className="text-center text-white/50">
+                  Loading comments...
                 </div>
-
-                <p className="
-                    text-white/50
-                ">
-                  No comments yet
-                </p>
-
-              </motion.div>
-
-            ) : (
-
-              comments.map(comment => (
-
+              ) : comments.length === 0 ? (
                 <motion.div
-
-                  key={comment.id}
-
-                  initial={{
-                    opacity: 0,
-                    y: 10
-                  }}
-
-                  animate={{
-                    opacity: 1,
-                    y: 0
-                  }}
-
-                  className="
-                        p-4
-                        rounded-2xl
-                        border
-                        border-white/10
-                        bg-white/[0.03]
-                    "
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="py-10 text-center"
                 >
 
-                  <div className="
-                        flex
-                        items-center
-                        gap-3
-                    ">
-
-                    <div>
-
-                      <div className="
-                                font-medium
-                                text-sm
-                            ">
-                        {comment.username}
-                      </div>
-
-                      <div className="
-                                text-xs
-                                text-white/40
-                            ">
-                        {
-                          new Date(
-                            comment.created_at
-                          )
-                            .toLocaleDateString()
-                        }
-                      </div>
-
+                  <div className="text-4xl mb-3">💭</div>
+                  <p className="text-white/50">No comments yet</p>
+                </motion.div>
+              ) : (
+                comments.map(comment => (
+                  <motion.div
+                    key={comment.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 rounded-2xl border border-white/10 bg-white/[0.03]"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="font-medium text-sm">{comment.username}</div>
+                      <div className="text-xs text-white/40">{new Date(comment.created_at).toLocaleDateString()}</div>
                     </div>
 
-                  </div>
-
-
-                  <div className="
-                        mt-3
-                        text-sm
-                        text-white/80
-                        whitespace-pre-wrap
-                        break-words
-                    ">
-                    {comment.comment}
-                  </div>
-
-                </motion.div>
-
-              ))
-
-            )}
-
+                    <div className="mt-3 text-sm text-white/80 whitespace-pre-wrap break-words">{comment.comment}</div>
+                  </motion.div>
+                ))
+              )}
 
           </div>
-
         </div>
       </>
     )
