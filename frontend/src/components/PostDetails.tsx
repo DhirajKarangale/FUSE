@@ -153,7 +153,7 @@ function PostDetails() {
       return;
     }
 
-    const commentInputValue = commentInput;
+    const commentInputValue = commentInput.trim();
 
     if (commentInput.length < 1) {
       ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
@@ -166,7 +166,7 @@ function PostDetails() {
     }
 
     const newComment: AllComment = {
-      id: comments.length > 0 ? comments[0].id + 1 : 1,
+      id: -Date.now(),
       comment: commentInputValue,
       username: user.username,
       userId: user.id,

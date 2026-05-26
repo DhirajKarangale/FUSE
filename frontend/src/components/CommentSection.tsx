@@ -61,7 +61,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const AddComment = async () => {
-        const commentInputValue = commentInput;
+        const commentInputValue = commentInput.trim();
 
         if (commentInputValue.length < 1) {
             ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
@@ -73,7 +73,7 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         }
 
         const newComment: Comment = {
-            id: comments.length > 0 ? comments[0].id + 1 : 1,
+            id: -Date.now(),
             comment: commentInputValue,
             username: user.username,
             user_image_url: user.image_url,
@@ -110,31 +110,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             setComments(oldComments);
             ShowMsg(error, ColorManager.msgError);
         }
-
-        // let deletedComment: Comment | undefined;
-        // let deletedIndex: number = -1;
-
-        // setComments(prev => {
-        //     deletedIndex = prev.findIndex(c => c.id === id);
-        //     deletedComment = prev[deletedIndex];
-        //     const updated = prev.filter(c => c.id !== id);
-        //     const isUserCommentStillPresent = updated.some(c => c.username === user.username);
-        //     UpdateComment(isUserCommentStillPresent, -1);
-        //     return updated;
-        // });
-
-        // const { error } = await deleteRequest<string>(`${urlComment}?id=${id}`);
-
-        // if (error && deletedComment && deletedIndex !== -1) {
-        //     setComments(prev => {
-        //         const newComments = [...prev];
-        //         newComments.splice(deletedIndex, 0, deletedComment!);
-        //         const isUserCommentStillPresent = newComments.some(c => c.username === user.username);
-        //         UpdateComment(isUserCommentStillPresent, 1);
-        //         return newComments;
-        //     });
-        //     dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
-        // }
     };
 
     useEffect(() => {
