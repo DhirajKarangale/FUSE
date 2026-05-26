@@ -26,7 +26,7 @@ router.get('/comments', async (req, res, next) => {
 router.post('/feedback', async (req, res, next) => {
     try {
         const body = req.body;
-        const response = await serviceSupport.sendFeedback(postId);
+        const response = await serviceSupport.sendFeedback(body);
         res.status(200).json(response);
     } catch (error) {
         next(error);

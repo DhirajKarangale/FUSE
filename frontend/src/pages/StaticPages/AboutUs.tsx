@@ -1,11 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-    Rocket,
-    MessageCircle,
-    Users,
-    Sparkles
-} from "lucide-react";
+import { Rocket, MessageCircle, Users, Sparkles } from "lucide-react";
 
 import GradientText from "../../reactbits/GradientText/GradientText";
 

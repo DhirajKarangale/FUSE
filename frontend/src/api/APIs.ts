@@ -9,12 +9,14 @@ export const urlCategories = `${urlBase}/user/categories`;
 
 export const urlPost = `${urlBase}/post`
 export const urlGetPost = `${urlBase}/noAuth/post`;
-export const urlPostUser = `${urlBase}/post/user`
-export const urlPostPopular = `${urlBase}/post/popular`
-export const urlPostLike = `${urlBase}/post/like`
+export const urlPostUser = `${urlBase}/post/user`;
+export const urlPostPopular = `${urlBase}/post/popular`;
+export const urlPostLike = `${urlBase}/post/like`;
 
-export const urlComment = `${urlBase}/comment`
-export const urlAllComment = `${urlBase}/noAuth/comments`
+export const urlComment = `${urlBase}/comment`;
+export const urlAllComment = `${urlBase}/noAuth/comments`;
 
-export const urlMessages = `${urlBase}/message`
-export const urlMessageUserSearch = `${urlBase}/message/usersearch`
+export const urlMessages = `${urlBase}/message`;
+export const urlMessageUserSearch = `${urlBase}/message/usersearch`;
+
+export const urlFeedback = `${urlBase}/noAuth/feedback`;

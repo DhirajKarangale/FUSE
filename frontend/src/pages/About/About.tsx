@@ -3,15 +3,18 @@ import GradientText from "../../reactbits/GradientText/GradientText";
 
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
 import TermsModal from "./TermsModal";
+import FeedbackModal from "../../components/FeedbackModal";
 
 function About() {
     const [showTerms, setShowTerms] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
     const [showPrivacy, setShowPrivacy] = useState(false);
 
     return (
         <>
             <PrivacyPolicyModal isOpen={showPrivacy} onClose={() => setShowPrivacy(false)} />
             <TermsModal isOpen={showTerms} onClose={() => setShowTerms(false)} />
+            <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
 
             <div className="flex flex-col justify-start items-center h-full w-full px-4 sm:py-6 py-0 text-white z-1 select-none">
 
@@ -47,6 +50,7 @@ FUSE = Where chaos meets category. Vibing is mandatory, logic is optional.
                     <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline cursor-pointer mt-4 text-sm">
                         <a onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
                         <a onClick={() => setShowTerms(true)}>Terms & Conditions</a>
+                        <a onClick={() => setShowFeedback(true)}>Terms & Conditions</a>
                     </div>
                     
                     <div>

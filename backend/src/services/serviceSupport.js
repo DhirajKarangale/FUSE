@@ -7,7 +7,8 @@ const messagesManager = require('../utilities/messagesManager');
 const { FeedbackUser, FeedbackNoUser } = require('../utilities/emailContent');
 
 async function SendMail(subject, body) {
-  const emails = ["dhirajkarangale02@gmail.com", "vsjoshi772@gmail.com"];
+  // const emails = ["dhirajkarangale02@gmail.com", "vsjoshi772@gmail.com"];
+  const emails = ["dhirajkarangale02@gmail.com"];
 
   try {
     const res = await axios.post(
@@ -34,13 +35,8 @@ async function SendMail(subject, body) {
 
 async function sendFeedback(body) {
   const { userId, feedback } = body;
-
   const user = userId ? await serviceUser.GetUser(userId) : null;
-
-  const { subject, body: mailBody } = user
-    ? FeedbackUser(feedback, user.id, user.username, user.email)
-    : FeedbackNoUser(feedback);
-
+  const { subject, body: mailBody } = user ? FeedbackUser(feedback, user.id, user.username, user.email) : FeedbackNoUser(feedback);
   return await SendMail(subject, mailBody);
 }
 
