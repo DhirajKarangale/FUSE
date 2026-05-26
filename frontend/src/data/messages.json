@@ -187,5 +187,27 @@
         "Couldn't save it. Blame the WiFi, not us 📡",
         "Fail! That image said 'nope' and dipped 🏃‍♂️💨",
         "Download flopped harder than your selfie attempts 🤳❌"
+    ],
+    "commentAdded": [
+        "Comment dropped like a truth bomb 💥",
+        "You said it. Can't unsay it now 🫨",
+        "Comment posted. Chaos initiated 🗯️",
+        "Your opinion is out there. May the internet forgive you 🙏",
+        "You typed that... on purpose? Bold move 🫣"
+    ],
+    "commentDeleted": [
+        "Comment deleted successful"
+    ],
+    "postLinkCopy": [
+        "Post link copied to clipboard!"
+    ],
+    "postLinkCopyFail": [
+        "Failed to copy post link!"
+    ],
+    "loginToLike": [
+        "Please login to like posts."
+    ],
+    "loginToComment": [
+        "Please login to add comment on a posts."
     ]
 }

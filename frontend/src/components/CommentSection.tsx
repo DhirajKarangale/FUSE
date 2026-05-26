@@ -61,14 +61,30 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const AddComment = async () => {
-        if (commentInput.length < 1) {
+        const commentInputValue = commentInput.trim();
+
+        if (commentInputValue.length < 1) {
             ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
             return;
         }
-        if (commentInput.length > 1000) {
+        if (commentInputValue.length > 1000) {
             ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
             return;
         }
+
+        const newComment: Comment = {
+            id: -Date.now(),
+            comment: commentInputValue,
+            username: user.username,
+            user_image_url: user.image_url,
+            isUserComment: true,
+            created_at: new Date().toISOString(),
+        };
+
+        setComments(prev => [newComment, ...prev]);
+        setCommentInput('');
+        UpdateComment(true, 1);
+        ShowMsg(GetMessage("commentAdded"), ColorManager.msgSuccess);
 
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
@@ -76,48 +92,23 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             created_at: new Date().toISOString()
         });
 
-        if (data) {
-            const newComment: Comment = {
-                id: comments.length > 0 ? comments[0].id + 1 : 1,
-                comment: commentInput,
-                username: user.username,
-                user_image_url: user.image_url,
-                isUserComment: true,
-                created_at: new Date().toISOString(),
-            };
-            setComments(prev => [newComment, ...prev]);
-            setCommentInput('');
-            UpdateComment(true, 1);
-            ShowMsg(data, ColorManager.msgSuccess);
-        } else {
+        if (!data || error) {
             ShowMsg(error, ColorManager.msgError);
+            setComments(prev => prev.filter(comment => comment.id !== newComment.id));
         }
     };
 
     const DeleteComment = async (id: number) => {
-        let deletedComment: Comment | undefined;
-        let deletedIndex: number = -1;
+        const oldComments = comments;
 
-        setComments(prev => {
-            deletedIndex = prev.findIndex(c => c.id === id);
-            deletedComment = prev[deletedIndex];
-            const updated = prev.filter(c => c.id !== id);
-            const isUserCommentStillPresent = updated.some(c => c.username === user.username);
-            UpdateComment(isUserCommentStillPresent, -1);
-            return updated;
-        });
+        setComments(prev => prev.filter(c => c.id !== id));
+        ShowMsg(GetMessage("commentDeleted"), ColorManager.msgSuccess);
 
         const { error } = await deleteRequest<string>(`${urlComment}?id=${id}`);
 
-        if (error && deletedComment && deletedIndex !== -1) {
-            setComments(prev => {
-                const newComments = [...prev];
-                newComments.splice(deletedIndex, 0, deletedComment!);
-                const isUserCommentStillPresent = newComments.some(c => c.username === user.username);
-                UpdateComment(isUserCommentStillPresent, 1);
-                return newComments;
-            });
-            dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
+        if (error) {
+            setComments(oldComments);
+            ShowMsg(error, ColorManager.msgError);
         }
     };
 

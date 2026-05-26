@@ -8,6 +8,7 @@ import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import Popular from './pages/Popular/Popular'
 import AutoLogin from './components/AutoLogin';
+import PostDetails from './components/PostDetails';
 import CustomizeFeed from './pages/CustomizeFeed/CustomizeFeed';
 import AddPost from './pages/AddPost/AddPost';
 import User from './pages/User/User';
@@ -28,7 +29,7 @@ import Loader from './components/Loader';
 
 import SocketConnection from './pages/Messages/SocketConnection';
 
-import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions } from './utils/Routes';
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails } from './utils/Routes';
 
 export default function App() {
   return (
@@ -40,6 +41,8 @@ export default function App() {
 
         <Routes>
 
+          <Route path={routePostDetails} element={<PostDetails />} />
+          
           <Route path={routeAboutus} element={<Aboutus />} />
           <Route path={routePrivacyPolicy} element={<PrivacyPolicy />} />
           <Route path={routeTermsAndConditions} element={<TermsAndConditions />} />

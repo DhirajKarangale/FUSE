@@ -15,6 +15,10 @@ async function Get(userId, postId, page) {
     return await modelComment.Get(userId, postId, validPage, pageSize);
 }
 
+async function GetAllComments(postId) {
+    validator.ID(postId);
+    return await modelComment.GetAllComments(postId);
+}
 
 async function Add(userId, body) {
     validator.ID(userId);
@@ -31,4 +35,4 @@ async function Delete(commentId) {
 }
 
 
-module.exports = { Get, Add, Delete };
+module.exports = { Get, Add, Delete, GetAllComments };

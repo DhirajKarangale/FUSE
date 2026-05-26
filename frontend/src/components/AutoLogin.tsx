@@ -8,10 +8,14 @@ import { useAppDispatch } from '../redux/hookStore';
 
 import { urlUser } from "../api/APIs";
 import { getRequest } from "../api/APIManager";
-import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions } from "../utils/Routes";
+import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails } from "../utils/Routes";
 
 function AutoLogin() {
   const dispatch = useAppDispatch();
+
+  function isPostDetailsScreen() {
+    return window.location.pathname.startsWith(routePostDetails.replace(':postId', ''));
+  }
 
   async function fetchUser() {
     if (
@@ -23,7 +27,9 @@ function AutoLogin() {
       return;
     }
 
-    dispatch(setLoader({ isLoading: true }));
+    if (!isPostDetailsScreen()) {
+      dispatch(setLoader({ isLoading: true }));
+    }
 
     const { data } = await getRequest<User>(urlUser);
 
@@ -31,7 +37,9 @@ function AutoLogin() {
       dispatch(setUser(data));
     }
 
-    dispatch(setLoader({ isLoading: false }));
+     if (!isPostDetailsScreen()) {
+      dispatch(setLoader({ isLoading: false }));
+    }
   }
 
   useEffect(() => {

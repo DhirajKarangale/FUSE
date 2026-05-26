@@ -37,6 +37,11 @@ async function GetPopularPosts(userId, page) {
     return await modelPost.GetPopularPosts(userId, validPage, pageSize, commentWeight, likeWeight);
 }
 
+async function GetPostById(postId, userId) {
+    validator.ID(postId);
+    return await modelPost.GetPostById(postId, userId);
+}
+
 async function GetCategoriesPosts(userId, userCategories, page) {
 
     let postCategories;
@@ -70,4 +75,4 @@ async function Delete(postId) {
     await modelPost.Delete(postId);
 }
 
-module.exports = { Post, GetUserPosts, GetCategoriesPosts, GetPopularPosts, Like, Delete }
+module.exports = { Post, GetUserPosts, GetCategoriesPosts, GetPostById, GetPopularPosts, Like, Delete }

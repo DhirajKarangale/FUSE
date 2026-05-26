@@ -104,8 +104,8 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
             )}
 
             {!isUser && (
-                <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
-                    <div className="relative w-10 h-10 shrink-0">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="relative w-10 h-10 shrink-0 cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>
                         {!profileLoaded && (
                             <img
                                 src={ProfilePlaceholder}
@@ -123,7 +123,7 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                     </div>
 
                     <div>
-                        <div className="font-semibold text-base">{post.username}</div>
+                        <div className="font-semibold text-base cursor-pointer" onClick={() => navigate(`/user/${post.user_id}`)}>{post.username}</div>
                         <div className="text-sm text-white/60">{createdAt}</div>
                     </div>
                 </div>
