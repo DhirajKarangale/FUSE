@@ -10,7 +10,7 @@ const throwError = require('../utilities/throwError');
 const statusCode = require('../utilities/statusCodes');
 const messagesManager = require('../utilities/messagesManager');
 
-const { emailContent } = require('../utilities/emailContent');
+const { emailContentOTP } = require('../utilities/emailContent');
 require('dotenv').config();
 
 function GenerateOTP(length) {
@@ -22,7 +22,7 @@ function GenerateOTP(length) {
 }
 
 async function SendMail(email, otp, type) {
-    const { subject, body } = emailContent(otp, type);
+    const { subject, body } = emailContentOTP(otp, type);
 
     try {
         const res = await axios.post(
@@ -42,7 +42,7 @@ async function SendMail(email, otp, type) {
         );
         return messagesManager.Success("otpSent");
     } catch (err) {
-        console.error("Brevo error:", err.response?.data || err.message);
+        console.log("Brevo error:", err.response?.data || err.message);
         throw throwError(messagesManager.Error("otpSent"), statusCode.SERVICE_UNAVAILABLE);
     }
 }

@@ -47,5 +47,19 @@
         "Comment posted. Chaos initiated 🗯️",
         "Your opinion is out there. May the internet forgive you 🙏",
         "You typed that... on purpose? Bold move 🫣"
+    ],
+    "feedbackSubmit": [
+        "Feedback sent! Our little inbox just got busier 📬",
+        "Boom! Your feedback safely landed with us 🚀",
+        "Feedback submitted. Your thoughts are now famous 🌟",
+        "Sent successfully! Tiny digital pigeons delivered it 🕊️",
+        "Your feedback is in. Time for us to pretend we're serious 🫡"
+    ],
+    "feedbackFail": [
+        "Feedback couldn't be sent. The internet tripped 😵",
+        "Oops! Your feedback got lost on the way 🏃",
+        "Submission failed. Even buttons have bad days 💀",
+        "No luck! The feedback door stayed closed 🚪",
+        "Feedback failed. Try again and scare the bugs away 🐛"
     ]
 }
