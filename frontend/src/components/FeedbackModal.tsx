@@ -29,15 +29,12 @@ function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   async function SubmitFeedback() {
     const feedbackValue = feedback.trim();
     if (feedbackValue.length < 1) return;
-
     
     dispatch(setLoader({ isLoading: true }));
     
     const body: { feedback: string; userId?: number; } = { feedback: feedbackValue };
     if (user?.id) body.userId = user.id;
     
-    console.log("SubmitFeedback: ", body);
-
     const { data, error } = await postRequest<string>(urlFeedback, body);
 
     if (data) {

@@ -47,12 +47,18 @@ FUSE = Where chaos meets category. Vibing is mandatory, logic is optional.
                 </div>
 
                 <div className="flex flex-col gap-2 w-full max-w-xl text-center mt-6 text-sm text-gray-300">
-                    <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline cursor-pointer mt-4 text-sm">
-                        <a onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
-                        <a onClick={() => setShowTerms(true)}>Terms & Conditions</a>
-                        <a onClick={() => setShowFeedback(true)}>Terms & Conditions</a>
+                    <div className="flex justify-center mb-2">
+                        <button onClick={() => setShowFeedback(true)}
+                            className="px-6 py-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 backdrop-blur-md text-cyan-400 font-medium hover:bg-cyan-500/20 hover:scale-105 transition-all">
+                            💭 Submit Feedback
+                        </button>
                     </div>
-                    
+
+                    <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline cursor-pointer mt-1 text-sm">
+                        <a onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
+                        <a onClick={() => setShowFeedback(true)}>Submit Feedback</a>
+                    </div>
+
                     <div>
                         For any query, contact us at{" "}
                         <a
@@ -63,8 +69,7 @@ FUSE = Where chaos meets category. Vibing is mandatory, logic is optional.
                     </div>
                 </div>
 
-
-                <div className="w-full max-w-xl mt-10 border-t border-white/10 sm:pt-4 py-0 text-center">
+                <div className="w-full max-w-xl border-t border-white/10 mt-5 pb-3 py-0 text-center">
                     <div className="text-xs sm:text-sm text-gray-400">
                         Developed by{" "}
                         <span className="inline-block">
