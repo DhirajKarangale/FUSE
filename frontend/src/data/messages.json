@@ -188,6 +188,15 @@
         "Fail! That image said 'nope' and dipped 🏃‍♂️💨",
         "Download flopped harder than your selfie attempts 🤳❌"
     ],
+    "commentAdded":[
+        "Comment added successfully"
+    ],
+    "postLinkCopy":[
+        "Post link copied to clipboard!"
+    ],
+    "postLinkCopyFail":[
+        "Failed to copy post link!"
+    ],
     "loginToLike": [
         "Please login to like posts."
     ],

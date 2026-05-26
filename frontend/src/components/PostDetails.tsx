@@ -5,8 +5,8 @@ import { setLoader } from "../redux/sliceLoader";
 import { setMessageBar } from "../redux/sliceMessageBar";
 import { useAppDispatch, useAppSelector } from '../redux/hookStore';
 
-import { urlGetPost, urlAllComment, urlPostLike } from "../api/APIs";
-import { getRequest, putRequest } from "../api/APIManager";
+import { urlGetPost, urlAllComment, urlPostLike, urlComment } from "../api/APIs";
+import { getRequest, putRequest, postRequest } from "../api/APIManager";
 
 import { motion } from "framer-motion";
 import { X, Heart, MessageCircle, Download, Share2 } from "lucide-react";
@@ -42,17 +42,21 @@ function PostDetails() {
     return true;
   }
 
-  function copyLink(post: Post) {
+  function CopyLink(post: Post) {
     const postUrl = `${window.location.origin}/post/${post.id}`;
     navigator.clipboard.writeText(postUrl)
       .then(() => {
-        dispatch(setMessageBar({ message: "Post link copied to clipboard!", color: "yellow" }));
+        ShowMsg(GetMessage("postLinkCopy"), ColorManager.msgInfo);
       })
       .catch((err) => {
+        ShowMsg(GetMessage("postLinkCopyFail"), ColorManager.msgError);
         console.log("Error while copyLink:", err);
-        dispatch(setMessageBar({ message: "Failed to copy post link!", color: "red" }));
       });
   }
+
+  const ShowMsg = (message: string, color: string) => {
+    dispatch(setMessageBar({ message, color }));
+  };
 
   async function GetPost() {
     dispatch(setLoader({ isLoading: true }));
@@ -105,9 +109,9 @@ function PostDetails() {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-      dispatch(setMessageBar({ message: GetMessage('imageDownloadSuccess'), color: ColorManager.msgSuccess }));
+      ShowMsg(GetMessage('imageDownloadSuccess'), ColorManager.msgSuccess);
     } catch (err) {
-      dispatch(setMessageBar({ message: GetMessage('imageDownloadFail'), color: ColorManager.msgError }));
+      ShowMsg(GetMessage('imageDownloadFail'), ColorManager.msgError);
     }
   }
 
@@ -115,7 +119,7 @@ function PostDetails() {
     if (!post) return;
 
     if (!isAuthenticated()) {
-      dispatch(setMessageBar({ message: GetMessage("loginToLike"), color: ColorManager.msgWarning }));
+      ShowMsg(GetMessage("loginToLike"), ColorManager.msgWarning);
       return;
     }
 
@@ -134,9 +138,45 @@ function PostDetails() {
 
   async function AddComment() {
     if (!post) return;
+
     if (!isAuthenticated()) {
-      dispatch(setMessageBar({ message: GetMessage("loginToComment"), color: ColorManager.msgWarning }));
+      ShowMsg(GetMessage("loginToComment"), ColorManager.msgWarning);
       return;
+    }
+
+    if (commentInput.length < 1) {
+      ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
+      return;
+    }
+
+    if (commentInput.length > 1000) {
+      ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
+      return;
+    }
+
+    const commentInputValue = commentInput;
+
+    const newComment: AllComment = {
+      id: comments.length > 0 ? comments[0].id + 1 : 1,
+      comment: commentInputValue,
+      username: user.username,
+      userId: user.id,
+      created_at: new Date().toISOString(),
+    }
+
+    setCommentInput('');
+    setComments(prev => [newComment, ...prev]);
+    ShowMsg(GetMessage("commentAdded"), ColorManager.msgSuccess);
+
+    const { data, error } = await postRequest<string>(urlComment, {
+      postId,
+      comment: commentInputValue,
+      created_at: new Date().toISOString()
+    });
+
+    if (!data || error) {
+      ShowMsg(error, ColorManager.msgError);
+      setComments(prev => prev.filter(comment => comment.id !== newComment.id));
     }
   }
 
@@ -218,11 +258,9 @@ function PostDetails() {
             </motion.button>
           </div>
 
-
           <div
             className="rounded-3xl border border-white/10 bg-black/20 backdrop-blur-md p-4 space-y-4"
           >
-
             {isLoadingComments ?
               (
                 <div className="text-center text-white/50">
@@ -378,7 +416,7 @@ function PostDetails() {
             </motion.div>
 
             <motion.button className={`flex items-center gap-1 transition-colors duration-200 hover:text-orange-400`}
-              onClick={() => copyLink(post)}
+              onClick={() => CopyLink(post)}
               whileTap={{ scale: 1.2 }}
               whileHover={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}>
