@@ -144,6 +144,8 @@ function PostDetails() {
       return;
     }
 
+    const commentInputValue = commentInput;
+
     if (commentInput.length < 1) {
       ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
       return;
@@ -153,8 +155,6 @@ function PostDetails() {
       ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
       return;
     }
-
-    const commentInputValue = commentInput;
 
     const newComment: AllComment = {
       id: comments.length > 0 ? comments[0].id + 1 : 1,

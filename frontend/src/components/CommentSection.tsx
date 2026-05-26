@@ -61,14 +61,30 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const AddComment = async () => {
-        if (commentInput.length < 1) {
+        const commentInputValue = commentInput;
+
+        if (commentInputValue.length < 1) {
             ShowMsg(GetMessage('commentLess'), ColorManager.msgError);
             return;
         }
-        if (commentInput.length > 1000) {
+        if (commentInputValue.length > 1000) {
             ShowMsg(GetMessage('commentMore'), ColorManager.msgError);
             return;
         }
+
+        const newComment: Comment = {
+            id: comments.length > 0 ? comments[0].id + 1 : 1,
+            comment: commentInputValue,
+            username: user.username,
+            user_image_url: user.image_url,
+            isUserComment: true,
+            created_at: new Date().toISOString(),
+        };
+
+        setComments(prev => [newComment, ...prev]);
+        setCommentInput('');
+        UpdateComment(true, 1);
+        ShowMsg(GetMessage("commentAdded"), ColorManager.msgSuccess);
 
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
@@ -76,21 +92,9 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             created_at: new Date().toISOString()
         });
 
-        if (data) {
-            const newComment: Comment = {
-                id: comments.length > 0 ? comments[0].id + 1 : 1,
-                comment: commentInput,
-                username: user.username,
-                user_image_url: user.image_url,
-                isUserComment: true,
-                created_at: new Date().toISOString(),
-            };
-            setComments(prev => [newComment, ...prev]);
-            setCommentInput('');
-            UpdateComment(true, 1);
-            ShowMsg(data, ColorManager.msgSuccess);
-        } else {
+        if (!data || error) {
             ShowMsg(error, ColorManager.msgError);
+            setComments(prev => prev.filter(comment => comment.id !== newComment.id));
         }
     };
 
