@@ -1,12 +1,15 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Heart, MessageCircle, Trash } from "lucide-react";
+import { Heart, MessageCircle, Trash, Share2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { urlPostLike } from "../api/APIs";
 import { putRequest } from "../api/APIManager";
 import { type Post } from "../models/modelPosts";
+
+import { setMessageBar } from "../redux/sliceMessageBar";
+import { useAppDispatch } from "../redux/hookStore";
 
 import ImageViewer from "./ImageViewer";
 import Alert from "./Alert";
@@ -22,6 +25,8 @@ type Props = {
 };
 
 function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
+    const dispatch = useAppDispatch();
+
     const [showImageViewer, setShowImageViewer] = useState(false);
     const [profileLoaded, setProfileLoaded] = useState<boolean>(false);
     const [mediaLoaded, setMediaLoaded] = useState<boolean>(false);
@@ -69,6 +74,18 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
     function UpdateComment(isUserComment: boolean, amount: number) {
         setIsCommented(isUserComment);
         setComments(Number(comments) + amount);
+    }
+
+    function copyLink(post: Post) {
+        const postUrl = `${window.location.origin}/post/${post.id}`;
+        navigator.clipboard.writeText(postUrl)
+            .then(() => {
+                dispatch(setMessageBar({ message: "Post link copied to clipboard!", color: "yellow" }));
+            })
+            .catch((err) => {
+                console.log("Error while copyLink:", err);
+                dispatch(setMessageBar({ message: "Failed to copy post link!", color: "red" }));
+            });
     }
 
     return (
@@ -171,6 +188,13 @@ function PostCard({ post, isUser, currUserId, DeletePost }: Props) {
                         whileHover={{ scale: 0.95 }}
                         transition={{ duration: 0.2 }}>
                         <MessageCircle className={`w-4 h-4 transition-all duration-200 ${isCommented ? "fill-cyan-500" : "fill-transparent"}`} /> <span>{comments}</span>
+                    </motion.button>
+                    <motion.button className={`flex items-center gap-1 transition-colors duration-200 hover:text-orange-400`}
+                        onClick={() => copyLink(post)}
+                        whileTap={{ scale: 1.2 }}
+                        whileHover={{ scale: 0.95 }}
+                        transition={{ duration: 0.2 }}>
+                        <Share2 className={`w-4 h-4 transition-all duration-200 fill-transparent`} />
                     </motion.button>
                 </div>
                 <span className="text-white/50 text-xs break-all">{post.category}</span>
