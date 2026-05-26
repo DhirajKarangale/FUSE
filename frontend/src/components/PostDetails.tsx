@@ -28,13 +28,14 @@ function PostDetails() {
 
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [isCommented, setIsCommented] = useState(false);
   const [comments, setComments] = useState<AllComment[]>([]);
 
   async function GetPost() {
     dispatch(setLoader({ isLoading: true }));
 
     let url = `${urlGetPost}?postId=${postId}`;
-    if (user) url += `&userId=${user.id}`;
+    if (isAuthenticated()) url += `&userId=${user.id}`;
     const { data, error } = await getRequest<Post>(url);
 
     if (error || !data) {
@@ -61,7 +62,6 @@ function PostDetails() {
 
     const commentsData = data as AllComment[];
     setComments(commentsData);
-    console.log(commentsData);
   }
 
   async function DownloadMedia(post: Post) {
@@ -84,8 +84,8 @@ function PostDetails() {
 
   async function LikePost() {
     if (!post) return;
-
-    if (!user) {
+    
+    if (!isAuthenticated()) {
       dispatch(setMessageBar({ message: "Please login to like posts.", color: "yellow" }));
       return;
     }
@@ -101,6 +101,11 @@ function PostDetails() {
 
     setIsLiked(oldLiked);
     setLikes(oldLikes);
+  }
+
+  function isAuthenticated() {
+    if (!user || !user.username) return false;
+    return true;
   }
 
   function copyLink(post: Post) {
@@ -124,6 +129,12 @@ function PostDetails() {
     GetPost();
     GetComments();
   }, [postId]);
+
+  useEffect(() => {
+    if (!isAuthenticated()) return;
+    const hasCommented = comments.some((comment) => comment.userId == user.id);
+    setIsCommented(hasCommented);
+  }, [user, comments]);
 
   function UINoPost() {
     return (
@@ -258,13 +269,13 @@ function PostDetails() {
           <div className="flex gap-6">
 
             <motion.button
-              disabled={!user}
               onClick={LikePost}
               whileTap={{ scale: 1.2 }}
               whileHover={{ scale: .95 }}
-              className={`flex items-center gap-2 transition-all
-              ${isLiked ? "text-red-500" : user ? "text-white/80 hover:text-red-400" : "text-white/30 cursor-default"}`}
-            >
+              className={`flex items-center gap-2 transition-all cursor-pointer
+              ${isLiked ? "text-red-500" : "text-white/80 hover:text-red-400"}`}
+              >
+              {/* ${isLiked ? "text-red-500" : isAuthenticated() ? "text-white/80 hover:text-red-400" : "text-white/30 cursor-default"}`} */}
 
               <Heart
                 size={18}
@@ -275,10 +286,12 @@ function PostDetails() {
 
             </motion.button>
 
-            <div className="flex items-center gap-2 text-cyan-400">
-              <MessageCircle size={18} />
-              <span>{post.comments ?? 0}</span>
-            </div>
+            <motion.div className={`flex items-center gap-1 transition-colors duration-200 ${isCommented ? 'text-cyan-500' : 'hover:text-cyan-400'}`}
+              whileTap={{ scale: 1.2 }}
+              whileHover={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}>
+              <MessageCircle className={`w-4 h-4 transition-all duration-200 ${isCommented ? "fill-cyan-500" : "fill-transparent"}`} /> <span>{comments.length ?? 0}</span>
+            </motion.div>
 
             <motion.button className={`flex items-center gap-1 transition-colors duration-200 hover:text-orange-400`}
               onClick={() => copyLink(post)}

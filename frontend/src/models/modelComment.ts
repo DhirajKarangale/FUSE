@@ -15,7 +15,7 @@ export interface Comment {
 
 export interface AllComment {
     id: number;
-    userId: string;
+    userId: number;
     username: string;
     comment: string;
     created_at: string;

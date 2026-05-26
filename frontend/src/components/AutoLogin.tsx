@@ -13,18 +13,23 @@ import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndCondit
 function AutoLogin() {
   const dispatch = useAppDispatch();
 
+  function isPostDetailsScreen() {
+    return window.location.pathname.startsWith(routePostDetails.replace(':postId', ''));
+  }
+
   async function fetchUser() {
     if (
       window.location.pathname.startsWith(routeMaintenance) ||
       window.location.pathname.startsWith(routeAboutus) ||
       window.location.pathname.startsWith(routePrivacyPolicy) ||
-      window.location.pathname.startsWith(routeTermsAndConditions) ||
-      window.location.pathname.startsWith(routePostDetails.replace(':postId', ''))
+      window.location.pathname.startsWith(routeTermsAndConditions)
     ) {
       return;
     }
 
-    dispatch(setLoader({ isLoading: true }));
+    if (!isPostDetailsScreen()) {
+      dispatch(setLoader({ isLoading: true }));
+    }
 
     const { data } = await getRequest<User>(urlUser);
 
@@ -32,7 +37,9 @@ function AutoLogin() {
       dispatch(setUser(data));
     }
 
-    dispatch(setLoader({ isLoading: false }));
+     if (!isPostDetailsScreen()) {
+      dispatch(setLoader({ isLoading: false }));
+    }
   }
 
   useEffect(() => {
