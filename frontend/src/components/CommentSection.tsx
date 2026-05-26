@@ -3,7 +3,6 @@ import { X, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { setMessageBar } from "../redux/sliceMessageBar";
-import { setLoader } from "../redux/sliceLoader";
 import { useAppDispatch, useAppSelector } from "../redux/hookStore";
 
 import { urlComment } from "../api/APIs";
@@ -71,7 +70,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             return;
         }
 
-        // dispatch(setLoader({ isLoading: true }));
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
             comment: commentInput,
@@ -94,8 +92,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
         } else {
             ShowMsg(error, ColorManager.msgError);
         }
-
-        // dispatch(setLoader({ isLoading: false }));
     };
 
     const DeleteComment = async (id: number) => {
