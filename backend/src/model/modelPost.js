@@ -72,7 +72,6 @@ async function GetUserPosts(userId, currentUser, pageNumber, pageSize) {
 }
 
 async function GetPostById(postId, userId) {
-    await new Promise(resolve => setTimeout(resolve, 5000)); 
     const query = `
         SELECT
             posts.id,

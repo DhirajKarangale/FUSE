@@ -196,18 +196,38 @@
         "You typed that... on purpose? Bold move 🫣"
     ],
     "commentDeleted": [
-        "Comment deleted successful"
+        "Comment deleted. Your words have left the building 🏃",
+        "Poof! Comment disappeared like bad exam memories ✨",
+        "Comment removed. The drama level just dropped 📉",
+        "Deleted! That comment is now history 📜",
+        "Comment gone. Like it was never there 👻"
     ],
     "postLinkCopy": [
-        "Post link copied to clipboard!"
+        "Link copied! Time to spread the content chaos 🚀",
+        "Copied! Your clipboard is doing its job today 📋",
+        "Post link ready to travel the internet 🌍",
+        "Boom! Link copied and ready to share 🎯",
+        "Link saved. Go be the messenger now 📨"
     ],
     "postLinkCopyFail": [
-        "Failed to copy post link!"
+        "Couldn't copy the link. Clipboard took a nap 😴",
+        "Copy failed. The link escaped somehow 🏃",
+        "Oops! Clipboard said 'not my problem' 💀",
+        "Link copy failed. Try poking it again 👆",
+        "No luck. The clipboard fumbled this one 🤦"
     ],
     "loginToLike": [
-        "Please login to like posts."
+        "Login first. Hearts don't hand themselves out ❤️",
+        "Want to like it? Step one: enter the building 🔐",
+        "Login required before dropping love bombs 💥",
+        "Your like is waiting outside. Login first 🚪",
+        "Hold up! Login before smashing that like 👍"
     ],
     "loginToComment": [
-        "Please login to add comment on a posts."
+        "Login first. Comments don't write themselves ✍️",
+        "Want to join the conversation? Login first 💬",
+        "Your keyboard is ready, but you need to login 🔐",
+        "Comment powers unlocked after login ⚡",
+        "Login first before releasing your thoughts 🧠"
     ]
 }
