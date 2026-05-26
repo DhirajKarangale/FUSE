@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { setLoader } from "../redux/sliceLoader";
+import { setMessageBar } from "../redux/sliceMessageBar";
 import { useAppDispatch, useAppSelector } from '../redux/hookStore';
 
 import { urlGetPost, urlPostLike } from "../api/APIs";
 import { getRequest, putRequest } from "../api/APIManager";
 
 import { motion } from "framer-motion";
-import { X, Heart, MessageCircle, Download } from "lucide-react";
+import { X, Heart, MessageCircle, Download, Share2 } from "lucide-react";
 
 import type { Post } from "../models/modelPosts";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
@@ -66,7 +68,12 @@ function PostDetails() {
   }
 
   async function LikePost() {
-    if (!user || !post) return;
+    if (!post) return;
+
+    if (!user) {
+      dispatch(setMessageBar({ message: "Please login to like posts.", color: "yellow" }));
+      return;
+    }
 
     const oldLiked = isLiked;
     const oldLikes = likes;
@@ -79,6 +86,18 @@ function PostDetails() {
 
     setIsLiked(oldLiked);
     setLikes(oldLikes);
+  }
+
+  function copyLink(post: Post) {
+    const postUrl = `${window.location.origin}/post/${post.id}`;
+    navigator.clipboard.writeText(postUrl)
+      .then(() => {
+        dispatch(setMessageBar({ message: "Post link copied to clipboard!", color: "yellow" }));
+      })
+      .catch((err) => {
+        console.log("Error while copyLink:", err);
+        dispatch(setMessageBar({ message: "Failed to copy post link!", color: "red" }));
+      });
   }
 
   const createdDate = useMemo(() => {
@@ -236,6 +255,14 @@ function PostDetails() {
               <MessageCircle size={18} />
               <span>{post.comments ?? 0}</span>
             </div>
+
+            <motion.button className={`flex items-center gap-1 transition-colors duration-200 hover:text-orange-400`}
+              onClick={() => copyLink(post)}
+              whileTap={{ scale: 1.2 }}
+              whileHover={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}>
+              <Share2 className={`w-4 h-4 transition-all duration-200 fill-transparent`} />
+            </motion.button>
 
           </div>
 
