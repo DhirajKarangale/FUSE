@@ -14,6 +14,7 @@ import { X, Heart, MessageCircle, Download, Share2, Trash } from "lucide-react";
 import GetMessage from "../utils/MessagesManager";
 import ColorManager from "../utils/ColorManager";
 
+import { routeFeed } from "../utils/Routes";
 import Alert from "./Alert";
 import type { Post } from "../models/modelPosts";
 import type { AllComment } from "../models/modelComment";
@@ -242,7 +243,7 @@ function PostDetails() {
             </p>
 
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(routeFeed)}
               className="mt-6 px-5 py-3 rounded-xl bg-cyan-500"
             >
               Go Back
@@ -353,7 +354,7 @@ function PostDetails() {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: .95 }}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(routeFeed)}
         className="fixed top-5 right-5 z-50 p-3 rounded-full border border-white/10 bg-black/40 backdrop-blur-md hover:bg-black/60"
       >
         <X size={20} />

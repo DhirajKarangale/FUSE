@@ -1454,3 +1454,27 @@ Tue May 26 2026 00:04:23 GMT+0530 (India Standard Time) GET /comment?postId=12&p
     at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
     at E:\FullStack\FUSE\backend\node_modules\router\index.js:295:15
 
+Tue May 26 2026 21:35:03 GMT+0530 (India Standard Time) GET /noAuth/post?postId=40%27->Error: Fake ID vibes. Try again.
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FullStack\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.GetPostById (E:\FullStack\FUSE\backend\src\services\servicePost.js:41:15)
+    at E:\FullStack\FUSE\backend\src\routes\routerNoAuth.js:8:44
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FullStack\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FullStack\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:295:15
+
+Tue May 26 2026 21:35:03 GMT+0530 (India Standard Time) GET /noAuth/comments?postId=40%27->Error: This ID ghosted us.
+    at Throw (E:\FullStack\FUSE\backend\src\utilities\throwError.js:2:17)
+    at Object.ID (E:\FullStack\FUSE\backend\src\utilities\validator.js:16:28)
+    at Object.GetAllComments (E:\FullStack\FUSE\backend\src\services\serviceComment.js:19:15)
+    at E:\FullStack\FUSE\backend\src\routes\routerNoAuth.js:18:47
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\FullStack\FUSE\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\FullStack\FUSE\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\FullStack\FUSE\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\FullStack\FUSE\backend\node_modules\router\lib\layer.js:152:17)
+    at E:\FullStack\FUSE\backend\node_modules\router\index.js:295:15
+
