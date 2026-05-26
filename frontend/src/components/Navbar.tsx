@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../redux/hookStore";
 
 import { Home, Flame, User, Info, SlidersHorizontal, FilePlus2, LucideMessageSquareText } from 'lucide-react';
-import { routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUserOwn, routeAbout, routeMessages } from '../utils/Routes';
+import { routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages } from '../utils/Routes';
 
 const navItems = [
     { name: 'Feed', path: routeFeed, icon: <Home size={20} /> },
@@ -12,7 +12,7 @@ const navItems = [
     { name: 'Messages', path: routeMessages, icon: <LucideMessageSquareText size={20} /> },
     { name: 'Customize Feed', path: routeCustomizeFeed, icon: <SlidersHorizontal size={20} /> },
     { name: 'AddPost', path: routeAddPost, icon: <FilePlus2 size={20} /> },
-    { name: 'User', path: routeUserOwn, icon: <User size={20} /> },
+    { name: 'User', path: routeUser, icon: <User size={20} /> },
     { name: 'About', path: routeAbout, icon: <Info size={20} /> },
 ];
 
