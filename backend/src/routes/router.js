@@ -4,6 +4,7 @@ const routerHealth = require('./routerHealth');
 const routerAuth = require('./routerAuth');
 const routerUser = require('./routerUser');
 const routerPost = require('./routerPost');
+const routerNoAuth = require('./routerNoAuth');
 const routerComment = require('./routerComment');
 const routerMessage = require('./routerMessage');
 
@@ -20,6 +21,7 @@ router.use('/user', routerUser);
 router.use('/post', routerPost);
 router.use('/comment', routerComment);
 router.use('/message', routerMessage);
+router.use('/noAuth', routerNoAuth);
 
 router.use(errorLogger);
 
