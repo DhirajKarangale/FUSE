@@ -11,6 +11,9 @@ import { getRequest, putRequest } from "../api/APIManager";
 import { motion } from "framer-motion";
 import { X, Heart, MessageCircle, Download, Share2 } from "lucide-react";
 
+import GetMessage from "../utils/MessagesManager";
+import ColorManager from "../utils/ColorManager";
+
 import type { Post } from "../models/modelPosts";
 import type { AllComment } from "../models/modelComment";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
@@ -28,8 +31,28 @@ function PostDetails() {
 
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+
   const [isCommented, setIsCommented] = useState(false);
+  const [isLoadingComments, setIsLoadingComments] = useState(false);
+  const [commentInput, setCommentInput] = useState<string>("");
   const [comments, setComments] = useState<AllComment[]>([]);
+
+  function isAuthenticated() {
+    if (!user || !user.username) return false;
+    return true;
+  }
+
+  function copyLink(post: Post) {
+    const postUrl = `${window.location.origin}/post/${post.id}`;
+    navigator.clipboard.writeText(postUrl)
+      .then(() => {
+        dispatch(setMessageBar({ message: "Post link copied to clipboard!", color: "yellow" }));
+      })
+      .catch((err) => {
+        console.log("Error while copyLink:", err);
+        dispatch(setMessageBar({ message: "Failed to copy post link!", color: "red" }));
+      });
+  }
 
   async function GetPost() {
     dispatch(setLoader({ isLoading: true }));
@@ -52,9 +75,14 @@ function PostDetails() {
   }
 
   async function GetComments() {
+
+    setIsLoadingComments(true);
+    
     const url = `${urlAllComment}?postId=${postId}`;
     const { data, error } = await getRequest<AllComment[]>(url);
-
+    
+    setIsLoadingComments(false);
+    
     if (error || !data) {
       dispatch(setLoader({ isLoading: false }));
       return;
@@ -77,16 +105,17 @@ function PostDetails() {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
+      dispatch(setMessageBar({ message: GetMessage('imageDownloadSuccess'), color: ColorManager.msgSuccess }));
     } catch (err) {
-      console.log("Download failed", err);
+      dispatch(setMessageBar({ message: GetMessage('imageDownloadFail'), color: ColorManager.msgError }));
     }
   }
 
   async function LikePost() {
     if (!post) return;
-    
+
     if (!isAuthenticated()) {
-      dispatch(setMessageBar({ message: "Please login to like posts.", color: "yellow" }));
+      dispatch(setMessageBar({ message: GetMessage("loginToLike"), color: ColorManager.msgWarning }));
       return;
     }
 
@@ -103,21 +132,12 @@ function PostDetails() {
     setLikes(oldLikes);
   }
 
-  function isAuthenticated() {
-    if (!user || !user.username) return false;
-    return true;
-  }
-
-  function copyLink(post: Post) {
-    const postUrl = `${window.location.origin}/post/${post.id}`;
-    navigator.clipboard.writeText(postUrl)
-      .then(() => {
-        dispatch(setMessageBar({ message: "Post link copied to clipboard!", color: "yellow" }));
-      })
-      .catch((err) => {
-        console.log("Error while copyLink:", err);
-        dispatch(setMessageBar({ message: "Failed to copy post link!", color: "red" }));
-      });
+  async function AddComment() {
+    if (!post) return;
+    if (!isAuthenticated()) {
+      dispatch(setMessageBar({ message: GetMessage("loginToComment"), color: ColorManager.msgWarning }));
+      return;
+    }
   }
 
   const createdDate = useMemo(() => {
@@ -173,7 +193,162 @@ function PostDetails() {
   function UIComments() {
     return (
       <>
+        <div className="mt-10">
 
+          <h2 className="text-xl font-semibold mb-5">
+            💬 Comments ({comments.length})
+          </h2>
+
+          {/* Add Comment */}
+          <div className="flex gap-3 mb-6">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              className="flex-1 px-3 py-2 text-sm bg-black/30 rounded-lg border border-white/20 text-white placeholder-white/50 outline-none"
+            />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={AddComment}
+              className="px-4 py-2 bg-cyan-500 text-white text-sm font-semibold rounded-lg hover:bg-cyan-600 transition"
+            >
+              Comment
+            </motion.button>
+          </div>
+
+
+          <div
+            className="
+        rounded-3xl
+        border
+        border-white/10
+        bg-black/20
+        backdrop-blur-md
+        p-4
+        space-y-4
+    "
+          >
+
+            {isLoadingComments ? (
+
+              <div className="
+                text-center
+                text-white/50
+            ">
+                Loading comments...
+              </div>
+
+            ) : comments.length === 0 ? (
+
+              <motion.div
+                initial={{
+                  opacity: 0
+                }}
+                animate={{
+                  opacity: 1
+                }}
+                className="
+                    py-10
+                    text-center
+                "
+              >
+
+                <div className="
+                    text-4xl
+                    mb-3
+                ">
+                  💭
+                </div>
+
+                <p className="
+                    text-white/50
+                ">
+                  No comments yet
+                </p>
+
+              </motion.div>
+
+            ) : (
+
+              comments.map(comment => (
+
+                <motion.div
+
+                  key={comment.id}
+
+                  initial={{
+                    opacity: 0,
+                    y: 10
+                  }}
+
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+
+                  className="
+                        p-4
+                        rounded-2xl
+                        border
+                        border-white/10
+                        bg-white/[0.03]
+                    "
+                >
+
+                  <div className="
+                        flex
+                        items-center
+                        gap-3
+                    ">
+
+                    <div>
+
+                      <div className="
+                                font-medium
+                                text-sm
+                            ">
+                        {comment.username}
+                      </div>
+
+                      <div className="
+                                text-xs
+                                text-white/40
+                            ">
+                        {
+                          new Date(
+                            comment.created_at
+                          )
+                            .toLocaleDateString()
+                        }
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="
+                        mt-3
+                        text-sm
+                        text-white/80
+                        whitespace-pre-wrap
+                        break-words
+                    ">
+                    {comment.comment}
+                  </div>
+
+                </motion.div>
+
+              ))
+
+            )}
+
+
+          </div>
+
+        </div>
       </>
     )
   }
@@ -274,7 +449,7 @@ function PostDetails() {
               whileHover={{ scale: .95 }}
               className={`flex items-center gap-2 transition-all cursor-pointer
               ${isLiked ? "text-red-500" : "text-white/80 hover:text-red-400"}`}
-              >
+            >
               {/* ${isLiked ? "text-red-500" : isAuthenticated() ? "text-white/80 hover:text-red-400" : "text-white/30 cursor-default"}`} */}
 
               <Heart

@@ -70,7 +70,6 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
             return;
         }
 
-        // dispatch(setLoader({ isLoading: true }));
         const { data, error } = await postRequest<string>(urlComment, {
             postId,
             comment: commentInput,

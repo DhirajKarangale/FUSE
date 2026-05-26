@@ -187,5 +187,11 @@
         "Couldn't save it. Blame the WiFi, not us 📡",
         "Fail! That image said 'nope' and dipped 🏃‍♂️💨",
         "Download flopped harder than your selfie attempts 🤳❌"
+    ],
+    "loginToLike": [
+        "Please login to like posts."
+    ],
+    "loginToComment": [
+        "Please login to add comment on a posts."
     ]
 }
