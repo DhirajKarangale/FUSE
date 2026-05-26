@@ -13,6 +13,14 @@ export interface Comment {
     created_at: string;
 }
 
+export interface AllComment {
+    id: number;
+    userId: string;
+    username: string;
+    comment: string;
+    created_at: string;
+}
+
 export const getInitialPosts = (): CommentData => ({
     comments: [],
     currPage: -1,

@@ -30,6 +30,25 @@ async function Get(userId, postId, pageNumber, pageSize) {
     }
 }
 
+async function GetAllComments(postId) {
+    const res = await db.query(`
+        SELECT 
+            comments.id AS "id",
+            comments.user_id AS "userId",
+            users.username AS "username",
+            comments.comment AS "comment",
+            comments.created_at AS "created_at"
+        FROM comments
+        JOIN users 
+            ON users.id = comments.user_id
+        WHERE comments.post_id = $1
+        AND (comments.deactivation IS NULL OR comments.deactivation = '')
+        ORDER BY comments.created_at DESC
+    `, [postId]);
+
+    return res.rows;
+}
+
 async function Add(userId, postId, comment, created_at) {
     await db.query(`INSERT INTO comments (post_id, user_id, comment, created_at) VALUES ($1, $2, $3, $4)`, [postId, userId, comment, created_at]);
 }
@@ -39,4 +58,4 @@ async function Delete(commentId) {
 }
 
 
-module.exports = { Get, Add, Delete };
+module.exports = { Get, Add, Delete, GetAllComments };

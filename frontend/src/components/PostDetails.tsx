@@ -5,13 +5,14 @@ import { setLoader } from "../redux/sliceLoader";
 import { setMessageBar } from "../redux/sliceMessageBar";
 import { useAppDispatch, useAppSelector } from '../redux/hookStore';
 
-import { urlGetPost, urlPostLike } from "../api/APIs";
+import { urlGetPost, urlAllComment, urlPostLike } from "../api/APIs";
 import { getRequest, putRequest } from "../api/APIManager";
 
 import { motion } from "framer-motion";
 import { X, Heart, MessageCircle, Download, Share2 } from "lucide-react";
 
 import type { Post } from "../models/modelPosts";
+import type { AllComment } from "../models/modelComment";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
 
 function PostDetails() {
@@ -27,6 +28,7 @@ function PostDetails() {
 
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState<AllComment[]>([]);
 
   async function GetPost() {
     dispatch(setLoader({ isLoading: true }));
@@ -45,8 +47,21 @@ function PostDetails() {
     setPost(postData);
     setIsLiked(postData.isLiked);
     setLikes(Array.isArray(postData.likes) ? postData.likes.length : postData.likes);
-    // setCommentCount(postData.comments ?? 0);
     dispatch(setLoader({ isLoading: false }));
+  }
+
+  async function GetComments() {
+    const url = `${urlAllComment}?postId=${postId}`;
+    const { data, error } = await getRequest<AllComment[]>(url);
+
+    if (error || !data) {
+      dispatch(setLoader({ isLoading: false }));
+      return;
+    }
+
+    const commentsData = data as AllComment[];
+    setComments(commentsData);
+    console.log(commentsData);
   }
 
   async function DownloadMedia(post: Post) {
@@ -107,6 +122,7 @@ function PostDetails() {
 
   useEffect(() => {
     GetPost();
+    GetComments();
   }, [postId]);
 
   function UINoPost() {
@@ -141,6 +157,14 @@ function PostDetails() {
         </div>
       </div>
     );
+  }
+
+  function UIComments() {
+    return (
+      <>
+
+      </>
+    )
   }
 
   if (isLoading) return null;
@@ -270,6 +294,8 @@ function PostDetails() {
             {post.category}
           </div>
         </div>
+
+        {UIComments()}
 
       </motion.div>
 

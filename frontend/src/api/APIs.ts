@@ -14,6 +14,7 @@ export const urlPostPopular = `${urlBase}/post/popular`
 export const urlPostLike = `${urlBase}/post/like`
 
 export const urlComment = `${urlBase}/comment`
+export const urlAllComment = `${urlBase}/noAuth/comments`
 
 export const urlMessages = `${urlBase}/message`
 export const urlMessageUserSearch = `${urlBase}/message/usersearch`
