@@ -195,6 +195,9 @@
         "Your opinion is out there. May the internet forgive you 🙏",
         "You typed that... on purpose? Bold move 🫣"
     ],
+    "commentDeleted": [
+        "Comment deleted successful"
+    ],
     "postLinkCopy": [
         "Post link copied to clipboard!"
     ],

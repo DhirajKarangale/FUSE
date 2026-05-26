@@ -99,30 +99,42 @@ const CommentSection = ({ postId, onClose, UpdateComment }: Props) => {
     };
 
     const DeleteComment = async (id: number) => {
-        let deletedComment: Comment | undefined;
-        let deletedIndex: number = -1;
+        const oldComments = comments;
 
-        setComments(prev => {
-            deletedIndex = prev.findIndex(c => c.id === id);
-            deletedComment = prev[deletedIndex];
-            const updated = prev.filter(c => c.id !== id);
-            const isUserCommentStillPresent = updated.some(c => c.username === user.username);
-            UpdateComment(isUserCommentStillPresent, -1);
-            return updated;
-        });
+        setComments(prev => prev.filter(c => c.id !== id));
+        ShowMsg(GetMessage("commentDeleted"), ColorManager.msgSuccess);
 
         const { error } = await deleteRequest<string>(`${urlComment}?id=${id}`);
 
-        if (error && deletedComment && deletedIndex !== -1) {
-            setComments(prev => {
-                const newComments = [...prev];
-                newComments.splice(deletedIndex, 0, deletedComment!);
-                const isUserCommentStillPresent = newComments.some(c => c.username === user.username);
-                UpdateComment(isUserCommentStillPresent, 1);
-                return newComments;
-            });
-            dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
+        if (error) {
+            setComments(oldComments);
+            ShowMsg(error, ColorManager.msgError);
         }
+
+        // let deletedComment: Comment | undefined;
+        // let deletedIndex: number = -1;
+
+        // setComments(prev => {
+        //     deletedIndex = prev.findIndex(c => c.id === id);
+        //     deletedComment = prev[deletedIndex];
+        //     const updated = prev.filter(c => c.id !== id);
+        //     const isUserCommentStillPresent = updated.some(c => c.username === user.username);
+        //     UpdateComment(isUserCommentStillPresent, -1);
+        //     return updated;
+        // });
+
+        // const { error } = await deleteRequest<string>(`${urlComment}?id=${id}`);
+
+        // if (error && deletedComment && deletedIndex !== -1) {
+        //     setComments(prev => {
+        //         const newComments = [...prev];
+        //         newComments.splice(deletedIndex, 0, deletedComment!);
+        //         const isUserCommentStillPresent = newComments.some(c => c.username === user.username);
+        //         UpdateComment(isUserCommentStillPresent, 1);
+        //         return newComments;
+        //     });
+        //     dispatch(setMessageBar({ message: error, color: ColorManager.msgError }));
+        // }
     };
 
     useEffect(() => {

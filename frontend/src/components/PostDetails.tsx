@@ -6,14 +6,15 @@ import { setMessageBar } from "../redux/sliceMessageBar";
 import { useAppDispatch, useAppSelector } from '../redux/hookStore';
 
 import { urlGetPost, urlAllComment, urlPostLike, urlComment } from "../api/APIs";
-import { getRequest, putRequest, postRequest } from "../api/APIManager";
+import { getRequest, putRequest, postRequest, deleteRequest } from "../api/APIManager";
 
 import { motion } from "framer-motion";
-import { X, Heart, MessageCircle, Download, Share2 } from "lucide-react";
+import { X, Heart, MessageCircle, Download, Share2, Trash } from "lucide-react";
 
 import GetMessage from "../utils/MessagesManager";
 import ColorManager from "../utils/ColorManager";
 
+import Alert from "./Alert";
 import type { Post } from "../models/modelPosts";
 import type { AllComment } from "../models/modelComment";
 import ProfilePlaceholder from "../assets/images/ProfilePlaceholder.png";
@@ -37,6 +38,9 @@ function PostDetails() {
   const [commentInput, setCommentInput] = useState<string>("");
   const [comments, setComments] = useState<AllComment[]>([]);
 
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [deleteCallback, setDeleteCallback] = useState<() => void>(() => () => { });
+
   function isAuthenticated() {
     if (!user || !user.username) return false;
     return true;
@@ -54,9 +58,14 @@ function PostDetails() {
       });
   }
 
-  const ShowMsg = (message: string, color: string) => {
+  function ShowMsg(message: string, color: string) {
     dispatch(setMessageBar({ message, color }));
   };
+
+  function handleDeleteComment(comment: AllComment) {
+    setDeleteCallback(() => () => DeleteComment(comment));
+    setShowAlert(true);
+  }
 
   async function GetPost() {
     dispatch(setLoader({ isLoading: true }));
@@ -180,6 +189,22 @@ function PostDetails() {
     }
   }
 
+  async function DeleteComment(comment: AllComment) {
+    if (!isAuthenticated()) return;
+
+    const oldComments = comments;
+
+    setComments(prev => prev.filter(c => c.id !== comment.id));
+    ShowMsg(GetMessage("commentDeleted"), ColorManager.msgSuccess);
+
+    const { error } = await deleteRequest<string>(`${urlComment}?id=${comment.id}`);
+
+    if (error) {
+      setComments(oldComments);
+      ShowMsg(error, ColorManager.msgError);
+    }
+  }
+
   const createdDate = useMemo(() => {
     if (!post) return "";
     return new Date(post.created_at).toLocaleDateString();
@@ -289,7 +314,21 @@ function PostDetails() {
                       <div className="text-xs text-white/40">{new Date(comment.created_at).toLocaleDateString()}</div>
                     </div>
 
-                    <div className="mt-3 text-sm text-white/80 whitespace-pre-wrap break-words">{comment.comment}</div>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="mt-3 text-sm text-white/80 whitespace-pre-wrap break-words">{comment.comment}</div>
+
+                      {isAuthenticated() && (comment.userId == user.id) && (
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleDeleteComment(comment)}
+                          className="text-red-500 hover:text-red-600"
+                        >
+                          <Trash size={16} />
+                        </motion.button>
+                      )}
+
+                    </div>
                   </motion.div>
                 ))
               )}
@@ -304,7 +343,6 @@ function PostDetails() {
   if (!post) return <UINoPost />;
 
   return (
-
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -433,6 +471,13 @@ function PostDetails() {
         {UIComments()}
 
       </motion.div>
+
+      <Alert
+        isOpen={showAlert}
+        message="Are you sure you want to delete this comment?"
+        onClose={() => setShowAlert(false)}
+        onConfirm={deleteCallback}
+      />
 
     </motion.div>
   );
