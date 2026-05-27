@@ -6,15 +6,15 @@ const statusCode = require('../utilities/statusCodes');
 const messagesManager = require('../utilities/messagesManager');
 const { FeedbackUser, FeedbackNoUser } = require('../utilities/emailContent');
 
-async function SendMail(subject, body) {
-  // const emails = ["dhirajkarangale02@gmail.com", "vsjoshi772@gmail.com"];
-  const emails = ["dhirajkarangale02@gmail.com"];
+const senderEmail = process.env.Email;
+const emails = process.env.FeedbackAdminEmail.split(',').map(email => email.trim());
 
+async function SendMail(subject, body) {
   try {
     const res = await axios.post(
       "https://api.brevo.com/v3/smtp/email",
       {
-        sender: { name: "DK", email: process.env.Email },
+        sender: { name: "DK", email: senderEmail },
         to: emails.map(email => ({ email })),
         subject: subject,
         htmlContent: body

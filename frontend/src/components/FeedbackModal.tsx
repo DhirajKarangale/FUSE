@@ -39,6 +39,7 @@ function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
     if (data) {
       dispatch(setMessageBar({ message: data, color: ColorManager.msgSuccess }))
+      setFeedback("");
       onClose();
     }
     else if (error) {
