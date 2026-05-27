@@ -47,24 +47,25 @@ FUSE = Where chaos meets category. Vibing is mandatory, logic is optional.
                 </div>
 
                 <div className="flex flex-col gap-2 w-full max-w-xl text-center mt-6 text-sm text-gray-300">
-                    <div className="flex justify-center mb-2">
-                        <button onClick={() => setShowFeedback(true)}
-                            className="px-6 py-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 backdrop-blur-md text-cyan-400 font-medium hover:bg-cyan-500/20 hover:scale-105 transition-all">
-                            💭 Submit Feedback
-                        </button>
-                    </div>
-
-                    <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline cursor-pointer mt-1 text-sm">
-                        <a onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
-                        <a onClick={() => setShowFeedback(true)}>Submit Feedback</a>
+                    <div className="flex flex-wrap justify-center gap-4 text-blue-400 underline mt-3 text-sm">
+                        <a className="hover:text-cyan-400 transition cursor-pointer" onClick={() => setShowPrivacy(true)}>Privacy Policy</a>
+                        <a className="hover:text-cyan-400 transition cursor-pointer" onClick={() => setShowTerms(true)}>Terms & Conditions</a>
                     </div>
 
                     <div>
                         For any query, contact us at{" "}
                         <a
                             href="mailto:changexel.contacts@gmail.com"
-                            className="text-blue-400 underline">
+                            className="text-blue-400 underline hover:text-cyan-400 transition">
                             changexel.contacts@gmail.com
+                        </a>
+
+                        {" "}or{" "}
+
+                        <a
+                            onClick={() => setShowFeedback(true)}
+                            className="text-blue-400 underline hover:text-cyan-400 transition cursor-pointer">
+                            submit feedback
                         </a>
                     </div>
                 </div>

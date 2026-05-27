@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
 
+import FeedbackModal from '../../components/FeedbackModal';
 import AuthUser from './AuthUser';
 import AuthSignup from "./AuthSignup"
 import AuthCategories from './AuthCategories';
@@ -19,11 +21,11 @@ import ColorManager from '../../utils/ColorManager';
 
 
 function Auth() {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user);
 
-    const navigate = useNavigate();
-
+    const [showFeedback, setShowFeedback] = useState(false);
     const [isUpdateUser, setIsUpdateUser] = useState<boolean>(false);
     const [currScreen, setCurrScreen] = useState<string>('Signup');
 
@@ -78,6 +80,8 @@ function Auth() {
 
     return (
         <>
+            <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
+
             {currScreen === 'Signup' && <AuthSignup
                 ShowMsg={ShowMsg}
                 SetUser={SetUser}
@@ -95,6 +99,24 @@ function Auth() {
                 SetUser={SetUser}
                 user={user}
             />}
+
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 text-center px-4">
+
+                <span className="text-sm text-gray-400">
+                    Found a bug or facing an issue?{" "}
+                </span>
+
+                <button
+                    onClick={() => setShowFeedback(true)}
+                    className="text-sm text-cyan-400 underline hover:text-cyan-300 transition cursor-pointer">
+                    Submit feedback
+                </button>
+
+            </motion.div>
         </>
     )
 }

@@ -15,13 +15,13 @@ const requestLogger = require('../utilities/requestLogger');
 router.use(requestLogger);
 router.use('/health', routerHealth);
 router.use('/otp', routerOTP);
+router.use('/noAuth', routerNoAuth);
 router.use(jwt.ValidateToken);
 router.use('/auth', routerAuth);
 router.use('/user', routerUser);
 router.use('/post', routerPost);
 router.use('/comment', routerComment);
 router.use('/message', routerMessage);
-router.use('/noAuth', routerNoAuth);
 
 router.use(errorLogger);
 
