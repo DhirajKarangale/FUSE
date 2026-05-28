@@ -20,3 +20,4 @@ export const urlMessages = `${urlBase}/message`;
 export const urlMessageUserSearch = `${urlBase}/message/usersearch`;
 
 export const urlFeedback = `${urlBase}/noAuth/feedback`;
+export const urlDatadeletion = `${urlBase}/noAuth/datadeletion`;

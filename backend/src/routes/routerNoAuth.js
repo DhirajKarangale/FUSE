@@ -33,4 +33,13 @@ router.post('/feedback', async (req, res, next) => {
     }
 });
 
+router.post('/datadeletion', async (req, res, next) => {
+    try {
+        const body = req.body;
+        res.status(200).json("Request send successfully will get back to you soon.");
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

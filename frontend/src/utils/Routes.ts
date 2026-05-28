@@ -12,3 +12,4 @@ export const routeMaintenance = '/maintenance';
 export const routeAboutus = '/aboutus';
 export const routePrivacyPolicy = '/privacy-policy';
 export const routeTermsAndConditions = '/terms-and-conditions';
+export const routeDataDeletion = '/data-deletion';
