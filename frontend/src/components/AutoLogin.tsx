@@ -8,7 +8,7 @@ import { useAppDispatch } from '../redux/hookStore';
 
 import { urlUser } from "../api/APIs";
 import { getRequest } from "../api/APIManager";
-import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails, routeDataDeletion } from "../utils/Routes";
+import { routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails, routeDataDeletion, routeSafetyPolicy } from "../utils/Routes";
 
 function AutoLogin() {
   const dispatch = useAppDispatch();
@@ -23,7 +23,8 @@ function AutoLogin() {
       window.location.pathname.startsWith(routeAboutus) ||
       window.location.pathname.startsWith(routePrivacyPolicy) ||
       window.location.pathname.startsWith(routeTermsAndConditions) ||
-      window.location.pathname.startsWith(routeDataDeletion)
+      window.location.pathname.startsWith(routeDataDeletion) ||
+      window.location.pathname.startsWith(routeSafetyPolicy)
     ) {
       return;
     }

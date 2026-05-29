@@ -18,6 +18,7 @@ import Messages from './pages/Messages/Messages';
 
 import Aboutus from './pages/StaticPages/AboutUs';
 import DataDeletion from './pages/StaticPages/DataDeletion';
+import SafetyPolicy from './pages/StaticPages/SafetyPolicy';
 import PrivacyPolicy from './pages/StaticPages/PrivacyPolicy';
 import TermsAndConditions from './pages/StaticPages/TermsAndConditions';
 import PageNotFound from './pages/StaticPages/PageNotFound';
@@ -30,7 +31,7 @@ import Loader from './components/Loader';
 
 import SocketConnection from './pages/Messages/SocketConnection';
 
-import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails, routeDataDeletion } from './utils/Routes';
+import { routeAuth, routeFeed, routePopular, routeCustomizeFeed, routeAddPost, routeUser, routeAbout, routeMessages, routeMaintenance, routeAboutus, routePrivacyPolicy, routeTermsAndConditions, routePostDetails, routeDataDeletion, routeSafetyPolicy } from './utils/Routes';
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
           <Route path={routeAboutus} element={<Aboutus />} />
           <Route path={routePrivacyPolicy} element={<PrivacyPolicy />} />
           <Route path={routeTermsAndConditions} element={<TermsAndConditions />} />
+          <Route path={routeSafetyPolicy} element={<SafetyPolicy />} />
 
           <Route path={routeAuth} element={<Auth />} />
           <Route path={routeMaintenance} element={<Maintenance />} />
